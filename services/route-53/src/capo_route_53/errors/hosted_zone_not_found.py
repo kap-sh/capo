@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
@@ -36,16 +37,25 @@ class HostedZoneNotFound(ServiceError):
 
     code: str | None = "HostedZoneNotFound"
 
-    def __init__(self, data: HostedZoneNotFound_, message: str | None = None):
+    def __init__(
+        self,
+        data: HostedZoneNotFound_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="HostedZoneNotFound",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_xml(cls, el: Element, message: str | None = None) -> "HostedZoneNotFound":
-        return cls(deserialize_xml(el), message)
+    def from_xml(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "HostedZoneNotFound":
+        return cls(deserialize_xml(el), message, response=response)

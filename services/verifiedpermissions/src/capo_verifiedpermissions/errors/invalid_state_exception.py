@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#InvalidStateException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_verifiedpermissions.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class InvalidStateException(ServiceError):
 
     code: str | None = "InvalidStateException"
 
-    def __init__(self, data: InvalidStateException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidStateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidStateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidStateException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

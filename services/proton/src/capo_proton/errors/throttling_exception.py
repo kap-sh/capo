@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_proton.errors import DeserializationError, ServiceError
@@ -35,21 +36,28 @@ class ThrottlingException(ServiceError):
 
     code: str | None = "ThrottlingException"
 
-    def __init__(self, data: ThrottlingException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ThrottlingException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=True,
             is_retryable=True,
             code="ThrottlingException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ThrottlingException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)
 
 
 def redact_sensitive(value: ThrottlingException_) -> dict[str, Any]:

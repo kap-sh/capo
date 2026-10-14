@@ -43,59 +43,59 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ChannelExistsForEDSException":
             raise capo_cloudtrail.errors.channel_exists_for_eds_exception.ChannelExistsForEDSException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_cloudtrail.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreARNInvalidException":
             raise capo_cloudtrail.errors.event_data_store_arn_invalid_exception.EventDataStoreARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreFederationEnabledException":
             raise capo_cloudtrail.errors.event_data_store_federation_enabled_exception.EventDataStoreFederationEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreHasOngoingImportException":
             raise capo_cloudtrail.errors.event_data_store_has_ongoing_import_exception.EventDataStoreHasOngoingImportException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreNotFoundException":
             raise capo_cloudtrail.errors.event_data_store_not_found_exception.EventDataStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreTerminationProtectedException":
             raise capo_cloudtrail.errors.event_data_store_termination_protected_exception.EventDataStoreTerminationProtectedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InactiveEventDataStoreException":
             raise capo_cloudtrail.errors.inactive_event_data_store_exception.InactiveEventDataStoreException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientDependencyServiceAccessPermissionException":
             raise capo_cloudtrail.errors.insufficient_dependency_service_access_permission_exception.InsufficientDependencyServiceAccessPermissionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoManagementAccountSLRExistsException":
             raise capo_cloudtrail.errors.no_management_account_slr_exists_exception.NoManagementAccountSLRExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotOrganizationMasterAccountException":
             raise capo_cloudtrail.errors.not_organization_master_account_exception.NotOrganizationMasterAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

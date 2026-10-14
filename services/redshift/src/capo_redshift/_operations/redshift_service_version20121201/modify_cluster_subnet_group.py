@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterSubnetGroupNotFoundFault":
             raise capo_redshift.errors.cluster_subnet_group_not_found_fault.ClusterSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSubnetQuotaExceededFault":
             raise capo_redshift.errors.cluster_subnet_quota_exceeded_fault.ClusterSubnetQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceRequestThrottlingFault":
             raise capo_redshift.errors.dependent_service_request_throttling_fault.DependentServiceRequestThrottlingFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_redshift.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetAlreadyInUse":
             raise capo_redshift.errors.subnet_already_in_use.SubnetAlreadyInUse.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -43,39 +43,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidSubscriptionStateFault":
             raise capo_redshift.errors.invalid_subscription_state_fault.InvalidSubscriptionStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SNSInvalidTopic":
             raise capo_redshift.errors.sns_invalid_topic_fault.SNSInvalidTopicFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SNSNoAuthorization":
             raise capo_redshift.errors.sns_no_authorization_fault.SNSNoAuthorizationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SNSTopicArnNotFound":
             raise capo_redshift.errors.sns_topic_arn_not_found_fault.SNSTopicArnNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SourceNotFound":
             raise capo_redshift.errors.source_not_found_fault.SourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionCategoryNotFound":
             raise capo_redshift.errors.subscription_category_not_found_fault.SubscriptionCategoryNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionEventIdNotFound":
             raise capo_redshift.errors.subscription_event_id_not_found_fault.SubscriptionEventIdNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionNotFound":
             raise capo_redshift.errors.subscription_not_found_fault.SubscriptionNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionSeverityNotFound":
             raise capo_redshift.errors.subscription_severity_not_found_fault.SubscriptionSeverityNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_bedrock_agent_runtime._iter import AnyIterator
@@ -190,7 +191,9 @@ def serialize_event_json(value: _AgenticRetrieveStreamResponseOutput) -> bytes:
             )
 
 
-def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOutput:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _AgenticRetrieveStreamResponseOutput:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -203,7 +206,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.internal_server_exception.InternalServerException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "validationException":
                 import capo_bedrock_agent_runtime.errors.validation_exception
@@ -212,7 +215,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.validation_exception.ValidationException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "resourceNotFoundException":
                 import capo_bedrock_agent_runtime.errors.resource_not_found_exception
@@ -221,7 +224,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.resource_not_found_exception.ResourceNotFoundException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "serviceQuotaExceededException":
                 import capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception
@@ -230,7 +233,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "throttlingException":
                 import capo_bedrock_agent_runtime.errors.throttling_exception
@@ -239,7 +242,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.throttling_exception.ThrottlingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "accessDeniedException":
                 import capo_bedrock_agent_runtime.errors.access_denied_exception
@@ -248,7 +251,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.access_denied_exception.AccessDeniedException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "conflictException":
                 import capo_bedrock_agent_runtime.errors.conflict_exception
@@ -257,7 +260,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.conflict_exception.ConflictException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "dependencyFailedException":
                 import capo_bedrock_agent_runtime.errors.dependency_failed_exception
@@ -266,7 +269,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.dependency_failed_exception.DependencyFailedException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "badGatewayException":
                 import capo_bedrock_agent_runtime.errors.bad_gateway_exception
@@ -275,10 +278,10 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
                     message
                 )
                 raise capo_bedrock_agent_runtime.errors.bad_gateway_exception.BadGatewayException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -286,7 +289,7 @@ def deserialize_event_json(message: Message) -> _AgenticRetrieveStreamResponseOu
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

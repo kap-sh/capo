@@ -35,7 +35,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "SearchException":
             raise capo_cloudsearch_domain.errors.search_exception.SearchException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

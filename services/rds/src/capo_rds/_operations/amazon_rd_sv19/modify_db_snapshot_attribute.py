@@ -36,15 +36,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBSnapshotNotFound":
             raise capo_rds.errors.db_snapshot_not_found_fault.DBSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSnapshotState":
             raise capo_rds.errors.invalid_db_snapshot_state_fault.InvalidDBSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SharedSnapshotQuotaExceeded":
             raise capo_rds.errors.shared_snapshot_quota_exceeded_fault.SharedSnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

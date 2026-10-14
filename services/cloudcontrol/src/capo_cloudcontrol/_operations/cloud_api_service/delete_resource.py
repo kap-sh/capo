@@ -49,79 +49,79 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlreadyExistsException":
             raise capo_cloudcontrol.errors.already_exists_exception.AlreadyExistsException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ClientTokenConflictException":
             raise capo_cloudcontrol.errors.client_token_conflict_exception.ClientTokenConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentOperationException":
             raise capo_cloudcontrol.errors.concurrent_operation_exception.ConcurrentOperationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "GeneralServiceException":
             raise capo_cloudcontrol.errors.general_service_exception.GeneralServiceException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "HandlerFailureException":
             raise capo_cloudcontrol.errors.handler_failure_exception.HandlerFailureException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "HandlerInternalFailureException":
             raise capo_cloudcontrol.errors.handler_internal_failure_exception.HandlerInternalFailureException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidCredentialsException":
             raise capo_cloudcontrol.errors.invalid_credentials_exception.InvalidCredentialsException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_cloudcontrol.errors.invalid_request_exception.InvalidRequestException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "NetworkFailureException":
             raise capo_cloudcontrol.errors.network_failure_exception.NetworkFailureException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "NotStabilizedException":
             raise capo_cloudcontrol.errors.not_stabilized_exception.NotStabilizedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "NotUpdatableException":
             raise capo_cloudcontrol.errors.not_updatable_exception.NotUpdatableException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "PrivateTypeException":
             raise capo_cloudcontrol.errors.private_type_exception.PrivateTypeException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceConflictException":
             raise capo_cloudcontrol.errors.resource_conflict_exception.ResourceConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cloudcontrol.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ServiceInternalErrorException":
             raise capo_cloudcontrol.errors.service_internal_error_exception.ServiceInternalErrorException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ServiceLimitExceededException":
             raise capo_cloudcontrol.errors.service_limit_exceeded_exception.ServiceLimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_cloudcontrol.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "TypeNotFoundException":
             raise capo_cloudcontrol.errors.type_not_found_exception.TypeNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedActionException":
             raise capo_cloudcontrol.errors.unsupported_action_exception.UnsupportedActionException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

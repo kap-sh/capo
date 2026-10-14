@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#ConcurrentModificationException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_neptunedata.errors import DeserializationError, ServiceError
@@ -50,7 +51,11 @@ class ConcurrentModificationException(ServiceError):
     code: str | None = "ConcurrentModificationException"
 
     def __init__(
-        self, data: ConcurrentModificationException_, message: str | None = None
+        self,
+        data: ConcurrentModificationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -58,11 +63,12 @@ class ConcurrentModificationException(ServiceError):
             is_retryable=True,
             code="ConcurrentModificationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ConcurrentModificationException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

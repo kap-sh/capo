@@ -47,23 +47,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "FunctionAlreadyExists":
             raise capo_cloudfront.errors.function_already_exists.FunctionAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "FunctionSizeLimitExceeded":
             raise capo_cloudfront.errors.function_size_limit_exceeded.FunctionSizeLimitExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFunctions":
             raise capo_cloudfront.errors.too_many_functions.TooManyFunctions.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_cloudfront.errors.unsupported_operation.UnsupportedOperation.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

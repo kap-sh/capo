@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
@@ -37,18 +38,25 @@ class InvalidStateException(ServiceError):
 
     code: str | None = "InvalidStateException"
 
-    def __init__(self, data: InvalidStateException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidStateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidStateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidStateException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

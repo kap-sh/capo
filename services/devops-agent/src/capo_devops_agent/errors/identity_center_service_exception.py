@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#IdentityCenterServiceException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_devops_agent.errors import DeserializationError, ServiceError
@@ -38,7 +39,11 @@ class IdentityCenterServiceException(ServiceError):
     code: str | None = "IdentityCenterServiceException"
 
     def __init__(
-        self, data: IdentityCenterServiceException_, message: str | None = None
+        self,
+        data: IdentityCenterServiceException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class IdentityCenterServiceException(ServiceError):
             is_retryable=False,
             code="IdentityCenterServiceException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "IdentityCenterServiceException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

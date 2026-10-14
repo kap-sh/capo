@@ -41,39 +41,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalErrorException":
             raise capo_cognito_sync.errors.internal_error_exception.InternalErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidLambdaFunctionOutputException":
             raise capo_cognito_sync.errors.invalid_lambda_function_output_exception.InvalidLambdaFunctionOutputException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cognito_sync.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LambdaThrottledException":
             raise capo_cognito_sync.errors.lambda_throttled_exception.LambdaThrottledException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_cognito_sync.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotAuthorizedException":
             raise capo_cognito_sync.errors.not_authorized_exception.NotAuthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceConflictException":
             raise capo_cognito_sync.errors.resource_conflict_exception.ResourceConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cognito_sync.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_cognito_sync.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

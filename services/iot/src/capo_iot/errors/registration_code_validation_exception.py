@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iot.errors import ServiceError
@@ -36,7 +37,11 @@ class RegistrationCodeValidationException(ServiceError):
     code: str | None = "RegistrationCodeValidationException"
 
     def __init__(
-        self, data: RegistrationCodeValidationException_, message: str | None = None
+        self,
+        data: RegistrationCodeValidationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class RegistrationCodeValidationException(ServiceError):
             is_retryable=False,
             code="RegistrationCodeValidationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RegistrationCodeValidationException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

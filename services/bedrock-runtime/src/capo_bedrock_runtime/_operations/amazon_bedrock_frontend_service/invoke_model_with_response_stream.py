@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 from urllib.parse import quote
@@ -51,47 +52,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_bedrock_runtime.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_bedrock_runtime.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelErrorException":
             raise capo_bedrock_runtime.errors.model_error_exception.ModelErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelNotReadyException":
             raise capo_bedrock_runtime.errors.model_not_ready_exception.ModelNotReadyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelStreamErrorException":
             raise capo_bedrock_runtime.errors.model_stream_error_exception.ModelStreamErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelTimeoutException":
             raise capo_bedrock_runtime.errors.model_timeout_exception.ModelTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_bedrock_runtime.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_bedrock_runtime.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_bedrock_runtime.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_bedrock_runtime.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_bedrock_runtime.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -101,7 +102,10 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_bedrock_runtime.types.response_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_bedrock_runtime.types.response_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse = {
         "body": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
@@ -126,7 +130,10 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_bedrock_runtime.types.response_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_bedrock_runtime.types.response_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse = {
         "body": cast(

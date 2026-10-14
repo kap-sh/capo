@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientLimitExceededException":
             raise capo_kinesis_video.errors.client_limit_exceeded_exception.ClientLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_kinesis_video.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceFormatException":
             raise capo_kinesis_video.errors.invalid_resource_format_exception.InvalidResourceFormatException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotAuthorizedException":
             raise capo_kinesis_video.errors.not_authorized_exception.NotAuthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_kinesis_video.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TagsPerResourceExceededLimitException":
             raise capo_kinesis_video.errors.tags_per_resource_exceeded_limit_exception.TagsPerResourceExceededLimitException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

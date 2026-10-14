@@ -45,23 +45,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HostedZoneNotEmpty":
             raise capo_route_53.errors.hosted_zone_not_empty.HostedZoneNotEmpty.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDomainName":
             raise capo_route_53.errors.invalid_domain_name.InvalidDomainName.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchHostedZone":
             raise capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PriorRequestNotComplete":
             raise capo_route_53.errors.prior_request_not_complete.PriorRequestNotComplete.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

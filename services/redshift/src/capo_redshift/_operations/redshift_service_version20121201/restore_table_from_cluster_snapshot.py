@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSnapshotNotFound":
             raise capo_redshift.errors.cluster_snapshot_not_found_fault.ClusterSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InProgressTableRestoreQuotaExceededFault":
             raise capo_redshift.errors.in_progress_table_restore_quota_exceeded_fault.InProgressTableRestoreQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterSnapshotState":
             raise capo_redshift.errors.invalid_cluster_snapshot_state_fault.InvalidClusterSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTableRestoreArgument":
             raise capo_redshift.errors.invalid_table_restore_argument_fault.InvalidTableRestoreArgumentFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -52,31 +52,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "CannotChangeImmutablePublicKeyFields":
             raise capo_cloudfront.errors.cannot_change_immutable_public_key_fields.CannotChangeImmutablePublicKeyFields.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "IllegalUpdate":
             raise capo_cloudfront.errors.illegal_update.IllegalUpdate.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchPublicKey":
             raise capo_cloudfront.errors.no_such_public_key.NoSuchPublicKey.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

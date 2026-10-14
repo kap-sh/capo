@@ -35,31 +35,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidAddress":
             raise capo_sqs.errors.invalid_address.InvalidAddress.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidSecurity":
             raise capo_sqs.errors.invalid_security.InvalidSecurity.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "MessageNotInflight":
             raise capo_sqs.errors.message_not_inflight.MessageNotInflight.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "QueueDoesNotExist":
             raise capo_sqs.errors.queue_does_not_exist.QueueDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ReceiptHandleIsInvalid":
             raise capo_sqs.errors.receipt_handle_is_invalid.ReceiptHandleIsInvalid.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "RequestThrottled":
             raise capo_sqs.errors.request_throttled.RequestThrottled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_sqs.errors.unsupported_operation.UnsupportedOperation.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

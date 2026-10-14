@@ -41,47 +41,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ImageAlreadyExistsException":
             raise capo_ecr_public.errors.image_already_exists_exception.ImageAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ImageDigestDoesNotMatchException":
             raise capo_ecr_public.errors.image_digest_does_not_match_exception.ImageDigestDoesNotMatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ImageTagAlreadyExistsException":
             raise capo_ecr_public.errors.image_tag_already_exists_exception.ImageTagAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ecr_public.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LayersNotFoundException":
             raise capo_ecr_public.errors.layers_not_found_exception.LayersNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_ecr_public.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ReferencedImagesNotFoundException":
             raise capo_ecr_public.errors.referenced_images_not_found_exception.ReferencedImagesNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RegistryNotFoundException":
             raise capo_ecr_public.errors.registry_not_found_exception.RegistryNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNotFoundException":
             raise capo_ecr_public.errors.repository_not_found_exception.RepositoryNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecr_public.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedCommandException":
             raise capo_ecr_public.errors.unsupported_command_exception.UnsupportedCommandException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_ssm_contacts.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_ssm_contacts.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DataEncryptionException":
             raise capo_ssm_contacts.errors.data_encryption_exception.DataEncryptionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_ssm_contacts.errors.internal_server_exception.InternalServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_ssm_contacts.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_ssm_contacts.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_ssm_contacts.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -1,5 +1,7 @@
 from typing import Literal
 
+from zapros import Response
+
 
 class AppConfigError(Exception):
     """Base class for all AppConfig service errors."""
@@ -14,6 +16,7 @@ class ServiceError(AppConfigError):
         is_retryable: Whether this error is retryable.
         code: The wire error code, or ``None``.
         message: The error message, or ``None``.
+        response: The HTTP response the error was read from.
     """
 
     code: str | None = None
@@ -26,6 +29,7 @@ class ServiceError(AppConfigError):
         is_retryable: bool,
         code: str | None = None,
         message: str | None = None,
+        response: Response,
     ) -> None:
         super().__init__(f"{code or '<no code>'}: {message or '<no message>'}")
         self.fault = fault
@@ -33,6 +37,7 @@ class ServiceError(AppConfigError):
         self.is_retryable = is_retryable
         self.code = code
         self.message = message
+        self.response = response
 
 
 class SerializationError(AppConfigError):
@@ -53,9 +58,9 @@ class UnknownServiceError(ServiceError):
     """
 
     def __init__(
-        self, *, code: str | None, message: str | None, response: object
+        self, *, code: str | None, message: str | None, response: Response
     ) -> None:
-        _status = getattr(response, "status", 500)
+        _status = response.status
         _fault: Literal["client", "server"] = "client" if _status < 500 else "server"
         _throttling = _status == 429
         _retryable = _throttling or _status >= 500
@@ -65,8 +70,8 @@ class UnknownServiceError(ServiceError):
             is_retryable=_retryable,
             code=code,
             message=message,
+            response=response,
         )
-        self.response = response
 
 
 class WaiterFailedError(AppConfigError):

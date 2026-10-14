@@ -47,27 +47,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApiLimitExceededException":
             raise capo_appsync.errors.api_limit_exceeded_exception.ApiLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequestException":
             raise capo_appsync.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_appsync.errors.concurrent_modification_exception.ConcurrentModificationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_appsync.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_appsync.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_appsync.errors.unauthorized_exception.UnauthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

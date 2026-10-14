@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_snowball.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputCombinationException":
             raise capo_snowball.errors.invalid_input_combination_exception.InvalidInputCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidJobStateException":
             raise capo_snowball.errors.invalid_job_state_exception.InvalidJobStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceException":
             raise capo_snowball.errors.invalid_resource_exception.InvalidResourceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ReturnShippingLabelAlreadyExistsException":
             raise capo_snowball.errors.return_shipping_label_already_exists_exception.ReturnShippingLabelAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

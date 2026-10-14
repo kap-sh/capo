@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codepipeline.errors import ServiceError
@@ -35,7 +36,11 @@ class DuplicatedStopRequestException(ServiceError):
     code: str | None = "DuplicatedStopRequestException"
 
     def __init__(
-        self, data: DuplicatedStopRequestException_, message: str | None = None
+        self,
+        data: DuplicatedStopRequestException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class DuplicatedStopRequestException(ServiceError):
             is_retryable=False,
             code="DuplicatedStopRequestException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DuplicatedStopRequestException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

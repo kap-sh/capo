@@ -42,31 +42,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedFault":
             raise capo_database_migration_service.errors.access_denied_fault.AccessDeniedFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientResourceCapacityFault":
             raise capo_database_migration_service.errors.insufficient_resource_capacity_fault.InsufficientResourceCapacityFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceStateFault":
             raise capo_database_migration_service.errors.invalid_resource_state_fault.InvalidResourceStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsFault":
             raise capo_database_migration_service.errors.resource_already_exists_fault.ResourceAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundFault":
             raise capo_database_migration_service.errors.resource_not_found_fault.ResourceNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "StorageQuotaExceededFault":
             raise capo_database_migration_service.errors.storage_quota_exceeded_fault.StorageQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UpgradeDependencyFailureFault":
             raise capo_database_migration_service.errors.upgrade_dependency_failure_fault.UpgradeDependencyFailureFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

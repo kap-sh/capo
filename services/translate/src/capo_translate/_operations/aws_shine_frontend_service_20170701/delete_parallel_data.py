@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_translate.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_translate.errors.internal_server_exception.InternalServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_translate.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_translate.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

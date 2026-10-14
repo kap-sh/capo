@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterSnapshotNotFoundFault":
             raise capo_neptune.errors.db_cluster_snapshot_not_found_fault.DBClusterSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterSnapshotStateFault":
             raise capo_neptune.errors.invalid_db_cluster_snapshot_state_fault.InvalidDBClusterSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

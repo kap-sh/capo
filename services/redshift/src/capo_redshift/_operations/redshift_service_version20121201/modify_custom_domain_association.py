@@ -35,19 +35,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomCnameAssociationFault":
             raise capo_redshift.errors.custom_cname_association_fault.CustomCnameAssociationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomDomainAssociationNotFoundFault":
             raise capo_redshift.errors.custom_domain_association_not_found_fault.CustomDomainAssociationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

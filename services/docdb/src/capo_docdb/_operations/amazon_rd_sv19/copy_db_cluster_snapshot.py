@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterSnapshotAlreadyExistsFault":
             raise capo_docdb.errors.db_cluster_snapshot_already_exists_fault.DBClusterSnapshotAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterSnapshotNotFoundFault":
             raise capo_docdb.errors.db_cluster_snapshot_not_found_fault.DBClusterSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterSnapshotStateFault":
             raise capo_docdb.errors.invalid_db_cluster_snapshot_state_fault.InvalidDBClusterSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_docdb.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_docdb.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotQuotaExceeded":
             raise capo_docdb.errors.snapshot_quota_exceeded_fault.SnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

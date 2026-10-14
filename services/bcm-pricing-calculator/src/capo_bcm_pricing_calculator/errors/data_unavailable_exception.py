@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bcmpricingcalculator#DataUnavailableException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_bcm_pricing_calculator.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class DataUnavailableException(ServiceError):
 
     code: str | None = "DataUnavailableException"
 
-    def __init__(self, data: DataUnavailableException_, message: str | None = None):
+    def __init__(
+        self,
+        data: DataUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="DataUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DataUnavailableException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

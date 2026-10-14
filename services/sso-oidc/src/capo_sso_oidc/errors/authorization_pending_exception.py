@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sso_oidc.errors import ServiceError
@@ -45,7 +46,11 @@ class AuthorizationPendingException(ServiceError):
     code: str | None = "AuthorizationPendingException"
 
     def __init__(
-        self, data: AuthorizationPendingException_, message: str | None = None
+        self,
+        data: AuthorizationPendingException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -53,11 +58,12 @@ class AuthorizationPendingException(ServiceError):
             is_retryable=False,
             code="AuthorizationPendingException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AuthorizationPendingException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codecommit.errors import ServiceError
@@ -36,7 +37,11 @@ class InvalidConflictResolutionException(ServiceError):
     code: str | None = "InvalidConflictResolutionException"
 
     def __init__(
-        self, data: InvalidConflictResolutionException_, message: str | None = None
+        self,
+        data: InvalidConflictResolutionException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class InvalidConflictResolutionException(ServiceError):
             is_retryable=False,
             code="InvalidConflictResolutionException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidConflictResolutionException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

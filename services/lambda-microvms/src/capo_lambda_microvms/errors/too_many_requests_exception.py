@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#TooManyRequestsException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lambda_microvms.errors import ServiceError
@@ -35,18 +36,25 @@ class TooManyRequestsException(ServiceError):
 
     code: str | None = "TooManyRequestsException"
 
-    def __init__(self, data: TooManyRequestsException_, message: str | None = None):
+    def __init__(
+        self,
+        data: TooManyRequestsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TooManyRequestsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyRequestsException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

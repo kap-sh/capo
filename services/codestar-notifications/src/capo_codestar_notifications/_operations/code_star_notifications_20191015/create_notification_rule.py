@@ -43,27 +43,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_codestar_notifications.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_codestar_notifications.errors.concurrent_modification_exception.ConcurrentModificationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConfigurationException":
             raise capo_codestar_notifications.errors.configuration_exception.ConfigurationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_codestar_notifications.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_codestar_notifications.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codestar_notifications.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

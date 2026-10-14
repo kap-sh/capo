@@ -40,23 +40,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterCombination":
             raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidUserState":
             raise capo_elasticache.errors.invalid_user_state_fault.InvalidUserStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_elasticache.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UserNotFound":
             raise capo_elasticache.errors.user_not_found_fault.UserNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -40,29 +40,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessPointAlreadyExists":
             raise capo_efs.errors.access_point_already_exists.AccessPointAlreadyExists.from_json(
-                data, message
+                data, message, response=response
             )
         case "AccessPointLimitExceeded":
             raise capo_efs.errors.access_point_limit_exceeded.AccessPointLimitExceeded.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequest":
-            raise capo_efs.errors.bad_request.BadRequest.from_json(data, message)
+            raise capo_efs.errors.bad_request.BadRequest.from_json(
+                data, message, response=response
+            )
         case "FileSystemNotFound":
             raise capo_efs.errors.file_system_not_found.FileSystemNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "IncorrectFileSystemLifeCycleState":
             raise capo_efs.errors.incorrect_file_system_life_cycle_state.IncorrectFileSystemLifeCycleState.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_efs.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_efs.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

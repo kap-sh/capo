@@ -43,47 +43,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CopyToRegionDisabledFault":
             raise capo_redshift.errors.copy_to_region_disabled_fault.CopyToRegionDisabledFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceRequestThrottlingFault":
             raise capo_redshift.errors.dependent_service_request_throttling_fault.DependentServiceRequestThrottlingFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IncompatibleOrderableOptions":
             raise capo_redshift.errors.incompatible_orderable_options.IncompatibleOrderableOptions.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRetentionPeriodFault":
             raise capo_redshift.errors.invalid_retention_period_fault.InvalidRetentionPeriodFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededFault":
             raise capo_redshift.errors.limit_exceeded_fault.LimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotCopyAlreadyEnabledFault":
             raise capo_redshift.errors.snapshot_copy_already_enabled_fault.SnapshotCopyAlreadyEnabledFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotCopyGrantNotFoundFault":
             raise capo_redshift.errors.snapshot_copy_grant_not_found_fault.SnapshotCopyGrantNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnknownSnapshotCopyRegionFault":
             raise capo_redshift.errors.unknown_snapshot_copy_region_fault.UnknownSnapshotCopyRegionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

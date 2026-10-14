@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ChannelInsufficientPermission":
             raise capo_cloudtrail_data.errors.channel_insufficient_permission.ChannelInsufficientPermission.from_json(
-                data, message
+                data, message, response=response
             )
         case "ChannelNotFound":
             raise capo_cloudtrail_data.errors.channel_not_found.ChannelNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "ChannelUnsupportedSchema":
             raise capo_cloudtrail_data.errors.channel_unsupported_schema.ChannelUnsupportedSchema.from_json(
-                data, message
+                data, message, response=response
             )
         case "DuplicatedAuditEventId":
             raise capo_cloudtrail_data.errors.duplicated_audit_event_id.DuplicatedAuditEventId.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidChannelARN":
             raise capo_cloudtrail_data.errors.invalid_channel_arn.InvalidChannelARN.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail_data.errors.unsupported_operation_exception.UnsupportedOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

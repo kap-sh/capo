@@ -52,47 +52,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CacheClusterNotFound":
             raise capo_elasticache.errors.cache_cluster_not_found_fault.CacheClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CacheParameterGroupNotFound":
             raise capo_elasticache.errors.cache_parameter_group_not_found_fault.CacheParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CacheSecurityGroupNotFound":
             raise capo_elasticache.errors.cache_security_group_not_found_fault.CacheSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientCacheClusterCapacity":
             raise capo_elasticache.errors.insufficient_cache_cluster_capacity_fault.InsufficientCacheClusterCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCacheClusterState":
             raise capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCacheSecurityGroupState":
             raise capo_elasticache.errors.invalid_cache_security_group_state_fault.InvalidCacheSecurityGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterCombination":
             raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_elasticache.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NodeQuotaForClusterExceeded":
             raise capo_elasticache.errors.node_quota_for_cluster_exceeded_fault.NodeQuotaForClusterExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NodeQuotaForCustomerExceeded":
             raise capo_elasticache.errors.node_quota_for_customer_exceeded_fault.NodeQuotaForCustomerExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

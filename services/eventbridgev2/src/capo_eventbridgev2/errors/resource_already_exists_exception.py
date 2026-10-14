@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#ResourceAlreadyExistsException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_eventbridgev2.errors import ServiceError
@@ -30,7 +31,11 @@ class ResourceAlreadyExistsException(ServiceError):
     code: str | None = "ResourceAlreadyExistsException"
 
     def __init__(
-        self, data: ResourceAlreadyExistsException_, message: str | None = None
+        self,
+        data: ResourceAlreadyExistsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -38,11 +43,12 @@ class ResourceAlreadyExistsException(ServiceError):
             is_retryable=False,
             code="ResourceAlreadyExistsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_cbor(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceAlreadyExistsException":
-        return cls(deserialize_cbor(data), message)
+        return cls(deserialize_cbor(data), message, response=response)

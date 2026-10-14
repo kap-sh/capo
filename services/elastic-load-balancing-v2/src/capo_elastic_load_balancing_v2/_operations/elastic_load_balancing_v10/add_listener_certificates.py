@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CertificateNotFound":
             raise capo_elastic_load_balancing_v2.errors.certificate_not_found_exception.CertificateNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ListenerNotFound":
             raise capo_elastic_load_balancing_v2.errors.listener_not_found_exception.ListenerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCertificates":
             raise capo_elastic_load_balancing_v2.errors.too_many_certificates_exception.TooManyCertificatesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

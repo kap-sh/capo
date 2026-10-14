@@ -43,31 +43,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AutomationDefinitionNotFoundException":
             raise capo_ssm.errors.automation_definition_not_found_exception.AutomationDefinitionNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AutomationDefinitionVersionNotFoundException":
             raise capo_ssm.errors.automation_definition_version_not_found_exception.AutomationDefinitionVersionNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AutomationExecutionLimitExceededException":
             raise capo_ssm.errors.automation_execution_limit_exceeded_exception.AutomationExecutionLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IdempotentParameterMismatch":
             raise capo_ssm.errors.idempotent_parameter_mismatch.IdempotentParameterMismatch.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAutomationExecutionParametersException":
             raise capo_ssm.errors.invalid_automation_execution_parameters_exception.InvalidAutomationExecutionParametersException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTarget":
             raise capo_ssm.errors.invalid_target.InvalidTarget.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -40,27 +40,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerException":
             raise capo_comprehendmedical.errors.internal_server_exception.InternalServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEncodingException":
             raise capo_comprehendmedical.errors.invalid_encoding_exception.InvalidEncodingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_comprehendmedical.errors.invalid_request_exception.InvalidRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_comprehendmedical.errors.service_unavailable_exception.ServiceUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TextSizeLimitExceededException":
             raise capo_comprehendmedical.errors.text_size_limit_exceeded_exception.TextSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_comprehendmedical.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

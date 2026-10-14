@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_inspector.errors import DeserializationError, ServiceError
@@ -49,7 +50,11 @@ class ServiceTemporarilyUnavailableException(ServiceError):
     code: str | None = "ServiceTemporarilyUnavailableException"
 
     def __init__(
-        self, data: ServiceTemporarilyUnavailableException_, message: str | None = None
+        self,
+        data: ServiceTemporarilyUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -57,11 +62,12 @@ class ServiceTemporarilyUnavailableException(ServiceError):
             is_retryable=False,
             code="ServiceTemporarilyUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceTemporarilyUnavailableException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

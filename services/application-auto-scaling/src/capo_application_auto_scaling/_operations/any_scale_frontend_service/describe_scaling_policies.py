@@ -41,23 +41,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentUpdateException":
             raise capo_application_auto_scaling.errors.concurrent_update_exception.ConcurrentUpdateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "FailedResourceAccessException":
             raise capo_application_auto_scaling.errors.failed_resource_access_exception.FailedResourceAccessException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_application_auto_scaling.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_application_auto_scaling.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_application_auto_scaling.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ThrottlingException":
             raise capo_s3files.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_s3files.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_s3files.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

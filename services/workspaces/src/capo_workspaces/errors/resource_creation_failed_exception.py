@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workspaces.errors import ServiceError
@@ -35,7 +36,11 @@ class ResourceCreationFailedException(ServiceError):
     code: str | None = "ResourceCreationFailedException"
 
     def __init__(
-        self, data: ResourceCreationFailedException_, message: str | None = None
+        self,
+        data: ResourceCreationFailedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class ResourceCreationFailedException(ServiceError):
             is_retryable=False,
             code="ResourceCreationFailedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceCreationFailedException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

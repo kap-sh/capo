@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CommentContentRequiredException":
             raise capo_codecommit.errors.comment_content_required_exception.CommentContentRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentContentSizeLimitExceededException":
             raise capo_codecommit.errors.comment_content_size_limit_exceeded_exception.CommentContentSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentDeletedException":
             raise capo_codecommit.errors.comment_deleted_exception.CommentDeletedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentDoesNotExistException":
             raise capo_codecommit.errors.comment_does_not_exist_exception.CommentDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentIdRequiredException":
             raise capo_codecommit.errors.comment_id_required_exception.CommentIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentNotCreatedByCallerException":
             raise capo_codecommit.errors.comment_not_created_by_caller_exception.CommentNotCreatedByCallerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCommentIdException":
             raise capo_codecommit.errors.invalid_comment_id_exception.InvalidCommentIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -38,7 +39,11 @@ class TooManyFieldLevelEncryptionConfigs(ServiceError):
     code: str | None = "TooManyFieldLevelEncryptionConfigs"
 
     def __init__(
-        self, data: TooManyFieldLevelEncryptionConfigs_, message: str | None = None
+        self,
+        data: TooManyFieldLevelEncryptionConfigs_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class TooManyFieldLevelEncryptionConfigs(ServiceError):
             is_retryable=False,
             code="TooManyFieldLevelEncryptionConfigs",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyFieldLevelEncryptionConfigs":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

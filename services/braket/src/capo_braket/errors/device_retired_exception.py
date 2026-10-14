@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.braket#DeviceRetiredException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_braket.errors import ServiceError
@@ -29,18 +30,25 @@ class DeviceRetiredException(ServiceError):
 
     code: str | None = "DeviceRetiredException"
 
-    def __init__(self, data: DeviceRetiredException_, message: str | None = None):
+    def __init__(
+        self,
+        data: DeviceRetiredException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="DeviceRetiredException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DeviceRetiredException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

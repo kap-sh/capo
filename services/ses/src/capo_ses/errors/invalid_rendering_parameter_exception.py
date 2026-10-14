@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
@@ -47,7 +48,11 @@ class InvalidRenderingParameterException(ServiceError):
     code: str | None = "InvalidRenderingParameterException"
 
     def __init__(
-        self, data: InvalidRenderingParameterException_, message: str | None = None
+        self,
+        data: InvalidRenderingParameterException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -55,11 +60,12 @@ class InvalidRenderingParameterException(ServiceError):
             is_retryable=False,
             code="InvalidRenderingParameterException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidRenderingParameterException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

@@ -44,19 +44,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidTarget":
             raise capo_elastic_load_balancing_v2.errors.invalid_target_exception.InvalidTargetException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TargetGroupNotFound":
             raise capo_elastic_load_balancing_v2.errors.target_group_not_found_exception.TargetGroupNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyRegistrationsForTargetId":
             raise capo_elastic_load_balancing_v2.errors.too_many_registrations_for_target_id_exception.TooManyRegistrationsForTargetIdException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTargets":
             raise capo_elastic_load_balancing_v2.errors.too_many_targets_exception.TooManyTargetsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

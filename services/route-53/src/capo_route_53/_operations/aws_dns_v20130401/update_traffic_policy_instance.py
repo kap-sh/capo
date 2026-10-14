@@ -40,23 +40,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictingTypes":
             raise capo_route_53.errors.conflicting_types.ConflictingTypes.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchTrafficPolicy":
             raise capo_route_53.errors.no_such_traffic_policy.NoSuchTrafficPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchTrafficPolicyInstance":
             raise capo_route_53.errors.no_such_traffic_policy_instance.NoSuchTrafficPolicyInstance.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PriorRequestNotComplete":
             raise capo_route_53.errors.prior_request_not_complete.PriorRequestNotComplete.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

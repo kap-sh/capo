@@ -35,27 +35,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedForDependencyException":
             raise capo_shield.errors.access_denied_for_dependency_exception.AccessDeniedForDependencyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalErrorException":
             raise capo_shield.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidOperationException":
             raise capo_shield.errors.invalid_operation_exception.InvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_shield.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OptimisticLockException":
             raise capo_shield.errors.optimistic_lock_exception.OptimisticLockException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_shield.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

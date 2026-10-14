@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 
@@ -45,27 +46,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_connecthealth.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_connecthealth.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_connecthealth.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_connecthealth.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_connecthealth.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_connecthealth.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -75,8 +76,9 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_connecthealth.types.start_medical_scribe_listening_session_output.StartMedicalScribeListeningSessionOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = (
-        capo_connecthealth.types.medical_scribe_output_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_connecthealth.types.medical_scribe_output_stream.deserialize_event_json,
+        response=response,
     )
     _iter = cast(Any, response.iter_bytes())
     out: capo_connecthealth.types.start_medical_scribe_listening_session_output.StartMedicalScribeListeningSessionOutput = {
@@ -115,8 +117,9 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_connecthealth.types.start_medical_scribe_listening_session_output.StartMedicalScribeListeningSessionOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = (
-        capo_connecthealth.types.medical_scribe_output_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_connecthealth.types.medical_scribe_output_stream.deserialize_event_json,
+        response=response,
     )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_connecthealth.types.start_medical_scribe_listening_session_output.StartMedicalScribeListeningSessionOutput = {

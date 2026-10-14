@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApplicationNameRequiredException":
             raise capo_codedeploy.errors.application_name_required_exception.ApplicationNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupNameRequiredException":
             raise capo_codedeploy.errors.deployment_group_name_required_exception.DeploymentGroupNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApplicationNameException":
             raise capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentGroupNameException":
             raise capo_codedeploy.errors.invalid_deployment_group_name_exception.InvalidDeploymentGroupNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_codedeploy.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_identitystore.errors import ServiceError
@@ -72,18 +73,25 @@ class ThrottlingException(ServiceError):
 
     code: str | None = "ThrottlingException"
 
-    def __init__(self, data: ThrottlingException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ThrottlingException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=True,
             is_retryable=True,
             code="ThrottlingException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ThrottlingException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

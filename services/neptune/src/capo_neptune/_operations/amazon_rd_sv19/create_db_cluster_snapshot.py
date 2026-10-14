@@ -38,23 +38,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_neptune.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterSnapshotAlreadyExistsFault":
             raise capo_neptune.errors.db_cluster_snapshot_already_exists_fault.DBClusterSnapshotAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterSnapshotStateFault":
             raise capo_neptune.errors.invalid_db_cluster_snapshot_state_fault.InvalidDBClusterSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_neptune.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotQuotaExceeded":
             raise capo_neptune.errors.snapshot_quota_exceeded_fault.SnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

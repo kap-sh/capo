@@ -50,47 +50,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_appstream.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IncompatibleImageException":
             raise capo_appstream.errors.incompatible_image_exception.IncompatibleImageException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAccountStatusException":
             raise capo_appstream.errors.invalid_account_status_exception.InvalidAccountStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_appstream.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_appstream.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_appstream.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_appstream.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RequestLimitExceededException":
             raise capo_appstream.errors.request_limit_exceeded_exception.RequestLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_appstream.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotAvailableException":
             raise capo_appstream.errors.resource_not_available_exception.ResourceNotAvailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_appstream.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

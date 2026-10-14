@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sqs.errors import ServiceError
@@ -34,16 +35,21 @@ class OverLimit(ServiceError):
 
     code: str | None = "OverLimit"
 
-    def __init__(self, data: OverLimit_, message: str | None = None):
+    def __init__(
+        self, data: OverLimit_, message: str | None = None, *, response: zapros.Response
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="OverLimit",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_aws_json_1_0(cls, data: dict, message: str | None = None) -> "OverLimit":
-        return cls(deserialize_aws_json_1_0(data), message)
+    def from_aws_json_1_0(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "OverLimit":
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

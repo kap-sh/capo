@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoAvailableConfigurationRecorderException":
             raise capo_config_service.errors.no_available_configuration_recorder_exception.NoAvailableConfigurationRecorderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_config_service.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

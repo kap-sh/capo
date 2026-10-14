@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidOperationException":
             raise capo_cloudwatch_logs.errors.invalid_operation_exception.InvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudwatch_logs.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cloudwatch_logs.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_cloudwatch_logs.errors.service_unavailable_exception.ServiceUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

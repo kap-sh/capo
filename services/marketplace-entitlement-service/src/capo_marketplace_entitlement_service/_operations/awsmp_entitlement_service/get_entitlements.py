@@ -41,15 +41,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceErrorException":
             raise capo_marketplace_entitlement_service.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_marketplace_entitlement_service.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_marketplace_entitlement_service.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

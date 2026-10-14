@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#ResourceUnavailableException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_account.errors import DeserializationError, ServiceError
@@ -32,18 +33,25 @@ class ResourceUnavailableException(ServiceError):
 
     code: str | None = "ResourceUnavailableException"
 
-    def __init__(self, data: ResourceUnavailableException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ResourceUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ResourceUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceUnavailableException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

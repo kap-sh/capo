@@ -44,31 +44,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DependentServiceAccessDenied":
             raise capo_redshift.errors.dependent_service_access_denied_fault.DependentServiceAccessDeniedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceUnavailableFault":
             raise capo_redshift.errors.dependent_service_unavailable_fault.DependentServiceUnavailableFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RedshiftIdcApplicationAlreadyExists":
             raise capo_redshift.errors.redshift_idc_application_already_exists_fault.RedshiftIdcApplicationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RedshiftIdcApplicationQuotaExceeded":
             raise capo_redshift.errors.redshift_idc_application_quota_exceeded_fault.RedshiftIdcApplicationQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagLimitExceededFault":
             raise capo_redshift.errors.tag_limit_exceeded_fault.TagLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

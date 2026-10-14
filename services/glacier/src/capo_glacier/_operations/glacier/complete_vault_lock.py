@@ -34,23 +34,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterValueException":
             raise capo_glacier.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MissingParameterValueException":
             raise capo_glacier.errors.missing_parameter_value_exception.MissingParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NoLongerSupportedException":
             raise capo_glacier.errors.no_longer_supported_exception.NoLongerSupportedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_glacier.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_glacier.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -45,31 +45,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateProviderException":
             raise capo_cognito_identity_provider.errors.duplicate_provider_exception.DuplicateProviderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalErrorException":
             raise capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_cognito_identity_provider.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotAuthorizedException":
             raise capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -49,51 +49,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EngineNotSupportedException":
             raise capo_polly.errors.engine_not_supported_exception.EngineNotSupportedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3BucketException":
             raise capo_polly.errors.invalid_s3_bucket_exception.InvalidS3BucketException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3KeyException":
             raise capo_polly.errors.invalid_s3_key_exception.InvalidS3KeyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidSampleRateException":
             raise capo_polly.errors.invalid_sample_rate_exception.InvalidSampleRateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidSnsTopicArnException":
             raise capo_polly.errors.invalid_sns_topic_arn_exception.InvalidSnsTopicArnException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidSsmlException":
             raise capo_polly.errors.invalid_ssml_exception.InvalidSsmlException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LanguageNotSupportedException":
             raise capo_polly.errors.language_not_supported_exception.LanguageNotSupportedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LexiconNotFoundException":
             raise capo_polly.errors.lexicon_not_found_exception.LexiconNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MarksNotSupportedForFormatException":
             raise capo_polly.errors.marks_not_supported_for_format_exception.MarksNotSupportedForFormatException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceFailureException":
             raise capo_polly.errors.service_failure_exception.ServiceFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SsmlMarksNotSupportedForTextTypeException":
             raise capo_polly.errors.ssml_marks_not_supported_for_text_type_exception.SsmlMarksNotSupportedForTextTypeException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TextLengthExceededException":
             raise capo_polly.errors.text_length_exceeded_exception.TextLengthExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

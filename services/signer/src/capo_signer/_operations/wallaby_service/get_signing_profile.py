@@ -41,19 +41,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_signer.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_signer.errors.internal_service_error_exception.InternalServiceErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_signer.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_signer.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

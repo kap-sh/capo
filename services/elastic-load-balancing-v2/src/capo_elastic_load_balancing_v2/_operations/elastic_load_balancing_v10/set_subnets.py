@@ -51,31 +51,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AllocationIdNotFound":
             raise capo_elastic_load_balancing_v2.errors.allocation_id_not_found_exception.AllocationIdNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "AvailabilityZoneNotSupported":
             raise capo_elastic_load_balancing_v2.errors.availability_zone_not_supported_exception.AvailabilityZoneNotSupportedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CapacityReservationPending":
             raise capo_elastic_load_balancing_v2.errors.capacity_reservation_pending_exception.CapacityReservationPendingException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing_v2.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_elastic_load_balancing_v2.errors.invalid_subnet_exception.InvalidSubnetException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing_v2.errors.load_balancer_not_found_exception.LoadBalancerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetNotFound":
             raise capo_elastic_load_balancing_v2.errors.subnet_not_found_exception.SubnetNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

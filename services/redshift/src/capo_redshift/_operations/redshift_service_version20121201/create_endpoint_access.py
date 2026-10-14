@@ -45,43 +45,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessToClusterDenied":
             raise capo_redshift.errors.access_to_cluster_denied_fault.AccessToClusterDeniedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSubnetGroupNotFoundFault":
             raise capo_redshift.errors.cluster_subnet_group_not_found_fault.ClusterSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EndpointAlreadyExists":
             raise capo_redshift.errors.endpoint_already_exists_fault.EndpointAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EndpointsPerAuthorizationLimitExceeded":
             raise capo_redshift.errors.endpoints_per_authorization_limit_exceeded_fault.EndpointsPerAuthorizationLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EndpointsPerClusterLimitExceeded":
             raise capo_redshift.errors.endpoints_per_cluster_limit_exceeded_fault.EndpointsPerClusterLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterSecurityGroupState":
             raise capo_redshift.errors.invalid_cluster_security_group_state_fault.InvalidClusterSecurityGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

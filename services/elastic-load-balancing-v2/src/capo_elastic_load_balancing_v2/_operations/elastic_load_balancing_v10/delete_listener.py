@@ -41,11 +41,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ListenerNotFound":
             raise capo_elastic_load_balancing_v2.errors.listener_not_found_exception.ListenerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceInUse":
             raise capo_elastic_load_balancing_v2.errors.resource_in_use_exception.ResourceInUseException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

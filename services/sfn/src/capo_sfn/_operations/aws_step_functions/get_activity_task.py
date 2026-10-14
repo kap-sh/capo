@@ -35,27 +35,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ActivityDoesNotExist":
             raise capo_sfn.errors.activity_does_not_exist.ActivityDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ActivityWorkerLimitExceeded":
             raise capo_sfn.errors.activity_worker_limit_exceeded.ActivityWorkerLimitExceeded.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidArn":
             raise capo_sfn.errors.invalid_arn.InvalidArn.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDeniedException":
             raise capo_sfn.errors.kms_access_denied_exception.KmsAccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidStateException":
             raise capo_sfn.errors.kms_invalid_state_exception.KmsInvalidStateException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsThrottlingException":
             raise capo_sfn.errors.kms_throttling_exception.KmsThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

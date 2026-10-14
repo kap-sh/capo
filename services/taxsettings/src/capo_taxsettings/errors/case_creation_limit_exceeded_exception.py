@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_taxsettings.errors import DeserializationError, ServiceError
@@ -38,7 +39,11 @@ class CaseCreationLimitExceededException(ServiceError):
     code: str | None = "CaseCreationLimitExceededException"
 
     def __init__(
-        self, data: CaseCreationLimitExceededException_, message: str | None = None
+        self,
+        data: CaseCreationLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,14 +51,15 @@ class CaseCreationLimitExceededException(ServiceError):
             is_retryable=False,
             code="CaseCreationLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CaseCreationLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)
 
 
 def redact_sensitive(value: CaseCreationLimitExceededException_) -> dict[str, Any]:

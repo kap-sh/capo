@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalErrorException":
             raise capo_fms.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidOperationException":
             raise capo_fms.errors.invalid_operation_exception.InvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_fms.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_fms.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

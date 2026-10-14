@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudtraildata#ChannelInsufficientPermission``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudtrail_data.errors import ServiceError
@@ -30,7 +31,11 @@ class ChannelInsufficientPermission(ServiceError):
     code: str | None = "ChannelInsufficientPermission"
 
     def __init__(
-        self, data: ChannelInsufficientPermission_, message: str | None = None
+        self,
+        data: ChannelInsufficientPermission_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -38,11 +43,12 @@ class ChannelInsufficientPermission(ServiceError):
             is_retryable=False,
             code="ChannelInsufficientPermission",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ChannelInsufficientPermission":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

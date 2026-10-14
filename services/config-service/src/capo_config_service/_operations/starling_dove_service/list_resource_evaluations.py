@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidNextTokenException":
             raise capo_config_service.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_config_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTimeRangeException":
             raise capo_config_service.errors.invalid_time_range_exception.InvalidTimeRangeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

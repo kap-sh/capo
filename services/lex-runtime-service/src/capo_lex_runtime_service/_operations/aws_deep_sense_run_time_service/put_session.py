@@ -48,35 +48,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadGatewayException":
             raise capo_lex_runtime_service.errors.bad_gateway_exception.BadGatewayException.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequestException":
             raise capo_lex_runtime_service.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_lex_runtime_service.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "DependencyFailedException":
             raise capo_lex_runtime_service.errors.dependency_failed_exception.DependencyFailedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_lex_runtime_service.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_lex_runtime_service.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotAcceptableException":
             raise capo_lex_runtime_service.errors.not_acceptable_exception.NotAcceptableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_lex_runtime_service.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -38,19 +38,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_s3_control.errors.bad_request_exception.BadRequestException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InternalServiceException":
             raise capo_s3_control.errors.internal_service_exception.InternalServiceException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NotFoundException":
             raise capo_s3_control.errors.not_found_exception.NotFoundException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_s3_control.errors.too_many_requests_exception.TooManyRequestsException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

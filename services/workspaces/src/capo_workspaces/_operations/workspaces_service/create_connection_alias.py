@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_workspaces.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValuesException":
             raise capo_workspaces.errors.invalid_parameter_values_exception.InvalidParameterValuesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceStateException":
             raise capo_workspaces.errors.invalid_resource_state_exception.InvalidResourceStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotSupportedException":
             raise capo_workspaces.errors.operation_not_supported_exception.OperationNotSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_workspaces.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceLimitExceededException":
             raise capo_workspaces.errors.resource_limit_exceeded_exception.ResourceLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

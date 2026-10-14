@@ -41,31 +41,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_codestar_connections.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_codestar_connections.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_codestar_connections.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_codestar_connections.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "RetryLatestCommitFailedException":
             raise capo_codestar_connections.errors.retry_latest_commit_failed_exception.RetryLatestCommitFailedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "SyncBlockerDoesNotExistException":
             raise capo_codestar_connections.errors.sync_blocker_does_not_exist_exception.SyncBlockerDoesNotExistException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_codestar_connections.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

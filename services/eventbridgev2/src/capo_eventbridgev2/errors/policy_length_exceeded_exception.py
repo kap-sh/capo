@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#PolicyLengthExceededException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_eventbridgev2.errors import ServiceError
@@ -30,7 +31,11 @@ class PolicyLengthExceededException(ServiceError):
     code: str | None = "PolicyLengthExceededException"
 
     def __init__(
-        self, data: PolicyLengthExceededException_, message: str | None = None
+        self,
+        data: PolicyLengthExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -38,11 +43,12 @@ class PolicyLengthExceededException(ServiceError):
             is_retryable=False,
             code="PolicyLengthExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_cbor(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "PolicyLengthExceededException":
-        return cls(deserialize_cbor(data), message)
+        return cls(deserialize_cbor(data), message, response=response)

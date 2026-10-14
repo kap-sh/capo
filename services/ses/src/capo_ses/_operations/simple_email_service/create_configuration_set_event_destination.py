@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConfigurationSetDoesNotExist":
             raise capo_ses.errors.configuration_set_does_not_exist_exception.ConfigurationSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EventDestinationAlreadyExists":
             raise capo_ses.errors.event_destination_already_exists_exception.EventDestinationAlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCloudWatchDestination":
             raise capo_ses.errors.invalid_cloud_watch_destination_exception.InvalidCloudWatchDestinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidFirehoseDestination":
             raise capo_ses.errors.invalid_firehose_destination_exception.InvalidFirehoseDestinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSNSDestination":
             raise capo_ses.errors.invalid_sns_destination_exception.InvalidSNSDestinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_ses.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountStreamLimitExceededException":
             raise capo_kinesis_video.errors.account_stream_limit_exceeded_exception.AccountStreamLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClientLimitExceededException":
             raise capo_kinesis_video.errors.client_limit_exceeded_exception.ClientLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "DeviceStreamLimitExceededException":
             raise capo_kinesis_video.errors.device_stream_limit_exceeded_exception.DeviceStreamLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_kinesis_video.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeviceException":
             raise capo_kinesis_video.errors.invalid_device_exception.InvalidDeviceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_kinesis_video.errors.resource_in_use_exception.ResourceInUseException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TagsPerResourceExceededLimitException":
             raise capo_kinesis_video.errors.tags_per_resource_exceeded_limit_exception.TagsPerResourceExceededLimitException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

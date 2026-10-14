@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInput":
             raise capo_route_53_domains.errors.invalid_input.InvalidInput.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TLDInMaintenance":
             raise capo_route_53_domains.errors.tld_in_maintenance.TLDInMaintenance.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

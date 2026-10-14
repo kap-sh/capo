@@ -43,47 +43,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_license_manager.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AuthorizationException":
             raise capo_license_manager.errors.authorization_exception.AuthorizationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EntitlementNotAllowedException":
             raise capo_license_manager.errors.entitlement_not_allowed_exception.EntitlementNotAllowedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_license_manager.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoEntitlementsAllowedException":
             raise capo_license_manager.errors.no_entitlements_allowed_exception.NoEntitlementsAllowedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RateLimitExceededException":
             raise capo_license_manager.errors.rate_limit_exceeded_exception.RateLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RedirectException":
             raise capo_license_manager.errors.redirect_exception.RedirectException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_license_manager.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_license_manager.errors.server_internal_exception.ServerInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedDigitalSignatureMethodException":
             raise capo_license_manager.errors.unsupported_digital_signature_method_exception.UnsupportedDigitalSignatureMethodException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_license_manager.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

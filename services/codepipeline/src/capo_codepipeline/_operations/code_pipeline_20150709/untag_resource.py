@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_codepipeline.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArnException":
             raise capo_codepipeline.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagsException":
             raise capo_codepipeline.errors.invalid_tags_exception.InvalidTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_codepipeline.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codepipeline.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

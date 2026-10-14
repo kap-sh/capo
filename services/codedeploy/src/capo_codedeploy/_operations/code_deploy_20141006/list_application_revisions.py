@@ -43,43 +43,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApplicationDoesNotExistException":
             raise capo_codedeploy.errors.application_does_not_exist_exception.ApplicationDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationNameRequiredException":
             raise capo_codedeploy.errors.application_name_required_exception.ApplicationNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "BucketNameFilterRequiredException":
             raise capo_codedeploy.errors.bucket_name_filter_required_exception.BucketNameFilterRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApplicationNameException":
             raise capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidBucketNameFilterException":
             raise capo_codedeploy.errors.invalid_bucket_name_filter_exception.InvalidBucketNameFilterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeployedStateFilterException":
             raise capo_codedeploy.errors.invalid_deployed_state_filter_exception.InvalidDeployedStateFilterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidKeyPrefixFilterException":
             raise capo_codedeploy.errors.invalid_key_prefix_filter_exception.InvalidKeyPrefixFilterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_codedeploy.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSortByException":
             raise capo_codedeploy.errors.invalid_sort_by_exception.InvalidSortByException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSortOrderException":
             raise capo_codedeploy.errors.invalid_sort_order_exception.InvalidSortOrderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

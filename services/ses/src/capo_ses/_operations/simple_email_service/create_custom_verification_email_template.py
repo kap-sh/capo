@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CustomVerificationEmailInvalidContent":
             raise capo_ses.errors.custom_verification_email_invalid_content_exception.CustomVerificationEmailInvalidContentException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomVerificationEmailTemplateAlreadyExists":
             raise capo_ses.errors.custom_verification_email_template_already_exists_exception.CustomVerificationEmailTemplateAlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "FromEmailAddressNotVerified":
             raise capo_ses.errors.from_email_address_not_verified_exception.FromEmailAddressNotVerifiedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_ses.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

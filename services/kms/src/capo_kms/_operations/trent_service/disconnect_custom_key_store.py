@@ -32,15 +32,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CustomKeyStoreInvalidStateException":
             raise capo_kms.errors.custom_key_store_invalid_state_exception.CustomKeyStoreInvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CustomKeyStoreNotFoundException":
             raise capo_kms.errors.custom_key_store_not_found_exception.CustomKeyStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInternalException":
             raise capo_kms.errors.kms_internal_exception.KMSInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

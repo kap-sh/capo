@@ -31,11 +31,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalErrorException":
             raise capo_shield.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_shield.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

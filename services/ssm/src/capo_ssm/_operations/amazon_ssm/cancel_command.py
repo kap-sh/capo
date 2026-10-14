@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateInstanceId":
             raise capo_ssm.errors.duplicate_instance_id.DuplicateInstanceId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCommandId":
             raise capo_ssm.errors.invalid_command_id.InvalidCommandId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceId":
             raise capo_ssm.errors.invalid_instance_id.InvalidInstanceId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

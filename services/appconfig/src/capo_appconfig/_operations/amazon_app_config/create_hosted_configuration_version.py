@@ -37,27 +37,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_appconfig.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_appconfig.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_appconfig.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PayloadTooLargeException":
             raise capo_appconfig.errors.payload_too_large_exception.PayloadTooLargeException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_appconfig.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_appconfig.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

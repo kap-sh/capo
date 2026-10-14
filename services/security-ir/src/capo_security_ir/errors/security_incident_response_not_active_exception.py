@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#SecurityIncidentResponseNotActiveException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_security_ir.errors import DeserializationError, ServiceError
@@ -37,6 +38,8 @@ class SecurityIncidentResponseNotActiveException(ServiceError):
         self,
         data: SecurityIncidentResponseNotActiveException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +47,12 @@ class SecurityIncidentResponseNotActiveException(ServiceError):
             is_retryable=False,
             code="SecurityIncidentResponseNotActiveException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SecurityIncidentResponseNotActiveException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

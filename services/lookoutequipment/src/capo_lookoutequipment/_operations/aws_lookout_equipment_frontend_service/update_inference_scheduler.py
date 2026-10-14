@@ -40,27 +40,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_lookoutequipment.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_lookoutequipment.errors.conflict_exception.ConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_lookoutequipment.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_lookoutequipment.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_lookoutequipment.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_lookoutequipment.errors.validation_exception.ValidationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

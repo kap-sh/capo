@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codedeploy.errors import ServiceError
@@ -36,7 +37,11 @@ class DeploymentIdRequiredException(ServiceError):
     code: str | None = "DeploymentIdRequiredException"
 
     def __init__(
-        self, data: DeploymentIdRequiredException_, message: str | None = None
+        self,
+        data: DeploymentIdRequiredException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class DeploymentIdRequiredException(ServiceError):
             is_retryable=False,
             code="DeploymentIdRequiredException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DeploymentIdRequiredException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

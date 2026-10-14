@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientPermissionsException":
             raise capo_config_service.errors.insufficient_permissions_exception.InsufficientPermissionsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_config_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxNumberOfConfigRulesExceededException":
             raise capo_config_service.errors.max_number_of_config_rules_exceeded_exception.MaxNumberOfConfigRulesExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoAvailableConfigurationRecorderException":
             raise capo_config_service.errors.no_available_configuration_recorder_exception.NoAvailableConfigurationRecorderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_config_service.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

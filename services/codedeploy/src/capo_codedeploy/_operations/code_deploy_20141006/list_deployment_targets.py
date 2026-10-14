@@ -42,47 +42,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApplicationDoesNotExistException":
             raise capo_codedeploy.errors.application_does_not_exist_exception.ApplicationDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentDoesNotExistException":
             raise capo_codedeploy.errors.deployment_does_not_exist_exception.DeploymentDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupDoesNotExistException":
             raise capo_codedeploy.errors.deployment_group_does_not_exist_exception.DeploymentGroupDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentIdRequiredException":
             raise capo_codedeploy.errors.deployment_id_required_exception.DeploymentIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentNotStartedException":
             raise capo_codedeploy.errors.deployment_not_started_exception.DeploymentNotStartedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentIdException":
             raise capo_codedeploy.errors.invalid_deployment_id_exception.InvalidDeploymentIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentInstanceTypeException":
             raise capo_codedeploy.errors.invalid_deployment_instance_type_exception.InvalidDeploymentInstanceTypeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceStatusException":
             raise capo_codedeploy.errors.invalid_instance_status_exception.InvalidInstanceStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceTypeException":
             raise capo_codedeploy.errors.invalid_instance_type_exception.InvalidInstanceTypeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_codedeploy.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTargetFilterNameException":
             raise capo_codedeploy.errors.invalid_target_filter_name_exception.InvalidTargetFilterNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -37,19 +37,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceErrorException":
             raise capo_global_accelerator.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_global_accelerator.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_global_accelerator.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ListenerNotFoundException":
             raise capo_global_accelerator.errors.listener_not_found_exception.ListenerNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_memorydb.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubnetGroupNotFoundFault":
             raise capo_memorydb.errors.subnet_group_not_found_fault.SubnetGroupNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

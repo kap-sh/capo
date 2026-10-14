@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DeploymentConfigDoesNotExistException":
             raise capo_codedeploy.errors.deployment_config_does_not_exist_exception.DeploymentConfigDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentConfigNameRequiredException":
             raise capo_codedeploy.errors.deployment_config_name_required_exception.DeploymentConfigNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidComputePlatformException":
             raise capo_codedeploy.errors.invalid_compute_platform_exception.InvalidComputePlatformException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentConfigNameException":
             raise capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

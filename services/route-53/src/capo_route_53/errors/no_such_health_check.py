@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
@@ -36,16 +37,25 @@ class NoSuchHealthCheck(ServiceError):
 
     code: str | None = "NoSuchHealthCheck"
 
-    def __init__(self, data: NoSuchHealthCheck_, message: str | None = None):
+    def __init__(
+        self,
+        data: NoSuchHealthCheck_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="NoSuchHealthCheck",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_xml(cls, el: Element, message: str | None = None) -> "NoSuchHealthCheck":
-        return cls(deserialize_xml(el), message)
+    def from_xml(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "NoSuchHealthCheck":
+        return cls(deserialize_xml(el), message, response=response)

@@ -37,35 +37,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_migration_hub.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DryRunOperation":
             raise capo_migration_hub.errors.dry_run_operation.DryRunOperation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "HomeRegionNotSetException":
             raise capo_migration_hub.errors.home_region_not_set_exception.HomeRegionNotSetException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_migration_hub.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_migration_hub.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_migration_hub.errors.service_unavailable_exception.ServiceUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_migration_hub.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_migration_hub.errors.unauthorized_operation.UnauthorizedOperation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_eks.errors import ServiceError
@@ -36,7 +37,11 @@ class ResourcePropagationDelayException(ServiceError):
     code: str | None = "ResourcePropagationDelayException"
 
     def __init__(
-        self, data: ResourcePropagationDelayException_, message: str | None = None
+        self,
+        data: ResourcePropagationDelayException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class ResourcePropagationDelayException(ServiceError):
             is_retryable=False,
             code="ResourcePropagationDelayException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourcePropagationDelayException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

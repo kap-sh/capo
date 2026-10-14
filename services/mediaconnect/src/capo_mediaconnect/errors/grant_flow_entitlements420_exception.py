@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediaconnect#GrantFlowEntitlements420Exception``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_mediaconnect.errors import ServiceError
@@ -30,7 +31,11 @@ class GrantFlowEntitlements420Exception(ServiceError):
     code: str | None = "GrantFlowEntitlements420Exception"
 
     def __init__(
-        self, data: GrantFlowEntitlements420Exception_, message: str | None = None
+        self,
+        data: GrantFlowEntitlements420Exception_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -38,11 +43,12 @@ class GrantFlowEntitlements420Exception(ServiceError):
             is_retryable=False,
             code="GrantFlowEntitlements420Exception",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "GrantFlowEntitlements420Exception":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

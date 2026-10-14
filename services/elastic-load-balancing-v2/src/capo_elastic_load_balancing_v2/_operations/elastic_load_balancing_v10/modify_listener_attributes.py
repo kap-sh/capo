@@ -42,11 +42,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing_v2.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ListenerNotFound":
             raise capo_elastic_load_balancing_v2.errors.listener_not_found_exception.ListenerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

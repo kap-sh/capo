@@ -42,31 +42,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BucketNotFoundFault":
             raise capo_redshift.errors.bucket_not_found_fault.BucketNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientS3BucketPolicyFault":
             raise capo_redshift.errors.insufficient_s3_bucket_policy_fault.InsufficientS3BucketPolicyFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidS3BucketNameFault":
             raise capo_redshift.errors.invalid_s3_bucket_name_fault.InvalidS3BucketNameFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidS3KeyPrefixFault":
             raise capo_redshift.errors.invalid_s3_key_prefix_fault.InvalidS3KeyPrefixFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

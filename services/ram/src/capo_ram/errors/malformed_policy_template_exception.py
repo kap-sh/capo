@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_ram.errors import DeserializationError, ServiceError
@@ -36,7 +37,11 @@ class MalformedPolicyTemplateException(ServiceError):
     code: str | None = "MalformedPolicyTemplateException"
 
     def __init__(
-        self, data: MalformedPolicyTemplateException_, message: str | None = None
+        self,
+        data: MalformedPolicyTemplateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class MalformedPolicyTemplateException(ServiceError):
             is_retryable=False,
             code="MalformedPolicyTemplateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "MalformedPolicyTemplateException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

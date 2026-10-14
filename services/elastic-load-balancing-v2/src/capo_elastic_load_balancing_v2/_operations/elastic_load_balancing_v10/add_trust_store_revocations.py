@@ -45,19 +45,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidRevocationContent":
             raise capo_elastic_load_balancing_v2.errors.invalid_revocation_content_exception.InvalidRevocationContentException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RevocationContentNotFound":
             raise capo_elastic_load_balancing_v2.errors.revocation_content_not_found_exception.RevocationContentNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTrustStoreRevocationEntries":
             raise capo_elastic_load_balancing_v2.errors.too_many_trust_store_revocation_entries_exception.TooManyTrustStoreRevocationEntriesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustStoreNotFound":
             raise capo_elastic_load_balancing_v2.errors.trust_store_not_found_exception.TrustStoreNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

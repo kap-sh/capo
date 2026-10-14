@@ -66,83 +66,83 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ALPNPolicyNotFound":
             raise capo_elastic_load_balancing_v2.errors.alpn_policy_not_supported_exception.ALPNPolicyNotSupportedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CertificateNotFound":
             raise capo_elastic_load_balancing_v2.errors.certificate_not_found_exception.CertificateNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateListener":
             raise capo_elastic_load_balancing_v2.errors.duplicate_listener_exception.DuplicateListenerException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IncompatibleProtocols":
             raise capo_elastic_load_balancing_v2.errors.incompatible_protocols_exception.IncompatibleProtocolsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing_v2.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidLoadBalancerAction":
             raise capo_elastic_load_balancing_v2.errors.invalid_load_balancer_action_exception.InvalidLoadBalancerActionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing_v2.errors.load_balancer_not_found_exception.LoadBalancerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SSLPolicyNotFound":
             raise capo_elastic_load_balancing_v2.errors.ssl_policy_not_found_exception.SSLPolicyNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TargetGroupAssociationLimit":
             raise capo_elastic_load_balancing_v2.errors.target_group_association_limit_exception.TargetGroupAssociationLimitException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TargetGroupNotFound":
             raise capo_elastic_load_balancing_v2.errors.target_group_not_found_exception.TargetGroupNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyActions":
             raise capo_elastic_load_balancing_v2.errors.too_many_actions_exception.TooManyActionsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCertificates":
             raise capo_elastic_load_balancing_v2.errors.too_many_certificates_exception.TooManyCertificatesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyListeners":
             raise capo_elastic_load_balancing_v2.errors.too_many_listeners_exception.TooManyListenersException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyRegistrationsForTargetId":
             raise capo_elastic_load_balancing_v2.errors.too_many_registrations_for_target_id_exception.TooManyRegistrationsForTargetIdException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTags":
             raise capo_elastic_load_balancing_v2.errors.too_many_tags_exception.TooManyTagsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTargets":
             raise capo_elastic_load_balancing_v2.errors.too_many_targets_exception.TooManyTargetsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyUniqueTargetGroupsPerLoadBalancer":
             raise capo_elastic_load_balancing_v2.errors.too_many_unique_target_groups_per_load_balancer_exception.TooManyUniqueTargetGroupsPerLoadBalancerException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustStoreNotFound":
             raise capo_elastic_load_balancing_v2.errors.trust_store_not_found_exception.TrustStoreNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustStoreNotReady":
             raise capo_elastic_load_balancing_v2.errors.trust_store_not_ready_exception.TrustStoreNotReadyException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedProtocol":
             raise capo_elastic_load_balancing_v2.errors.unsupported_protocol_exception.UnsupportedProtocolException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -40,43 +40,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CallRateLimitExceededException":
             raise capo_imagebuilder.errors.call_rate_limit_exceeded_exception.CallRateLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClientException":
             raise capo_imagebuilder.errors.client_exception.ClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_imagebuilder.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "IdempotentParameterMismatchException":
             raise capo_imagebuilder.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_imagebuilder.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_imagebuilder.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_imagebuilder.errors.resource_in_use_exception.ResourceInUseException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_imagebuilder.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_imagebuilder.errors.service_exception.ServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_imagebuilder.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

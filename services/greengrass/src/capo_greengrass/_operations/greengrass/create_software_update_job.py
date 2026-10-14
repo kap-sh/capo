@@ -36,11 +36,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_greengrass.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_greengrass.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

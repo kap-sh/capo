@@ -48,63 +48,63 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationNotFound":
             raise capo_docdb.errors.authorization_not_found_fault.AuthorizationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterNotFoundFault":
             raise capo_docdb.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceAlreadyExists":
             raise capo_docdb.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBParameterGroupNotFound":
             raise capo_docdb.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSecurityGroupNotFound":
             raise capo_docdb.errors.db_security_group_not_found_fault.DBSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupDoesNotCoverEnoughAZs":
             raise capo_docdb.errors.db_subnet_group_does_not_cover_enough_a_zs.DBSubnetGroupDoesNotCoverEnoughAZs.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupNotFoundFault":
             raise capo_docdb.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InstanceQuotaExceeded":
             raise capo_docdb.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientDBInstanceCapacity":
             raise capo_docdb.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_docdb.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_docdb.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_docdb.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_docdb.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageQuotaExceeded":
             raise capo_docdb.errors.storage_quota_exceeded_fault.StorageQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageTypeNotSupported":
             raise capo_docdb.errors.storage_type_not_supported_fault.StorageTypeNotSupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

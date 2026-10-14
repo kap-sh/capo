@@ -44,19 +44,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "KeyGroupAlreadyExists":
             raise capo_cloudfront.errors.key_group_already_exists.KeyGroupAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyKeyGroups":
             raise capo_cloudfront.errors.too_many_key_groups.TooManyKeyGroups.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyPublicKeysInKeyGroup":
             raise capo_cloudfront.errors.too_many_public_keys_in_key_group.TooManyPublicKeysInKeyGroup.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

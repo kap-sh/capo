@@ -41,35 +41,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EncryptionIntegrityChecksFailedException":
             raise capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyAccessDeniedException":
             raise capo_codecommit.errors.encryption_key_access_denied_exception.EncryptionKeyAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyDisabledException":
             raise capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyNotFoundException":
             raise capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyUnavailableException":
             raise capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaximumRepositoryNamesExceededException":
             raise capo_codecommit.errors.maximum_repository_names_exceeded_exception.MaximumRepositoryNamesExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNamesRequiredException":
             raise capo_codecommit.errors.repository_names_required_exception.RepositoryNamesRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

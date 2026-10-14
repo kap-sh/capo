@@ -42,43 +42,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_healthlake.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "AgentMessageOutOfContextException":
             raise capo_healthlake.errors.agent_message_out_of_context_exception.AgentMessageOutOfContextException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ConversationNotFoundException":
             raise capo_healthlake.errors.conversation_not_found_exception.ConversationNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_healthlake.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "NotImplementedOperationException":
             raise capo_healthlake.errors.not_implemented_operation_exception.NotImplementedOperationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_healthlake.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_healthlake.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_healthlake.errors.unauthorized_exception.UnauthorizedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedMIMETypeException":
             raise capo_healthlake.errors.unsupported_mime_type_exception.UnsupportedMIMETypeException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_healthlake.errors.validation_exception.ValidationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

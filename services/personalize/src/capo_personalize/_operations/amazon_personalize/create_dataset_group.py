@@ -35,19 +35,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInputException":
             raise capo_personalize.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_personalize.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_personalize.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_personalize.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

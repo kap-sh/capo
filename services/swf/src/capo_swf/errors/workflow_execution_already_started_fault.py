@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_swf.errors import ServiceError
@@ -36,7 +37,11 @@ class WorkflowExecutionAlreadyStartedFault(ServiceError):
     code: str | None = "WorkflowExecutionAlreadyStartedFault"
 
     def __init__(
-        self, data: WorkflowExecutionAlreadyStartedFault_, message: str | None = None
+        self,
+        data: WorkflowExecutionAlreadyStartedFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class WorkflowExecutionAlreadyStartedFault(ServiceError):
             is_retryable=False,
             code="WorkflowExecutionAlreadyStartedFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "WorkflowExecutionAlreadyStartedFault":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

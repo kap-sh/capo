@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateRequest":
             raise capo_servicediscovery.errors.duplicate_request.DuplicateRequest.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInput":
             raise capo_servicediscovery.errors.invalid_input.InvalidInput.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NamespaceNotFound":
             raise capo_servicediscovery.errors.namespace_not_found.NamespaceNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUse":
             raise capo_servicediscovery.errors.resource_in_use.ResourceInUse.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

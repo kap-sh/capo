@@ -46,31 +46,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DelegationSetAlreadyCreated":
             raise capo_route_53.errors.delegation_set_already_created.DelegationSetAlreadyCreated.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "DelegationSetAlreadyReusable":
             raise capo_route_53.errors.delegation_set_already_reusable.DelegationSetAlreadyReusable.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "DelegationSetNotAvailable":
             raise capo_route_53.errors.delegation_set_not_available.DelegationSetNotAvailable.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "HostedZoneNotFound":
             raise capo_route_53.errors.hosted_zone_not_found.HostedZoneNotFound.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_route_53.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitsExceeded":
             raise capo_route_53.errors.limits_exceeded.LimitsExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

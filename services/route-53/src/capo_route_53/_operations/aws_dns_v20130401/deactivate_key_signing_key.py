@@ -47,31 +47,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModification":
             raise capo_route_53.errors.concurrent_modification.ConcurrentModification.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKeySigningKeyStatus":
             raise capo_route_53.errors.invalid_key_signing_key_status.InvalidKeySigningKeyStatus.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSigningStatus":
             raise capo_route_53.errors.invalid_signing_status.InvalidSigningStatus.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "KeySigningKeyInParentDSRecord":
             raise capo_route_53.errors.key_signing_key_in_parent_ds_record.KeySigningKeyInParentDSRecord.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "KeySigningKeyInUse":
             raise capo_route_53.errors.key_signing_key_in_use.KeySigningKeyInUse.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchKeySigningKey":
             raise capo_route_53.errors.no_such_key_signing_key.NoSuchKeySigningKey.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

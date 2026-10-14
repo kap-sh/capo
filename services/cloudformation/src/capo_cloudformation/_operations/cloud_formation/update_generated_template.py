@@ -40,15 +40,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlreadyExistsException":
             raise capo_cloudformation.errors.already_exists_exception.AlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "GeneratedTemplateNotFound":
             raise capo_cloudformation.errors.generated_template_not_found_exception.GeneratedTemplateNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededException":
             raise capo_cloudformation.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

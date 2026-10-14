@@ -35,27 +35,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_dynamodb.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidEndpointException":
             raise capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_dynamodb.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "PolicyNotFoundException":
             raise capo_dynamodb.errors.policy_not_found_exception.PolicyNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_dynamodb.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_dynamodb.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

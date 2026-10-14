@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudformation._protocol.xml import Element
@@ -41,7 +42,11 @@ class TypeConfigurationNotFoundException(ServiceError):
     code: str | None = "TypeConfigurationNotFoundException"
 
     def __init__(
-        self, data: TypeConfigurationNotFoundException_, message: str | None = None
+        self,
+        data: TypeConfigurationNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class TypeConfigurationNotFoundException(ServiceError):
             is_retryable=False,
             code="TypeConfigurationNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TypeConfigurationNotFoundException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

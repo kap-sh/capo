@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CaCertificatesBundleNotFound":
             raise capo_elastic_load_balancing_v2.errors.ca_certificates_bundle_not_found_exception.CaCertificatesBundleNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCaCertificatesBundle":
             raise capo_elastic_load_balancing_v2.errors.invalid_ca_certificates_bundle_exception.InvalidCaCertificatesBundleException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustStoreNotFound":
             raise capo_elastic_load_balancing_v2.errors.trust_store_not_found_exception.TrustStoreNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

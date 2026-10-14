@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#AccessDeniedException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_arc_region_switch.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class AccessDeniedException(ServiceError):
 
     code: str | None = "AccessDeniedException"
 
-    def __init__(self, data: AccessDeniedException_, message: str | None = None):
+    def __init__(
+        self,
+        data: AccessDeniedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="AccessDeniedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AccessDeniedException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

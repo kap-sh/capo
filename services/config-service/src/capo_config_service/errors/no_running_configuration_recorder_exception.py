@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_config_service.errors import ServiceError
@@ -36,7 +37,11 @@ class NoRunningConfigurationRecorderException(ServiceError):
     code: str | None = "NoRunningConfigurationRecorderException"
 
     def __init__(
-        self, data: NoRunningConfigurationRecorderException_, message: str | None = None
+        self,
+        data: NoRunningConfigurationRecorderException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class NoRunningConfigurationRecorderException(ServiceError):
             is_retryable=False,
             code="NoRunningConfigurationRecorderException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "NoRunningConfigurationRecorderException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

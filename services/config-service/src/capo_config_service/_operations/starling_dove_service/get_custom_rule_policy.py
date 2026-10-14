@@ -30,7 +30,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoSuchConfigRuleException":
             raise capo_config_service.errors.no_such_config_rule_exception.NoSuchConfigRuleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

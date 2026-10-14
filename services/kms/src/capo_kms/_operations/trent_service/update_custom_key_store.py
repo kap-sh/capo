@@ -48,71 +48,71 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudHsmClusterInvalidConfigurationException":
             raise capo_kms.errors.cloud_hsm_cluster_invalid_configuration_exception.CloudHsmClusterInvalidConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmClusterNotActiveException":
             raise capo_kms.errors.cloud_hsm_cluster_not_active_exception.CloudHsmClusterNotActiveException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmClusterNotFoundException":
             raise capo_kms.errors.cloud_hsm_cluster_not_found_exception.CloudHsmClusterNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmClusterNotRelatedException":
             raise capo_kms.errors.cloud_hsm_cluster_not_related_exception.CloudHsmClusterNotRelatedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CustomKeyStoreInvalidStateException":
             raise capo_kms.errors.custom_key_store_invalid_state_exception.CustomKeyStoreInvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CustomKeyStoreNameInUseException":
             raise capo_kms.errors.custom_key_store_name_in_use_exception.CustomKeyStoreNameInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CustomKeyStoreNotFoundException":
             raise capo_kms.errors.custom_key_store_not_found_exception.CustomKeyStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInternalException":
             raise capo_kms.errors.kms_internal_exception.KMSInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyIncorrectAuthenticationCredentialException":
             raise capo_kms.errors.xks_proxy_incorrect_authentication_credential_exception.XksProxyIncorrectAuthenticationCredentialException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyInvalidConfigurationException":
             raise capo_kms.errors.xks_proxy_invalid_configuration_exception.XksProxyInvalidConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyInvalidResponseException":
             raise capo_kms.errors.xks_proxy_invalid_response_exception.XksProxyInvalidResponseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyUriEndpointInUseException":
             raise capo_kms.errors.xks_proxy_uri_endpoint_in_use_exception.XksProxyUriEndpointInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyUriInUseException":
             raise capo_kms.errors.xks_proxy_uri_in_use_exception.XksProxyUriInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyUriUnreachableException":
             raise capo_kms.errors.xks_proxy_uri_unreachable_exception.XksProxyUriUnreachableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyVpcEndpointServiceInUseException":
             raise capo_kms.errors.xks_proxy_vpc_endpoint_service_in_use_exception.XksProxyVpcEndpointServiceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyVpcEndpointServiceInvalidConfigurationException":
             raise capo_kms.errors.xks_proxy_vpc_endpoint_service_invalid_configuration_exception.XksProxyVpcEndpointServiceInvalidConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksProxyVpcEndpointServiceNotFoundException":
             raise capo_kms.errors.xks_proxy_vpc_endpoint_service_not_found_exception.XksProxyVpcEndpointServiceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -35,31 +35,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CommentDeletedException":
             raise capo_codecommit.errors.comment_deleted_exception.CommentDeletedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentDoesNotExistException":
             raise capo_codecommit.errors.comment_does_not_exist_exception.CommentDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentIdRequiredException":
             raise capo_codecommit.errors.comment_id_required_exception.CommentIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCommentIdException":
             raise capo_codecommit.errors.invalid_comment_id_exception.InvalidCommentIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidReactionValueException":
             raise capo_codecommit.errors.invalid_reaction_value_exception.InvalidReactionValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ReactionLimitExceededException":
             raise capo_codecommit.errors.reaction_limit_exceeded_exception.ReactionLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ReactionValueRequiredException":
             raise capo_codecommit.errors.reaction_value_required_exception.ReactionValueRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

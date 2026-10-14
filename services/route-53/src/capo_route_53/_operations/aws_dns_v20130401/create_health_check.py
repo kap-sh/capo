@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HealthCheckAlreadyExists":
             raise capo_route_53.errors.health_check_already_exists.HealthCheckAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyHealthChecks":
             raise capo_route_53.errors.too_many_health_checks.TooManyHealthChecks.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

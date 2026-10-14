@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#UnsupportedMIMETypeException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_healthlake.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class UnsupportedMIMETypeException(ServiceError):
 
     code: str | None = "UnsupportedMIMETypeException"
 
-    def __init__(self, data: UnsupportedMIMETypeException_, message: str | None = None):
+    def __init__(
+        self,
+        data: UnsupportedMIMETypeException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="UnsupportedMIMETypeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedMIMETypeException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

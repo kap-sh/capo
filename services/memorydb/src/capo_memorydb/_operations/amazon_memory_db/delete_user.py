@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidUserStateFault":
             raise capo_memorydb.errors.invalid_user_state_fault.InvalidUserStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UserNotFoundFault":
             raise capo_memorydb.errors.user_not_found_fault.UserNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

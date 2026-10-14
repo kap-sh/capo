@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidConfigurationRecorderNameException":
             raise capo_config_service.errors.invalid_configuration_recorder_name_exception.InvalidConfigurationRecorderNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRecordingGroupException":
             raise capo_config_service.errors.invalid_recording_group_exception.InvalidRecordingGroupException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_config_service.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxNumberOfConfigurationRecordersExceededException":
             raise capo_config_service.errors.max_number_of_configuration_recorders_exceeded_exception.MaxNumberOfConfigurationRecordersExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnmodifiableEntityException":
             raise capo_config_service.errors.unmodifiable_entity_exception.UnmodifiableEntityException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_config_service.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

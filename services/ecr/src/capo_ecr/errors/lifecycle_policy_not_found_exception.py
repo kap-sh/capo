@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ecr.errors import ServiceError
@@ -35,7 +36,11 @@ class LifecyclePolicyNotFoundException(ServiceError):
     code: str | None = "LifecyclePolicyNotFoundException"
 
     def __init__(
-        self, data: LifecyclePolicyNotFoundException_, message: str | None = None
+        self,
+        data: LifecyclePolicyNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class LifecyclePolicyNotFoundException(ServiceError):
             is_retryable=False,
             code="LifecyclePolicyNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "LifecyclePolicyNotFoundException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

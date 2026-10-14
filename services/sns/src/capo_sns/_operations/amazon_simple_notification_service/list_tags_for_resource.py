@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationError":
             raise capo_sns.errors.authorization_error_exception.AuthorizationErrorException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ConcurrentAccess":
             raise capo_sns.errors.concurrent_access_exception.ConcurrentAccessException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameter":
             raise capo_sns.errors.invalid_parameter_exception.InvalidParameterException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceNotFound":
             raise capo_sns.errors.resource_not_found_exception.ResourceNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagPolicy":
             raise capo_sns.errors.tag_policy_exception.TagPolicyException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

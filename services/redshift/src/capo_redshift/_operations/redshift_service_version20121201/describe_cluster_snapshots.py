@@ -40,19 +40,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSnapshotNotFound":
             raise capo_redshift.errors.cluster_snapshot_not_found_fault.ClusterSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

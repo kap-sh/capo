@@ -49,27 +49,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CidrBlockInUseException":
             raise capo_route_53.errors.cidr_block_in_use_exception.CidrBlockInUseException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "CidrCollectionVersionMismatchException":
             raise capo_route_53.errors.cidr_collection_version_mismatch_exception.CidrCollectionVersionMismatchException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "ConcurrentModification":
             raise capo_route_53.errors.concurrent_modification.ConcurrentModification.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitsExceeded":
             raise capo_route_53.errors.limits_exceeded.LimitsExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchCidrCollectionException":
             raise capo_route_53.errors.no_such_cidr_collection_exception.NoSuchCidrCollectionException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

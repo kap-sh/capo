@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codepipeline#WebhookNotFoundException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_codepipeline.errors import ServiceError
@@ -25,18 +26,25 @@ class WebhookNotFoundException(ServiceError):
 
     code: str | None = "WebhookNotFoundException"
 
-    def __init__(self, data: WebhookNotFoundException_, message: str | None = None):
+    def __init__(
+        self,
+        data: WebhookNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="WebhookNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "WebhookNotFoundException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

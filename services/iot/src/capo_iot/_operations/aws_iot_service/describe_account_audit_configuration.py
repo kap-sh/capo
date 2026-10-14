@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalFailureException":
             raise capo_iot.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_iot.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

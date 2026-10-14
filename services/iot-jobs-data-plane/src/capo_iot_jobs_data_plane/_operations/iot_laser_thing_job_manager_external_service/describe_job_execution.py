@@ -40,27 +40,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CertificateValidationException":
             raise capo_iot_jobs_data_plane.errors.certificate_validation_exception.CertificateValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_iot_jobs_data_plane.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_iot_jobs_data_plane.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_iot_jobs_data_plane.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TerminalStateException":
             raise capo_iot_jobs_data_plane.errors.terminal_state_exception.TerminalStateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_iot_jobs_data_plane.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

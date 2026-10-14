@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "LexiconNotFoundException":
             raise capo_polly.errors.lexicon_not_found_exception.LexiconNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceFailureException":
             raise capo_polly.errors.service_failure_exception.ServiceFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

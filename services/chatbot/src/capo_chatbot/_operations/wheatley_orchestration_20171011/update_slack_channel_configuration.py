@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterException":
             raise capo_chatbot.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_chatbot.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_chatbot.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UpdateSlackChannelConfigurationException":
             raise capo_chatbot.errors.update_slack_channel_configuration_exception.UpdateSlackChannelConfigurationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

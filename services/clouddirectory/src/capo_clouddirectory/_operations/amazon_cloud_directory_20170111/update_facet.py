@@ -42,47 +42,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_clouddirectory.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "FacetNotFoundException":
             raise capo_clouddirectory.errors.facet_not_found_exception.FacetNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "FacetValidationException":
             raise capo_clouddirectory.errors.facet_validation_exception.FacetValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_clouddirectory.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArnException":
             raise capo_clouddirectory.errors.invalid_arn_exception.InvalidArnException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidFacetUpdateException":
             raise capo_clouddirectory.errors.invalid_facet_update_exception.InvalidFacetUpdateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRuleException":
             raise capo_clouddirectory.errors.invalid_rule_exception.InvalidRuleException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_clouddirectory.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_clouddirectory.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "RetryableConflictException":
             raise capo_clouddirectory.errors.retryable_conflict_exception.RetryableConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_clouddirectory.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

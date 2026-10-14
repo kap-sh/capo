@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_rds_data.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequestException":
             raise capo_rds_data.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_rds_data.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_rds_data.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableError":
             raise capo_rds_data.errors.service_unavailable_error.ServiceUnavailableError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

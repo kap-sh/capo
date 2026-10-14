@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ArnNotSupportedException":
             raise capo_codedeploy.errors.arn_not_supported_exception.ArnNotSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArnException":
             raise capo_codedeploy.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceArnRequiredException":
             raise capo_codedeploy.errors.resource_arn_required_exception.ResourceArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

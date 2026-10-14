@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
@@ -41,7 +42,11 @@ class S3SubscriptionRequiredException(ServiceError):
     code: str | None = "S3SubscriptionRequiredException"
 
     def __init__(
-        self, data: S3SubscriptionRequiredException_, message: str | None = None
+        self,
+        data: S3SubscriptionRequiredException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class S3SubscriptionRequiredException(ServiceError):
             is_retryable=False,
             code="S3SubscriptionRequiredException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "S3SubscriptionRequiredException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

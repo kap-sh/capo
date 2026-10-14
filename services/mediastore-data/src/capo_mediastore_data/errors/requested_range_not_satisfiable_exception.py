@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_mediastore_data.errors import ServiceError
@@ -35,7 +36,11 @@ class RequestedRangeNotSatisfiableException(ServiceError):
     code: str | None = "RequestedRangeNotSatisfiableException"
 
     def __init__(
-        self, data: RequestedRangeNotSatisfiableException_, message: str | None = None
+        self,
+        data: RequestedRangeNotSatisfiableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class RequestedRangeNotSatisfiableException(ServiceError):
             is_retryable=False,
             code="RequestedRangeNotSatisfiableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RequestedRangeNotSatisfiableException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

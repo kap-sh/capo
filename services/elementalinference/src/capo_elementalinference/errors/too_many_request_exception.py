@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.elementalinference#TooManyRequestException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_elementalinference.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class TooManyRequestException(ServiceError):
 
     code: str | None = "TooManyRequestException"
 
-    def __init__(self, data: TooManyRequestException_, message: str | None = None):
+    def __init__(
+        self,
+        data: TooManyRequestException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=True,
             code="TooManyRequestException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyRequestException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

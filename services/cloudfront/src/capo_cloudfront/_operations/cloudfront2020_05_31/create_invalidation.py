@@ -52,31 +52,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "BatchTooLarge":
             raise capo_cloudfront.errors.batch_too_large.BatchTooLarge.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "MissingBody":
             raise capo_cloudfront.errors.missing_body.MissingBody.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchDistribution":
             raise capo_cloudfront.errors.no_such_distribution.NoSuchDistribution.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyInvalidationsInProgress":
             raise capo_cloudfront.errors.too_many_invalidations_in_progress.TooManyInvalidationsInProgress.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModification":
             raise capo_iam.errors.concurrent_modification_exception.ConcurrentModificationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EntityAlreadyExists":
             raise capo_iam.errors.entity_already_exists_exception.EntityAlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_iam.errors.invalid_input_exception.InvalidInputException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_iam.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "MalformedPolicyDocument":
             raise capo_iam.errors.malformed_policy_document_exception.MalformedPolicyDocumentException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceFailure":
             raise capo_iam.errors.service_failure_exception.ServiceFailureException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

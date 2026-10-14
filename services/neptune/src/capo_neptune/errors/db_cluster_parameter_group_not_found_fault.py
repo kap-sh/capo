@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_neptune._protocol.xml import Element
@@ -41,7 +42,11 @@ class DBClusterParameterGroupNotFoundFault(ServiceError):
     code: str | None = "DBClusterParameterGroupNotFoundFault"
 
     def __init__(
-        self, data: DBClusterParameterGroupNotFoundFault_, message: str | None = None
+        self,
+        data: DBClusterParameterGroupNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class DBClusterParameterGroupNotFoundFault(ServiceError):
             is_retryable=False,
             code="DBClusterParameterGroupNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "DBClusterParameterGroupNotFoundFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

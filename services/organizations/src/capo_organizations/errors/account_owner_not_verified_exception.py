@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_organizations.errors import ServiceError
@@ -35,7 +36,11 @@ class AccountOwnerNotVerifiedException(ServiceError):
     code: str | None = "AccountOwnerNotVerifiedException"
 
     def __init__(
-        self, data: AccountOwnerNotVerifiedException_, message: str | None = None
+        self,
+        data: AccountOwnerNotVerifiedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class AccountOwnerNotVerifiedException(ServiceError):
             is_retryable=False,
             code="AccountOwnerNotVerifiedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AccountOwnerNotVerifiedException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

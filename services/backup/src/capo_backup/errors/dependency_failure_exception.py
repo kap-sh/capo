@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_backup.errors import ServiceError
@@ -51,18 +52,25 @@ class DependencyFailureException(ServiceError):
 
     code: str | None = "DependencyFailureException"
 
-    def __init__(self, data: DependencyFailureException_, message: str | None = None):
+    def __init__(
+        self,
+        data: DependencyFailureException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="DependencyFailureException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DependencyFailureException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

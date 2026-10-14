@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AssociationDoesNotExist":
             raise capo_ssm.errors.association_does_not_exist.AssociationDoesNotExist.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAssociation":
             raise capo_ssm.errors.invalid_association.InvalidAssociation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

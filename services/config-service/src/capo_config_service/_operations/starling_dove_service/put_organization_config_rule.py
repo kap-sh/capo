@@ -42,35 +42,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientPermissionsException":
             raise capo_config_service.errors.insufficient_permissions_exception.InsufficientPermissionsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_config_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxNumberOfOrganizationConfigRulesExceededException":
             raise capo_config_service.errors.max_number_of_organization_config_rules_exceeded_exception.MaxNumberOfOrganizationConfigRulesExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoAvailableOrganizationException":
             raise capo_config_service.errors.no_available_organization_exception.NoAvailableOrganizationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationAccessDeniedException":
             raise capo_config_service.errors.organization_access_denied_exception.OrganizationAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationAllFeaturesNotEnabledException":
             raise capo_config_service.errors.organization_all_features_not_enabled_exception.OrganizationAllFeaturesNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_config_service.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_config_service.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

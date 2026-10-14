@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sagemaker_featurestore_runtime.errors import ServiceError
@@ -34,16 +35,25 @@ class ServiceUnavailable(ServiceError):
 
     code: str | None = "ServiceUnavailable"
 
-    def __init__(self, data: ServiceUnavailable_, message: str | None = None):
+    def __init__(
+        self,
+        data: ServiceUnavailable_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="ServiceUnavailable",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ServiceUnavailable":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ServiceUnavailable":
+        return cls(deserialize_json(data), message, response=response)

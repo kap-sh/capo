@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_clouddirectory.errors import ServiceError
@@ -35,7 +36,11 @@ class UnsupportedIndexTypeException(ServiceError):
     code: str | None = "UnsupportedIndexTypeException"
 
     def __init__(
-        self, data: UnsupportedIndexTypeException_, message: str | None = None
+        self,
+        data: UnsupportedIndexTypeException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class UnsupportedIndexTypeException(ServiceError):
             is_retryable=False,
             code="UnsupportedIndexTypeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedIndexTypeException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

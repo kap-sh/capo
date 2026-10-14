@@ -50,35 +50,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CapacityDecreaseRequestLimitExceeded":
             raise capo_elastic_load_balancing_v2.errors.capacity_decrease_requests_limit_exceeded_exception.CapacityDecreaseRequestsLimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CapacityReservationPending":
             raise capo_elastic_load_balancing_v2.errors.capacity_reservation_pending_exception.CapacityReservationPendingException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CapacityUnitsLimitExceeded":
             raise capo_elastic_load_balancing_v2.errors.capacity_units_limit_exceeded_exception.CapacityUnitsLimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientCapacity":
             raise capo_elastic_load_balancing_v2.errors.insufficient_capacity_exception.InsufficientCapacityException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing_v2.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing_v2.errors.load_balancer_not_found_exception.LoadBalancerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationNotPermitted":
             raise capo_elastic_load_balancing_v2.errors.operation_not_permitted_exception.OperationNotPermittedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "PriorRequestNotComplete":
             raise capo_elastic_load_balancing_v2.errors.prior_request_not_complete_exception.PriorRequestNotCompleteException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

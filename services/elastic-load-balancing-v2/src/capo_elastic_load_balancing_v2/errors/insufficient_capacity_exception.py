@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_load_balancing_v2._protocol.xml import Element
@@ -40,7 +41,11 @@ class InsufficientCapacityException(ServiceError):
     code: str | None = "InsufficientCapacityException"
 
     def __init__(
-        self, data: InsufficientCapacityException_, message: str | None = None
+        self,
+        data: InsufficientCapacityException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -48,11 +53,12 @@ class InsufficientCapacityException(ServiceError):
             is_retryable=False,
             code="InsufficientCapacityException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InsufficientCapacityException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

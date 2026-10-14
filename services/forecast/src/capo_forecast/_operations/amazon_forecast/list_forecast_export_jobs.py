@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInputException":
             raise capo_forecast.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_forecast.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

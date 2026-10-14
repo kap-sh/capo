@@ -50,31 +50,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "CannotDeleteEntityWhileInUse":
             raise capo_cloudfront.errors.cannot_delete_entity_while_in_use.CannotDeleteEntityWhileInUse.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "EntityNotFound":
             raise capo_cloudfront.errors.entity_not_found.EntityNotFound.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_cloudfront.errors.unsupported_operation.UnsupportedOperation.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

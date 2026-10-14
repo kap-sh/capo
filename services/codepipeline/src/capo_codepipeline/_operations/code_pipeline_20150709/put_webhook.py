@@ -40,35 +40,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_codepipeline.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagsException":
             raise capo_codepipeline.errors.invalid_tags_exception.InvalidTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidWebhookAuthenticationParametersException":
             raise capo_codepipeline.errors.invalid_webhook_authentication_parameters_exception.InvalidWebhookAuthenticationParametersException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidWebhookFilterPatternException":
             raise capo_codepipeline.errors.invalid_webhook_filter_pattern_exception.InvalidWebhookFilterPatternException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_codepipeline.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PipelineNotFoundException":
             raise capo_codepipeline.errors.pipeline_not_found_exception.PipelineNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_codepipeline.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codepipeline.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

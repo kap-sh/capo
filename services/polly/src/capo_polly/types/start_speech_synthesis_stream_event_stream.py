@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_polly._iter import AnyIterator
@@ -104,7 +105,9 @@ def serialize_event_json(value: _StartSpeechSynthesisStreamEventStream) -> bytes
             )
 
 
-def deserialize_event_json(message: Message) -> _StartSpeechSynthesisStreamEventStream:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _StartSpeechSynthesisStreamEventStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -117,7 +120,7 @@ def deserialize_event_json(message: Message) -> _StartSpeechSynthesisStreamEvent
                     message
                 )
                 raise capo_polly.errors.validation_exception.ValidationException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ServiceQuotaExceededException":
                 import capo_polly.errors.service_quota_exceeded_exception
@@ -126,7 +129,7 @@ def deserialize_event_json(message: Message) -> _StartSpeechSynthesisStreamEvent
                     message
                 )
                 raise capo_polly.errors.service_quota_exceeded_exception.ServiceQuotaExceededException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ServiceFailureException":
                 import capo_polly.errors.service_failure_exception
@@ -137,7 +140,7 @@ def deserialize_event_json(message: Message) -> _StartSpeechSynthesisStreamEvent
                     )
                 )
                 raise capo_polly.errors.service_failure_exception.ServiceFailureException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ThrottlingException":
                 import capo_polly.errors.throttling_exception
@@ -146,10 +149,10 @@ def deserialize_event_json(message: Message) -> _StartSpeechSynthesisStreamEvent
                     message
                 )
                 raise capo_polly.errors.throttling_exception.ThrottlingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -157,7 +160,7 @@ def deserialize_event_json(message: Message) -> _StartSpeechSynthesisStreamEvent
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

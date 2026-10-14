@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codedeploy.errors import ServiceError
@@ -36,7 +37,11 @@ class InvalidComputePlatformException(ServiceError):
     code: str | None = "InvalidComputePlatformException"
 
     def __init__(
-        self, data: InvalidComputePlatformException_, message: str | None = None
+        self,
+        data: InvalidComputePlatformException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class InvalidComputePlatformException(ServiceError):
             is_retryable=False,
             code="InvalidComputePlatformException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidComputePlatformException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

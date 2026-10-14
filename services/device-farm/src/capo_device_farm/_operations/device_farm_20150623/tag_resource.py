@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ArgumentException":
             raise capo_device_farm.errors.argument_exception.ArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_device_farm.errors.not_found_exception.NotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagOperationException":
             raise capo_device_farm.errors.tag_operation_exception.TagOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagPolicyException":
             raise capo_device_farm.errors.tag_policy_exception.TagPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_device_farm.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

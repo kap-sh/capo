@@ -32,15 +32,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DependencyException":
             raise capo_groundstation.errors.dependency_exception.DependencyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_groundstation.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_groundstation.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

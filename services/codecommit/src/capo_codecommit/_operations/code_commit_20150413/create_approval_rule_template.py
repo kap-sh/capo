@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApprovalRuleTemplateContentRequiredException":
             raise capo_codecommit.errors.approval_rule_template_content_required_exception.ApprovalRuleTemplateContentRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApprovalRuleTemplateNameAlreadyExistsException":
             raise capo_codecommit.errors.approval_rule_template_name_already_exists_exception.ApprovalRuleTemplateNameAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApprovalRuleTemplateNameRequiredException":
             raise capo_codecommit.errors.approval_rule_template_name_required_exception.ApprovalRuleTemplateNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApprovalRuleTemplateContentException":
             raise capo_codecommit.errors.invalid_approval_rule_template_content_exception.InvalidApprovalRuleTemplateContentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApprovalRuleTemplateDescriptionException":
             raise capo_codecommit.errors.invalid_approval_rule_template_description_exception.InvalidApprovalRuleTemplateDescriptionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApprovalRuleTemplateNameException":
             raise capo_codecommit.errors.invalid_approval_rule_template_name_exception.InvalidApprovalRuleTemplateNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NumberOfRuleTemplatesExceededException":
             raise capo_codecommit.errors.number_of_rule_templates_exceeded_exception.NumberOfRuleTemplatesExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

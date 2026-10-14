@@ -37,11 +37,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "OperationInProgressException":
             raise capo_cloudformation.errors.operation_in_progress_exception.OperationInProgressException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StackSetNotEmptyException":
             raise capo_cloudformation.errors.stack_set_not_empty_exception.StackSetNotEmptyException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

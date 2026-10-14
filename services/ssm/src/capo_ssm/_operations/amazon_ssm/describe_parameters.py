@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFilterKey":
             raise capo_ssm.errors.invalid_filter_key.InvalidFilterKey.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFilterOption":
             raise capo_ssm.errors.invalid_filter_option.InvalidFilterOption.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFilterValue":
             raise capo_ssm.errors.invalid_filter_value.InvalidFilterValue.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextToken":
             raise capo_ssm.errors.invalid_next_token.InvalidNextToken.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

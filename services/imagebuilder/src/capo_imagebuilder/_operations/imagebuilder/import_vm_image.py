@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientException":
             raise capo_imagebuilder.errors.client_exception.ClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_imagebuilder.errors.service_exception.ServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_imagebuilder.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

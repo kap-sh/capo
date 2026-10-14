@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_billing.errors import DeserializationError, ServiceError
@@ -36,7 +37,11 @@ class BillingViewHealthStatusException(ServiceError):
     code: str | None = "BillingViewHealthStatusException"
 
     def __init__(
-        self, data: BillingViewHealthStatusException_, message: str | None = None
+        self,
+        data: BillingViewHealthStatusException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class BillingViewHealthStatusException(ServiceError):
             is_retryable=False,
             code="BillingViewHealthStatusException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "BillingViewHealthStatusException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

@@ -40,39 +40,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidNextTokenException":
             raise capo_ram.errors.invalid_next_token_exception.InvalidNextTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ram.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MalformedArnException":
             raise capo_ram.errors.malformed_arn_exception.MalformedArnException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MissingRequiredParameterException":
             raise capo_ram.errors.missing_required_parameter_exception.MissingRequiredParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceShareInvitationAlreadyRejectedException":
             raise capo_ram.errors.resource_share_invitation_already_rejected_exception.ResourceShareInvitationAlreadyRejectedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceShareInvitationArnNotFoundException":
             raise capo_ram.errors.resource_share_invitation_arn_not_found_exception.ResourceShareInvitationArnNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceShareInvitationExpiredException":
             raise capo_ram.errors.resource_share_invitation_expired_exception.ResourceShareInvitationExpiredException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_ram.errors.server_internal_exception.ServerInternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_ram.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -50,67 +50,67 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ACLNotFoundFault":
             raise capo_memorydb.errors.acl_not_found_fault.ACLNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterNotFoundFault":
             raise capo_memorydb.errors.cluster_not_found_fault.ClusterNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterQuotaForCustomerExceededFault":
             raise capo_memorydb.errors.cluster_quota_for_customer_exceeded_fault.ClusterQuotaForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidACLStateFault":
             raise capo_memorydb.errors.invalid_acl_state_fault.InvalidACLStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidClusterStateFault":
             raise capo_memorydb.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidKMSKeyFault":
             raise capo_memorydb.errors.invalid_kms_key_fault.InvalidKMSKeyFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNodeStateFault":
             raise capo_memorydb.errors.invalid_node_state_fault.InvalidNodeStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_memorydb.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NodeQuotaForClusterExceededFault":
             raise capo_memorydb.errors.node_quota_for_cluster_exceeded_fault.NodeQuotaForClusterExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NodeQuotaForCustomerExceededFault":
             raise capo_memorydb.errors.node_quota_for_customer_exceeded_fault.NodeQuotaForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoOperationFault":
             raise capo_memorydb.errors.no_operation_fault.NoOperationFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterGroupNotFoundFault":
             raise capo_memorydb.errors.parameter_group_not_found_fault.ParameterGroupNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_memorydb.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ShardsPerClusterQuotaExceededFault":
             raise capo_memorydb.errors.shards_per_cluster_quota_exceeded_fault.ShardsPerClusterQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

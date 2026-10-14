@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudtrail.errors import ServiceError
@@ -36,7 +37,11 @@ class S3BucketDoesNotExistException(ServiceError):
     code: str | None = "S3BucketDoesNotExistException"
 
     def __init__(
-        self, data: S3BucketDoesNotExistException_, message: str | None = None
+        self,
+        data: S3BucketDoesNotExistException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class S3BucketDoesNotExistException(ServiceError):
             is_retryable=False,
             code="S3BucketDoesNotExistException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "S3BucketDoesNotExistException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

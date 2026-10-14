@@ -43,31 +43,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AcceleratorNotFoundException":
             raise capo_global_accelerator.errors.accelerator_not_found_exception.AcceleratorNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AccessDeniedException":
             raise capo_global_accelerator.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EndpointGroupAlreadyExistsException":
             raise capo_global_accelerator.errors.endpoint_group_already_exists_exception.EndpointGroupAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_global_accelerator.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_global_accelerator.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_global_accelerator.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ListenerNotFoundException":
             raise capo_global_accelerator.errors.listener_not_found_exception.ListenerNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

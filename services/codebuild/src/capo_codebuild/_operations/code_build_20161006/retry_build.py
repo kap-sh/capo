@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountLimitExceededException":
             raise capo_codebuild.errors.account_limit_exceeded_exception.AccountLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_codebuild.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_codebuild.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

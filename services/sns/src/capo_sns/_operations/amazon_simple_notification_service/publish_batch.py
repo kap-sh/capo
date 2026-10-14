@@ -54,83 +54,83 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationError":
             raise capo_sns.errors.authorization_error_exception.AuthorizationErrorException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "BatchEntryIdsNotDistinct":
             raise capo_sns.errors.batch_entry_ids_not_distinct_exception.BatchEntryIdsNotDistinctException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "BatchRequestTooLong":
             raise capo_sns.errors.batch_request_too_long_exception.BatchRequestTooLongException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EmptyBatchRequest":
             raise capo_sns.errors.empty_batch_request_exception.EmptyBatchRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EndpointDisabled":
             raise capo_sns.errors.endpoint_disabled_exception.EndpointDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InternalError":
             raise capo_sns.errors.internal_error_exception.InternalErrorException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidBatchEntryId":
             raise capo_sns.errors.invalid_batch_entry_id_exception.InvalidBatchEntryIdException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameter":
             raise capo_sns.errors.invalid_parameter_exception.InvalidParameterException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ParameterValueInvalid":
             raise capo_sns.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSecurity":
             raise capo_sns.errors.invalid_security_exception.InvalidSecurityException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSAccessDenied":
             raise capo_sns.errors.kms_access_denied_exception.KMSAccessDeniedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSDisabled":
             raise capo_sns.errors.kms_disabled_exception.KMSDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSInvalidState":
             raise capo_sns.errors.kms_invalid_state_exception.KMSInvalidStateException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSNotFound":
             raise capo_sns.errors.kms_not_found_exception.KMSNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSOptInRequired":
             raise capo_sns.errors.kms_opt_in_required.KMSOptInRequired.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSThrottling":
             raise capo_sns.errors.kms_throttling_exception.KMSThrottlingException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NotFound":
             raise capo_sns.errors.not_found_exception.NotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "PlatformApplicationDisabled":
             raise capo_sns.errors.platform_application_disabled_exception.PlatformApplicationDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyEntriesInBatchRequest":
             raise capo_sns.errors.too_many_entries_in_batch_request_exception.TooManyEntriesInBatchRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ValidationException":
             raise capo_sns.errors.validation_exception.ValidationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

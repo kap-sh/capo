@@ -33,7 +33,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "RegionDisabledException":
             raise capo_sts.errors.region_disabled_exception.RegionDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

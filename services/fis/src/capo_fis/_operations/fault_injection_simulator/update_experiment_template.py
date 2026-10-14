@@ -40,15 +40,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ResourceNotFoundException":
             raise capo_fis.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_fis.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_fis.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

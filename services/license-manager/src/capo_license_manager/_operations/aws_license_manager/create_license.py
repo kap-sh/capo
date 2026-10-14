@@ -43,31 +43,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_license_manager.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AuthorizationException":
             raise capo_license_manager.errors.authorization_exception.AuthorizationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_license_manager.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RateLimitExceededException":
             raise capo_license_manager.errors.rate_limit_exceeded_exception.RateLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RedirectException":
             raise capo_license_manager.errors.redirect_exception.RedirectException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_license_manager.errors.server_internal_exception.ServerInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_license_manager.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

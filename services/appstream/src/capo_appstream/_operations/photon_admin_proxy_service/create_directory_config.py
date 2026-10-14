@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidAccountStatusException":
             raise capo_appstream.errors.invalid_account_status_exception.InvalidAccountStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_appstream.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_appstream.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_appstream.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_appstream.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_appstream.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

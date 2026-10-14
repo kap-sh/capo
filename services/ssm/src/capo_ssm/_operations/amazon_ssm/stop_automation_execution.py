@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AutomationExecutionNotFoundException":
             raise capo_ssm.errors.automation_execution_not_found_exception.AutomationExecutionNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAutomationStatusUpdateException":
             raise capo_ssm.errors.invalid_automation_status_update_exception.InvalidAutomationStatusUpdateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

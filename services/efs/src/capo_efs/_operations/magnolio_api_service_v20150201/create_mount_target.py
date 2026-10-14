@@ -45,53 +45,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AvailabilityZonesMismatch":
             raise capo_efs.errors.availability_zones_mismatch.AvailabilityZonesMismatch.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequest":
-            raise capo_efs.errors.bad_request.BadRequest.from_json(data, message)
+            raise capo_efs.errors.bad_request.BadRequest.from_json(
+                data, message, response=response
+            )
         case "FileSystemNotFound":
             raise capo_efs.errors.file_system_not_found.FileSystemNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "IncorrectFileSystemLifeCycleState":
             raise capo_efs.errors.incorrect_file_system_life_cycle_state.IncorrectFileSystemLifeCycleState.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_efs.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case "IpAddressInUse":
             raise capo_efs.errors.ip_address_in_use.IpAddressInUse.from_json(
-                data, message
+                data, message, response=response
             )
         case "MountTargetConflict":
             raise capo_efs.errors.mount_target_conflict.MountTargetConflict.from_json(
-                data, message
+                data, message, response=response
             )
         case "NetworkInterfaceLimitExceeded":
             raise capo_efs.errors.network_interface_limit_exceeded.NetworkInterfaceLimitExceeded.from_json(
-                data, message
+                data, message, response=response
             )
         case "NoFreeAddressesInSubnet":
             raise capo_efs.errors.no_free_addresses_in_subnet.NoFreeAddressesInSubnet.from_json(
-                data, message
+                data, message, response=response
             )
         case "SecurityGroupLimitExceeded":
             raise capo_efs.errors.security_group_limit_exceeded.SecurityGroupLimitExceeded.from_json(
-                data, message
+                data, message, response=response
             )
         case "SecurityGroupNotFound":
             raise capo_efs.errors.security_group_not_found.SecurityGroupNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "SubnetNotFound":
             raise capo_efs.errors.subnet_not_found.SubnetNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedAvailabilityZone":
             raise capo_efs.errors.unsupported_availability_zone.UnsupportedAvailabilityZone.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

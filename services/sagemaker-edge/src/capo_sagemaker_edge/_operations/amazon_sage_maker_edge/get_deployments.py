@@ -31,7 +31,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceException":
             raise capo_sagemaker_edge.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DependencyTimeoutException":
             raise capo_kms.errors.dependency_timeout_exception.DependencyTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidMarkerException":
             raise capo_kms.errors.invalid_marker_exception.InvalidMarkerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInternalException":
             raise capo_kms.errors.kms_internal_exception.KMSInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

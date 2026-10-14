@@ -37,27 +37,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_amp.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_amp.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_amp.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_amp.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_amp.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_amp.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

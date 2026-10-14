@@ -42,39 +42,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceNotFound":
             raise capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyNotFoundFault":
             raise capo_rds.errors.db_proxy_not_found_fault.DBProxyNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyTargetAlreadyRegisteredFault":
             raise capo_rds.errors.db_proxy_target_already_registered_fault.DBProxyTargetAlreadyRegisteredFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyTargetGroupNotFoundFault":
             raise capo_rds.errors.db_proxy_target_group_not_found_fault.DBProxyTargetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientAvailableIPsInSubnetFault":
             raise capo_rds.errors.insufficient_available_i_ps_in_subnet_fault.InsufficientAvailableIPsInSubnetFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBInstanceState":
             raise capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBProxyStateFault":
             raise capo_rds.errors.invalid_db_proxy_state_fault.InvalidDBProxyStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

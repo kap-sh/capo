@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ssm.errors import ServiceError
@@ -42,6 +43,8 @@ class InvalidAutomationExecutionParametersException(ServiceError):
         self,
         data: InvalidAutomationExecutionParametersException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +52,12 @@ class InvalidAutomationExecutionParametersException(ServiceError):
             is_retryable=False,
             code="InvalidAutomationExecutionParametersException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidAutomationExecutionParametersException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

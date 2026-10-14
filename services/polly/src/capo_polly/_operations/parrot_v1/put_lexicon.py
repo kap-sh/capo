@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidLexiconException":
             raise capo_polly.errors.invalid_lexicon_exception.InvalidLexiconException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LexiconSizeExceededException":
             raise capo_polly.errors.lexicon_size_exceeded_exception.LexiconSizeExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MaxLexemeLengthExceededException":
             raise capo_polly.errors.max_lexeme_length_exceeded_exception.MaxLexemeLengthExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MaxLexiconsNumberExceededException":
             raise capo_polly.errors.max_lexicons_number_exceeded_exception.MaxLexiconsNumberExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceFailureException":
             raise capo_polly.errors.service_failure_exception.ServiceFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedPlsAlphabetException":
             raise capo_polly.errors.unsupported_pls_alphabet_exception.UnsupportedPlsAlphabetException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedPlsLanguageException":
             raise capo_polly.errors.unsupported_pls_language_exception.UnsupportedPlsLanguageException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

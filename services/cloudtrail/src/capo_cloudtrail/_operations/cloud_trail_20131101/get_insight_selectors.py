@@ -40,43 +40,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudTrailARNInvalidException":
             raise capo_cloudtrail.errors.cloud_trail_arn_invalid_exception.CloudTrailARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsightNotEnabledException":
             raise capo_cloudtrail.errors.insight_not_enabled_exception.InsightNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_cloudtrail.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTrailNameException":
             raise capo_cloudtrail.errors.invalid_trail_name_exception.InvalidTrailNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoManagementAccountSLRExistsException":
             raise capo_cloudtrail.errors.no_management_account_slr_exists_exception.NoManagementAccountSLRExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_cloudtrail.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TrailNotFoundException":
             raise capo_cloudtrail.errors.trail_not_found_exception.TrailNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

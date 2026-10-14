@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_mediaconnect.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_mediaconnect.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

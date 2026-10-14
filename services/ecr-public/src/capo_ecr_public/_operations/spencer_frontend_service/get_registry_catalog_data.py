@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ServerException":
             raise capo_ecr_public.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedCommandException":
             raise capo_ecr_public.errors.unsupported_command_exception.UnsupportedCommandException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

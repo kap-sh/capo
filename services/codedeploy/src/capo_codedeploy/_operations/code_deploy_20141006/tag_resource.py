@@ -38,35 +38,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApplicationDoesNotExistException":
             raise capo_codedeploy.errors.application_does_not_exist_exception.ApplicationDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ArnNotSupportedException":
             raise capo_codedeploy.errors.arn_not_supported_exception.ArnNotSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentConfigDoesNotExistException":
             raise capo_codedeploy.errors.deployment_config_does_not_exist_exception.DeploymentConfigDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupDoesNotExistException":
             raise capo_codedeploy.errors.deployment_group_does_not_exist_exception.DeploymentGroupDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArnException":
             raise capo_codedeploy.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagsToAddException":
             raise capo_codedeploy.errors.invalid_tags_to_add_exception.InvalidTagsToAddException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceArnRequiredException":
             raise capo_codedeploy.errors.resource_arn_required_exception.ResourceArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagRequiredException":
             raise capo_codedeploy.errors.tag_required_exception.TagRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

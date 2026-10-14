@@ -32,15 +32,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoAvailableConfigurationRecorderException":
             raise capo_config_service.errors.no_available_configuration_recorder_exception.NoAvailableConfigurationRecorderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoRunningConfigurationRecorderException":
             raise capo_config_service.errors.no_running_configuration_recorder_exception.NoRunningConfigurationRecorderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchDeliveryChannelException":
             raise capo_config_service.errors.no_such_delivery_channel_exception.NoSuchDeliveryChannelException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

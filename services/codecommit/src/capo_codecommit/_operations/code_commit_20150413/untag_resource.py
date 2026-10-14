@@ -38,39 +38,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceArnException":
             raise capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSystemTagUsageException":
             raise capo_codecommit.errors.invalid_system_tag_usage_exception.InvalidSystemTagUsageException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagKeysListException":
             raise capo_codecommit.errors.invalid_tag_keys_list_exception.InvalidTagKeysListException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryDoesNotExistException":
             raise capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceArnRequiredException":
             raise capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagKeysListRequiredException":
             raise capo_codecommit.errors.tag_keys_list_required_exception.TagKeysListRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagPolicyException":
             raise capo_codecommit.errors.tag_policy_exception.TagPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_codecommit.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

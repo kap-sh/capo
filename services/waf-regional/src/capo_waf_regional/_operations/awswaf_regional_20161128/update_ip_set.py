@@ -39,39 +39,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "WAFInternalErrorException":
             raise capo_waf_regional.errors.waf_internal_error_exception.WAFInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidAccountException":
             raise capo_waf_regional.errors.waf_invalid_account_exception.WAFInvalidAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidOperationException":
             raise capo_waf_regional.errors.waf_invalid_operation_exception.WAFInvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidParameterException":
             raise capo_waf_regional.errors.waf_invalid_parameter_exception.WAFInvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFLimitsExceededException":
             raise capo_waf_regional.errors.waf_limits_exceeded_exception.WAFLimitsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFNonexistentContainerException":
             raise capo_waf_regional.errors.waf_nonexistent_container_exception.WAFNonexistentContainerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFNonexistentItemException":
             raise capo_waf_regional.errors.waf_nonexistent_item_exception.WAFNonexistentItemException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFReferencedItemException":
             raise capo_waf_regional.errors.waf_referenced_item_exception.WAFReferencedItemException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFStaleDataException":
             raise capo_waf_regional.errors.waf_stale_data_exception.WAFStaleDataException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

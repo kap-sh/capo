@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
@@ -40,7 +41,11 @@ class MalformedCertificateException(ServiceError):
     code: str | None = "MalformedCertificateException"
 
     def __init__(
-        self, data: MalformedCertificateException_, message: str | None = None
+        self,
+        data: MalformedCertificateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class MalformedCertificateException(ServiceError):
             is_retryable=False,
             code="MalformedCertificateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "MalformedCertificateException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

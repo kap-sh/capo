@@ -42,51 +42,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CustomSchemaCountLimitExceededException":
             raise capo_ssm.errors.custom_schema_count_limit_exceeded_exception.CustomSchemaCountLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceId":
             raise capo_ssm.errors.invalid_instance_id.InvalidInstanceId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInventoryItemContextException":
             raise capo_ssm.errors.invalid_inventory_item_context_exception.InvalidInventoryItemContextException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidItemContentException":
             raise capo_ssm.errors.invalid_item_content_exception.InvalidItemContentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTypeNameException":
             raise capo_ssm.errors.invalid_type_name_exception.InvalidTypeNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ItemContentMismatchException":
             raise capo_ssm.errors.item_content_mismatch_exception.ItemContentMismatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ItemSizeLimitExceededException":
             raise capo_ssm.errors.item_size_limit_exceeded_exception.ItemSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubTypeCountLimitExceededException":
             raise capo_ssm.errors.sub_type_count_limit_exceeded_exception.SubTypeCountLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TotalSizeLimitExceededException":
             raise capo_ssm.errors.total_size_limit_exceeded_exception.TotalSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedInventoryItemContextException":
             raise capo_ssm.errors.unsupported_inventory_item_context_exception.UnsupportedInventoryItemContextException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedInventorySchemaVersionException":
             raise capo_ssm.errors.unsupported_inventory_schema_version_exception.UnsupportedInventorySchemaVersionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InstanceLimitExceededException":
             raise capo_codedeploy.errors.instance_limit_exceeded_exception.InstanceLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InstanceNameRequiredException":
             raise capo_codedeploy.errors.instance_name_required_exception.InstanceNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InstanceNotRegisteredException":
             raise capo_codedeploy.errors.instance_not_registered_exception.InstanceNotRegisteredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceNameException":
             raise capo_codedeploy.errors.invalid_instance_name_exception.InvalidInstanceNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagException":
             raise capo_codedeploy.errors.invalid_tag_exception.InvalidTagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagLimitExceededException":
             raise capo_codedeploy.errors.tag_limit_exceeded_exception.TagLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagRequiredException":
             raise capo_codedeploy.errors.tag_required_exception.TagRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

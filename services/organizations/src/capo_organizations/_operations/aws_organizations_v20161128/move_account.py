@@ -38,43 +38,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_organizations.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AccountNotFoundException":
             raise capo_organizations.errors.account_not_found_exception.AccountNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AWSOrganizationsNotInUseException":
             raise capo_organizations.errors.aws_organizations_not_in_use_exception.AWSOrganizationsNotInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_organizations.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DestinationParentNotFoundException":
             raise capo_organizations.errors.destination_parent_not_found_exception.DestinationParentNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicateAccountException":
             raise capo_organizations.errors.duplicate_account_exception.DuplicateAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_organizations.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_organizations.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SourceParentNotFoundException":
             raise capo_organizations.errors.source_parent_not_found_exception.SourceParentNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_organizations.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

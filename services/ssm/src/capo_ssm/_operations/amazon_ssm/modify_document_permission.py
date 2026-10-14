@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DocumentLimitExceeded":
             raise capo_ssm.errors.document_limit_exceeded.DocumentLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DocumentPermissionLimit":
             raise capo_ssm.errors.document_permission_limit.DocumentPermissionLimit.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocument":
             raise capo_ssm.errors.invalid_document.InvalidDocument.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPermissionType":
             raise capo_ssm.errors.invalid_permission_type.InvalidPermissionType.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

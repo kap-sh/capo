@@ -62,55 +62,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AllocationIdNotFound":
             raise capo_elastic_load_balancing_v2.errors.allocation_id_not_found_exception.AllocationIdNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "AvailabilityZoneNotSupported":
             raise capo_elastic_load_balancing_v2.errors.availability_zone_not_supported_exception.AvailabilityZoneNotSupportedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateLoadBalancerName":
             raise capo_elastic_load_balancing_v2.errors.duplicate_load_balancer_name_exception.DuplicateLoadBalancerNameException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateTagKeys":
             raise capo_elastic_load_balancing_v2.errors.duplicate_tag_keys_exception.DuplicateTagKeysException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing_v2.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidScheme":
             raise capo_elastic_load_balancing_v2.errors.invalid_scheme_exception.InvalidSchemeException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSecurityGroup":
             raise capo_elastic_load_balancing_v2.errors.invalid_security_group_exception.InvalidSecurityGroupException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_elastic_load_balancing_v2.errors.invalid_subnet_exception.InvalidSubnetException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationNotPermitted":
             raise capo_elastic_load_balancing_v2.errors.operation_not_permitted_exception.OperationNotPermittedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceInUse":
             raise capo_elastic_load_balancing_v2.errors.resource_in_use_exception.ResourceInUseException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetNotFound":
             raise capo_elastic_load_balancing_v2.errors.subnet_not_found_exception.SubnetNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyLoadBalancers":
             raise capo_elastic_load_balancing_v2.errors.too_many_load_balancers_exception.TooManyLoadBalancersException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTags":
             raise capo_elastic_load_balancing_v2.errors.too_many_tags_exception.TooManyTagsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

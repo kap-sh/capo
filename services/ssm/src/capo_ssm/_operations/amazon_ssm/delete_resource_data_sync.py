@@ -32,15 +32,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceDataSyncInvalidConfigurationException":
             raise capo_ssm.errors.resource_data_sync_invalid_configuration_exception.ResourceDataSyncInvalidConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceDataSyncNotFoundException":
             raise capo_ssm.errors.resource_data_sync_not_found_exception.ResourceDataSyncNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

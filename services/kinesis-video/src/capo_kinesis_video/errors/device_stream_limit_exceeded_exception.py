@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kinesis_video.errors import ServiceError
@@ -35,7 +36,11 @@ class DeviceStreamLimitExceededException(ServiceError):
     code: str | None = "DeviceStreamLimitExceededException"
 
     def __init__(
-        self, data: DeviceStreamLimitExceededException_, message: str | None = None
+        self,
+        data: DeviceStreamLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class DeviceStreamLimitExceededException(ServiceError):
             is_retryable=False,
             code="DeviceStreamLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DeviceStreamLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

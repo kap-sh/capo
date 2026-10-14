@@ -39,15 +39,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ImportConflictException":
             raise capo_dynamodb.errors.import_conflict_exception.ImportConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_dynamodb.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_dynamodb.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

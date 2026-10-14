@@ -43,51 +43,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_kafka.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClusterConnectivityException":
             raise capo_kafka.errors.cluster_connectivity_exception.ClusterConnectivityException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ControllerMovedException":
             raise capo_kafka.errors.controller_moved_exception.ControllerMovedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_kafka.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "GroupSubscribedToTopicException":
             raise capo_kafka.errors.group_subscribed_to_topic_exception.GroupSubscribedToTopicException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_kafka.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "KafkaRequestException":
             raise capo_kafka.errors.kafka_request_exception.KafkaRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "KafkaTimeoutException":
             raise capo_kafka.errors.kafka_timeout_exception.KafkaTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotControllerException":
             raise capo_kafka.errors.not_controller_exception.NotControllerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_kafka.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ReassignmentInProgressException":
             raise capo_kafka.errors.reassignment_in_progress_exception.ReassignmentInProgressException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnknownTopicOrPartitionException":
             raise capo_kafka.errors.unknown_topic_or_partition_exception.UnknownTopicOrPartitionException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

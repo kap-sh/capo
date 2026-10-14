@@ -37,27 +37,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceException":
             raise capo_gamelift.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_gamelift.errors.invalid_request_exception.InvalidRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_gamelift.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_gamelift.errors.not_found_exception.NotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_gamelift.errors.unauthorized_exception.UnauthorizedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedRegionException":
             raise capo_gamelift.errors.unsupported_region_exception.UnsupportedRegionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

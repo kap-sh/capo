@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArnException":
             raise capo_kms.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidMarkerException":
             raise capo_kms.errors.invalid_marker_exception.InvalidMarkerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInternalException":
             raise capo_kms.errors.kms_internal_exception.KMSInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_kms.errors.not_found_exception.NotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

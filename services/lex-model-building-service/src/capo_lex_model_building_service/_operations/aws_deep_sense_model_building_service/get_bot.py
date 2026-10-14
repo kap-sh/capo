@@ -43,19 +43,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_lex_model_building_service.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_lex_model_building_service.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_lex_model_building_service.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_lex_model_building_service.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

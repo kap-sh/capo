@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#ClientTimeoutException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_neptunedata.errors import DeserializationError, ServiceError
@@ -45,18 +46,25 @@ class ClientTimeoutException(ServiceError):
 
     code: str | None = "ClientTimeoutException"
 
-    def __init__(self, data: ClientTimeoutException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ClientTimeoutException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=True,
             code="ClientTimeoutException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ClientTimeoutException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

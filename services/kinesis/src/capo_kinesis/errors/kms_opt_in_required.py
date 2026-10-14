@@ -3,6 +3,7 @@
 import json
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kinesis._protocol.eventstream import HeaderValue, Message
@@ -37,21 +38,28 @@ class KMSOptInRequired(ServiceError):
 
     code: str | None = "KMSOptInRequired"
 
-    def __init__(self, data: KMSOptInRequired_, message: str | None = None):
+    def __init__(
+        self,
+        data: KMSOptInRequired_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="KMSOptInRequired",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "KMSOptInRequired":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)
 
 
 def serialize_event_aws_json_1_1(value: KMSOptInRequired_) -> bytes:

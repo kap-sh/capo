@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ReservedNodeExchangeNotFond":
             raise capo_redshift.errors.reserved_node_exchange_not_found_fault.ReservedNodeExchangeNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeNotFound":
             raise capo_redshift.errors.reserved_node_not_found_fault.ReservedNodeNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

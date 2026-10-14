@@ -38,7 +38,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HookResultNotFound":
             raise capo_cloudformation.errors.hook_result_not_found_exception.HookResultNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

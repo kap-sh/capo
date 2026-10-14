@@ -35,7 +35,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ExportTaskNotFound":
             raise capo_rds.errors.export_task_not_found_fault.ExportTaskNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

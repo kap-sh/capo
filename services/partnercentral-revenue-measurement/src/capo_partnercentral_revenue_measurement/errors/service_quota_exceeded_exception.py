@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_partnercentral_revenue_measurement.errors import (
@@ -58,7 +59,11 @@ class ServiceQuotaExceededException(ServiceError):
     code: str | None = "ServiceQuotaExceededException"
 
     def __init__(
-        self, data: ServiceQuotaExceededException_, message: str | None = None
+        self,
+        data: ServiceQuotaExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -66,11 +71,12 @@ class ServiceQuotaExceededException(ServiceError):
             is_retryable=False,
             code="ServiceQuotaExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_cbor(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceQuotaExceededException":
-        return cls(deserialize_cbor(data), message)
+        return cls(deserialize_cbor(data), message, response=response)

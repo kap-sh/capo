@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_lightsail.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RegionSetupInProgressException":
             raise capo_lightsail.errors.region_setup_in_progress_exception.RegionSetupInProgressException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_lightsail.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnauthenticatedException":
             raise capo_lightsail.errors.unauthenticated_exception.UnauthenticatedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ACLNotFoundFault":
             raise capo_memorydb.errors.acl_not_found_fault.ACLNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DefaultUserRequired":
             raise capo_memorydb.errors.default_user_required.DefaultUserRequired.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicateUserNameFault":
             raise capo_memorydb.errors.duplicate_user_name_fault.DuplicateUserNameFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidACLStateFault":
             raise capo_memorydb.errors.invalid_acl_state_fault.InvalidACLStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UserNotFoundFault":
             raise capo_memorydb.errors.user_not_found_fault.UserNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

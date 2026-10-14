@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_payment_cryptography_data.errors import DeserializationError, ServiceError
@@ -42,18 +43,25 @@ class VerificationFailedException(ServiceError):
 
     code: str | None = "VerificationFailedException"
 
-    def __init__(self, data: VerificationFailedException_, message: str | None = None):
+    def __init__(
+        self,
+        data: VerificationFailedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="VerificationFailedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "VerificationFailedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MalformedResourcePolicyDocumentException":
             raise capo_ssm.errors.malformed_resource_policy_document_exception.MalformedResourcePolicyDocumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_ssm.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourcePolicyConflictException":
             raise capo_ssm.errors.resource_policy_conflict_exception.ResourcePolicyConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourcePolicyInvalidParameterException":
             raise capo_ssm.errors.resource_policy_invalid_parameter_exception.ResourcePolicyInvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourcePolicyNotFoundException":
             raise capo_ssm.errors.resource_policy_not_found_exception.ResourcePolicyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

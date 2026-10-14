@@ -48,55 +48,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterAlreadyExistsFault":
             raise capo_neptune.errors.db_cluster_already_exists_fault.DBClusterAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterNotFoundFault":
             raise capo_neptune.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterParameterGroupNotFound":
             raise capo_neptune.errors.db_cluster_parameter_group_not_found_fault.DBClusterParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupNotFoundFault":
             raise capo_neptune.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_neptune.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBInstanceState":
             raise capo_neptune.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSecurityGroupState":
             raise capo_neptune.errors.invalid_db_security_group_state_fault.InvalidDBSecurityGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSubnetGroupStateFault":
             raise capo_neptune.errors.invalid_db_subnet_group_state_fault.InvalidDBSubnetGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_neptune.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_neptune.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NetworkTypeNotSupported":
             raise capo_neptune.errors.network_type_not_supported_fault.NetworkTypeNotSupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageQuotaExceeded":
             raise capo_neptune.errors.storage_quota_exceeded_fault.StorageQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageTypeNotSupported":
             raise capo_neptune.errors.storage_type_not_supported_fault.StorageTypeNotSupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

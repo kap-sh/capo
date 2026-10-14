@@ -42,27 +42,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ExportConflictException":
             raise capo_dynamodb.errors.export_conflict_exception.ExportConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_dynamodb.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidExportTimeException":
             raise capo_dynamodb.errors.invalid_export_time_exception.InvalidExportTimeException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_dynamodb.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "PointInTimeRecoveryUnavailableException":
             raise capo_dynamodb.errors.point_in_time_recovery_unavailable_exception.PointInTimeRecoveryUnavailableException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "TableNotFoundException":
             raise capo_dynamodb.errors.table_not_found_exception.TableNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

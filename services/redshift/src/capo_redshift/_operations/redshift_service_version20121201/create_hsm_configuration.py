@@ -37,19 +37,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HsmConfigurationAlreadyExistsFault":
             raise capo_redshift.errors.hsm_configuration_already_exists_fault.HsmConfigurationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "HsmConfigurationQuotaExceededFault":
             raise capo_redshift.errors.hsm_configuration_quota_exceeded_fault.HsmConfigurationQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagLimitExceededFault":
             raise capo_redshift.errors.tag_limit_exceeded_fault.TagLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

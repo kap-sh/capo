@@ -40,23 +40,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationErrorException":
             raise capo_application_discovery_service.errors.authorization_error_exception.AuthorizationErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "HomeRegionNotSetException":
             raise capo_application_discovery_service.errors.home_region_not_set_exception.HomeRegionNotSetException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_application_discovery_service.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_application_discovery_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalErrorException":
             raise capo_application_discovery_service.errors.server_internal_error_exception.ServerInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

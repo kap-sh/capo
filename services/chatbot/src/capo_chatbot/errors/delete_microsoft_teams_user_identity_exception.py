@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_chatbot.errors import ServiceError
@@ -38,6 +39,8 @@ class DeleteMicrosoftTeamsUserIdentityException(ServiceError):
         self,
         data: DeleteMicrosoftTeamsUserIdentityException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -45,11 +48,12 @@ class DeleteMicrosoftTeamsUserIdentityException(ServiceError):
             is_retryable=False,
             code="DeleteMicrosoftTeamsUserIdentityException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DeleteMicrosoftTeamsUserIdentityException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

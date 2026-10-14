@@ -37,11 +37,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalErrorException":
             raise capo_cost_and_usage_report_service.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_cost_and_usage_report_service.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

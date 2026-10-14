@@ -43,59 +43,59 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountNotFoundException":
             raise capo_cloudtrail.errors.account_not_found_exception.AccountNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AccountRegisteredException":
             raise capo_cloudtrail.errors.account_registered_exception.AccountRegisteredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CannotDelegateManagementAccountException":
             raise capo_cloudtrail.errors.cannot_delegate_management_account_exception.CannotDelegateManagementAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudTrailAccessNotEnabledException":
             raise capo_cloudtrail.errors.cloud_trail_access_not_enabled_exception.CloudTrailAccessNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_cloudtrail.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DelegatedAdminAccountLimitExceededException":
             raise capo_cloudtrail.errors.delegated_admin_account_limit_exceeded_exception.DelegatedAdminAccountLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientDependencyServiceAccessPermissionException":
             raise capo_cloudtrail.errors.insufficient_dependency_service_access_permission_exception.InsufficientDependencyServiceAccessPermissionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientIAMAccessPermissionException":
             raise capo_cloudtrail.errors.insufficient_iam_access_permission_exception.InsufficientIAMAccessPermissionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotOrganizationManagementAccountException":
             raise capo_cloudtrail.errors.not_organization_management_account_exception.NotOrganizationManagementAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationNotInAllFeaturesModeException":
             raise capo_cloudtrail.errors.organization_not_in_all_features_mode_exception.OrganizationNotInAllFeaturesModeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationsNotInUseException":
             raise capo_cloudtrail.errors.organizations_not_in_use_exception.OrganizationsNotInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

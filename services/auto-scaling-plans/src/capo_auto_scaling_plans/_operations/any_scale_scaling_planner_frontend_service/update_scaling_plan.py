@@ -38,19 +38,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentUpdateException":
             raise capo_auto_scaling_plans.errors.concurrent_update_exception.ConcurrentUpdateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_auto_scaling_plans.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ObjectNotFoundException":
             raise capo_auto_scaling_plans.errors.object_not_found_exception.ObjectNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_auto_scaling_plans.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

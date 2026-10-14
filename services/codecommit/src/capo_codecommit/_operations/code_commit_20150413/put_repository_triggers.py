@@ -51,87 +51,87 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EncryptionIntegrityChecksFailedException":
             raise capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyAccessDeniedException":
             raise capo_codecommit.errors.encryption_key_access_denied_exception.EncryptionKeyAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyDisabledException":
             raise capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyNotFoundException":
             raise capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyUnavailableException":
             raise capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryTriggerBranchNameException":
             raise capo_codecommit.errors.invalid_repository_trigger_branch_name_exception.InvalidRepositoryTriggerBranchNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryTriggerCustomDataException":
             raise capo_codecommit.errors.invalid_repository_trigger_custom_data_exception.InvalidRepositoryTriggerCustomDataException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryTriggerDestinationArnException":
             raise capo_codecommit.errors.invalid_repository_trigger_destination_arn_exception.InvalidRepositoryTriggerDestinationArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryTriggerEventsException":
             raise capo_codecommit.errors.invalid_repository_trigger_events_exception.InvalidRepositoryTriggerEventsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryTriggerNameException":
             raise capo_codecommit.errors.invalid_repository_trigger_name_exception.InvalidRepositoryTriggerNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryTriggerRegionException":
             raise capo_codecommit.errors.invalid_repository_trigger_region_exception.InvalidRepositoryTriggerRegionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaximumBranchesExceededException":
             raise capo_codecommit.errors.maximum_branches_exceeded_exception.MaximumBranchesExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaximumRepositoryTriggersExceededException":
             raise capo_codecommit.errors.maximum_repository_triggers_exceeded_exception.MaximumRepositoryTriggersExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryDoesNotExistException":
             raise capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNameRequiredException":
             raise capo_codecommit.errors.repository_name_required_exception.RepositoryNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryTriggerBranchNameListRequiredException":
             raise capo_codecommit.errors.repository_trigger_branch_name_list_required_exception.RepositoryTriggerBranchNameListRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryTriggerDestinationArnRequiredException":
             raise capo_codecommit.errors.repository_trigger_destination_arn_required_exception.RepositoryTriggerDestinationArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryTriggerEventsListRequiredException":
             raise capo_codecommit.errors.repository_trigger_events_list_required_exception.RepositoryTriggerEventsListRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryTriggerNameRequiredException":
             raise capo_codecommit.errors.repository_trigger_name_required_exception.RepositoryTriggerNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryTriggersListRequiredException":
             raise capo_codecommit.errors.repository_triggers_list_required_exception.RepositoryTriggersListRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

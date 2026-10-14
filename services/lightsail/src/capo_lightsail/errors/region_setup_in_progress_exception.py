@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lightsail.errors import ServiceError
@@ -52,7 +53,11 @@ class RegionSetupInProgressException(ServiceError):
     code: str | None = "RegionSetupInProgressException"
 
     def __init__(
-        self, data: RegionSetupInProgressException_, message: str | None = None
+        self,
+        data: RegionSetupInProgressException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -60,11 +65,12 @@ class RegionSetupInProgressException(ServiceError):
             is_retryable=False,
             code="RegionSetupInProgressException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RegionSetupInProgressException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

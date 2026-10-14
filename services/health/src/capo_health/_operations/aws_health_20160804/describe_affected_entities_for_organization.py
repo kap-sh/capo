@@ -35,11 +35,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidPaginationToken":
             raise capo_health.errors.invalid_pagination_token.InvalidPaginationToken.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedLocale":
             raise capo_health.errors.unsupported_locale.UnsupportedLocale.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

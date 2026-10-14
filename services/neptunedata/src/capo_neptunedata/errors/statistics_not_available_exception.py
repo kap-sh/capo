@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#StatisticsNotAvailableException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_neptunedata.errors import DeserializationError, ServiceError
@@ -50,7 +51,11 @@ class StatisticsNotAvailableException(ServiceError):
     code: str | None = "StatisticsNotAvailableException"
 
     def __init__(
-        self, data: StatisticsNotAvailableException_, message: str | None = None
+        self,
+        data: StatisticsNotAvailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -58,11 +63,12 @@ class StatisticsNotAvailableException(ServiceError):
             is_retryable=False,
             code="StatisticsNotAvailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "StatisticsNotAvailableException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

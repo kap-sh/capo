@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBInstanceAutomatedBackupQuotaExceeded":
             raise capo_rds.errors.db_instance_automated_backup_quota_exceeded_fault.DBInstanceAutomatedBackupQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceNotFound":
             raise capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSnapshotAlreadyExists":
             raise capo_rds.errors.db_snapshot_already_exists_fault.DBSnapshotAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBInstanceState":
             raise capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_rds.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotQuotaExceeded":
             raise capo_rds.errors.snapshot_quota_exceeded_fault.SnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

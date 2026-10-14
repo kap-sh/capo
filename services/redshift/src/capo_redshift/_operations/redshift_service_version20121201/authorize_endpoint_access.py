@@ -40,27 +40,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EndpointAuthorizationAlreadyExists":
             raise capo_redshift.errors.endpoint_authorization_already_exists_fault.EndpointAuthorizationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EndpointAuthorizationsPerClusterLimitExceeded":
             raise capo_redshift.errors.endpoint_authorizations_per_cluster_limit_exceeded_fault.EndpointAuthorizationsPerClusterLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidAuthorizationState":
             raise capo_redshift.errors.invalid_authorization_state_fault.InvalidAuthorizationStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

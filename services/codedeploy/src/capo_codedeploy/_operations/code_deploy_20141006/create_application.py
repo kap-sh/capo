@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ApplicationAlreadyExistsException":
             raise capo_codedeploy.errors.application_already_exists_exception.ApplicationAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationLimitExceededException":
             raise capo_codedeploy.errors.application_limit_exceeded_exception.ApplicationLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationNameRequiredException":
             raise capo_codedeploy.errors.application_name_required_exception.ApplicationNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApplicationNameException":
             raise capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidComputePlatformException":
             raise capo_codedeploy.errors.invalid_compute_platform_exception.InvalidComputePlatformException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagsToAddException":
             raise capo_codedeploy.errors.invalid_tags_to_add_exception.InvalidTagsToAddException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_codedeploy.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

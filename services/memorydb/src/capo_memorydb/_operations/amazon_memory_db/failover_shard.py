@@ -38,35 +38,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "APICallRateForCustomerExceededFault":
             raise capo_memorydb.errors.api_call_rate_for_customer_exceeded_fault.APICallRateForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterNotFoundFault":
             raise capo_memorydb.errors.cluster_not_found_fault.ClusterNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidClusterStateFault":
             raise capo_memorydb.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidKMSKeyFault":
             raise capo_memorydb.errors.invalid_kms_key_fault.InvalidKMSKeyFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ShardNotFoundFault":
             raise capo_memorydb.errors.shard_not_found_fault.ShardNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TestFailoverNotAvailableFault":
             raise capo_memorydb.errors.test_failover_not_available_fault.TestFailoverNotAvailableFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

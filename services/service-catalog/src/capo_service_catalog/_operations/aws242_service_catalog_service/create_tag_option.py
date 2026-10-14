@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateResourceException":
             raise capo_service_catalog.errors.duplicate_resource_exception.DuplicateResourceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_service_catalog.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagOptionNotMigratedException":
             raise capo_service_catalog.errors.tag_option_not_migrated_exception.TagOptionNotMigratedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

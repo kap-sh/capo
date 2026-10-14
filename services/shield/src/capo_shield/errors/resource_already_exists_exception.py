@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_shield.errors import ServiceError
@@ -42,7 +43,11 @@ class ResourceAlreadyExistsException(ServiceError):
     code: str | None = "ResourceAlreadyExistsException"
 
     def __init__(
-        self, data: ResourceAlreadyExistsException_, message: str | None = None
+        self,
+        data: ResourceAlreadyExistsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +55,12 @@ class ResourceAlreadyExistsException(ServiceError):
             is_retryable=False,
             code="ResourceAlreadyExistsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceAlreadyExistsException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

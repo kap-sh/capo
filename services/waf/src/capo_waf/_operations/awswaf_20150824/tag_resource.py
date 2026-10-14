@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "WAFBadRequestException":
             raise capo_waf.errors.waf_bad_request_exception.WAFBadRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInternalErrorException":
             raise capo_waf.errors.waf_internal_error_exception.WAFInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidParameterException":
             raise capo_waf.errors.waf_invalid_parameter_exception.WAFInvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFLimitsExceededException":
             raise capo_waf.errors.waf_limits_exceeded_exception.WAFLimitsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFNonexistentItemException":
             raise capo_waf.errors.waf_nonexistent_item_exception.WAFNonexistentItemException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFTagOperationException":
             raise capo_waf.errors.waf_tag_operation_exception.WAFTagOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFTagOperationInternalErrorException":
             raise capo_waf.errors.waf_tag_operation_internal_error_exception.WAFTagOperationInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

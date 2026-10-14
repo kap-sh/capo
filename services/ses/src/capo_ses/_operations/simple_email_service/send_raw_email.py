@@ -39,23 +39,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountSendingPausedException":
             raise capo_ses.errors.account_sending_paused_exception.AccountSendingPausedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ConfigurationSetDoesNotExist":
             raise capo_ses.errors.configuration_set_does_not_exist_exception.ConfigurationSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ConfigurationSetSendingPausedException":
             raise capo_ses.errors.configuration_set_sending_paused_exception.ConfigurationSetSendingPausedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "MailFromDomainNotVerifiedException":
             raise capo_ses.errors.mail_from_domain_not_verified_exception.MailFromDomainNotVerifiedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "MessageRejected":
             raise capo_ses.errors.message_rejected.MessageRejected.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

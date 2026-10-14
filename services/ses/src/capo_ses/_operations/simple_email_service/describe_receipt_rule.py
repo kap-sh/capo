@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "RuleDoesNotExist":
             raise capo_ses.errors.rule_does_not_exist_exception.RuleDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RuleSetDoesNotExist":
             raise capo_ses.errors.rule_set_does_not_exist_exception.RuleSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

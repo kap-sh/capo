@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspaces#ComputeNotCompatibleException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_workspaces.errors import ServiceError
@@ -26,7 +27,11 @@ class ComputeNotCompatibleException(ServiceError):
     code: str | None = "ComputeNotCompatibleException"
 
     def __init__(
-        self, data: ComputeNotCompatibleException_, message: str | None = None
+        self,
+        data: ComputeNotCompatibleException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -34,11 +39,12 @@ class ComputeNotCompatibleException(ServiceError):
             is_retryable=False,
             code="ComputeNotCompatibleException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ComputeNotCompatibleException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

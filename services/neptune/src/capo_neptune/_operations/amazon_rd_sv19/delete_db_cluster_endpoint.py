@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterEndpointNotFoundFault":
             raise capo_neptune.errors.db_cluster_endpoint_not_found_fault.DBClusterEndpointNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterEndpointStateFault":
             raise capo_neptune.errors.invalid_db_cluster_endpoint_state_fault.InvalidDBClusterEndpointStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_neptune.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

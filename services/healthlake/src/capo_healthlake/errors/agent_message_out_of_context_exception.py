@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#AgentMessageOutOfContextException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_healthlake.errors import DeserializationError, ServiceError
@@ -33,7 +34,11 @@ class AgentMessageOutOfContextException(ServiceError):
     code: str | None = "AgentMessageOutOfContextException"
 
     def __init__(
-        self, data: AgentMessageOutOfContextException_, message: str | None = None
+        self,
+        data: AgentMessageOutOfContextException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -41,11 +46,12 @@ class AgentMessageOutOfContextException(ServiceError):
             is_retryable=False,
             code="AgentMessageOutOfContextException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AgentMessageOutOfContextException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

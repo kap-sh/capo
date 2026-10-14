@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_iotsitewise._iter import AnyIterator
@@ -146,7 +147,9 @@ def serialize_event_json(value: _ResponseStream) -> bytes:
             raise ValueError(f"ResponseStream: unrecognized variant {value!r}")
 
 
-def deserialize_event_json(message: Message) -> _ResponseStream:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _ResponseStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -159,7 +162,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_iotsitewise.errors.access_denied_exception.AccessDeniedException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "conflictingOperationException":
                 import capo_iotsitewise.errors.conflicting_operation_exception
@@ -168,7 +171,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "internalFailureException":
                 import capo_iotsitewise.errors.internal_failure_exception
@@ -177,7 +180,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_iotsitewise.errors.internal_failure_exception.InternalFailureException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "invalidRequestException":
                 import capo_iotsitewise.errors.invalid_request_exception
@@ -186,7 +189,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "limitExceededException":
                 import capo_iotsitewise.errors.limit_exceeded_exception
@@ -195,7 +198,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "resourceNotFoundException":
                 import capo_iotsitewise.errors.resource_not_found_exception
@@ -204,7 +207,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "throttlingException":
                 import capo_iotsitewise.errors.throttling_exception
@@ -215,10 +218,10 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     )
                 )
                 raise capo_iotsitewise.errors.throttling_exception.ThrottlingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -226,7 +229,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

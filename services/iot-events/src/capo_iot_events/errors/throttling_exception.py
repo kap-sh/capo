@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iot_events.errors import ServiceError
@@ -35,16 +36,25 @@ class ThrottlingException(ServiceError):
 
     code: str | None = "ThrottlingException"
 
-    def __init__(self, data: ThrottlingException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ThrottlingException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ThrottlingException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ThrottlingException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ThrottlingException":
+        return cls(deserialize_json(data), message, response=response)

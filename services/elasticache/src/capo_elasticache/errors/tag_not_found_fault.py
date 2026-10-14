@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elasticache._protocol.xml import Element
@@ -37,16 +38,25 @@ class TagNotFoundFault(ServiceError):
 
     code: str | None = "TagNotFoundFault"
 
-    def __init__(self, data: TagNotFoundFault_, message: str | None = None):
+    def __init__(
+        self,
+        data: TagNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TagNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_query(cls, el: Element, message: str | None = None) -> "TagNotFoundFault":
-        return cls(deserialize_query(el), message)
+    def from_query(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "TagNotFoundFault":
+        return cls(deserialize_query(el), message, response=response)

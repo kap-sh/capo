@@ -51,35 +51,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "FieldLevelEncryptionProfileAlreadyExists":
             raise capo_cloudfront.errors.field_level_encryption_profile_already_exists.FieldLevelEncryptionProfileAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "FieldLevelEncryptionProfileSizeExceeded":
             raise capo_cloudfront.errors.field_level_encryption_profile_size_exceeded.FieldLevelEncryptionProfileSizeExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchPublicKey":
             raise capo_cloudfront.errors.no_such_public_key.NoSuchPublicKey.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionEncryptionEntities":
             raise capo_cloudfront.errors.too_many_field_level_encryption_encryption_entities.TooManyFieldLevelEncryptionEncryptionEntities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionFieldPatterns":
             raise capo_cloudfront.errors.too_many_field_level_encryption_field_patterns.TooManyFieldLevelEncryptionFieldPatterns.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionProfiles":
             raise capo_cloudfront.errors.too_many_field_level_encryption_profiles.TooManyFieldLevelEncryptionProfiles.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

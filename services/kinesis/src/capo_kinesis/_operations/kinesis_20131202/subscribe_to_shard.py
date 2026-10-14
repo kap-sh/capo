@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 
@@ -43,27 +44,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_kinesis.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DryRunOperationException":
             raise capo_kinesis.errors.dry_run_operation_exception.DryRunOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_kinesis.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_kinesis.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -79,7 +80,10 @@ def handle_response(
         Any,
         capo_kinesis._iter.map_sync_iterator(
             _messages,
-            capo_kinesis.types.subscribe_to_shard_event_stream.deserialize_event_aws_json_1_1,
+            functools.partial(
+                capo_kinesis.types.subscribe_to_shard_event_stream.deserialize_event_aws_json_1_1,
+                response=response,
+            ),
         ),
     )
     return out
@@ -95,7 +99,10 @@ async def async_handle_response(
         Any,
         capo_kinesis._iter.map_async_iterator(
             _messages,
-            capo_kinesis.types.subscribe_to_shard_event_stream.deserialize_event_aws_json_1_1,
+            functools.partial(
+                capo_kinesis.types.subscribe_to_shard_event_stream.deserialize_event_aws_json_1_1,
+                response=response,
+            ),
         ),
     )
     return out

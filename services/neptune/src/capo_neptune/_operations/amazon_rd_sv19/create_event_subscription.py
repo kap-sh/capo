@@ -42,31 +42,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EventSubscriptionQuotaExceeded":
             raise capo_neptune.errors.event_subscription_quota_exceeded_fault.EventSubscriptionQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SNSInvalidTopic":
             raise capo_neptune.errors.sns_invalid_topic_fault.SNSInvalidTopicFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SNSNoAuthorization":
             raise capo_neptune.errors.sns_no_authorization_fault.SNSNoAuthorizationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SNSTopicArnNotFound":
             raise capo_neptune.errors.sns_topic_arn_not_found_fault.SNSTopicArnNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SourceNotFound":
             raise capo_neptune.errors.source_not_found_fault.SourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionAlreadyExist":
             raise capo_neptune.errors.subscription_already_exist_fault.SubscriptionAlreadyExistFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionCategoryNotFound":
             raise capo_neptune.errors.subscription_category_not_found_fault.SubscriptionCategoryNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

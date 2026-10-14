@@ -39,35 +39,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidAddress":
             raise capo_sqs.errors.invalid_address.InvalidAddress.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidAttributeName":
             raise capo_sqs.errors.invalid_attribute_name.InvalidAttributeName.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidAttributeValue":
             raise capo_sqs.errors.invalid_attribute_value.InvalidAttributeValue.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidSecurity":
             raise capo_sqs.errors.invalid_security.InvalidSecurity.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "QueueDeletedRecently":
             raise capo_sqs.errors.queue_deleted_recently.QueueDeletedRecently.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "QueueNameExists":
             raise capo_sqs.errors.queue_name_exists.QueueNameExists.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "RequestThrottled":
             raise capo_sqs.errors.request_throttled.RequestThrottled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_sqs.errors.unsupported_operation.UnsupportedOperation.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

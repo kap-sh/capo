@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_amplify.errors import ServiceError
@@ -35,7 +36,11 @@ class DependentServiceFailureException(ServiceError):
     code: str | None = "DependentServiceFailureException"
 
     def __init__(
-        self, data: DependentServiceFailureException_, message: str | None = None
+        self,
+        data: DependentServiceFailureException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -43,11 +48,12 @@ class DependentServiceFailureException(ServiceError):
             is_retryable=False,
             code="DependentServiceFailureException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DependentServiceFailureException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

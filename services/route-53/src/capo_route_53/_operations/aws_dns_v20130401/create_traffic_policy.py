@@ -43,19 +43,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTrafficPolicyDocument":
             raise capo_route_53.errors.invalid_traffic_policy_document.InvalidTrafficPolicyDocument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTrafficPolicies":
             raise capo_route_53.errors.too_many_traffic_policies.TooManyTrafficPolicies.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrafficPolicyAlreadyExists":
             raise capo_route_53.errors.traffic_policy_already_exists.TrafficPolicyAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

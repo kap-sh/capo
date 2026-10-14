@@ -36,11 +36,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "LimitExceededFault":
             raise capo_cloudwatch.errors.limit_exceeded_fault.LimitExceededFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceConflict":
             raise capo_cloudwatch.errors.resource_conflict.ResourceConflict.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

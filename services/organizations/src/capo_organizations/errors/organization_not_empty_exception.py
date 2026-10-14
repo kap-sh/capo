@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_organizations.errors import ServiceError
@@ -35,7 +36,11 @@ class OrganizationNotEmptyException(ServiceError):
     code: str | None = "OrganizationNotEmptyException"
 
     def __init__(
-        self, data: OrganizationNotEmptyException_, message: str | None = None
+        self,
+        data: OrganizationNotEmptyException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class OrganizationNotEmptyException(ServiceError):
             is_retryable=False,
             code="OrganizationNotEmptyException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "OrganizationNotEmptyException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

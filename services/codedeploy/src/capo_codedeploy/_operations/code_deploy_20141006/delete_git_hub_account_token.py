@@ -34,23 +34,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "GitHubAccountTokenDoesNotExistException":
             raise capo_codedeploy.errors.git_hub_account_token_does_not_exist_exception.GitHubAccountTokenDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "GitHubAccountTokenNameRequiredException":
             raise capo_codedeploy.errors.git_hub_account_token_name_required_exception.GitHubAccountTokenNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidGitHubAccountTokenNameException":
             raise capo_codedeploy.errors.invalid_git_hub_account_token_name_exception.InvalidGitHubAccountTokenNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotSupportedException":
             raise capo_codedeploy.errors.operation_not_supported_exception.OperationNotSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceValidationException":
             raise capo_codedeploy.errors.resource_validation_exception.ResourceValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -44,55 +44,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_neptunedata.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClientTimeoutException":
             raise capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConstraintViolationException":
             raise capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "IllegalArgumentException":
             raise capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_neptunedata.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MethodNotAllowedException":
             raise capo_neptunedata.errors.method_not_allowed_exception.MethodNotAllowedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MissingParameterException":
             raise capo_neptunedata.errors.missing_parameter_exception.MissingParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PreconditionsFailedException":
             raise capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ReadOnlyViolationException":
             raise capo_neptunedata.errors.read_only_violation_exception.ReadOnlyViolationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerShutdownException":
             raise capo_neptunedata.errors.server_shutdown_exception.ServerShutdownException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

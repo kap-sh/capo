@@ -51,31 +51,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CreateCustomDBEngineVersionFault":
             raise capo_rds.errors.create_custom_db_engine_version_fault.CreateCustomDBEngineVersionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomDBEngineVersionAlreadyExistsFault":
             raise capo_rds.errors.custom_db_engine_version_already_exists_fault.CustomDBEngineVersionAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomDBEngineVersionNotFoundFault":
             raise capo_rds.errors.custom_db_engine_version_not_found_fault.CustomDBEngineVersionNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomDBEngineVersionQuotaExceededFault":
             raise capo_rds.errors.custom_db_engine_version_quota_exceeded_fault.CustomDBEngineVersionQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "Ec2ImagePropertiesNotSupportedFault":
             raise capo_rds.errors.ec2_image_properties_not_supported_fault.Ec2ImagePropertiesNotSupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCustomDBEngineVersionStateFault":
             raise capo_rds.errors.invalid_custom_db_engine_version_state_fault.InvalidCustomDBEngineVersionStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_rds.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

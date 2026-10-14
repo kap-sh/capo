@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidActionDeclarationException":
             raise capo_codepipeline.errors.invalid_action_declaration_exception.InvalidActionDeclarationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidBlockerDeclarationException":
             raise capo_codepipeline.errors.invalid_blocker_declaration_exception.InvalidBlockerDeclarationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidStageDeclarationException":
             raise capo_codepipeline.errors.invalid_stage_declaration_exception.InvalidStageDeclarationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidStructureException":
             raise capo_codepipeline.errors.invalid_structure_exception.InvalidStructureException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_codepipeline.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codepipeline.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

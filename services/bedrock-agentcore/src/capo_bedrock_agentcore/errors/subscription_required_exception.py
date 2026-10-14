@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#SubscriptionRequiredException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, ServiceError
@@ -43,7 +44,11 @@ class SubscriptionRequiredException(ServiceError):
     code: str | None = "SubscriptionRequiredException"
 
     def __init__(
-        self, data: SubscriptionRequiredException_, message: str | None = None
+        self,
+        data: SubscriptionRequiredException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -51,11 +56,12 @@ class SubscriptionRequiredException(ServiceError):
             is_retryable=False,
             code="SubscriptionRequiredException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SubscriptionRequiredException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

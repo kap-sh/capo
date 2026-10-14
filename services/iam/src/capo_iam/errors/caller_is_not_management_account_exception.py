@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
@@ -40,7 +41,11 @@ class CallerIsNotManagementAccountException(ServiceError):
     code: str | None = "CallerIsNotManagementAccountException"
 
     def __init__(
-        self, data: CallerIsNotManagementAccountException_, message: str | None = None
+        self,
+        data: CallerIsNotManagementAccountException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class CallerIsNotManagementAccountException(ServiceError):
             is_retryable=False,
             code="CallerIsNotManagementAccountException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "CallerIsNotManagementAccountException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

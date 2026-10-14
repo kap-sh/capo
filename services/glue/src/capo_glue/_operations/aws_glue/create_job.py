@@ -47,31 +47,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlreadyExistsException":
             raise capo_glue.errors.already_exists_exception.AlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_glue.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IdempotentParameterMismatchException":
             raise capo_glue.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_glue.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_glue.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationTimeoutException":
             raise capo_glue.errors.operation_timeout_exception.OperationTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNumberLimitExceededException":
             raise capo_glue.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

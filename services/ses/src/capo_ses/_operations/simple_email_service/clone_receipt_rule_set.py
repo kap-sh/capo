@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlreadyExists":
             raise capo_ses.errors.already_exists_exception.AlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_ses.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RuleSetDoesNotExist":
             raise capo_ses.errors.rule_set_does_not_exist_exception.RuleSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

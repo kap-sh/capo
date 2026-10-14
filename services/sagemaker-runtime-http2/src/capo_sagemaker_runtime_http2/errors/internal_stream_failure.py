@@ -2,6 +2,7 @@
 
 import json
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sagemaker_runtime_http2._protocol.eventstream import HeaderValue, Message
@@ -33,21 +34,28 @@ class InternalStreamFailure(ServiceError):
 
     code: str | None = "InternalStreamFailure"
 
-    def __init__(self, data: InternalStreamFailure_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalStreamFailure_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="InternalStreamFailure",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalStreamFailure":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)
 
 
 def serialize_event_json(value: InternalStreamFailure_) -> bytes:

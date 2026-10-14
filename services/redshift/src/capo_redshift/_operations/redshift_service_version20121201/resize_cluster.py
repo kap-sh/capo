@@ -47,63 +47,63 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceUnavailableFault":
             raise capo_redshift.errors.dependent_service_unavailable_fault.DependentServiceUnavailableFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientClusterCapacity":
             raise capo_redshift.errors.insufficient_cluster_capacity_fault.InsufficientClusterCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidReservedNodeState":
             raise capo_redshift.errors.invalid_reserved_node_state_fault.InvalidReservedNodeStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededFault":
             raise capo_redshift.errors.limit_exceeded_fault.LimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NumberOfNodesPerClusterLimitExceeded":
             raise capo_redshift.errors.number_of_nodes_per_cluster_limit_exceeded_fault.NumberOfNodesPerClusterLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NumberOfNodesQuotaExceeded":
             raise capo_redshift.errors.number_of_nodes_quota_exceeded_fault.NumberOfNodesQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeAlreadyExists":
             raise capo_redshift.errors.reserved_node_already_exists_fault.ReservedNodeAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeAlreadyMigrated":
             raise capo_redshift.errors.reserved_node_already_migrated_fault.ReservedNodeAlreadyMigratedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeNotFound":
             raise capo_redshift.errors.reserved_node_not_found_fault.ReservedNodeNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeOfferingNotFound":
             raise capo_redshift.errors.reserved_node_offering_not_found_fault.ReservedNodeOfferingNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOptionFault":
             raise capo_redshift.errors.unsupported_option_fault.UnsupportedOptionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

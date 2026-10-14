@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -35,18 +36,25 @@ class EntitySizeLimitExceeded(ServiceError):
 
     code: str | None = "EntitySizeLimitExceeded"
 
-    def __init__(self, data: EntitySizeLimitExceeded_, message: str | None = None):
+    def __init__(
+        self,
+        data: EntitySizeLimitExceeded_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="EntitySizeLimitExceeded",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "EntitySizeLimitExceeded":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

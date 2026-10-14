@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#ParsingException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_neptunedata.errors import DeserializationError, ServiceError
@@ -45,16 +46,25 @@ class ParsingException(ServiceError):
 
     code: str | None = "ParsingException"
 
-    def __init__(self, data: ParsingException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ParsingException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ParsingException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ParsingException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ParsingException":
+        return cls(deserialize_json(data), message, response=response)

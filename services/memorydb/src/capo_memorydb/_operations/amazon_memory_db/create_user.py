@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateUserNameFault":
             raise capo_memorydb.errors.duplicate_user_name_fault.DuplicateUserNameFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_memorydb.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UserAlreadyExistsFault":
             raise capo_memorydb.errors.user_already_exists_fault.UserAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UserQuotaExceededFault":
             raise capo_memorydb.errors.user_quota_exceeded_fault.UserQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

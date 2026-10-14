@@ -38,23 +38,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CacheSubnetGroupNotFoundFault":
             raise capo_elasticache.errors.cache_subnet_group_not_found_fault.CacheSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CacheSubnetQuotaExceededFault":
             raise capo_elasticache.errors.cache_subnet_quota_exceeded_fault.CacheSubnetQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_elasticache.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetInUse":
             raise capo_elasticache.errors.subnet_in_use.SubnetInUse.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetNotAllowedFault":
             raise capo_elasticache.errors.subnet_not_allowed_fault.SubnetNotAllowedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

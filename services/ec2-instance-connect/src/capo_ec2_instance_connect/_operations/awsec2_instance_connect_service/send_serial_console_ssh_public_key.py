@@ -44,51 +44,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthException":
             raise capo_ec2_instance_connect.errors.auth_exception.AuthException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EC2InstanceNotFoundException":
             raise capo_ec2_instance_connect.errors.ec2_instance_not_found_exception.EC2InstanceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EC2InstanceStateInvalidException":
             raise capo_ec2_instance_connect.errors.ec2_instance_state_invalid_exception.EC2InstanceStateInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EC2InstanceTypeInvalidException":
             raise capo_ec2_instance_connect.errors.ec2_instance_type_invalid_exception.EC2InstanceTypeInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EC2InstanceUnavailableException":
             raise capo_ec2_instance_connect.errors.ec2_instance_unavailable_exception.EC2InstanceUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgsException":
             raise capo_ec2_instance_connect.errors.invalid_args_exception.InvalidArgsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SerialConsoleAccessDisabledException":
             raise capo_ec2_instance_connect.errors.serial_console_access_disabled_exception.SerialConsoleAccessDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SerialConsoleSessionLimitExceededException":
             raise capo_ec2_instance_connect.errors.serial_console_session_limit_exceeded_exception.SerialConsoleSessionLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SerialConsoleSessionUnavailableException":
             raise capo_ec2_instance_connect.errors.serial_console_session_unavailable_exception.SerialConsoleSessionUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SerialConsoleSessionUnsupportedException":
             raise capo_ec2_instance_connect.errors.serial_console_session_unsupported_exception.SerialConsoleSessionUnsupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_ec2_instance_connect.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_ec2_instance_connect.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -49,27 +49,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "ContinuousDeploymentPolicyInUse":
             raise capo_cloudfront.errors.continuous_deployment_policy_in_use.ContinuousDeploymentPolicyInUse.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchContinuousDeploymentPolicy":
             raise capo_cloudfront.errors.no_such_continuous_deployment_policy.NoSuchContinuousDeploymentPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

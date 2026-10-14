@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidLimitException":
             raise capo_config_service.errors.invalid_limit_exception.InvalidLimitException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_config_service.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_config_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchConfigRuleInConformancePackException":
             raise capo_config_service.errors.no_such_config_rule_in_conformance_pack_exception.NoSuchConfigRuleInConformancePackException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchConformancePackException":
             raise capo_config_service.errors.no_such_conformance_pack_exception.NoSuchConformancePackException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

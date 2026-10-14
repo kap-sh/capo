@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_partnercentral_revenue_measurement.errors import (
@@ -57,16 +58,25 @@ class ConflictException(ServiceError):
 
     code: str | None = "ConflictException"
 
-    def __init__(self, data: ConflictException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ConflictException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ConflictException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_cbor(cls, data: dict, message: str | None = None) -> "ConflictException":
-        return cls(deserialize_cbor(data), message)
+    def from_cbor(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ConflictException":
+        return cls(deserialize_cbor(data), message, response=response)

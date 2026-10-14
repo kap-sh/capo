@@ -42,11 +42,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchQueryLoggingConfig":
             raise capo_route_53.errors.no_such_query_logging_config.NoSuchQueryLoggingConfig.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

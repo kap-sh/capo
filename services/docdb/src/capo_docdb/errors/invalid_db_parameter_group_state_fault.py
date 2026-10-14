@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_docdb._protocol.xml import Element
@@ -38,7 +39,11 @@ class InvalidDBParameterGroupStateFault(ServiceError):
     code: str | None = "InvalidDBParameterGroupStateFault"
 
     def __init__(
-        self, data: InvalidDBParameterGroupStateFault_, message: str | None = None
+        self,
+        data: InvalidDBParameterGroupStateFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class InvalidDBParameterGroupStateFault(ServiceError):
             is_retryable=False,
             code="InvalidDBParameterGroupStateFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidDBParameterGroupStateFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

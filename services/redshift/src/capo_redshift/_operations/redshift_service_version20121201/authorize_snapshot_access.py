@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationAlreadyExists":
             raise capo_redshift.errors.authorization_already_exists_fault.AuthorizationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "AuthorizationQuotaExceeded":
             raise capo_redshift.errors.authorization_quota_exceeded_fault.AuthorizationQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSnapshotNotFound":
             raise capo_redshift.errors.cluster_snapshot_not_found_fault.ClusterSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceRequestThrottlingFault":
             raise capo_redshift.errors.dependent_service_request_throttling_fault.DependentServiceRequestThrottlingFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterSnapshotState":
             raise capo_redshift.errors.invalid_cluster_snapshot_state_fault.InvalidClusterSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededFault":
             raise capo_redshift.errors.limit_exceeded_fault.LimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

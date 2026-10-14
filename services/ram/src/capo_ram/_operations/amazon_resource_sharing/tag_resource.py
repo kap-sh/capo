@@ -38,35 +38,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterException":
             raise capo_ram.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MalformedArnException":
             raise capo_ram.errors.malformed_arn_exception.MalformedArnException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceArnNotFoundException":
             raise capo_ram.errors.resource_arn_not_found_exception.ResourceArnNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_ram.errors.server_internal_exception.ServerInternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_ram.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TagLimitExceededException":
             raise capo_ram.errors.tag_limit_exceeded_exception.TagLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TagPolicyViolationException":
             raise capo_ram.errors.tag_policy_violation_exception.TagPolicyViolationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnknownResourceException":
             raise capo_ram.errors.unknown_resource_exception.UnknownResourceException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

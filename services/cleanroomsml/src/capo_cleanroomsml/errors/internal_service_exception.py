@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanroomsml#InternalServiceException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_cleanroomsml.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class InternalServiceException(ServiceError):
 
     code: str | None = "InternalServiceException"
 
-    def __init__(self, data: InternalServiceException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalServiceException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="InternalServiceException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalServiceException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

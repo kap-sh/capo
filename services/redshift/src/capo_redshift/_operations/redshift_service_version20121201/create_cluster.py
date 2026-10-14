@@ -64,111 +64,111 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterAlreadyExists":
             raise capo_redshift.errors.cluster_already_exists_fault.ClusterAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterParameterGroupNotFound":
             raise capo_redshift.errors.cluster_parameter_group_not_found_fault.ClusterParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterQuotaExceeded":
             raise capo_redshift.errors.cluster_quota_exceeded_fault.ClusterQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSecurityGroupNotFound":
             raise capo_redshift.errors.cluster_security_group_not_found_fault.ClusterSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSubnetGroupNotFoundFault":
             raise capo_redshift.errors.cluster_subnet_group_not_found_fault.ClusterSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceAccessDenied":
             raise capo_redshift.errors.dependent_service_access_denied_fault.DependentServiceAccessDeniedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceRequestThrottlingFault":
             raise capo_redshift.errors.dependent_service_request_throttling_fault.DependentServiceRequestThrottlingFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceUnavailableFault":
             raise capo_redshift.errors.dependent_service_unavailable_fault.DependentServiceUnavailableFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "HsmClientCertificateNotFoundFault":
             raise capo_redshift.errors.hsm_client_certificate_not_found_fault.HsmClientCertificateNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "HsmConfigurationNotFoundFault":
             raise capo_redshift.errors.hsm_configuration_not_found_fault.HsmConfigurationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientClusterCapacity":
             raise capo_redshift.errors.insufficient_cluster_capacity_fault.InsufficientClusterCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterSubnetGroupStateFault":
             raise capo_redshift.errors.invalid_cluster_subnet_group_state_fault.InvalidClusterSubnetGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterTrack":
             raise capo_redshift.errors.invalid_cluster_track_fault.InvalidClusterTrackFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidElasticIpFault":
             raise capo_redshift.errors.invalid_elastic_ip_fault.InvalidElasticIpFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRetentionPeriodFault":
             raise capo_redshift.errors.invalid_retention_period_fault.InvalidRetentionPeriodFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_redshift.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_redshift.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "Ipv6CidrBlockNotFoundFault":
             raise capo_redshift.errors.ipv6_cidr_block_not_found_fault.Ipv6CidrBlockNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededFault":
             raise capo_redshift.errors.limit_exceeded_fault.LimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NumberOfNodesPerClusterLimitExceeded":
             raise capo_redshift.errors.number_of_nodes_per_cluster_limit_exceeded_fault.NumberOfNodesPerClusterLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NumberOfNodesQuotaExceeded":
             raise capo_redshift.errors.number_of_nodes_quota_exceeded_fault.NumberOfNodesQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RedshiftIdcApplicationNotExists":
             raise capo_redshift.errors.redshift_idc_application_not_exists_fault.RedshiftIdcApplicationNotExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotScheduleNotFound":
             raise capo_redshift.errors.snapshot_schedule_not_found_fault.SnapshotScheduleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagLimitExceededFault":
             raise capo_redshift.errors.tag_limit_exceeded_fault.TagLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

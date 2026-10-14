@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_redshift._protocol.xml import Element
@@ -38,7 +39,11 @@ class HsmClientCertificateNotFoundFault(ServiceError):
     code: str | None = "HsmClientCertificateNotFoundFault"
 
     def __init__(
-        self, data: HsmClientCertificateNotFoundFault_, message: str | None = None
+        self,
+        data: HsmClientCertificateNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class HsmClientCertificateNotFoundFault(ServiceError):
             is_retryable=False,
             code="HsmClientCertificateNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "HsmClientCertificateNotFoundFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

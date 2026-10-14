@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidRequestException":
             raise capo_xray.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_xray.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottledException":
             raise capo_xray.errors.throttled_exception.ThrottledException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

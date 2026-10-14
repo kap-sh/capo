@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_redshift._protocol.xml import Element
@@ -38,7 +39,11 @@ class InvalidReservedNodeStateFault(ServiceError):
     code: str | None = "InvalidReservedNodeStateFault"
 
     def __init__(
-        self, data: InvalidReservedNodeStateFault_, message: str | None = None
+        self,
+        data: InvalidReservedNodeStateFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class InvalidReservedNodeStateFault(ServiceError):
             is_retryable=False,
             code="InvalidReservedNodeStateFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidReservedNodeStateFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

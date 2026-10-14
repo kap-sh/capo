@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cognito_identity_provider.errors import ServiceError
@@ -37,7 +38,11 @@ class WebAuthnClientMismatchException(ServiceError):
     code: str | None = "WebAuthnClientMismatchException"
 
     def __init__(
-        self, data: WebAuthnClientMismatchException_, message: str | None = None
+        self,
+        data: WebAuthnClientMismatchException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -45,11 +50,12 @@ class WebAuthnClientMismatchException(ServiceError):
             is_retryable=False,
             code="WebAuthnClientMismatchException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "WebAuthnClientMismatchException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

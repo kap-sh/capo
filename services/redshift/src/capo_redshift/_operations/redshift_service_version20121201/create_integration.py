@@ -45,39 +45,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IntegrationAlreadyExistsFault":
             raise capo_redshift.errors.integration_already_exists_fault.IntegrationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationConflictOperationFault":
             raise capo_redshift.errors.integration_conflict_operation_fault.IntegrationConflictOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationQuotaExceededFault":
             raise capo_redshift.errors.integration_quota_exceeded_fault.IntegrationQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationSourceNotFoundFault":
             raise capo_redshift.errors.integration_source_not_found_fault.IntegrationSourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationTargetNotFoundFault":
             raise capo_redshift.errors.integration_target_not_found_fault.IntegrationTargetNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagLimitExceededFault":
             raise capo_redshift.errors.tag_limit_exceeded_fault.TagLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
@@ -64,7 +65,11 @@ class EventDestinationAlreadyExistsException(ServiceError):
     code: str | None = "EventDestinationAlreadyExistsException"
 
     def __init__(
-        self, data: EventDestinationAlreadyExistsException_, message: str | None = None
+        self,
+        data: EventDestinationAlreadyExistsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -72,11 +77,12 @@ class EventDestinationAlreadyExistsException(ServiceError):
             is_retryable=False,
             code="EventDestinationAlreadyExistsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "EventDestinationAlreadyExistsException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

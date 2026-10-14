@@ -36,31 +36,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DirectoryServiceAuthenticationFailedException":
             raise capo_workmail.errors.directory_service_authentication_failed_exception.DirectoryServiceAuthenticationFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DirectoryUnavailableException":
             raise capo_workmail.errors.directory_unavailable_exception.DirectoryUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EntityStateException":
             raise capo_workmail.errors.entity_state_exception.EntityStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_workmail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationNotFoundException":
             raise capo_workmail.errors.organization_not_found_exception.OrganizationNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationStateException":
             raise capo_workmail.errors.organization_state_exception.OrganizationStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_workmail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

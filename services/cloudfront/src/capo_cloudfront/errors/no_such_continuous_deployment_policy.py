@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -38,7 +39,11 @@ class NoSuchContinuousDeploymentPolicy(ServiceError):
     code: str | None = "NoSuchContinuousDeploymentPolicy"
 
     def __init__(
-        self, data: NoSuchContinuousDeploymentPolicy_, message: str | None = None
+        self,
+        data: NoSuchContinuousDeploymentPolicy_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class NoSuchContinuousDeploymentPolicy(ServiceError):
             is_retryable=False,
             code="NoSuchContinuousDeploymentPolicy",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "NoSuchContinuousDeploymentPolicy":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

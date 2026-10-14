@@ -39,23 +39,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_oam.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceFault":
             raise capo_oam.errors.internal_service_fault.InternalServiceFault.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_oam.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MissingRequiredParameterException":
             raise capo_oam.errors.missing_required_parameter_exception.MissingRequiredParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_oam.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

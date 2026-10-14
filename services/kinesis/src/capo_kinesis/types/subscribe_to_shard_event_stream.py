@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_kinesis._iter import AnyIterator
@@ -166,7 +167,9 @@ def serialize_event_aws_json_1_1(value: _SubscribeToShardEventStream) -> bytes:
             )
 
 
-def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventStream:
+def deserialize_event_aws_json_1_1(
+    message: Message, *, response: zapros.Response
+) -> _SubscribeToShardEventStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -179,7 +182,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ResourceInUseException":
                 import capo_kinesis.errors.resource_in_use_exception
@@ -188,7 +191,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.resource_in_use_exception.ResourceInUseException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "KMSDisabledException":
                 import capo_kinesis.errors.kms_disabled_exception
@@ -197,7 +200,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.kms_disabled_exception.KMSDisabledException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "KMSInvalidStateException":
                 import capo_kinesis.errors.kms_invalid_state_exception
@@ -206,7 +209,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "KMSAccessDeniedException":
                 import capo_kinesis.errors.kms_access_denied_exception
@@ -215,7 +218,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "KMSNotFoundException":
                 import capo_kinesis.errors.kms_not_found_exception
@@ -224,7 +227,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "KMSOptInRequired":
                 import capo_kinesis.errors.kms_opt_in_required
@@ -233,7 +236,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "KMSThrottlingException":
                 import capo_kinesis.errors.kms_throttling_exception
@@ -242,7 +245,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.kms_throttling_exception.KMSThrottlingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "InternalFailureException":
                 import capo_kinesis.errors.internal_failure_exception
@@ -251,10 +254,10 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
                     message
                 )
                 raise capo_kinesis.errors.internal_failure_exception.InternalFailureException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -262,7 +265,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _SubscribeToShardEventSt
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

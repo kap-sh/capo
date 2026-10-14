@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
@@ -38,7 +39,11 @@ class OptionGroupQuotaExceededFault(ServiceError):
     code: str | None = "OptionGroupQuotaExceededFault"
 
     def __init__(
-        self, data: OptionGroupQuotaExceededFault_, message: str | None = None
+        self,
+        data: OptionGroupQuotaExceededFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class OptionGroupQuotaExceededFault(ServiceError):
             is_retryable=False,
             code="OptionGroupQuotaExceededFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "OptionGroupQuotaExceededFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

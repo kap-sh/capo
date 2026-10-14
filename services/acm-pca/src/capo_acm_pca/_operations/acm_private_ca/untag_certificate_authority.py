@@ -33,19 +33,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArnException":
             raise capo_acm_pca.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidStateException":
             raise capo_acm_pca.errors.invalid_state_exception.InvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagException":
             raise capo_acm_pca.errors.invalid_tag_exception.InvalidTagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_acm_pca.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

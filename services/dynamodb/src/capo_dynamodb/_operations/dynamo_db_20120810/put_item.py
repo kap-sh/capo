@@ -51,43 +51,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConditionalCheckFailedException":
             raise capo_dynamodb.errors.conditional_check_failed_exception.ConditionalCheckFailedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_dynamodb.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidEndpointException":
             raise capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ItemCollectionSizeLimitExceededException":
             raise capo_dynamodb.errors.item_collection_size_limit_exceeded_exception.ItemCollectionSizeLimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ProvisionedThroughputExceededException":
             raise capo_dynamodb.errors.provisioned_throughput_exceeded_exception.ProvisionedThroughputExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ReplicatedWriteConflictException":
             raise capo_dynamodb.errors.replicated_write_conflict_exception.ReplicatedWriteConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "RequestLimitExceeded":
             raise capo_dynamodb.errors.request_limit_exceeded.RequestLimitExceeded.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_dynamodb.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_dynamodb.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "TransactionConflictException":
             raise capo_dynamodb.errors.transaction_conflict_exception.TransactionConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

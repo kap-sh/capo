@@ -30,11 +30,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "LastDeliveryChannelDeleteFailedException":
             raise capo_config_service.errors.last_delivery_channel_delete_failed_exception.LastDeliveryChannelDeleteFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchDeliveryChannelException":
             raise capo_config_service.errors.no_such_delivery_channel_exception.NoSuchDeliveryChannelException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

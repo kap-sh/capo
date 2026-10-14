@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSnapshotAlreadyExists":
             raise capo_redshift.errors.cluster_snapshot_already_exists_fault.ClusterSnapshotAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSnapshotQuotaExceeded":
             raise capo_redshift.errors.cluster_snapshot_quota_exceeded_fault.ClusterSnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRetentionPeriodFault":
             raise capo_redshift.errors.invalid_retention_period_fault.InvalidRetentionPeriodFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

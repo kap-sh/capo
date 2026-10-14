@@ -51,79 +51,79 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudTrailARNInvalidException":
             raise capo_cloudtrail.errors.cloud_trail_arn_invalid_exception.CloudTrailARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_cloudtrail.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreARNInvalidException":
             raise capo_cloudtrail.errors.event_data_store_arn_invalid_exception.EventDataStoreARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreNotFoundException":
             raise capo_cloudtrail.errors.event_data_store_not_found_exception.EventDataStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InactiveEventDataStoreException":
             raise capo_cloudtrail.errors.inactive_event_data_store_exception.InactiveEventDataStoreException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientDependencyServiceAccessPermissionException":
             raise capo_cloudtrail.errors.insufficient_dependency_service_access_permission_exception.InsufficientDependencyServiceAccessPermissionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientIAMAccessPermissionException":
             raise capo_cloudtrail.errors.insufficient_iam_access_permission_exception.InsufficientIAMAccessPermissionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventDataStoreCategoryException":
             raise capo_cloudtrail.errors.invalid_event_data_store_category_exception.InvalidEventDataStoreCategoryException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventDataStoreStatusException":
             raise capo_cloudtrail.errors.invalid_event_data_store_status_exception.InvalidEventDataStoreStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidHomeRegionException":
             raise capo_cloudtrail.errors.invalid_home_region_exception.InvalidHomeRegionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_cloudtrail.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTrailNameException":
             raise capo_cloudtrail.errors.invalid_trail_name_exception.InvalidTrailNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoManagementAccountSLRExistsException":
             raise capo_cloudtrail.errors.no_management_account_slr_exists_exception.NoManagementAccountSLRExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotOrganizationMasterAccountException":
             raise capo_cloudtrail.errors.not_organization_master_account_exception.NotOrganizationMasterAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_cloudtrail.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TrailNotFoundException":
             raise capo_cloudtrail.errors.trail_not_found_exception.TrailNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

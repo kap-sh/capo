@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_load_balancing_v2._protocol.xml import Element
@@ -42,7 +43,11 @@ class CaCertificatesBundleNotFoundException(ServiceError):
     code: str | None = "CaCertificatesBundleNotFoundException"
 
     def __init__(
-        self, data: CaCertificatesBundleNotFoundException_, message: str | None = None
+        self,
+        data: CaCertificatesBundleNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +55,12 @@ class CaCertificatesBundleNotFoundException(ServiceError):
             is_retryable=False,
             code="CaCertificatesBundleNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "CaCertificatesBundleNotFoundException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

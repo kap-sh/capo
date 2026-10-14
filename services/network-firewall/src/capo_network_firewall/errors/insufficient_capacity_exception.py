@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_network_firewall.errors import ServiceError
@@ -35,7 +36,11 @@ class InsufficientCapacityException(ServiceError):
     code: str | None = "InsufficientCapacityException"
 
     def __init__(
-        self, data: InsufficientCapacityException_, message: str | None = None
+        self,
+        data: InsufficientCapacityException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -43,11 +48,12 @@ class InsufficientCapacityException(ServiceError):
             is_retryable=False,
             code="InsufficientCapacityException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InsufficientCapacityException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalException":
             raise capo_cloudwatch_events.errors.internal_exception.InternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventPatternException":
             raise capo_cloudwatch_events.errors.invalid_event_pattern_exception.InvalidEventPatternException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

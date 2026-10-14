@@ -52,47 +52,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "IllegalUpdate":
             raise capo_cloudfront.errors.illegal_update.IllegalUpdate.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchFieldLevelEncryptionConfig":
             raise capo_cloudfront.errors.no_such_field_level_encryption_config.NoSuchFieldLevelEncryptionConfig.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchFieldLevelEncryptionProfile":
             raise capo_cloudfront.errors.no_such_field_level_encryption_profile.NoSuchFieldLevelEncryptionProfile.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "QueryArgProfileEmpty":
             raise capo_cloudfront.errors.query_arg_profile_empty.QueryArgProfileEmpty.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionContentTypeProfiles":
             raise capo_cloudfront.errors.too_many_field_level_encryption_content_type_profiles.TooManyFieldLevelEncryptionContentTypeProfiles.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionQueryArgProfiles":
             raise capo_cloudfront.errors.too_many_field_level_encryption_query_arg_profiles.TooManyFieldLevelEncryptionQueryArgProfiles.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

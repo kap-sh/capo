@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_wickr.errors import ServiceError
@@ -35,18 +36,25 @@ class ResourceNotFoundError(ServiceError):
 
     code: str | None = "ResourceNotFoundError"
 
-    def __init__(self, data: ResourceNotFoundError_, message: str | None = None):
+    def __init__(
+        self,
+        data: ResourceNotFoundError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ResourceNotFoundError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceNotFoundError":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

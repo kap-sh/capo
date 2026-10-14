@@ -41,39 +41,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_textract.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "BadDocumentException":
             raise capo_textract.errors.bad_document_exception.BadDocumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DocumentTooLargeException":
             raise capo_textract.errors.document_too_large_exception.DocumentTooLargeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_textract.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_textract.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3ObjectException":
             raise capo_textract.errors.invalid_s3_object_exception.InvalidS3ObjectException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ProvisionedThroughputExceededException":
             raise capo_textract.errors.provisioned_throughput_exceeded_exception.ProvisionedThroughputExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_textract.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedDocumentException":
             raise capo_textract.errors.unsupported_document_exception.UnsupportedDocumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

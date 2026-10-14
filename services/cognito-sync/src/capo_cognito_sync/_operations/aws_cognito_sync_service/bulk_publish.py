@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlreadyStreamedException":
             raise capo_cognito_sync.errors.already_streamed_exception.AlreadyStreamedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "DuplicateRequestException":
             raise capo_cognito_sync.errors.duplicate_request_exception.DuplicateRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalErrorException":
             raise capo_cognito_sync.errors.internal_error_exception.InternalErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cognito_sync.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotAuthorizedException":
             raise capo_cognito_sync.errors.not_authorized_exception.NotAuthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cognito_sync.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

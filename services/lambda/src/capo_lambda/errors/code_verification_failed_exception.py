@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lambda.errors import ServiceError
@@ -40,7 +41,11 @@ class CodeVerificationFailedException(ServiceError):
     code: str | None = "CodeVerificationFailedException"
 
     def __init__(
-        self, data: CodeVerificationFailedException_, message: str | None = None
+        self,
+        data: CodeVerificationFailedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class CodeVerificationFailedException(ServiceError):
             is_retryable=False,
             code="CodeVerificationFailedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CodeVerificationFailedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

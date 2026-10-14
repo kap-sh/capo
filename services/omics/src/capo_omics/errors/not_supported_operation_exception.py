@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.omics#NotSupportedOperationException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_omics.errors import DeserializationError, ServiceError
@@ -31,7 +32,11 @@ class NotSupportedOperationException(ServiceError):
     code: str | None = "NotSupportedOperationException"
 
     def __init__(
-        self, data: NotSupportedOperationException_, message: str | None = None
+        self,
+        data: NotSupportedOperationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -39,11 +44,12 @@ class NotSupportedOperationException(ServiceError):
             is_retryable=False,
             code="NotSupportedOperationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "NotSupportedOperationException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

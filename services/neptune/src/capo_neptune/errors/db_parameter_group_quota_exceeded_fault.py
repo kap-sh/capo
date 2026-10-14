@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_neptune._protocol.xml import Element
@@ -41,7 +42,11 @@ class DBParameterGroupQuotaExceededFault(ServiceError):
     code: str | None = "DBParameterGroupQuotaExceededFault"
 
     def __init__(
-        self, data: DBParameterGroupQuotaExceededFault_, message: str | None = None
+        self,
+        data: DBParameterGroupQuotaExceededFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class DBParameterGroupQuotaExceededFault(ServiceError):
             is_retryable=False,
             code="DBParameterGroupQuotaExceededFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "DBParameterGroupQuotaExceededFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

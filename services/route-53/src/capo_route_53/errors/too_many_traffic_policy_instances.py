@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
@@ -39,7 +40,11 @@ class TooManyTrafficPolicyInstances(ServiceError):
     code: str | None = "TooManyTrafficPolicyInstances"
 
     def __init__(
-        self, data: TooManyTrafficPolicyInstances_, message: str | None = None
+        self,
+        data: TooManyTrafficPolicyInstances_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -47,11 +52,12 @@ class TooManyTrafficPolicyInstances(ServiceError):
             is_retryable=False,
             code="TooManyTrafficPolicyInstances",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyTrafficPolicyInstances":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

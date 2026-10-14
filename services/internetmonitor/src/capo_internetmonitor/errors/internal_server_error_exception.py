@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.internetmonitor#InternalServerErrorException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_internetmonitor.errors import ServiceError
@@ -29,18 +30,25 @@ class InternalServerErrorException(ServiceError):
 
     code: str | None = "InternalServerErrorException"
 
-    def __init__(self, data: InternalServerErrorException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalServerErrorException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=True,
             code="InternalServerErrorException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalServerErrorException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
@@ -40,7 +41,11 @@ class InsufficientDBInstanceCapacityFault(ServiceError):
     code: str | None = "InsufficientDBInstanceCapacityFault"
 
     def __init__(
-        self, data: InsufficientDBInstanceCapacityFault_, message: str | None = None
+        self,
+        data: InsufficientDBInstanceCapacityFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class InsufficientDBInstanceCapacityFault(ServiceError):
             is_retryable=False,
             code="InsufficientDBInstanceCapacityFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InsufficientDBInstanceCapacityFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

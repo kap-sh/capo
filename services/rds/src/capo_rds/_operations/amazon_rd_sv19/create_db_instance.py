@@ -65,95 +65,95 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationNotFound":
             raise capo_rds.errors.authorization_not_found_fault.AuthorizationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "BackupPolicyNotFoundFault":
             raise capo_rds.errors.backup_policy_not_found_fault.BackupPolicyNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CertificateNotFound":
             raise capo_rds.errors.certificate_not_found_fault.CertificateNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceAlreadyExists":
             raise capo_rds.errors.db_instance_already_exists_fault.DBInstanceAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBParameterGroupNotFound":
             raise capo_rds.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSecurityGroupNotFound":
             raise capo_rds.errors.db_security_group_not_found_fault.DBSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupDoesNotCoverEnoughAZs":
             raise capo_rds.errors.db_subnet_group_does_not_cover_enough_a_zs.DBSubnetGroupDoesNotCoverEnoughAZs.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupNotFoundFault":
             raise capo_rds.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DomainNotFoundFault":
             raise capo_rds.errors.domain_not_found_fault.DomainNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InstanceQuotaExceeded":
             raise capo_rds.errors.instance_quota_exceeded_fault.InstanceQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientDBInstanceCapacity":
             raise capo_rds.errors.insufficient_db_instance_capacity_fault.InsufficientDBInstanceCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_rds.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_rds.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_rds.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NetworkTypeNotSupported":
             raise capo_rds.errors.network_type_not_supported.NetworkTypeNotSupported.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OptionGroupNotFoundFault":
             raise capo_rds.errors.option_group_not_found_fault.OptionGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ProvisionedIopsNotAvailableInAZFault":
             raise capo_rds.errors.provisioned_iops_not_available_in_az_fault.ProvisionedIopsNotAvailableInAZFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageQuotaExceeded":
             raise capo_rds.errors.storage_quota_exceeded_fault.StorageQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageTypeNotSupported":
             raise capo_rds.errors.storage_type_not_supported_fault.StorageTypeNotSupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TenantDatabaseQuotaExceeded":
             raise capo_rds.errors.tenant_database_quota_exceeded_fault.TenantDatabaseQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "VpcEncryptionControlViolationException":
             raise capo_rds.errors.vpc_encryption_control_violation_exception.VpcEncryptionControlViolationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

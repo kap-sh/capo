@@ -43,47 +43,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_organizations.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AWSOrganizationsNotInUseException":
             raise capo_organizations.errors.aws_organizations_not_in_use_exception.AWSOrganizationsNotInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_organizations.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConstraintViolationException":
             raise capo_organizations.errors.constraint_violation_exception.ConstraintViolationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicatePolicyException":
             raise capo_organizations.errors.duplicate_policy_exception.DuplicatePolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_organizations.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MalformedPolicyDocumentException":
             raise capo_organizations.errors.malformed_policy_document_exception.MalformedPolicyDocumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PolicyTypeNotAvailableForOrganizationException":
             raise capo_organizations.errors.policy_type_not_available_for_organization_exception.PolicyTypeNotAvailableForOrganizationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_organizations.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_organizations.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedAPIEndpointException":
             raise capo_organizations.errors.unsupported_api_endpoint_exception.UnsupportedAPIEndpointException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

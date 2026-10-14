@@ -31,11 +31,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DeleteSlackWorkspaceAuthorizationFault":
             raise capo_chatbot.errors.delete_slack_workspace_authorization_fault.DeleteSlackWorkspaceAuthorizationFault.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_chatbot.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

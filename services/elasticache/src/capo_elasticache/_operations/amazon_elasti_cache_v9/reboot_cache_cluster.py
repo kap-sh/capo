@@ -35,11 +35,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CacheClusterNotFound":
             raise capo_elasticache.errors.cache_cluster_not_found_fault.CacheClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCacheClusterState":
             raise capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

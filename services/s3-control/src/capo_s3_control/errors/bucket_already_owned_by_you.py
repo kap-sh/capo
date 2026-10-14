@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3control#BucketAlreadyOwnedByYou``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_s3_control._protocol.xml import Element, SubElement
@@ -25,18 +26,25 @@ class BucketAlreadyOwnedByYou(ServiceError):
 
     code: str | None = "BucketAlreadyOwnedByYou"
 
-    def __init__(self, data: BucketAlreadyOwnedByYou_, message: str | None = None):
+    def __init__(
+        self,
+        data: BucketAlreadyOwnedByYou_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="BucketAlreadyOwnedByYou",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "BucketAlreadyOwnedByYou":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

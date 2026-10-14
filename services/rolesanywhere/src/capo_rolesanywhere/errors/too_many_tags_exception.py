@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rolesanywhere#TooManyTagsException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rolesanywhere.errors import ServiceError
@@ -29,18 +30,25 @@ class TooManyTagsException(ServiceError):
 
     code: str | None = "TooManyTagsException"
 
-    def __init__(self, data: TooManyTagsException_, message: str | None = None):
+    def __init__(
+        self,
+        data: TooManyTagsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TooManyTagsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyTagsException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

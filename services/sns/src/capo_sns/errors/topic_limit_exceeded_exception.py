@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
@@ -37,18 +38,25 @@ class TopicLimitExceededException(ServiceError):
 
     code: str | None = "TopicLimitExceededException"
 
-    def __init__(self, data: TopicLimitExceededException_, message: str | None = None):
+    def __init__(
+        self,
+        data: TopicLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TopicLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TopicLimitExceededException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

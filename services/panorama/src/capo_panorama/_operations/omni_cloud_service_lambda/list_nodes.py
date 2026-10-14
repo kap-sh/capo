@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_panorama.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_panorama.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_panorama.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

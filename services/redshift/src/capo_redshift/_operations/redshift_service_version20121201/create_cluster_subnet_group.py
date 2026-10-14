@@ -42,35 +42,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterSubnetGroupAlreadyExists":
             raise capo_redshift.errors.cluster_subnet_group_already_exists_fault.ClusterSubnetGroupAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSubnetGroupQuotaExceeded":
             raise capo_redshift.errors.cluster_subnet_group_quota_exceeded_fault.ClusterSubnetGroupQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSubnetQuotaExceededFault":
             raise capo_redshift.errors.cluster_subnet_quota_exceeded_fault.ClusterSubnetQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceRequestThrottlingFault":
             raise capo_redshift.errors.dependent_service_request_throttling_fault.DependentServiceRequestThrottlingFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_redshift.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagLimitExceededFault":
             raise capo_redshift.errors.tag_limit_exceeded_fault.TagLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

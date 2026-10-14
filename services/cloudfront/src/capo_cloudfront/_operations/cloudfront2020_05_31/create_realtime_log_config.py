@@ -45,19 +45,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "RealtimeLogConfigAlreadyExists":
             raise capo_cloudfront.errors.realtime_log_config_already_exists.RealtimeLogConfigAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyRealtimeLogConfigs":
             raise capo_cloudfront.errors.too_many_realtime_log_configs.TooManyRealtimeLogConfigs.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

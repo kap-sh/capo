@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_polly.errors import ServiceError
@@ -34,18 +35,25 @@ class InvalidSsmlException(ServiceError):
 
     code: str | None = "InvalidSsmlException"
 
-    def __init__(self, data: InvalidSsmlException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidSsmlException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidSsmlException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidSsmlException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -44,59 +44,59 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EventDataStoreARNInvalidException":
             raise capo_cloudtrail.errors.event_data_store_arn_invalid_exception.EventDataStoreARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreNotFoundException":
             raise capo_cloudtrail.errors.event_data_store_not_found_exception.EventDataStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InactiveEventDataStoreException":
             raise capo_cloudtrail.errors.inactive_event_data_store_exception.InactiveEventDataStoreException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientEncryptionPolicyException":
             raise capo_cloudtrail.errors.insufficient_encryption_policy_exception.InsufficientEncryptionPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientS3BucketPolicyException":
             raise capo_cloudtrail.errors.insufficient_s3_bucket_policy_exception.InsufficientS3BucketPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidQueryStatementException":
             raise capo_cloudtrail.errors.invalid_query_statement_exception.InvalidQueryStatementException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3BucketNameException":
             raise capo_cloudtrail.errors.invalid_s3_bucket_name_exception.InvalidS3BucketNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3PrefixException":
             raise capo_cloudtrail.errors.invalid_s3_prefix_exception.InvalidS3PrefixException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxConcurrentQueriesException":
             raise capo_cloudtrail.errors.max_concurrent_queries_exception.MaxConcurrentQueriesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoManagementAccountSLRExistsException":
             raise capo_cloudtrail.errors.no_management_account_slr_exists_exception.NoManagementAccountSLRExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "S3BucketDoesNotExistException":
             raise capo_cloudtrail.errors.s3_bucket_does_not_exist_exception.S3BucketDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

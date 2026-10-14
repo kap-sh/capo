@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ContentSizeExceededException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_devops_agent.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class ContentSizeExceededException(ServiceError):
 
     code: str | None = "ContentSizeExceededException"
 
-    def __init__(self, data: ContentSizeExceededException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ContentSizeExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ContentSizeExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ContentSizeExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

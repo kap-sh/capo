@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CallRateLimitExceededException":
             raise capo_imagebuilder.errors.call_rate_limit_exceeded_exception.CallRateLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClientException":
             raise capo_imagebuilder.errors.client_exception.ClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_imagebuilder.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidPaginationTokenException":
             raise capo_imagebuilder.errors.invalid_pagination_token_exception.InvalidPaginationTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_imagebuilder.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_imagebuilder.errors.service_exception.ServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_imagebuilder.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

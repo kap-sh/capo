@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictingResourceUpdateException":
             raise capo_iot.errors.conflicting_resource_update_exception.ConflictingResourceUpdateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalException":
             raise capo_iot.errors.internal_exception.InternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_iot.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_iot.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SqlParseException":
             raise capo_iot.errors.sql_parse_exception.SqlParseException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_iot.errors.unauthorized_exception.UnauthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

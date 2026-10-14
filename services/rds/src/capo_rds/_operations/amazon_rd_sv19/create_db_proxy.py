@@ -42,15 +42,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBProxyAlreadyExistsFault":
             raise capo_rds.errors.db_proxy_already_exists_fault.DBProxyAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyQuotaExceededFault":
             raise capo_rds.errors.db_proxy_quota_exceeded_fault.DBProxyQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_rds.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_neptune._protocol.xml import Element
@@ -39,7 +40,11 @@ class SharedSnapshotQuotaExceededFault(ServiceError):
     code: str | None = "SharedSnapshotQuotaExceededFault"
 
     def __init__(
-        self, data: SharedSnapshotQuotaExceededFault_, message: str | None = None
+        self,
+        data: SharedSnapshotQuotaExceededFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -47,11 +52,12 @@ class SharedSnapshotQuotaExceededFault(ServiceError):
             is_retryable=False,
             code="SharedSnapshotQuotaExceededFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "SharedSnapshotQuotaExceededFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

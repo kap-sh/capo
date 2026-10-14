@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedFault":
             raise capo_database_migration_service.errors.access_denied_fault.AccessDeniedFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CollectorNotFoundFault":
             raise capo_database_migration_service.errors.collector_not_found_fault.CollectorNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceStateFault":
             raise capo_database_migration_service.errors.invalid_resource_state_fault.InvalidResourceStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

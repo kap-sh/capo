@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConfigurationSetAlreadyExists":
             raise capo_ses.errors.configuration_set_already_exists_exception.ConfigurationSetAlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationSet":
             raise capo_ses.errors.invalid_configuration_set_exception.InvalidConfigurationSetException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_ses.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

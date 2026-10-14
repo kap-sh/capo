@@ -40,43 +40,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EmptyUploadException":
             raise capo_ecr_public.errors.empty_upload_exception.EmptyUploadException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidLayerException":
             raise capo_ecr_public.errors.invalid_layer_exception.InvalidLayerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ecr_public.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LayerAlreadyExistsException":
             raise capo_ecr_public.errors.layer_already_exists_exception.LayerAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LayerPartTooSmallException":
             raise capo_ecr_public.errors.layer_part_too_small_exception.LayerPartTooSmallException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RegistryNotFoundException":
             raise capo_ecr_public.errors.registry_not_found_exception.RegistryNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNotFoundException":
             raise capo_ecr_public.errors.repository_not_found_exception.RepositoryNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecr_public.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedCommandException":
             raise capo_ecr_public.errors.unsupported_command_exception.UnsupportedCommandException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UploadNotFoundException":
             raise capo_ecr_public.errors.upload_not_found_exception.UploadNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -43,11 +43,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoSuchFunctionExists":
             raise capo_cloudfront.errors.no_such_function_exists.NoSuchFunctionExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_cloudfront.errors.unsupported_operation.UnsupportedOperation.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

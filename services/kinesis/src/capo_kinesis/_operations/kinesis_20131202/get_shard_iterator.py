@@ -37,27 +37,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_kinesis.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DryRunOperationException":
             raise capo_kinesis.errors.dry_run_operation_exception.DryRunOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_kinesis.errors.internal_failure_exception.InternalFailureException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ProvisionedThroughputExceededException":
             raise capo_kinesis.errors.provisioned_throughput_exceeded_exception.ProvisionedThroughputExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

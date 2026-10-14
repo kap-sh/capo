@@ -56,91 +56,91 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterAlreadyExists":
             raise capo_redshift.errors.cluster_already_exists_fault.ClusterAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterParameterGroupNotFound":
             raise capo_redshift.errors.cluster_parameter_group_not_found_fault.ClusterParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ClusterSecurityGroupNotFound":
             raise capo_redshift.errors.cluster_security_group_not_found_fault.ClusterSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomCnameAssociationFault":
             raise capo_redshift.errors.custom_cname_association_fault.CustomCnameAssociationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DependentServiceRequestThrottlingFault":
             raise capo_redshift.errors.dependent_service_request_throttling_fault.DependentServiceRequestThrottlingFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "HsmClientCertificateNotFoundFault":
             raise capo_redshift.errors.hsm_client_certificate_not_found_fault.HsmClientCertificateNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "HsmConfigurationNotFoundFault":
             raise capo_redshift.errors.hsm_configuration_not_found_fault.HsmConfigurationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientClusterCapacity":
             raise capo_redshift.errors.insufficient_cluster_capacity_fault.InsufficientClusterCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterSecurityGroupState":
             raise capo_redshift.errors.invalid_cluster_security_group_state_fault.InvalidClusterSecurityGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterState":
             raise capo_redshift.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterTrack":
             raise capo_redshift.errors.invalid_cluster_track_fault.InvalidClusterTrackFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidElasticIpFault":
             raise capo_redshift.errors.invalid_elastic_ip_fault.InvalidElasticIpFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRetentionPeriodFault":
             raise capo_redshift.errors.invalid_retention_period_fault.InvalidRetentionPeriodFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "Ipv6CidrBlockNotFoundFault":
             raise capo_redshift.errors.ipv6_cidr_block_not_found_fault.Ipv6CidrBlockNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededFault":
             raise capo_redshift.errors.limit_exceeded_fault.LimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NumberOfNodesPerClusterLimitExceeded":
             raise capo_redshift.errors.number_of_nodes_per_cluster_limit_exceeded_fault.NumberOfNodesPerClusterLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NumberOfNodesQuotaExceeded":
             raise capo_redshift.errors.number_of_nodes_quota_exceeded_fault.NumberOfNodesQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TableLimitExceeded":
             raise capo_redshift.errors.table_limit_exceeded_fault.TableLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOptionFault":
             raise capo_redshift.errors.unsupported_option_fault.UnsupportedOptionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

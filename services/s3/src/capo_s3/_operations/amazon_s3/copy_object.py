@@ -61,7 +61,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ObjectNotInActiveTierError":
             raise capo_s3.errors.object_not_in_active_tier_error.ObjectNotInActiveTierError.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

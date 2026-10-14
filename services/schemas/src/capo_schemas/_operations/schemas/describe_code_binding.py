@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_schemas.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_schemas.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_schemas.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_schemas.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_schemas.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_schemas.errors.unauthorized_exception.UnauthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

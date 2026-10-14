@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ImageNotFoundException":
             raise capo_ecr.errors.image_not_found_exception.ImageNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ecr.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNotFoundException":
             raise capo_ecr.errors.repository_not_found_exception.RepositoryNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecr.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_ecr.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

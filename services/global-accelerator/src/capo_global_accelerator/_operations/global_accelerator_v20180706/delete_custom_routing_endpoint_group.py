@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EndpointGroupNotFoundException":
             raise capo_global_accelerator.errors.endpoint_group_not_found_exception.EndpointGroupNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_global_accelerator.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_global_accelerator.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

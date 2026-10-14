@@ -50,27 +50,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "EntityAlreadyExists":
             raise capo_cloudfront.errors.entity_already_exists.EntityAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "EntityLimitExceeded":
             raise capo_cloudfront.errors.entity_limit_exceeded.EntityLimitExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "EntityNotFound":
             raise capo_cloudfront.errors.entity_not_found.EntityNotFound.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagging":
             raise capo_cloudfront.errors.invalid_tagging.InvalidTagging.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -37,35 +37,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_workdocs.errors.concurrent_modification_exception.ConcurrentModificationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictingOperationException":
             raise capo_workdocs.errors.conflicting_operation_exception.ConflictingOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "EntityNotExistsException":
             raise capo_workdocs.errors.entity_not_exists_exception.EntityNotExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "FailedDependencyException":
             raise capo_workdocs.errors.failed_dependency_exception.FailedDependencyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidOperationException":
             raise capo_workdocs.errors.invalid_operation_exception.InvalidOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ProhibitedStateException":
             raise capo_workdocs.errors.prohibited_state_exception.ProhibitedStateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedOperationException":
             raise capo_workdocs.errors.unauthorized_operation_exception.UnauthorizedOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedResourceAccessException":
             raise capo_workdocs.errors.unauthorized_resource_access_exception.UnauthorizedResourceAccessException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

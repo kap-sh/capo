@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_chatbot.errors import ServiceError
@@ -35,7 +36,11 @@ class GetTeamsChannelConfigurationException(ServiceError):
     code: str | None = "GetTeamsChannelConfigurationException"
 
     def __init__(
-        self, data: GetTeamsChannelConfigurationException_, message: str | None = None
+        self,
+        data: GetTeamsChannelConfigurationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -43,11 +48,12 @@ class GetTeamsChannelConfigurationException(ServiceError):
             is_retryable=False,
             code="GetTeamsChannelConfigurationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "GetTeamsChannelConfigurationException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

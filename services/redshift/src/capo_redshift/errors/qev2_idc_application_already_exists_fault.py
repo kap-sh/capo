@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_redshift._protocol.xml import Element
@@ -40,7 +41,11 @@ class Qev2IdcApplicationAlreadyExistsFault(ServiceError):
     code: str | None = "Qev2IdcApplicationAlreadyExistsFault"
 
     def __init__(
-        self, data: Qev2IdcApplicationAlreadyExistsFault_, message: str | None = None
+        self,
+        data: Qev2IdcApplicationAlreadyExistsFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class Qev2IdcApplicationAlreadyExistsFault(ServiceError):
             is_retryable=False,
             code="Qev2IdcApplicationAlreadyExistsFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "Qev2IdcApplicationAlreadyExistsFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

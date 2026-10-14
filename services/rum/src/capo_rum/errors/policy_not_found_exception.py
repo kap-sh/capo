@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rum#PolicyNotFoundException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_rum.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class PolicyNotFoundException(ServiceError):
 
     code: str | None = "PolicyNotFoundException"
 
-    def __init__(self, data: PolicyNotFoundException_, message: str | None = None):
+    def __init__(
+        self,
+        data: PolicyNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="PolicyNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "PolicyNotFoundException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

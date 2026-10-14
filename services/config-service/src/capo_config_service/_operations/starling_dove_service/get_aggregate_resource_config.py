@@ -35,19 +35,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoSuchConfigurationAggregatorException":
             raise capo_config_service.errors.no_such_configuration_aggregator_exception.NoSuchConfigurationAggregatorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OversizedConfigurationItemException":
             raise capo_config_service.errors.oversized_configuration_item_exception.OversizedConfigurationItemException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotDiscoveredException":
             raise capo_config_service.errors.resource_not_discovered_exception.ResourceNotDiscoveredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_config_service.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

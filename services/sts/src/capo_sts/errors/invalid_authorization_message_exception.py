@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sts._protocol.xml import Element
@@ -42,7 +43,11 @@ class InvalidAuthorizationMessageException(ServiceError):
     code: str | None = "InvalidAuthorizationMessageException"
 
     def __init__(
-        self, data: InvalidAuthorizationMessageException_, message: str | None = None
+        self,
+        data: InvalidAuthorizationMessageException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +55,12 @@ class InvalidAuthorizationMessageException(ServiceError):
             is_retryable=False,
             code="InvalidAuthorizationMessageException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidAuthorizationMessageException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

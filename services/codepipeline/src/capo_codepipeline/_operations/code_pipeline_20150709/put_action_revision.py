@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ActionNotFoundException":
             raise capo_codepipeline.errors.action_not_found_exception.ActionNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentPipelineExecutionsLimitExceededException":
             raise capo_codepipeline.errors.concurrent_pipeline_executions_limit_exceeded_exception.ConcurrentPipelineExecutionsLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PipelineNotFoundException":
             raise capo_codepipeline.errors.pipeline_not_found_exception.PipelineNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "StageNotFoundException":
             raise capo_codepipeline.errors.stage_not_found_exception.StageNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codepipeline.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

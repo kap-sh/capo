@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidRenderingParameter":
             raise capo_ses.errors.invalid_rendering_parameter_exception.InvalidRenderingParameterException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "MissingRenderingAttribute":
             raise capo_ses.errors.missing_rendering_attribute_exception.MissingRenderingAttributeException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TemplateDoesNotExist":
             raise capo_ses.errors.template_does_not_exist_exception.TemplateDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

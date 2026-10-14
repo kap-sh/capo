@@ -34,23 +34,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EntityNotFoundException":
             raise capo_glue.errors.entity_not_found_exception.EntityNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoScheduleException":
             raise capo_glue.errors.no_schedule_exception.NoScheduleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationTimeoutException":
             raise capo_glue.errors.operation_timeout_exception.OperationTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SchedulerRunningException":
             raise capo_glue.errors.scheduler_running_exception.SchedulerRunningException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SchedulerTransitioningException":
             raise capo_glue.errors.scheduler_transitioning_exception.SchedulerTransitioningException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

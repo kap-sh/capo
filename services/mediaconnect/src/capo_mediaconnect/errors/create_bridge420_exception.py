@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediaconnect#CreateBridge420Exception``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_mediaconnect.errors import ServiceError
@@ -29,18 +30,25 @@ class CreateBridge420Exception(ServiceError):
 
     code: str | None = "CreateBridge420Exception"
 
-    def __init__(self, data: CreateBridge420Exception_, message: str | None = None):
+    def __init__(
+        self,
+        data: CreateBridge420Exception_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="CreateBridge420Exception",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CreateBridge420Exception":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

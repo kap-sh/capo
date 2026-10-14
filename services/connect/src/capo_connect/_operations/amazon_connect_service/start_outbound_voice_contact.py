@@ -41,31 +41,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DestinationNotAllowedException":
             raise capo_connect.errors.destination_not_allowed_exception.DestinationNotAllowedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_connect.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_connect.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_connect.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_connect.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "OutboundContactNotPermittedException":
             raise capo_connect.errors.outbound_contact_not_permitted_exception.OutboundContactNotPermittedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_connect.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -40,39 +40,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterException":
             raise capo_ecr.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_ecr.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PullThroughCacheRuleAlreadyExistsException":
             raise capo_ecr.errors.pull_through_cache_rule_already_exists_exception.PullThroughCacheRuleAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SecretNotFoundException":
             raise capo_ecr.errors.secret_not_found_exception.SecretNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecr.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnableToAccessSecretException":
             raise capo_ecr.errors.unable_to_access_secret_exception.UnableToAccessSecretException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnableToDecryptSecretValueException":
             raise capo_ecr.errors.unable_to_decrypt_secret_value_exception.UnableToDecryptSecretValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedUpstreamRegistryException":
             raise capo_ecr.errors.unsupported_upstream_registry_exception.UnsupportedUpstreamRegistryException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_ecr.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

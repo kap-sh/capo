@@ -34,23 +34,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerException":
             raise capo_sso_oidc.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientException":
             raise capo_sso_oidc.errors.invalid_client_exception.InvalidClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_sso_oidc.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SlowDownException":
             raise capo_sso_oidc.errors.slow_down_exception.SlowDownException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedClientException":
             raise capo_sso_oidc.errors.unauthorized_client_exception.UnauthorizedClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

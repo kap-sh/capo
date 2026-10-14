@@ -69,43 +69,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CodeSigningConfigNotFoundException":
             raise capo_lambda.errors.code_signing_config_not_found_exception.CodeSigningConfigNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "CodeStorageExceededException":
             raise capo_lambda.errors.code_storage_exceeded_exception.CodeStorageExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "CodeVerificationFailedException":
             raise capo_lambda.errors.code_verification_failed_exception.CodeVerificationFailedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "FunctionVersionsPerCapacityProviderLimitExceededException":
             raise capo_lambda.errors.function_versions_per_capacity_provider_limit_exceeded_exception.FunctionVersionsPerCapacityProviderLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidCodeSignatureException":
             raise capo_lambda.errors.invalid_code_signature_exception.InvalidCodeSignatureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceConflictException":
             raise capo_lambda.errors.resource_conflict_exception.ResourceConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_lambda.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_lambda.errors.service_exception.ServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_lambda.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_beanstalk._protocol.xml import Element
@@ -43,7 +44,11 @@ class ManagedActionInvalidStateException(ServiceError):
     code: str | None = "ManagedActionInvalidStateException"
 
     def __init__(
-        self, data: ManagedActionInvalidStateException_, message: str | None = None
+        self,
+        data: ManagedActionInvalidStateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -51,11 +56,12 @@ class ManagedActionInvalidStateException(ServiceError):
             is_retryable=False,
             code="ManagedActionInvalidStateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ManagedActionInvalidStateException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

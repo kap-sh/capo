@@ -37,35 +37,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientDeliveryPolicyException":
             raise capo_config_service.errors.insufficient_delivery_policy_exception.InsufficientDeliveryPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeliveryChannelNameException":
             raise capo_config_service.errors.invalid_delivery_channel_name_exception.InvalidDeliveryChannelNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3KeyPrefixException":
             raise capo_config_service.errors.invalid_s3_key_prefix_exception.InvalidS3KeyPrefixException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidS3KmsKeyArnException":
             raise capo_config_service.errors.invalid_s3_kms_key_arn_exception.InvalidS3KmsKeyArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSNSTopicARNException":
             raise capo_config_service.errors.invalid_sns_topic_arn_exception.InvalidSNSTopicARNException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxNumberOfDeliveryChannelsExceededException":
             raise capo_config_service.errors.max_number_of_delivery_channels_exceeded_exception.MaxNumberOfDeliveryChannelsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoAvailableConfigurationRecorderException":
             raise capo_config_service.errors.no_available_configuration_recorder_exception.NoAvailableConfigurationRecorderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchBucketException":
             raise capo_config_service.errors.no_such_bucket_exception.NoSuchBucketException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -39,11 +39,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BucketAlreadyExists":
             raise capo_s3.errors.bucket_already_exists.BucketAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "BucketAlreadyOwnedByYou":
             raise capo_s3.errors.bucket_already_owned_by_you.BucketAlreadyOwnedByYou.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

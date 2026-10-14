@@ -44,43 +44,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_compute_optimizer_automation.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_compute_optimizer_automation.errors.forbidden_exception.ForbiddenException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "IdempotencyTokenInUseException":
             raise capo_compute_optimizer_automation.errors.idempotency_token_in_use_exception.IdempotencyTokenInUseException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "IdempotentParameterMismatchException":
             raise capo_compute_optimizer_automation.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_compute_optimizer_automation.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_compute_optimizer_automation.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "NotManagementAccountException":
             raise capo_compute_optimizer_automation.errors.not_management_account_exception.NotManagementAccountException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "OptInRequiredException":
             raise capo_compute_optimizer_automation.errors.opt_in_required_exception.OptInRequiredException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_compute_optimizer_automation.errors.service_unavailable_exception.ServiceUnavailableException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_compute_optimizer_automation.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

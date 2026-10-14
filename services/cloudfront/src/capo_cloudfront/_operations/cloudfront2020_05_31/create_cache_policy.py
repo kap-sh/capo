@@ -48,35 +48,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "CachePolicyAlreadyExists":
             raise capo_cloudfront.errors.cache_policy_already_exists.CachePolicyAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCachePolicies":
             raise capo_cloudfront.errors.too_many_cache_policies.TooManyCachePolicies.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCookiesInCachePolicy":
             raise capo_cloudfront.errors.too_many_cookies_in_cache_policy.TooManyCookiesInCachePolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyHeadersInCachePolicy":
             raise capo_cloudfront.errors.too_many_headers_in_cache_policy.TooManyHeadersInCachePolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyQueryStringsInCachePolicy":
             raise capo_cloudfront.errors.too_many_query_strings_in_cache_policy.TooManyQueryStringsInCachePolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

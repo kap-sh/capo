@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DatabaseConnectionException":
             raise capo_redshift_data.errors.database_connection_exception.DatabaseConnectionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_redshift_data.errors.internal_server_exception.InternalServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "QueryTimeoutException":
             raise capo_redshift_data.errors.query_timeout_exception.QueryTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_redshift_data.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_redshift_data.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

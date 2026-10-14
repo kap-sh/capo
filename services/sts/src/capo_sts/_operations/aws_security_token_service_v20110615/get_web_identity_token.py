@@ -37,15 +37,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "JWTPayloadSizeExceededException":
             raise capo_sts.errors.jwt_payload_size_exceeded_exception.JWTPayloadSizeExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OutboundWebIdentityFederationDisabledException":
             raise capo_sts.errors.outbound_web_identity_federation_disabled_exception.OutboundWebIdentityFederationDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SessionDurationEscalationException":
             raise capo_sts.errors.session_duration_escalation_exception.SessionDurationEscalationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBSubnetGroupNotFoundFault":
             raise capo_rds.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSubnetGroupStateFault":
             raise capo_rds.errors.invalid_db_subnet_group_state_fault.InvalidDBSubnetGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSubnetStateFault":
             raise capo_rds.errors.invalid_db_subnet_state_fault.InvalidDBSubnetStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

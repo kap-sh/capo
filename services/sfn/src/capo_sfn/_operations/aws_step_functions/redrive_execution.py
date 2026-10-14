@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ExecutionDoesNotExist":
             raise capo_sfn.errors.execution_does_not_exist.ExecutionDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ExecutionLimitExceeded":
             raise capo_sfn.errors.execution_limit_exceeded.ExecutionLimitExceeded.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ExecutionNotRedrivable":
             raise capo_sfn.errors.execution_not_redrivable.ExecutionNotRedrivable.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidArn":
             raise capo_sfn.errors.invalid_arn.InvalidArn.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_sfn.errors.validation_exception.ValidationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

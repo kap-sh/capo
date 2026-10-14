@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DisabledOperationException":
             raise capo_opensearch.errors.disabled_operation_exception.DisabledOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_opensearch.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

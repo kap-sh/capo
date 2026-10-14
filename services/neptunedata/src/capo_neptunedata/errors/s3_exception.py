@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#S3Exception``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_neptunedata.errors import DeserializationError, ServiceError
@@ -45,16 +46,25 @@ class S3Exception(ServiceError):
 
     code: str | None = "S3Exception"
 
-    def __init__(self, data: S3Exception_, message: str | None = None):
+    def __init__(
+        self,
+        data: S3Exception_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=True,
             code="S3Exception",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "S3Exception":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "S3Exception":
+        return cls(deserialize_json(data), message, response=response)

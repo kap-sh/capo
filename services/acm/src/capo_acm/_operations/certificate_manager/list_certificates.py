@@ -37,11 +37,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgsException":
             raise capo_acm.errors.invalid_args_exception.InvalidArgsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_acm.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

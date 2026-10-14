@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_s3vectors.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_s3vectors.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "RequestTimeoutException":
             raise capo_s3vectors.errors.request_timeout_exception.RequestTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_s3vectors.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_s3vectors.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_s3vectors.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_s3vectors.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

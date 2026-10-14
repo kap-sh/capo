@@ -42,31 +42,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterException":
             raise capo_ecr.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagParameterException":
             raise capo_ecr.errors.invalid_tag_parameter_exception.InvalidTagParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KmsException":
             raise capo_ecr.errors.kms_exception.KmsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_ecr.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryAlreadyExistsException":
             raise capo_ecr.errors.repository_already_exists_exception.RepositoryAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecr.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_ecr.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

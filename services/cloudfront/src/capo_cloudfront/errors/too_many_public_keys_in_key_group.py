@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -37,18 +38,25 @@ class TooManyPublicKeysInKeyGroup(ServiceError):
 
     code: str | None = "TooManyPublicKeysInKeyGroup"
 
-    def __init__(self, data: TooManyPublicKeysInKeyGroup_, message: str | None = None):
+    def __init__(
+        self,
+        data: TooManyPublicKeysInKeyGroup_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TooManyPublicKeysInKeyGroup",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyPublicKeysInKeyGroup":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

@@ -38,15 +38,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceException":
             raise capo_s3_control.errors.internal_service_exception.InternalServiceException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_s3_control.errors.invalid_next_token_exception.InvalidNextTokenException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRequestException":
             raise capo_s3_control.errors.invalid_request_exception.InvalidRequestException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

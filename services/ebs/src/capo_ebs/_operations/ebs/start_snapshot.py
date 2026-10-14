@@ -41,35 +41,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_ebs.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentLimitExceededException":
             raise capo_ebs.errors.concurrent_limit_exceeded_exception.ConcurrentLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_ebs.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_ebs.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "RequestThrottledException":
             raise capo_ebs.errors.request_throttled_exception.RequestThrottledException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_ebs.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_ebs.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_ebs.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

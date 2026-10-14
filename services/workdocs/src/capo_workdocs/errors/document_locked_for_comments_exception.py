@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workdocs.errors import ServiceError
@@ -35,7 +36,11 @@ class DocumentLockedForCommentsException(ServiceError):
     code: str | None = "DocumentLockedForCommentsException"
 
     def __init__(
-        self, data: DocumentLockedForCommentsException_, message: str | None = None
+        self,
+        data: DocumentLockedForCommentsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class DocumentLockedForCommentsException(ServiceError):
             is_retryable=False,
             code="DocumentLockedForCommentsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DocumentLockedForCommentsException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

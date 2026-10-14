@@ -41,27 +41,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidSchedule":
             raise capo_redshift.errors.invalid_schedule_fault.InvalidScheduleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTagFault":
             raise capo_redshift.errors.invalid_tag_fault.InvalidTagFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ScheduleDefinitionTypeUnsupported":
             raise capo_redshift.errors.schedule_definition_type_unsupported_fault.ScheduleDefinitionTypeUnsupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotScheduleAlreadyExists":
             raise capo_redshift.errors.snapshot_schedule_already_exists_fault.SnapshotScheduleAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotScheduleQuotaExceeded":
             raise capo_redshift.errors.snapshot_schedule_quota_exceeded_fault.SnapshotScheduleQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagLimitExceededFault":
             raise capo_redshift.errors.tag_limit_exceeded_fault.TagLimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

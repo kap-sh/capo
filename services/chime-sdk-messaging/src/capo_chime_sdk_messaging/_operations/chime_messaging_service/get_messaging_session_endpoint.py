@@ -39,23 +39,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ForbiddenException":
             raise capo_chime_sdk_messaging.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceFailureException":
             raise capo_chime_sdk_messaging.errors.service_failure_exception.ServiceFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_chime_sdk_messaging.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottledClientException":
             raise capo_chime_sdk_messaging.errors.throttled_client_exception.ThrottledClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedClientException":
             raise capo_chime_sdk_messaging.errors.unauthorized_client_exception.UnauthorizedClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

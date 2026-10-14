@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 from urllib.parse import quote
@@ -47,39 +48,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_devops_agent.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_devops_agent.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ContentSizeExceededException":
             raise capo_devops_agent.errors.content_size_exceeded_exception.ContentSizeExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_devops_agent.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_devops_agent.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_devops_agent.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_devops_agent.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_devops_agent.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_devops_agent.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -89,7 +90,10 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_devops_agent.types.send_message_response.SendMessageResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_devops_agent.types.send_message_events.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_devops_agent.types.send_message_events.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_devops_agent.types.send_message_response.SendMessageResponse = {
         "events": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
@@ -101,7 +105,10 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_devops_agent.types.send_message_response.SendMessageResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_devops_agent.types.send_message_events.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_devops_agent.types.send_message_events.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_devops_agent.types.send_message_response.SendMessageResponse = {
         "events": cast(

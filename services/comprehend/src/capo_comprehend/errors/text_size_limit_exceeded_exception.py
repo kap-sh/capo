@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_comprehend.errors import ServiceError
@@ -35,7 +36,11 @@ class TextSizeLimitExceededException(ServiceError):
     code: str | None = "TextSizeLimitExceededException"
 
     def __init__(
-        self, data: TextSizeLimitExceededException_, message: str | None = None
+        self,
+        data: TextSizeLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class TextSizeLimitExceededException(ServiceError):
             is_retryable=False,
             code="TextSizeLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "TextSizeLimitExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

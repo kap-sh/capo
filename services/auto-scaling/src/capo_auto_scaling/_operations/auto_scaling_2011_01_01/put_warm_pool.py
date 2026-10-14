@@ -36,15 +36,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InstanceRefreshInProgress":
             raise capo_auto_scaling.errors.instance_refresh_in_progress_fault.InstanceRefreshInProgressFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_auto_scaling.errors.limit_exceeded_fault.LimitExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceContention":
             raise capo_auto_scaling.errors.resource_contention_fault.ResourceContentionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

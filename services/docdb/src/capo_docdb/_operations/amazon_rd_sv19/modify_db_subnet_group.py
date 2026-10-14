@@ -38,23 +38,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBSubnetGroupDoesNotCoverEnoughAZs":
             raise capo_docdb.errors.db_subnet_group_does_not_cover_enough_a_zs.DBSubnetGroupDoesNotCoverEnoughAZs.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupNotFoundFault":
             raise capo_docdb.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetQuotaExceededFault":
             raise capo_docdb.errors.db_subnet_quota_exceeded_fault.DBSubnetQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_docdb.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetAlreadyInUse":
             raise capo_docdb.errors.subnet_already_in_use.SubnetAlreadyInUse.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

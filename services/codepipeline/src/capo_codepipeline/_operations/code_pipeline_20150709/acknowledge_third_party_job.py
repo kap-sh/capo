@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidClientTokenException":
             raise capo_codepipeline.errors.invalid_client_token_exception.InvalidClientTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNonceException":
             raise capo_codepipeline.errors.invalid_nonce_exception.InvalidNonceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "JobNotFoundException":
             raise capo_codepipeline.errors.job_not_found_exception.JobNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codepipeline.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_cloudwatch_events.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalException":
             raise capo_cloudwatch_events.errors.internal_exception.InternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidStateException":
             raise capo_cloudwatch_events.errors.invalid_state_exception.InvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationDisabledException":
             raise capo_cloudwatch_events.errors.operation_disabled_exception.OperationDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cloudwatch_events.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

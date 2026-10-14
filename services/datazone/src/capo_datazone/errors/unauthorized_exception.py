@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_datazone.errors import DeserializationError, ServiceError
@@ -35,18 +36,25 @@ class UnauthorizedException(ServiceError):
 
     code: str | None = "UnauthorizedException"
 
-    def __init__(self, data: UnauthorizedException_, message: str | None = None):
+    def __init__(
+        self,
+        data: UnauthorizedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="UnauthorizedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnauthorizedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

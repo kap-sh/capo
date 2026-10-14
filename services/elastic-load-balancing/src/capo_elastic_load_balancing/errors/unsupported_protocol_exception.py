@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_load_balancing._protocol.xml import Element
@@ -39,18 +40,25 @@ class UnsupportedProtocolException(ServiceError):
 
     code: str | None = "UnsupportedProtocolException"
 
-    def __init__(self, data: UnsupportedProtocolException_, message: str | None = None):
+    def __init__(
+        self,
+        data: UnsupportedProtocolException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="UnsupportedProtocolException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedProtocolException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

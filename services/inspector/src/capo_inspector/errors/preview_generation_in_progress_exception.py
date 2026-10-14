@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_inspector.errors import DeserializationError, ServiceError
@@ -38,7 +39,11 @@ class PreviewGenerationInProgressException(ServiceError):
     code: str | None = "PreviewGenerationInProgressException"
 
     def __init__(
-        self, data: PreviewGenerationInProgressException_, message: str | None = None
+        self,
+        data: PreviewGenerationInProgressException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class PreviewGenerationInProgressException(ServiceError):
             is_retryable=False,
             code="PreviewGenerationInProgressException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "PreviewGenerationInProgressException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

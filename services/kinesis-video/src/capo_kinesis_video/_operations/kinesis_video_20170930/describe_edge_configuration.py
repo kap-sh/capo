@@ -38,23 +38,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_kinesis_video.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClientLimitExceededException":
             raise capo_kinesis_video.errors.client_limit_exceeded_exception.ClientLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_kinesis_video.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_kinesis_video.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "StreamEdgeConfigurationNotFoundException":
             raise capo_kinesis_video.errors.stream_edge_configuration_not_found_exception.StreamEdgeConfigurationNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

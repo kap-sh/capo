@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DisabledOperationException":
             raise capo_opensearch.errors.disabled_operation_exception.DisabledOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidPaginationTokenException":
             raise capo_opensearch.errors.invalid_pagination_token_exception.InvalidPaginationTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

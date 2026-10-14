@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidServerlessCacheSnapshotStateFault":
             raise capo_elasticache.errors.invalid_serverless_cache_snapshot_state_fault.InvalidServerlessCacheSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServerlessCacheSnapshotNotFoundFault":
             raise capo_elasticache.errors.serverless_cache_snapshot_not_found_fault.ServerlessCacheSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_elasticache.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

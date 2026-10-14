@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudtrail.errors import ServiceError
@@ -36,7 +37,11 @@ class EventDataStoreARNInvalidException(ServiceError):
     code: str | None = "EventDataStoreARNInvalidException"
 
     def __init__(
-        self, data: EventDataStoreARNInvalidException_, message: str | None = None
+        self,
+        data: EventDataStoreARNInvalidException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class EventDataStoreARNInvalidException(ServiceError):
             is_retryable=False,
             code="EventDataStoreARNInvalidException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "EventDataStoreARNInvalidException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -37,11 +37,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ContainerNotFoundException":
             raise capo_mediastore_data.errors.container_not_found_exception.ContainerNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_mediastore_data.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

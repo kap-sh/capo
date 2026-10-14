@@ -40,31 +40,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterCombination":
             raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSnapshotState":
             raise capo_elasticache.errors.invalid_snapshot_state_fault.InvalidSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotAlreadyExistsFault":
             raise capo_elasticache.errors.snapshot_already_exists_fault.SnapshotAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotNotFoundFault":
             raise capo_elasticache.errors.snapshot_not_found_fault.SnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotQuotaExceededFault":
             raise capo_elasticache.errors.snapshot_quota_exceeded_fault.SnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_elasticache.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

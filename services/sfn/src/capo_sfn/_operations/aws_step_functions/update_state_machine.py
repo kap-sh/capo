@@ -46,55 +46,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_sfn.errors.conflict_exception.ConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidArn":
             raise capo_sfn.errors.invalid_arn.InvalidArn.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidDefinition":
             raise capo_sfn.errors.invalid_definition.InvalidDefinition.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidEncryptionConfiguration":
             raise capo_sfn.errors.invalid_encryption_configuration.InvalidEncryptionConfiguration.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidLoggingConfiguration":
             raise capo_sfn.errors.invalid_logging_configuration.InvalidLoggingConfiguration.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidTracingConfiguration":
             raise capo_sfn.errors.invalid_tracing_configuration.InvalidTracingConfiguration.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDeniedException":
             raise capo_sfn.errors.kms_access_denied_exception.KmsAccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsThrottlingException":
             raise capo_sfn.errors.kms_throttling_exception.KmsThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "MissingRequiredParameter":
             raise capo_sfn.errors.missing_required_parameter.MissingRequiredParameter.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_sfn.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "StateMachineDeleting":
             raise capo_sfn.errors.state_machine_deleting.StateMachineDeleting.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "StateMachineDoesNotExist":
             raise capo_sfn.errors.state_machine_does_not_exist.StateMachineDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_sfn.errors.validation_exception.ValidationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

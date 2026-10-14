@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lakeformation.errors import ServiceError
@@ -36,7 +37,11 @@ class StatisticsNotReadyYetException(ServiceError):
     code: str | None = "StatisticsNotReadyYetException"
 
     def __init__(
-        self, data: StatisticsNotReadyYetException_, message: str | None = None
+        self,
+        data: StatisticsNotReadyYetException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class StatisticsNotReadyYetException(ServiceError):
             is_retryable=False,
             code="StatisticsNotReadyYetException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "StatisticsNotReadyYetException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

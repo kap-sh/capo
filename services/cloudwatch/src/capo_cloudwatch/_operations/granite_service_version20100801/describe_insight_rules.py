@@ -32,7 +32,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidNextToken":
             raise capo_cloudwatch.errors.invalid_next_token.InvalidNextToken.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

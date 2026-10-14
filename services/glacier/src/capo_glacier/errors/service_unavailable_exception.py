@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_glacier.errors import ServiceError
@@ -47,18 +48,25 @@ class ServiceUnavailableException(ServiceError):
 
     code: str | None = "ServiceUnavailableException"
 
-    def __init__(self, data: ServiceUnavailableException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ServiceUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="ServiceUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceUnavailableException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

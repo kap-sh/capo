@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudwatch_logs.errors import ServiceError
@@ -54,18 +55,25 @@ class MalformedQueryException(ServiceError):
 
     code: str | None = "MalformedQueryException"
 
-    def __init__(self, data: MalformedQueryException_, message: str | None = None):
+    def __init__(
+        self,
+        data: MalformedQueryException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="MalformedQueryException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "MalformedQueryException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -36,11 +36,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInputException":
             raise capo_personalize_runtime.errors.invalid_input_exception.InvalidInputException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_personalize_runtime.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DecryptionFailure":
             raise capo_secrets_manager.errors.decryption_failure.DecryptionFailure.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceError":
             raise capo_secrets_manager.errors.internal_service_error.InternalServiceError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_secrets_manager.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_secrets_manager.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_secrets_manager.errors.invalid_request_exception.InvalidRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_secrets_manager.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

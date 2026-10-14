@@ -42,39 +42,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_eventbridgev2.errors.access_denied_exception.AccessDeniedException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "InternalException":
             raise capo_eventbridgev2.errors.internal_exception.InternalException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_eventbridgev2.errors.invalid_input_exception.InvalidInputException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_eventbridgev2.errors.throttling_exception.ThrottlingException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_eventbridgev2.errors.concurrent_modification_exception.ConcurrentModificationException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "IdempotentParameterMismatchException":
             raise capo_eventbridgev2.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "InvalidStateException":
             raise capo_eventbridgev2.errors.invalid_state_exception.InvalidStateException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_eventbridgev2.errors.limit_exceeded_exception.LimitExceededException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_eventbridgev2.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_cbor(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

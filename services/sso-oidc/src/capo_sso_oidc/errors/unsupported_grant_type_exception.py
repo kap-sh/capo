@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sso_oidc.errors import ServiceError
@@ -45,7 +46,11 @@ class UnsupportedGrantTypeException(ServiceError):
     code: str | None = "UnsupportedGrantTypeException"
 
     def __init__(
-        self, data: UnsupportedGrantTypeException_, message: str | None = None
+        self,
+        data: UnsupportedGrantTypeException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -53,11 +58,12 @@ class UnsupportedGrantTypeException(ServiceError):
             is_retryable=False,
             code="UnsupportedGrantTypeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedGrantTypeException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

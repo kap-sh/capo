@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceFault":
             raise capo_oam.errors.internal_service_fault.InternalServiceFault.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_oam.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_oam.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

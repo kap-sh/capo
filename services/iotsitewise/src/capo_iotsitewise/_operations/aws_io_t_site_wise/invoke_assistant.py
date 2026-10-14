@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 
@@ -42,31 +43,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_iotsitewise.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictingOperationException":
             raise capo_iotsitewise.errors.conflicting_operation_exception.ConflictingOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_iotsitewise.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_iotsitewise.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_iotsitewise.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_iotsitewise.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_iotsitewise.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -76,7 +77,9 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_iotsitewise.types.invoke_assistant_response.InvokeAssistantResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_iotsitewise.types.response_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_iotsitewise.types.response_stream.deserialize_event_json, response=response
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_iotsitewise.types.invoke_assistant_response.InvokeAssistantResponse = {
         "body": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
@@ -91,7 +94,9 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_iotsitewise.types.invoke_assistant_response.InvokeAssistantResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_iotsitewise.types.response_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_iotsitewise.types.response_stream.deserialize_event_json, response=response
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_iotsitewise.types.invoke_assistant_response.InvokeAssistantResponse = {
         "body": cast(

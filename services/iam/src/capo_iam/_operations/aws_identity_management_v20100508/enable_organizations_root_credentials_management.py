@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountNotManagementOrDelegatedAdministratorException":
             raise capo_iam.errors.account_not_management_or_delegated_administrator_exception.AccountNotManagementOrDelegatedAdministratorException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CallerIsNotManagementAccountException":
             raise capo_iam.errors.caller_is_not_management_account_exception.CallerIsNotManagementAccountException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OrganizationNotFoundException":
             raise capo_iam.errors.organization_not_found_exception.OrganizationNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OrganizationNotInAllFeaturesModeException":
             raise capo_iam.errors.organization_not_in_all_features_mode_exception.OrganizationNotInAllFeaturesModeException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceAccessNotEnabledException":
             raise capo_iam.errors.service_access_not_enabled_exception.ServiceAccessNotEnabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

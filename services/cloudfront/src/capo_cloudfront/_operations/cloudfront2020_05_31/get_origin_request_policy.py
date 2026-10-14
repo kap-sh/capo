@@ -42,11 +42,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchOriginRequestPolicy":
             raise capo_cloudfront.errors.no_such_origin_request_policy.NoSuchOriginRequestPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

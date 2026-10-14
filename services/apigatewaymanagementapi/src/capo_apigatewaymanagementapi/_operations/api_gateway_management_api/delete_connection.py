@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ForbiddenException":
             raise capo_apigatewaymanagementapi.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "GoneException":
             raise capo_apigatewaymanagementapi.errors.gone_exception.GoneException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_apigatewaymanagementapi.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

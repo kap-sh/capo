@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterGroupStateFault":
             raise capo_memorydb.errors.invalid_parameter_group_state_fault.InvalidParameterGroupStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterGroupAlreadyExistsFault":
             raise capo_memorydb.errors.parameter_group_already_exists_fault.ParameterGroupAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterGroupQuotaExceededFault":
             raise capo_memorydb.errors.parameter_group_quota_exceeded_fault.ParameterGroupQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_memorydb.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_memorydb.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

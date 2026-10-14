@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidSubnet":
             raise capo_memorydb.errors.invalid_subnet.InvalidSubnet.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_memorydb.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubnetGroupAlreadyExistsFault":
             raise capo_memorydb.errors.subnet_group_already_exists_fault.SubnetGroupAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubnetGroupQuotaExceededFault":
             raise capo_memorydb.errors.subnet_group_quota_exceeded_fault.SubnetGroupQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubnetNotAllowedFault":
             raise capo_memorydb.errors.subnet_not_allowed_fault.SubnetNotAllowedFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubnetQuotaExceededFault":
             raise capo_memorydb.errors.subnet_quota_exceeded_fault.SubnetQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_memorydb.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModificationException":
             raise capo_appsync.errors.concurrent_modification_exception.ConcurrentModificationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_appsync.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_appsync.errors.unauthorized_exception.UnauthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

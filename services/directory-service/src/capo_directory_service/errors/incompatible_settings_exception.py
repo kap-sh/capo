@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_directory_service.errors import ServiceError
@@ -43,7 +44,11 @@ class IncompatibleSettingsException(ServiceError):
     code: str | None = "IncompatibleSettingsException"
 
     def __init__(
-        self, data: IncompatibleSettingsException_, message: str | None = None
+        self,
+        data: IncompatibleSettingsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -51,11 +56,12 @@ class IncompatibleSettingsException(ServiceError):
             is_retryable=False,
             code="IncompatibleSettingsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "IncompatibleSettingsException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

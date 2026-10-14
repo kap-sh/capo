@@ -41,31 +41,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "GlobalTableNotFoundException":
             raise capo_dynamodb.errors.global_table_not_found_exception.GlobalTableNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "IndexNotFoundException":
             raise capo_dynamodb.errors.index_not_found_exception.IndexNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_dynamodb.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidEndpointException":
             raise capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_dynamodb.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ReplicaNotFoundException":
             raise capo_dynamodb.errors.replica_not_found_exception.ReplicaNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_dynamodb.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

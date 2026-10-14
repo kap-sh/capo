@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_marketplace_catalog.errors import ServiceError
@@ -37,7 +38,11 @@ class ResourceNotSupportedException(ServiceError):
     code: str | None = "ResourceNotSupportedException"
 
     def __init__(
-        self, data: ResourceNotSupportedException_, message: str | None = None
+        self,
+        data: ResourceNotSupportedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -45,11 +50,12 @@ class ResourceNotSupportedException(ServiceError):
             is_retryable=False,
             code="ResourceNotSupportedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceNotSupportedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

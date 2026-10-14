@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
@@ -43,6 +44,8 @@ class ReservedDBInstancesOfferingNotFoundFault(ServiceError):
         self,
         data: ReservedDBInstancesOfferingNotFoundFault_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +53,12 @@ class ReservedDBInstancesOfferingNotFoundFault(ServiceError):
             is_retryable=False,
             code="ReservedDBInstancesOfferingNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ReservedDBInstancesOfferingNotFoundFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

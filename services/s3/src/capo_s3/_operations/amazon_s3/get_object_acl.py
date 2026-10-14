@@ -43,7 +43,9 @@ def handle_error(response: zapros.Response) -> Never:
         error_el = Element("Error")
     match code:
         case "NoSuchKey":
-            raise capo_s3.errors.no_such_key.NoSuchKey.from_xml(error_el, message)
+            raise capo_s3.errors.no_such_key.NoSuchKey.from_xml(
+                error_el, message, response=response
+            )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
 

@@ -39,23 +39,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateRequest":
             raise capo_servicediscovery.errors.duplicate_request.DuplicateRequest.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInput":
             raise capo_servicediscovery.errors.invalid_input.InvalidInput.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NamespaceAlreadyExists":
             raise capo_servicediscovery.errors.namespace_already_exists.NamespaceAlreadyExists.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceLimitExceeded":
             raise capo_servicediscovery.errors.resource_limit_exceeded.ResourceLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_servicediscovery.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -37,19 +37,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ReportExpired":
             raise capo_iam.errors.credential_report_expired_exception.CredentialReportExpiredException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReportNotPresent":
             raise capo_iam.errors.credential_report_not_present_exception.CredentialReportNotPresentException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReportInProgress":
             raise capo_iam.errors.credential_report_not_ready_exception.CredentialReportNotReadyException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceFailure":
             raise capo_iam.errors.service_failure_exception.ServiceFailureException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

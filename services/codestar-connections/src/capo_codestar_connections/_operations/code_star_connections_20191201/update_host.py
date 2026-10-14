@@ -37,19 +37,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_codestar_connections.errors.conflict_exception.ConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_codestar_connections.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceUnavailableException":
             raise capo_codestar_connections.errors.resource_unavailable_exception.ResourceUnavailableException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_codestar_connections.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -35,11 +35,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ResourceNotFoundException":
             raise capo_mgn.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UninitializedAccountException":
             raise capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

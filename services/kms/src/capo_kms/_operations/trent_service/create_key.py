@@ -48,55 +48,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudHsmClusterInvalidConfigurationException":
             raise capo_kms.errors.cloud_hsm_cluster_invalid_configuration_exception.CloudHsmClusterInvalidConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CustomKeyStoreInvalidStateException":
             raise capo_kms.errors.custom_key_store_invalid_state_exception.CustomKeyStoreInvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CustomKeyStoreNotFoundException":
             raise capo_kms.errors.custom_key_store_not_found_exception.CustomKeyStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DependencyTimeoutException":
             raise capo_kms.errors.dependency_timeout_exception.DependencyTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArnException":
             raise capo_kms.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInternalException":
             raise capo_kms.errors.kms_internal_exception.KMSInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_kms.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MalformedPolicyDocumentException":
             raise capo_kms.errors.malformed_policy_document_exception.MalformedPolicyDocumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagException":
             raise capo_kms.errors.tag_exception.TagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_kms.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksKeyAlreadyInUseException":
             raise capo_kms.errors.xks_key_already_in_use_exception.XksKeyAlreadyInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksKeyInvalidConfigurationException":
             raise capo_kms.errors.xks_key_invalid_configuration_exception.XksKeyInvalidConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "XksKeyNotFoundException":
             raise capo_kms.errors.xks_key_not_found_exception.XksKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

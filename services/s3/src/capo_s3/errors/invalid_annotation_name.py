@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#InvalidAnnotationName``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
@@ -25,18 +26,25 @@ class InvalidAnnotationName(ServiceError):
 
     code: str | None = "InvalidAnnotationName"
 
-    def __init__(self, data: InvalidAnnotationName_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidAnnotationName_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidAnnotationName",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidAnnotationName":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

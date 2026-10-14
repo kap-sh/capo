@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "SourceNotFound":
             raise capo_rds.errors.source_not_found_fault.SourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubscriptionNotFound":
             raise capo_rds.errors.subscription_not_found_fault.SubscriptionNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

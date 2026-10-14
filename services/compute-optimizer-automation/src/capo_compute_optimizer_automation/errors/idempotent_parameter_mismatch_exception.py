@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.computeoptimizerautomation#IdempotentParameterMismatchException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_compute_optimizer_automation.errors import ServiceError
@@ -30,7 +31,11 @@ class IdempotentParameterMismatchException(ServiceError):
     code: str | None = "IdempotentParameterMismatchException"
 
     def __init__(
-        self, data: IdempotentParameterMismatchException_, message: str | None = None
+        self,
+        data: IdempotentParameterMismatchException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -38,11 +43,12 @@ class IdempotentParameterMismatchException(ServiceError):
             is_retryable=False,
             code="IdempotentParameterMismatchException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "IdempotentParameterMismatchException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

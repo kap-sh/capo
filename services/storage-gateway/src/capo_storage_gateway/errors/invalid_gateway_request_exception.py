@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_storage_gateway.errors import ServiceError
@@ -57,7 +58,11 @@ class InvalidGatewayRequestException(ServiceError):
     code: str | None = "InvalidGatewayRequestException"
 
     def __init__(
-        self, data: InvalidGatewayRequestException_, message: str | None = None
+        self,
+        data: InvalidGatewayRequestException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -65,11 +70,12 @@ class InvalidGatewayRequestException(ServiceError):
             is_retryable=False,
             code="InvalidGatewayRequestException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidGatewayRequestException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

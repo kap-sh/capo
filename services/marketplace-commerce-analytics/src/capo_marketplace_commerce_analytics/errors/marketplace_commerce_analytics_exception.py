@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_marketplace_commerce_analytics.errors import ServiceError
@@ -38,7 +39,11 @@ class MarketplaceCommerceAnalyticsException(ServiceError):
     code: str | None = "MarketplaceCommerceAnalyticsException"
 
     def __init__(
-        self, data: MarketplaceCommerceAnalyticsException_, message: str | None = None
+        self,
+        data: MarketplaceCommerceAnalyticsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -46,11 +51,12 @@ class MarketplaceCommerceAnalyticsException(ServiceError):
             is_retryable=False,
             code="MarketplaceCommerceAnalyticsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "MarketplaceCommerceAnalyticsException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

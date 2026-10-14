@@ -50,23 +50,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CodeBuildNotInServiceRegionException":
             raise capo_elastic_beanstalk.errors.code_build_not_in_service_region_exception.CodeBuildNotInServiceRegionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientPrivilegesException":
             raise capo_elastic_beanstalk.errors.insufficient_privileges_exception.InsufficientPrivilegesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "S3LocationNotInServiceRegionException":
             raise capo_elastic_beanstalk.errors.s3_location_not_in_service_region_exception.S3LocationNotInServiceRegionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyApplicationsException":
             raise capo_elastic_beanstalk.errors.too_many_applications_exception.TooManyApplicationsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyApplicationVersionsException":
             raise capo_elastic_beanstalk.errors.too_many_application_versions_exception.TooManyApplicationVersionsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

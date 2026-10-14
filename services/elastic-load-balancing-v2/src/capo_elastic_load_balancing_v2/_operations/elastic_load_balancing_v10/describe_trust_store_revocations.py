@@ -43,11 +43,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "RevocationIdNotFound":
             raise capo_elastic_load_balancing_v2.errors.revocation_id_not_found_exception.RevocationIdNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustStoreNotFound":
             raise capo_elastic_load_balancing_v2.errors.trust_store_not_found_exception.TrustStoreNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

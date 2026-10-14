@@ -39,19 +39,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgsException":
             raise capo_acm_pca.errors.invalid_args_exception.InvalidArgsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPolicyException":
             raise capo_acm_pca.errors.invalid_policy_exception.InvalidPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagException":
             raise capo_acm_pca.errors.invalid_tag_exception.InvalidTagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_acm_pca.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

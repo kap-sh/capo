@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ExecutionDoesNotExist":
             raise capo_sfn.errors.execution_does_not_exist.ExecutionDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidArn":
             raise capo_sfn.errors.invalid_arn.InvalidArn.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDeniedException":
             raise capo_sfn.errors.kms_access_denied_exception.KmsAccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidStateException":
             raise capo_sfn.errors.kms_invalid_state_exception.KmsInvalidStateException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsThrottlingException":
             raise capo_sfn.errors.kms_throttling_exception.KmsThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_sfn.errors.validation_exception.ValidationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

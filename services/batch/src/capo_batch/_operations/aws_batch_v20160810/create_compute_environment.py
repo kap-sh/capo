@@ -37,11 +37,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientException":
             raise capo_batch.errors.client_exception.ClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_batch.errors.server_exception.ServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

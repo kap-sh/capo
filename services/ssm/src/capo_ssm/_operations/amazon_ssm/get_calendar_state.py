@@ -35,19 +35,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocument":
             raise capo_ssm.errors.invalid_document.InvalidDocument.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentType":
             raise capo_ssm.errors.invalid_document_type.InvalidDocumentType.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedCalendarException":
             raise capo_ssm.errors.unsupported_calendar_exception.UnsupportedCalendarException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

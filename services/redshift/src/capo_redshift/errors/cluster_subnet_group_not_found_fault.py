@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_redshift._protocol.xml import Element
@@ -38,7 +39,11 @@ class ClusterSubnetGroupNotFoundFault(ServiceError):
     code: str | None = "ClusterSubnetGroupNotFoundFault"
 
     def __init__(
-        self, data: ClusterSubnetGroupNotFoundFault_, message: str | None = None
+        self,
+        data: ClusterSubnetGroupNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class ClusterSubnetGroupNotFoundFault(ServiceError):
             is_retryable=False,
             code="ClusterSubnetGroupNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ClusterSubnetGroupNotFoundFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

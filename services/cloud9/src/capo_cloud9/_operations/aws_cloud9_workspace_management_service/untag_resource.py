@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_cloud9.errors.bad_request_exception.BadRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentAccessException":
             raise capo_cloud9.errors.concurrent_access_exception.ConcurrentAccessException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_cloud9.errors.internal_server_error_exception.InternalServerErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_cloud9.errors.not_found_exception.NotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -44,43 +44,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterSnapshotNotFoundFault":
             raise capo_rds.errors.db_cluster_snapshot_not_found_fault.DBClusterSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSnapshotNotFound":
             raise capo_rds.errors.db_snapshot_not_found_fault.DBSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ExportTaskAlreadyExists":
             raise capo_rds.errors.export_task_already_exists_fault.ExportTaskAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IamRoleMissingPermissions":
             raise capo_rds.errors.iam_role_missing_permissions_fault.IamRoleMissingPermissionsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IamRoleNotFound":
             raise capo_rds.errors.iam_role_not_found_fault.IamRoleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidExportOnly":
             raise capo_rds.errors.invalid_export_only_fault.InvalidExportOnlyFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidExportSourceState":
             raise capo_rds.errors.invalid_export_source_state_fault.InvalidExportSourceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidS3BucketFault":
             raise capo_rds.errors.invalid_s3_bucket_fault.InvalidS3BucketFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_rds.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -40,23 +40,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BillingViewHealthStatusException":
             raise capo_cost_explorer.errors.billing_view_health_status_exception.BillingViewHealthStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DataUnavailableException":
             raise capo_cost_explorer.errors.data_unavailable_exception.DataUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_cost_explorer.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cost_explorer.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnresolvableUsageUnitException":
             raise capo_cost_explorer.errors.unresolvable_usage_unit_exception.UnresolvableUsageUnitException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

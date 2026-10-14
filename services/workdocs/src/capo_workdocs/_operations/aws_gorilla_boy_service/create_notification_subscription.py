@@ -37,19 +37,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgumentException":
             raise capo_workdocs.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_workdocs.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManySubscriptionsException":
             raise capo_workdocs.errors.too_many_subscriptions_exception.TooManySubscriptionsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedResourceAccessException":
             raise capo_workdocs.errors.unauthorized_resource_access_exception.UnauthorizedResourceAccessException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

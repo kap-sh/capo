@@ -45,51 +45,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountHasOngoingImportException":
             raise capo_cloudtrail.errors.account_has_ongoing_import_exception.AccountHasOngoingImportException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreARNInvalidException":
             raise capo_cloudtrail.errors.event_data_store_arn_invalid_exception.EventDataStoreARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreNotFoundException":
             raise capo_cloudtrail.errors.event_data_store_not_found_exception.EventDataStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ImportNotFoundException":
             raise capo_cloudtrail.errors.import_not_found_exception.ImportNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InactiveEventDataStoreException":
             raise capo_cloudtrail.errors.inactive_event_data_store_exception.InactiveEventDataStoreException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientEncryptionPolicyException":
             raise capo_cloudtrail.errors.insufficient_encryption_policy_exception.InsufficientEncryptionPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventDataStoreCategoryException":
             raise capo_cloudtrail.errors.invalid_event_data_store_category_exception.InvalidEventDataStoreCategoryException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventDataStoreStatusException":
             raise capo_cloudtrail.errors.invalid_event_data_store_status_exception.InvalidEventDataStoreStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidImportSourceException":
             raise capo_cloudtrail.errors.invalid_import_source_exception.InvalidImportSourceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_runtime.errors import ServiceError
@@ -34,18 +35,25 @@ class ModelNotReadyException(ServiceError):
 
     code: str | None = "ModelNotReadyException"
 
-    def __init__(self, data: ModelNotReadyException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ModelNotReadyException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=True,
             code="ModelNotReadyException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ModelNotReadyException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

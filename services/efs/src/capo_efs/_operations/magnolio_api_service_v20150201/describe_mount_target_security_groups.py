@@ -34,18 +34,20 @@ def handle_error(response: zapros.Response) -> Never:
     code, message = parse_error_metadata_json(response, data)
     match code:
         case "BadRequest":
-            raise capo_efs.errors.bad_request.BadRequest.from_json(data, message)
+            raise capo_efs.errors.bad_request.BadRequest.from_json(
+                data, message, response=response
+            )
         case "IncorrectMountTargetState":
             raise capo_efs.errors.incorrect_mount_target_state.IncorrectMountTargetState.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_efs.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case "MountTargetNotFound":
             raise capo_efs.errors.mount_target_not_found.MountTargetNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

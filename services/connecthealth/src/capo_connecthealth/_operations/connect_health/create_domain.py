@@ -35,7 +35,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ServiceQuotaExceededException":
             raise capo_connecthealth.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

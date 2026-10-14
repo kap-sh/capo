@@ -56,91 +56,91 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudTrailAccessNotEnabledException":
             raise capo_cloudtrail.errors.cloud_trail_access_not_enabled_exception.CloudTrailAccessNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_cloudtrail.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreAlreadyExistsException":
             raise capo_cloudtrail.errors.event_data_store_already_exists_exception.EventDataStoreAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreARNInvalidException":
             raise capo_cloudtrail.errors.event_data_store_arn_invalid_exception.EventDataStoreARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreHasOngoingImportException":
             raise capo_cloudtrail.errors.event_data_store_has_ongoing_import_exception.EventDataStoreHasOngoingImportException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreNotFoundException":
             raise capo_cloudtrail.errors.event_data_store_not_found_exception.EventDataStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InactiveEventDataStoreException":
             raise capo_cloudtrail.errors.inactive_event_data_store_exception.InactiveEventDataStoreException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientDependencyServiceAccessPermissionException":
             raise capo_cloudtrail.errors.insufficient_dependency_service_access_permission_exception.InsufficientDependencyServiceAccessPermissionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientEncryptionPolicyException":
             raise capo_cloudtrail.errors.insufficient_encryption_policy_exception.InsufficientEncryptionPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventSelectorsException":
             raise capo_cloudtrail.errors.invalid_event_selectors_exception.InvalidEventSelectorsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInsightSelectorsException":
             raise capo_cloudtrail.errors.invalid_insight_selectors_exception.InvalidInsightSelectorsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidKmsKeyIdException":
             raise capo_cloudtrail.errors.invalid_kms_key_id_exception.InvalidKmsKeyIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KmsException":
             raise capo_cloudtrail.errors.kms_exception.KmsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KmsKeyNotFoundException":
             raise capo_cloudtrail.errors.kms_key_not_found_exception.KmsKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoManagementAccountSLRExistsException":
             raise capo_cloudtrail.errors.no_management_account_slr_exists_exception.NoManagementAccountSLRExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotOrganizationMasterAccountException":
             raise capo_cloudtrail.errors.not_organization_master_account_exception.NotOrganizationMasterAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationNotInAllFeaturesModeException":
             raise capo_cloudtrail.errors.organization_not_in_all_features_mode_exception.OrganizationNotInAllFeaturesModeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationsNotInUseException":
             raise capo_cloudtrail.errors.organizations_not_in_use_exception.OrganizationsNotInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_cloudtrail.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#InsufficientCapacityException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_redshift_serverless.errors import DeserializationError, ServiceError
@@ -31,7 +32,11 @@ class InsufficientCapacityException(ServiceError):
     code: str | None = "InsufficientCapacityException"
 
     def __init__(
-        self, data: InsufficientCapacityException_, message: str | None = None
+        self,
+        data: InsufficientCapacityException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -39,11 +44,12 @@ class InsufficientCapacityException(ServiceError):
             is_retryable=True,
             code="InsufficientCapacityException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InsufficientCapacityException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

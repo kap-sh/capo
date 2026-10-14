@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_chime_sdk_voice.errors import ServiceError
@@ -48,16 +49,25 @@ class GoneException(ServiceError):
 
     code: str | None = "GoneException"
 
-    def __init__(self, data: GoneException_, message: str | None = None):
+    def __init__(
+        self,
+        data: GoneException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="GoneException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "GoneException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "GoneException":
+        return cls(deserialize_json(data), message, response=response)

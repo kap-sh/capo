@@ -41,23 +41,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IntegrationAlreadyExistsFault":
             raise capo_redshift.errors.integration_already_exists_fault.IntegrationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationConflictOperationFault":
             raise capo_redshift.errors.integration_conflict_operation_fault.IntegrationConflictOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationConflictStateFault":
             raise capo_redshift.errors.integration_conflict_state_fault.IntegrationConflictStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationNotFoundFault":
             raise capo_redshift.errors.integration_not_found_fault.IntegrationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

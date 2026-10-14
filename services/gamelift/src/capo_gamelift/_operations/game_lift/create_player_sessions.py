@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "GameSessionFullException":
             raise capo_gamelift.errors.game_session_full_exception.GameSessionFullException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_gamelift.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidGameSessionStatusException":
             raise capo_gamelift.errors.invalid_game_session_status_exception.InvalidGameSessionStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_gamelift.errors.invalid_request_exception.InvalidRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_gamelift.errors.not_found_exception.NotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TerminalRoutingStrategyException":
             raise capo_gamelift.errors.terminal_routing_strategy_exception.TerminalRoutingStrategyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_gamelift.errors.unauthorized_exception.UnauthorizedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

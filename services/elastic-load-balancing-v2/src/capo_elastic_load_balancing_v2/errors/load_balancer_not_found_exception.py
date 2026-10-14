@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elastic_load_balancing_v2._protocol.xml import Element
@@ -40,7 +41,11 @@ class LoadBalancerNotFoundException(ServiceError):
     code: str | None = "LoadBalancerNotFoundException"
 
     def __init__(
-        self, data: LoadBalancerNotFoundException_, message: str | None = None
+        self,
+        data: LoadBalancerNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class LoadBalancerNotFoundException(ServiceError):
             is_retryable=False,
             code="LoadBalancerNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "LoadBalancerNotFoundException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

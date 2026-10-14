@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidDBClusterStateFault":
             raise capo_docdb.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBInstanceState":
             raise capo_docdb.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceNotFoundFault":
             raise capo_docdb.errors.resource_not_found_fault.ResourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

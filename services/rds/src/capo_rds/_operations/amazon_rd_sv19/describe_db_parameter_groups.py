@@ -34,7 +34,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBParameterGroupNotFound":
             raise capo_rds.errors.db_parameter_group_not_found_fault.DBParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
@@ -37,18 +38,25 @@ class KeySigningKeyAlreadyExists(ServiceError):
 
     code: str | None = "KeySigningKeyAlreadyExists"
 
-    def __init__(self, data: KeySigningKeyAlreadyExists_, message: str | None = None):
+    def __init__(
+        self,
+        data: KeySigningKeyAlreadyExists_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="KeySigningKeyAlreadyExists",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "KeySigningKeyAlreadyExists":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

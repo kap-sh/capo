@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DisabledApiException":
             raise capo_marketplace_metering.errors.disabled_api_exception.DisabledApiException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ExpiredTokenException":
             raise capo_marketplace_metering.errors.expired_token_exception.ExpiredTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_marketplace_metering.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTokenException":
             raise capo_marketplace_metering.errors.invalid_token_exception.InvalidTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_marketplace_metering.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

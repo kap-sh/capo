@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BackupInUseException":
             raise capo_dynamodb.errors.backup_in_use_exception.BackupInUseException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "BackupNotFoundException":
             raise capo_dynamodb.errors.backup_not_found_exception.BackupNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_dynamodb.errors.internal_server_error.InternalServerError.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidEndpointException":
             raise capo_dynamodb.errors.invalid_endpoint_exception.InvalidEndpointException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_dynamodb.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

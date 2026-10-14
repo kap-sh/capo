@@ -40,11 +40,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CFNRegistryException":
             raise capo_cloudformation.errors.cfn_registry_exception.CFNRegistryException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TypeConfigurationNotFoundException":
             raise capo_cloudformation.errors.type_configuration_not_found_exception.TypeConfigurationNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

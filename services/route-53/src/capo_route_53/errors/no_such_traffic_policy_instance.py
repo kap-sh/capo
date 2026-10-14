@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53._protocol.xml import Element, SubElement
@@ -38,18 +39,25 @@ class NoSuchTrafficPolicyInstance(ServiceError):
 
     code: str | None = "NoSuchTrafficPolicyInstance"
 
-    def __init__(self, data: NoSuchTrafficPolicyInstance_, message: str | None = None):
+    def __init__(
+        self,
+        data: NoSuchTrafficPolicyInstance_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="NoSuchTrafficPolicyInstance",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "NoSuchTrafficPolicyInstance":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

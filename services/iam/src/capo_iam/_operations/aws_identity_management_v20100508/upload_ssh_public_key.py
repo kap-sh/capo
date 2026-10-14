@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateSSHPublicKey":
             raise capo_iam.errors.duplicate_ssh_public_key_exception.DuplicateSSHPublicKeyException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidPublicKey":
             raise capo_iam.errors.invalid_public_key_exception.InvalidPublicKeyException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_iam.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchEntity":
             raise capo_iam.errors.no_such_entity_exception.NoSuchEntityException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnrecognizedPublicKeyEncoding":
             raise capo_iam.errors.unrecognized_public_key_encoding_exception.UnrecognizedPublicKeyEncodingException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidTaskIdException":
             raise capo_polly.errors.invalid_task_id_exception.InvalidTaskIdException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceFailureException":
             raise capo_polly.errors.service_failure_exception.ServiceFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SynthesisTaskNotFoundException":
             raise capo_polly.errors.synthesis_task_not_found_exception.SynthesisTaskNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

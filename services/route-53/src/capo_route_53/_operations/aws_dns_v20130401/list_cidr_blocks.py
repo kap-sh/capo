@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchCidrCollectionException":
             raise capo_route_53.errors.no_such_cidr_collection_exception.NoSuchCidrCollectionException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchCidrLocationException":
             raise capo_route_53.errors.no_such_cidr_location_exception.NoSuchCidrLocationException.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

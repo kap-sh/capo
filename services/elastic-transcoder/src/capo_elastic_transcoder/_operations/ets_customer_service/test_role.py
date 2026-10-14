@@ -39,23 +39,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_elastic_transcoder.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "IncompatibleVersionException":
             raise capo_elastic_transcoder.errors.incompatible_version_exception.IncompatibleVersionException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_elastic_transcoder.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_elastic_transcoder.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_elastic_transcoder.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

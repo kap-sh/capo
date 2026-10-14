@@ -38,15 +38,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidSchedule":
             raise capo_redshift.errors.invalid_schedule_fault.InvalidScheduleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotScheduleNotFound":
             raise capo_redshift.errors.snapshot_schedule_not_found_fault.SnapshotScheduleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotScheduleUpdateInProgress":
             raise capo_redshift.errors.snapshot_schedule_update_in_progress_fault.SnapshotScheduleUpdateInProgressFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

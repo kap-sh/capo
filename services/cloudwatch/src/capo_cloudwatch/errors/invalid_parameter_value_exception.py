@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudwatch._protocol.xml import Element
@@ -56,7 +57,11 @@ class InvalidParameterValueException(ServiceError):
     code: str | None = "InvalidParameterValueException"
 
     def __init__(
-        self, data: InvalidParameterValueException_, message: str | None = None
+        self,
+        data: InvalidParameterValueException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -64,17 +69,18 @@ class InvalidParameterValueException(ServiceError):
             is_retryable=False,
             code="InvalidParameterValueException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidParameterValueException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidParameterValueException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IntegrationNotFoundFault":
             raise capo_redshift.errors.integration_not_found_fault.IntegrationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidNamespaceFault":
             raise capo_redshift.errors.invalid_namespace_fault.InvalidNamespaceFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

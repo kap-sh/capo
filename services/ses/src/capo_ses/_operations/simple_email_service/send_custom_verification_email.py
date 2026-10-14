@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConfigurationSetDoesNotExist":
             raise capo_ses.errors.configuration_set_does_not_exist_exception.ConfigurationSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CustomVerificationEmailTemplateDoesNotExist":
             raise capo_ses.errors.custom_verification_email_template_does_not_exist_exception.CustomVerificationEmailTemplateDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "FromEmailAddressNotVerified":
             raise capo_ses.errors.from_email_address_not_verified_exception.FromEmailAddressNotVerifiedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "MessageRejected":
             raise capo_ses.errors.message_rejected.MessageRejected.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ProductionAccessNotGranted":
             raise capo_ses.errors.production_access_not_granted_exception.ProductionAccessNotGrantedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

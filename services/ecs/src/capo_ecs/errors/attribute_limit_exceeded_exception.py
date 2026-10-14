@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ecs.errors import ServiceError
@@ -36,7 +37,11 @@ class AttributeLimitExceededException(ServiceError):
     code: str | None = "AttributeLimitExceededException"
 
     def __init__(
-        self, data: AttributeLimitExceededException_, message: str | None = None
+        self,
+        data: AttributeLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class AttributeLimitExceededException(ServiceError):
             is_retryable=False,
             code="AttributeLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AttributeLimitExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

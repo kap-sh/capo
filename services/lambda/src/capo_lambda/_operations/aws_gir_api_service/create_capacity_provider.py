@@ -42,23 +42,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CapacityProviderLimitExceededException":
             raise capo_lambda.errors.capacity_provider_limit_exceeded_exception.CapacityProviderLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceConflictException":
             raise capo_lambda.errors.resource_conflict_exception.ResourceConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_lambda.errors.service_exception.ServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_lambda.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

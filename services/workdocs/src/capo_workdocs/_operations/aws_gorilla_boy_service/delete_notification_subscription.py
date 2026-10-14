@@ -33,19 +33,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EntityNotExistsException":
             raise capo_workdocs.errors.entity_not_exists_exception.EntityNotExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ProhibitedStateException":
             raise capo_workdocs.errors.prohibited_state_exception.ProhibitedStateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_workdocs.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedResourceAccessException":
             raise capo_workdocs.errors.unauthorized_resource_access_exception.UnauthorizedResourceAccessException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

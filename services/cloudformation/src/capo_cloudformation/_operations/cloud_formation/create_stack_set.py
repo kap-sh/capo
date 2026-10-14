@@ -44,15 +44,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CreatedButModifiedException":
             raise capo_cloudformation.errors.created_but_modified_exception.CreatedButModifiedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceededException":
             raise capo_cloudformation.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NameAlreadyExistsException":
             raise capo_cloudformation.errors.name_already_exists_exception.NameAlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

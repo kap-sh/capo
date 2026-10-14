@@ -40,7 +40,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoSuchPublicAccessBlockConfiguration":
             raise capo_s3_control.errors.no_such_public_access_block_configuration.NoSuchPublicAccessBlockConfiguration.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

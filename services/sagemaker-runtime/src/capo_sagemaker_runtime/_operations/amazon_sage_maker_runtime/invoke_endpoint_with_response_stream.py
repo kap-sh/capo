@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 from urllib.parse import quote
@@ -46,27 +47,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalFailure":
             raise capo_sagemaker_runtime.errors.internal_failure.InternalFailure.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalStreamFailure":
             raise capo_sagemaker_runtime.errors.internal_stream_failure.InternalStreamFailure.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelError":
             raise capo_sagemaker_runtime.errors.model_error.ModelError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelStreamError":
             raise capo_sagemaker_runtime.errors.model_stream_error.ModelStreamError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailable":
             raise capo_sagemaker_runtime.errors.service_unavailable.ServiceUnavailable.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationError":
             raise capo_sagemaker_runtime.errors.validation_error.ValidationError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -76,7 +77,10 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output.InvokeEndpointWithResponseStreamOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_sagemaker_runtime.types.response_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_sagemaker_runtime.types.response_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output.InvokeEndpointWithResponseStreamOutput = {
         "body": cast(Any, raw_stream_to_events(_iter, _message_decoder, _union_deser))
@@ -98,7 +102,10 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output.InvokeEndpointWithResponseStreamOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_sagemaker_runtime.types.response_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_sagemaker_runtime.types.response_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_sagemaker_runtime.types.invoke_endpoint_with_response_stream_output.InvokeEndpointWithResponseStreamOutput = {
         "body": cast(

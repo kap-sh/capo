@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequest":
             raise capo_fsx.errors.bad_request.BadRequest.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DataRepositoryTaskEnded":
             raise capo_fsx.errors.data_repository_task_ended.DataRepositoryTaskEnded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DataRepositoryTaskNotFound":
             raise capo_fsx.errors.data_repository_task_not_found.DataRepositoryTaskNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_fsx.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_fsx.errors.unsupported_operation.UnsupportedOperation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -34,7 +34,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ReservedDBInstancesOfferingNotFound":
             raise capo_rds.errors.reserved_db_instances_offering_not_found_fault.ReservedDBInstancesOfferingNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

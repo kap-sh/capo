@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kinesis_video_archived_media.errors import ServiceError
@@ -37,7 +38,11 @@ class MissingCodecPrivateDataException(ServiceError):
     code: str | None = "MissingCodecPrivateDataException"
 
     def __init__(
-        self, data: MissingCodecPrivateDataException_, message: str | None = None
+        self,
+        data: MissingCodecPrivateDataException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -45,11 +50,12 @@ class MissingCodecPrivateDataException(ServiceError):
             is_retryable=False,
             code="MissingCodecPrivateDataException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "MissingCodecPrivateDataException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

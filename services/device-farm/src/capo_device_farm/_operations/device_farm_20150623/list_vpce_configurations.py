@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ArgumentException":
             raise capo_device_farm.errors.argument_exception.ArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceAccountException":
             raise capo_device_farm.errors.service_account_exception.ServiceAccountException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

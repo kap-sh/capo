@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_docdb._protocol.xml import Element
@@ -37,18 +38,25 @@ class ResourceNotFoundFault(ServiceError):
 
     code: str | None = "ResourceNotFoundFault"
 
-    def __init__(self, data: ResourceNotFoundFault_, message: str | None = None):
+    def __init__(
+        self,
+        data: ResourceNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ResourceNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceNotFoundFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

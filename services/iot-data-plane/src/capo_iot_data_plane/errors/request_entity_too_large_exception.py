@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iot_data_plane.errors import ServiceError
@@ -36,7 +37,11 @@ class RequestEntityTooLargeException(ServiceError):
     code: str | None = "RequestEntityTooLargeException"
 
     def __init__(
-        self, data: RequestEntityTooLargeException_, message: str | None = None
+        self,
+        data: RequestEntityTooLargeException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class RequestEntityTooLargeException(ServiceError):
             is_retryable=False,
             code="RequestEntityTooLargeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RequestEntityTooLargeException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -45,43 +45,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientCacheClusterCapacity":
             raise capo_elasticache.errors.insufficient_cache_cluster_capacity_fault.InsufficientCacheClusterCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCacheClusterState":
             raise capo_elasticache.errors.invalid_cache_cluster_state_fault.InvalidCacheClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKMSKeyFault":
             raise capo_elasticache.errors.invalid_kms_key_fault.InvalidKMSKeyFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterCombination":
             raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidReplicationGroupState":
             raise capo_elasticache.errors.invalid_replication_group_state_fault.InvalidReplicationGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_elasticache.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NodeGroupsPerReplicationGroupQuotaExceeded":
             raise capo_elasticache.errors.node_groups_per_replication_group_quota_exceeded_fault.NodeGroupsPerReplicationGroupQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NodeQuotaForCustomerExceeded":
             raise capo_elasticache.errors.node_quota_for_customer_exceeded_fault.NodeQuotaForCustomerExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReplicationGroupNotFoundFault":
             raise capo_elasticache.errors.replication_group_not_found_fault.ReplicationGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

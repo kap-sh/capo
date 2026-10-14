@@ -41,23 +41,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCId":
             raise capo_route_53.errors.invalid_vpc_id.InvalidVPCId.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "LastVPCAssociation":
             raise capo_route_53.errors.last_vpc_association.LastVPCAssociation.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchHostedZone":
             raise capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "VPCAssociationNotFound":
             raise capo_route_53.errors.vpc_association_not_found.VPCAssociationNotFound.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_eks.errors import ServiceError
@@ -63,7 +64,11 @@ class UnsupportedAvailabilityZoneException(ServiceError):
     code: str | None = "UnsupportedAvailabilityZoneException"
 
     def __init__(
-        self, data: UnsupportedAvailabilityZoneException_, message: str | None = None
+        self,
+        data: UnsupportedAvailabilityZoneException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -71,11 +76,12 @@ class UnsupportedAvailabilityZoneException(ServiceError):
             is_retryable=False,
             code="UnsupportedAvailabilityZoneException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedAvailabilityZoneException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

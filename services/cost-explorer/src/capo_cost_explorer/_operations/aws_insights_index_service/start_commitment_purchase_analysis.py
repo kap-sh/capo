@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DataUnavailableException":
             raise capo_cost_explorer.errors.data_unavailable_exception.DataUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "GenerationExistsException":
             raise capo_cost_explorer.errors.generation_exists_exception.GenerationExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_cost_explorer.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_cost_explorer.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

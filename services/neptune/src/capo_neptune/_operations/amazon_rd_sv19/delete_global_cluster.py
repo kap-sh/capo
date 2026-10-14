@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "GlobalClusterNotFoundFault":
             raise capo_neptune.errors.global_cluster_not_found_fault.GlobalClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidGlobalClusterStateFault":
             raise capo_neptune.errors.invalid_global_cluster_state_fault.InvalidGlobalClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalException":
             raise capo_securityhub.errors.internal_exception.InternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidAccessException":
             raise capo_securityhub.errors.invalid_access_exception.InvalidAccessException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_securityhub.errors.invalid_input_exception.InvalidInputException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_securityhub.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_securityhub.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DependentServiceUnavailableFault":
             raise capo_redshift.errors.dependent_service_unavailable_fault.DependentServiceUnavailableFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeNotFound":
             raise capo_redshift.errors.reserved_node_not_found_fault.ReservedNodeNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

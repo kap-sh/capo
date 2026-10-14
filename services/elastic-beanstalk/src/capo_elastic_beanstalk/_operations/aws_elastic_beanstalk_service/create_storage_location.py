@@ -41,15 +41,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientPrivilegesException":
             raise capo_elastic_beanstalk.errors.insufficient_privileges_exception.InsufficientPrivilegesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "S3SubscriptionRequiredException":
             raise capo_elastic_beanstalk.errors.s3_subscription_required_exception.S3SubscriptionRequiredException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyBucketsException":
             raise capo_elastic_beanstalk.errors.too_many_buckets_exception.TooManyBucketsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

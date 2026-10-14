@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_codeconnections.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_codeconnections.errors.concurrent_modification_exception.ConcurrentModificationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_codeconnections.errors.internal_server_exception.InternalServerException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_codeconnections.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_codeconnections.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_codeconnections.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_codeconnections.errors.throttling_exception.ThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

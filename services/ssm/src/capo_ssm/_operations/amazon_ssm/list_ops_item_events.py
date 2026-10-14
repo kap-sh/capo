@@ -35,19 +35,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OpsItemInvalidParameterException":
             raise capo_ssm.errors.ops_item_invalid_parameter_exception.OpsItemInvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OpsItemLimitExceededException":
             raise capo_ssm.errors.ops_item_limit_exceeded_exception.OpsItemLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OpsItemNotFoundException":
             raise capo_ssm.errors.ops_item_not_found_exception.OpsItemNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

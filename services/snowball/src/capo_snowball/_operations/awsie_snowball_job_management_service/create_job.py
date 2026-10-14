@@ -46,23 +46,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterLimitExceededException":
             raise capo_snowball.errors.cluster_limit_exceeded_exception.ClusterLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "Ec2RequestFailedException":
             raise capo_snowball.errors.ec2_request_failed_exception.Ec2RequestFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputCombinationException":
             raise capo_snowball.errors.invalid_input_combination_exception.InvalidInputCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceException":
             raise capo_snowball.errors.invalid_resource_exception.InvalidResourceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSRequestFailedException":
             raise capo_snowball.errors.kms_request_failed_exception.KMSRequestFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rdsdata#DatabaseUnavailableException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_rds_data.errors import ServiceError
@@ -25,18 +26,25 @@ class DatabaseUnavailableException(ServiceError):
 
     code: str | None = "DatabaseUnavailableException"
 
-    def __init__(self, data: DatabaseUnavailableException_, message: str | None = None):
+    def __init__(
+        self,
+        data: DatabaseUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="DatabaseUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DatabaseUnavailableException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

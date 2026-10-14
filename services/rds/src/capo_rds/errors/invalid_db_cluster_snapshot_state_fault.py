@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
@@ -40,7 +41,11 @@ class InvalidDBClusterSnapshotStateFault(ServiceError):
     code: str | None = "InvalidDBClusterSnapshotStateFault"
 
     def __init__(
-        self, data: InvalidDBClusterSnapshotStateFault_, message: str | None = None
+        self,
+        data: InvalidDBClusterSnapshotStateFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class InvalidDBClusterSnapshotStateFault(ServiceError):
             is_retryable=False,
             code="InvalidDBClusterSnapshotStateFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidDBClusterSnapshotStateFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

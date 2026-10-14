@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.groundstation#ResourceLimitExceededException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_groundstation.errors import ServiceError
@@ -36,7 +37,11 @@ class ResourceLimitExceededException(ServiceError):
     code: str | None = "ResourceLimitExceededException"
 
     def __init__(
-        self, data: ResourceLimitExceededException_, message: str | None = None
+        self,
+        data: ResourceLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class ResourceLimitExceededException(ServiceError):
             is_retryable=False,
             code="ResourceLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

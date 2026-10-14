@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#AnnotationNameTooLong``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
@@ -25,18 +26,25 @@ class AnnotationNameTooLong(ServiceError):
 
     code: str | None = "AnnotationNameTooLong"
 
-    def __init__(self, data: AnnotationNameTooLong_, message: str | None = None):
+    def __init__(
+        self,
+        data: AnnotationNameTooLong_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="AnnotationNameTooLong",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "AnnotationNameTooLong":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

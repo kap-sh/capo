@@ -74,127 +74,127 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlarmsLimitExceededException":
             raise capo_codedeploy.errors.alarms_limit_exceeded_exception.AlarmsLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationDoesNotExistException":
             raise capo_codedeploy.errors.application_does_not_exist_exception.ApplicationDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationNameRequiredException":
             raise capo_codedeploy.errors.application_name_required_exception.ApplicationNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentConfigDoesNotExistException":
             raise capo_codedeploy.errors.deployment_config_does_not_exist_exception.DeploymentConfigDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupAlreadyExistsException":
             raise capo_codedeploy.errors.deployment_group_already_exists_exception.DeploymentGroupAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupDoesNotExistException":
             raise capo_codedeploy.errors.deployment_group_does_not_exist_exception.DeploymentGroupDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupNameRequiredException":
             raise capo_codedeploy.errors.deployment_group_name_required_exception.DeploymentGroupNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ECSServiceMappingLimitExceededException":
             raise capo_codedeploy.errors.ecs_service_mapping_limit_exceeded_exception.ECSServiceMappingLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAlarmConfigException":
             raise capo_codedeploy.errors.invalid_alarm_config_exception.InvalidAlarmConfigException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApplicationNameException":
             raise capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAutoRollbackConfigException":
             raise capo_codedeploy.errors.invalid_auto_rollback_config_exception.InvalidAutoRollbackConfigException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAutoScalingGroupException":
             raise capo_codedeploy.errors.invalid_auto_scaling_group_exception.InvalidAutoScalingGroupException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidBlueGreenDeploymentConfigurationException":
             raise capo_codedeploy.errors.invalid_blue_green_deployment_configuration_exception.InvalidBlueGreenDeploymentConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentConfigNameException":
             raise capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentGroupNameException":
             raise capo_codedeploy.errors.invalid_deployment_group_name_exception.InvalidDeploymentGroupNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentStyleException":
             raise capo_codedeploy.errors.invalid_deployment_style_exception.InvalidDeploymentStyleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEC2TagCombinationException":
             raise capo_codedeploy.errors.invalid_ec2_tag_combination_exception.InvalidEC2TagCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEC2TagException":
             raise capo_codedeploy.errors.invalid_ec2_tag_exception.InvalidEC2TagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidECSServiceException":
             raise capo_codedeploy.errors.invalid_ecs_service_exception.InvalidECSServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_codedeploy.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidLoadBalancerInfoException":
             raise capo_codedeploy.errors.invalid_load_balancer_info_exception.InvalidLoadBalancerInfoException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidOnPremisesTagCombinationException":
             raise capo_codedeploy.errors.invalid_on_premises_tag_combination_exception.InvalidOnPremisesTagCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_codedeploy.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagException":
             raise capo_codedeploy.errors.invalid_tag_exception.InvalidTagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTargetGroupPairException":
             raise capo_codedeploy.errors.invalid_target_group_pair_exception.InvalidTargetGroupPairException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTrafficRoutingConfigurationException":
             raise capo_codedeploy.errors.invalid_traffic_routing_configuration_exception.InvalidTrafficRoutingConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTriggerConfigException":
             raise capo_codedeploy.errors.invalid_trigger_config_exception.InvalidTriggerConfigException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LifecycleHookLimitExceededException":
             raise capo_codedeploy.errors.lifecycle_hook_limit_exceeded_exception.LifecycleHookLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagSetListLimitExceededException":
             raise capo_codedeploy.errors.tag_set_list_limit_exceeded_exception.TagSetListLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_codedeploy.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TriggerTargetsLimitExceededException":
             raise capo_codedeploy.errors.trigger_targets_limit_exceeded_exception.TriggerTargetsLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

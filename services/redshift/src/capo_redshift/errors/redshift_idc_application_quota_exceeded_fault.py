@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_redshift._protocol.xml import Element
@@ -43,6 +44,8 @@ class RedshiftIdcApplicationQuotaExceededFault(ServiceError):
         self,
         data: RedshiftIdcApplicationQuotaExceededFault_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +53,12 @@ class RedshiftIdcApplicationQuotaExceededFault(ServiceError):
             is_retryable=False,
             code="RedshiftIdcApplicationQuotaExceededFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "RedshiftIdcApplicationQuotaExceededFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

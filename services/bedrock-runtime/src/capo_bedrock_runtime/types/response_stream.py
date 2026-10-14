@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_bedrock_runtime._iter import AnyIterator
@@ -118,7 +119,9 @@ def serialize_event_json(value: _ResponseStream) -> bytes:
             raise ValueError(f"ResponseStream: unrecognized variant {value!r}")
 
 
-def deserialize_event_json(message: Message) -> _ResponseStream:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _ResponseStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -131,7 +134,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_bedrock_runtime.errors.internal_server_exception.InternalServerException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "modelStreamErrorException":
                 import capo_bedrock_runtime.errors.model_stream_error_exception
@@ -140,7 +143,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_bedrock_runtime.errors.model_stream_error_exception.ModelStreamErrorException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "validationException":
                 import capo_bedrock_runtime.errors.validation_exception
@@ -149,7 +152,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_bedrock_runtime.errors.validation_exception.ValidationException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "throttlingException":
                 import capo_bedrock_runtime.errors.throttling_exception
@@ -158,7 +161,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_bedrock_runtime.errors.throttling_exception.ThrottlingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "modelTimeoutException":
                 import capo_bedrock_runtime.errors.model_timeout_exception
@@ -167,7 +170,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_bedrock_runtime.errors.model_timeout_exception.ModelTimeoutException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "serviceUnavailableException":
                 import capo_bedrock_runtime.errors.service_unavailable_exception
@@ -176,10 +179,10 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
                     message
                 )
                 raise capo_bedrock_runtime.errors.service_unavailable_exception.ServiceUnavailableException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -187,7 +190,7 @@ def deserialize_event_json(message: Message) -> _ResponseStream:
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

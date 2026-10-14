@@ -53,55 +53,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "CNAMEAlreadyExists":
             raise capo_cloudfront.errors.cname_already_exists.CNAMEAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOrigin":
             raise capo_cloudfront.errors.invalid_origin.InvalidOrigin.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOriginAccessControl":
             raise capo_cloudfront.errors.invalid_origin_access_control.InvalidOriginAccessControl.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOriginAccessIdentity":
             raise capo_cloudfront.errors.invalid_origin_access_identity.InvalidOriginAccessIdentity.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "MissingBody":
             raise capo_cloudfront.errors.missing_body.MissingBody.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "StreamingDistributionAlreadyExists":
             raise capo_cloudfront.errors.streaming_distribution_already_exists.StreamingDistributionAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyStreamingDistributionCNAMEs":
             raise capo_cloudfront.errors.too_many_streaming_distribution_cnam_es.TooManyStreamingDistributionCNAMEs.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyStreamingDistributions":
             raise capo_cloudfront.errors.too_many_streaming_distributions.TooManyStreamingDistributions.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTrustedSigners":
             raise capo_cloudfront.errors.too_many_trusted_signers.TooManyTrustedSigners.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustedSignerDoesNotExist":
             raise capo_cloudfront.errors.trusted_signer_does_not_exist.TrustedSignerDoesNotExist.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

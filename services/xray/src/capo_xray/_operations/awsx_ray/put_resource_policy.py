@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidPolicyRevisionIdException":
             raise capo_xray.errors.invalid_policy_revision_id_exception.InvalidPolicyRevisionIdException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LockoutPreventionException":
             raise capo_xray.errors.lockout_prevention_exception.LockoutPreventionException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MalformedPolicyDocumentException":
             raise capo_xray.errors.malformed_policy_document_exception.MalformedPolicyDocumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PolicyCountLimitExceededException":
             raise capo_xray.errors.policy_count_limit_exceeded_exception.PolicyCountLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PolicySizeLimitExceededException":
             raise capo_xray.errors.policy_size_limit_exceeded_exception.PolicySizeLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottledException":
             raise capo_xray.errors.throttled_exception.ThrottledException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elasticache._protocol.xml import Element
@@ -40,7 +41,11 @@ class InsufficientCacheClusterCapacityFault(ServiceError):
     code: str | None = "InsufficientCacheClusterCapacityFault"
 
     def __init__(
-        self, data: InsufficientCacheClusterCapacityFault_, message: str | None = None
+        self,
+        data: InsufficientCacheClusterCapacityFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class InsufficientCacheClusterCapacityFault(ServiceError):
             is_retryable=False,
             code="InsufficientCacheClusterCapacityFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InsufficientCacheClusterCapacityFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

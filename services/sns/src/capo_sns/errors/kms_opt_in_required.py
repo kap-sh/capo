@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
@@ -37,16 +38,25 @@ class KMSOptInRequired(ServiceError):
 
     code: str | None = "KMSOptInRequired"
 
-    def __init__(self, data: KMSOptInRequired_, message: str | None = None):
+    def __init__(
+        self,
+        data: KMSOptInRequired_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="KMSOptInRequired",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_query(cls, el: Element, message: str | None = None) -> "KMSOptInRequired":
-        return cls(deserialize_query(el), message)
+    def from_query(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "KMSOptInRequired":
+        return cls(deserialize_query(el), message, response=response)

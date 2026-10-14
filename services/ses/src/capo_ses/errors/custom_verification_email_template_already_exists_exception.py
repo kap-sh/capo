@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
@@ -64,6 +65,8 @@ class CustomVerificationEmailTemplateAlreadyExistsException(ServiceError):
         self,
         data: CustomVerificationEmailTemplateAlreadyExistsException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -71,11 +74,12 @@ class CustomVerificationEmailTemplateAlreadyExistsException(ServiceError):
             is_retryable=False,
             code="CustomVerificationEmailTemplateAlreadyExistsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "CustomVerificationEmailTemplateAlreadyExistsException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

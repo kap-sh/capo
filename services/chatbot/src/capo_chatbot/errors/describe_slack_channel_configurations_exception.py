@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_chatbot.errors import ServiceError
@@ -38,6 +39,8 @@ class DescribeSlackChannelConfigurationsException(ServiceError):
         self,
         data: DescribeSlackChannelConfigurationsException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -45,11 +48,12 @@ class DescribeSlackChannelConfigurationsException(ServiceError):
             is_retryable=False,
             code="DescribeSlackChannelConfigurationsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DescribeSlackChannelConfigurationsException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

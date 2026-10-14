@@ -43,51 +43,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_sso_oidc.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "AuthorizationPendingException":
             raise capo_sso_oidc.errors.authorization_pending_exception.AuthorizationPendingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ExpiredTokenException":
             raise capo_sso_oidc.errors.expired_token_exception.ExpiredTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_sso_oidc.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientException":
             raise capo_sso_oidc.errors.invalid_client_exception.InvalidClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidGrantException":
             raise capo_sso_oidc.errors.invalid_grant_exception.InvalidGrantException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_sso_oidc.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestRegionException":
             raise capo_sso_oidc.errors.invalid_request_region_exception.InvalidRequestRegionException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidScopeException":
             raise capo_sso_oidc.errors.invalid_scope_exception.InvalidScopeException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SlowDownException":
             raise capo_sso_oidc.errors.slow_down_exception.SlowDownException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedClientException":
             raise capo_sso_oidc.errors.unauthorized_client_exception.UnauthorizedClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedGrantTypeException":
             raise capo_sso_oidc.errors.unsupported_grant_type_exception.UnsupportedGrantTypeException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

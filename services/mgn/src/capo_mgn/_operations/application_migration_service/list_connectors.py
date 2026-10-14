@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "UninitializedAccountException":
             raise capo_mgn.errors.uninitialized_account_exception.UninitializedAccountException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_mgn.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

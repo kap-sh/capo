@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_ram.errors import DeserializationError, ServiceError
@@ -36,7 +37,11 @@ class OperationNotPermittedException(ServiceError):
     code: str | None = "OperationNotPermittedException"
 
     def __init__(
-        self, data: OperationNotPermittedException_, message: str | None = None
+        self,
+        data: OperationNotPermittedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class OperationNotPermittedException(ServiceError):
             is_retryable=False,
             code="OperationNotPermittedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "OperationNotPermittedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

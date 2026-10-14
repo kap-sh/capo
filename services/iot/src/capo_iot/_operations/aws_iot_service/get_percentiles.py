@@ -40,39 +40,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IndexNotReadyException":
             raise capo_iot.errors.index_not_ready_exception.IndexNotReadyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_iot.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidAggregationException":
             raise capo_iot.errors.invalid_aggregation_exception.InvalidAggregationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidQueryException":
             raise capo_iot.errors.invalid_query_exception.InvalidQueryException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_iot.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_iot.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_iot.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_iot.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedException":
             raise capo_iot.errors.unauthorized_exception.UnauthorizedException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

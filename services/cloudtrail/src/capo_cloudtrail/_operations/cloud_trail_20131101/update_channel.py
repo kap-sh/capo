@@ -40,43 +40,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ChannelAlreadyExistsException":
             raise capo_cloudtrail.errors.channel_already_exists_exception.ChannelAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ChannelARNInvalidException":
             raise capo_cloudtrail.errors.channel_arn_invalid_exception.ChannelARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ChannelNotFoundException":
             raise capo_cloudtrail.errors.channel_not_found_exception.ChannelNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreARNInvalidException":
             raise capo_cloudtrail.errors.event_data_store_arn_invalid_exception.EventDataStoreARNInvalidException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EventDataStoreNotFoundException":
             raise capo_cloudtrail.errors.event_data_store_not_found_exception.EventDataStoreNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InactiveEventDataStoreException":
             raise capo_cloudtrail.errors.inactive_event_data_store_exception.InactiveEventDataStoreException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEventDataStoreCategoryException":
             raise capo_cloudtrail.errors.invalid_event_data_store_category_exception.InvalidEventDataStoreCategoryException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudtrail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_cloudtrail.errors.operation_not_permitted_exception.OperationNotPermittedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_cloudtrail.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.interconnect#InterconnectClientException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_interconnect.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class InterconnectClientException(ServiceError):
 
     code: str | None = "InterconnectClientException"
 
-    def __init__(self, data: InterconnectClientException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InterconnectClientException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InterconnectClientException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InterconnectClientException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

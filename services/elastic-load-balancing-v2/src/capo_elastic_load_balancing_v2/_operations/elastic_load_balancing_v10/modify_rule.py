@@ -54,47 +54,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IncompatibleProtocols":
             raise capo_elastic_load_balancing_v2.errors.incompatible_protocols_exception.IncompatibleProtocolsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidLoadBalancerAction":
             raise capo_elastic_load_balancing_v2.errors.invalid_load_balancer_action_exception.InvalidLoadBalancerActionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationNotPermitted":
             raise capo_elastic_load_balancing_v2.errors.operation_not_permitted_exception.OperationNotPermittedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RuleNotFound":
             raise capo_elastic_load_balancing_v2.errors.rule_not_found_exception.RuleNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TargetGroupAssociationLimit":
             raise capo_elastic_load_balancing_v2.errors.target_group_association_limit_exception.TargetGroupAssociationLimitException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TargetGroupNotFound":
             raise capo_elastic_load_balancing_v2.errors.target_group_not_found_exception.TargetGroupNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyActions":
             raise capo_elastic_load_balancing_v2.errors.too_many_actions_exception.TooManyActionsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyRegistrationsForTargetId":
             raise capo_elastic_load_balancing_v2.errors.too_many_registrations_for_target_id_exception.TooManyRegistrationsForTargetIdException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTargets":
             raise capo_elastic_load_balancing_v2.errors.too_many_targets_exception.TooManyTargetsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyUniqueTargetGroupsPerLoadBalancer":
             raise capo_elastic_load_balancing_v2.errors.too_many_unique_target_groups_per_load_balancer_exception.TooManyUniqueTargetGroupsPerLoadBalancerException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedProtocol":
             raise capo_elastic_load_balancing_v2.errors.unsupported_protocol_exception.UnsupportedProtocolException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

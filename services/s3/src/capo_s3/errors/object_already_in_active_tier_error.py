@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#ObjectAlreadyInActiveTierError``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
@@ -28,7 +29,11 @@ class ObjectAlreadyInActiveTierError(ServiceError):
     code: str | None = "ObjectAlreadyInActiveTierError"
 
     def __init__(
-        self, data: ObjectAlreadyInActiveTierError_, message: str | None = None
+        self,
+        data: ObjectAlreadyInActiveTierError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -36,11 +41,12 @@ class ObjectAlreadyInActiveTierError(ServiceError):
             is_retryable=False,
             code="ObjectAlreadyInActiveTierError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ObjectAlreadyInActiveTierError":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

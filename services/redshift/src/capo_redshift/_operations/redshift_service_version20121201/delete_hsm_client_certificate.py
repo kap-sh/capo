@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HsmClientCertificateNotFoundFault":
             raise capo_redshift.errors.hsm_client_certificate_not_found_fault.HsmClientCertificateNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidHsmClientCertificateStateFault":
             raise capo_redshift.errors.invalid_hsm_client_certificate_state_fault.InvalidHsmClientCertificateStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

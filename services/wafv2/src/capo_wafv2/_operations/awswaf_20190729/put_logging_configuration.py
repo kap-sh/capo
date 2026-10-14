@@ -39,39 +39,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "WAFFeatureNotIncludedInPricingPlanException":
             raise capo_wafv2.errors.waf_feature_not_included_in_pricing_plan_exception.WAFFeatureNotIncludedInPricingPlanException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInternalErrorException":
             raise capo_wafv2.errors.waf_internal_error_exception.WAFInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidOperationException":
             raise capo_wafv2.errors.waf_invalid_operation_exception.WAFInvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidParameterException":
             raise capo_wafv2.errors.waf_invalid_parameter_exception.WAFInvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFLimitsExceededException":
             raise capo_wafv2.errors.waf_limits_exceeded_exception.WAFLimitsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFLogDestinationPermissionIssueException":
             raise capo_wafv2.errors.waf_log_destination_permission_issue_exception.WAFLogDestinationPermissionIssueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFNonexistentItemException":
             raise capo_wafv2.errors.waf_nonexistent_item_exception.WAFNonexistentItemException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFOptimisticLockException":
             raise capo_wafv2.errors.waf_optimistic_lock_exception.WAFOptimisticLockException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFServiceLinkedRoleErrorException":
             raise capo_wafv2.errors.waf_service_linked_role_error_exception.WAFServiceLinkedRoleErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

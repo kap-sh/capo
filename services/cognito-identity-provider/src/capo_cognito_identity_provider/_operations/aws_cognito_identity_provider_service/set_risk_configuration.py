@@ -45,39 +45,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CodeDeliveryFailureException":
             raise capo_cognito_identity_provider.errors.code_delivery_failure_exception.CodeDeliveryFailureException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalErrorException":
             raise capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEmailRoleAccessPolicyException":
             raise capo_cognito_identity_provider.errors.invalid_email_role_access_policy_exception.InvalidEmailRoleAccessPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotAuthorizedException":
             raise capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotEnabledException":
             raise capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cognito_identity_provider.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UserPoolAddOnNotEnabledException":
             raise capo_cognito_identity_provider.errors.user_pool_add_on_not_enabled_exception.UserPoolAddOnNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

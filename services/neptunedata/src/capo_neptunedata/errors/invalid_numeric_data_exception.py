@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptunedata#InvalidNumericDataException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_neptunedata.errors import DeserializationError, ServiceError
@@ -47,18 +48,25 @@ class InvalidNumericDataException(ServiceError):
 
     code: str | None = "InvalidNumericDataException"
 
-    def __init__(self, data: InvalidNumericDataException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidNumericDataException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidNumericDataException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidNumericDataException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

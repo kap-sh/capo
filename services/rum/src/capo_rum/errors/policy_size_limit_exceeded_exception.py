@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rum#PolicySizeLimitExceededException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_rum.errors import DeserializationError, ServiceError
@@ -31,7 +32,11 @@ class PolicySizeLimitExceededException(ServiceError):
     code: str | None = "PolicySizeLimitExceededException"
 
     def __init__(
-        self, data: PolicySizeLimitExceededException_, message: str | None = None
+        self,
+        data: PolicySizeLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -39,11 +44,12 @@ class PolicySizeLimitExceededException(ServiceError):
             is_retryable=False,
             code="PolicySizeLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "PolicySizeLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

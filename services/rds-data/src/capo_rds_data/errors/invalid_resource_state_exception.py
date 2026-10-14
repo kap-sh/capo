@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds_data.errors import ServiceError
@@ -35,7 +36,11 @@ class InvalidResourceStateException(ServiceError):
     code: str | None = "InvalidResourceStateException"
 
     def __init__(
-        self, data: InvalidResourceStateException_, message: str | None = None
+        self,
+        data: InvalidResourceStateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class InvalidResourceStateException(ServiceError):
             is_retryable=False,
             code="InvalidResourceStateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidResourceStateException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

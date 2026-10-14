@@ -45,27 +45,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgumentException":
             raise capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_kinesis_analytics_v2.errors.invalid_request_exception.InvalidRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceProvisionedThroughputExceededException":
             raise capo_kinesis_analytics_v2.errors.resource_provisioned_throughput_exceeded_exception.ResourceProvisionedThroughputExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_kinesis_analytics_v2.errors.service_unavailable_exception.ServiceUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnableToDetectSchemaException":
             raise capo_kinesis_analytics_v2.errors.unable_to_detect_schema_exception.UnableToDetectSchemaException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

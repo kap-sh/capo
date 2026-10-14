@@ -35,11 +35,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgumentException":
             raise capo_kinesis_analytics_v2.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_kinesis_analytics_v2.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

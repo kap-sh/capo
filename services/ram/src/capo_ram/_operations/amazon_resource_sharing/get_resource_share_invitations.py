@@ -40,35 +40,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidMaxResultsException":
             raise capo_ram.errors.invalid_max_results_exception.InvalidMaxResultsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextTokenException":
             raise capo_ram.errors.invalid_next_token_exception.InvalidNextTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ram.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MalformedArnException":
             raise capo_ram.errors.malformed_arn_exception.MalformedArnException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceShareInvitationArnNotFoundException":
             raise capo_ram.errors.resource_share_invitation_arn_not_found_exception.ResourceShareInvitationArnNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_ram.errors.server_internal_exception.ServerInternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_ram.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnknownResourceException":
             raise capo_ram.errors.unknown_resource_exception.UnknownResourceException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

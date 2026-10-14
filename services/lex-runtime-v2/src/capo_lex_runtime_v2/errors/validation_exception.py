@@ -3,6 +3,7 @@
 import json
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_lex_runtime_v2._protocol.eventstream import HeaderValue, Message
@@ -37,19 +38,28 @@ class ValidationException(ServiceError):
 
     code: str | None = "ValidationException"
 
-    def __init__(self, data: ValidationException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ValidationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ValidationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ValidationException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ValidationException":
+        return cls(deserialize_json(data), message, response=response)
 
 
 def serialize_event_json(value: ValidationException_) -> bytes:

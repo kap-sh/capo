@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_marketplace_entitlement_service.errors import ServiceError
@@ -37,7 +38,11 @@ class InternalServiceErrorException(ServiceError):
     code: str | None = "InternalServiceErrorException"
 
     def __init__(
-        self, data: InternalServiceErrorException_, message: str | None = None
+        self,
+        data: InternalServiceErrorException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -45,11 +50,12 @@ class InternalServiceErrorException(ServiceError):
             is_retryable=False,
             code="InternalServiceErrorException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalServiceErrorException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

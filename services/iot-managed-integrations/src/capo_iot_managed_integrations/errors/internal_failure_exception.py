@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iot_managed_integrations.errors import ServiceError
@@ -36,18 +37,25 @@ class InternalFailureException(ServiceError):
 
     code: str | None = "InternalFailureException"
 
-    def __init__(self, data: InternalFailureException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalFailureException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="InternalFailureException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalFailureException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

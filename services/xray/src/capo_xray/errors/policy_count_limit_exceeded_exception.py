@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_xray.errors import ServiceError
@@ -35,7 +36,11 @@ class PolicyCountLimitExceededException(ServiceError):
     code: str | None = "PolicyCountLimitExceededException"
 
     def __init__(
-        self, data: PolicyCountLimitExceededException_, message: str | None = None
+        self,
+        data: PolicyCountLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class PolicyCountLimitExceededException(ServiceError):
             is_retryable=False,
             code="PolicyCountLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "PolicyCountLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

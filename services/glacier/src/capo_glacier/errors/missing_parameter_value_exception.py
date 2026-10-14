@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_glacier.errors import ServiceError
@@ -48,7 +49,11 @@ class MissingParameterValueException(ServiceError):
     code: str | None = "MissingParameterValueException"
 
     def __init__(
-        self, data: MissingParameterValueException_, message: str | None = None
+        self,
+        data: MissingParameterValueException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -56,11 +61,12 @@ class MissingParameterValueException(ServiceError):
             is_retryable=False,
             code="MissingParameterValueException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "MissingParameterValueException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

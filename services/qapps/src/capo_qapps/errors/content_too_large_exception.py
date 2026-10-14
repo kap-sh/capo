@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qapps#ContentTooLargeException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_qapps.errors import DeserializationError, ServiceError
@@ -44,18 +45,25 @@ class ContentTooLargeException(ServiceError):
 
     code: str | None = "ContentTooLargeException"
 
-    def __init__(self, data: ContentTooLargeException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ContentTooLargeException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ContentTooLargeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ContentTooLargeException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_timestream_query.errors import ServiceError
@@ -34,18 +35,25 @@ class QueryExecutionException(ServiceError):
 
     code: str | None = "QueryExecutionException"
 
-    def __init__(self, data: QueryExecutionException_, message: str | None = None):
+    def __init__(
+        self,
+        data: QueryExecutionException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="QueryExecutionException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "QueryExecutionException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

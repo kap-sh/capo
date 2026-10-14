@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_lakeformation.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ExpiredException":
             raise capo_lakeformation.errors.expired_exception.ExpiredException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_lakeformation.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_lakeformation.errors.invalid_input_exception.InvalidInputException.from_json(
-                data, message
+                data, message, response=response
             )
         case "StatisticsNotReadyYetException":
             raise capo_lakeformation.errors.statistics_not_ready_yet_exception.StatisticsNotReadyYetException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottledException":
             raise capo_lakeformation.errors.throttled_exception.ThrottledException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

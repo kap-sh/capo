@@ -51,63 +51,63 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterAlreadyExistsFault":
             raise capo_dax.errors.cluster_already_exists_fault.ClusterAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterQuotaForCustomerExceededFault":
             raise capo_dax.errors.cluster_quota_for_customer_exceeded_fault.ClusterQuotaForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientClusterCapacityFault":
             raise capo_dax.errors.insufficient_cluster_capacity_fault.InsufficientClusterCapacityFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidClusterStateFault":
             raise capo_dax.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_dax.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterGroupStateFault":
             raise capo_dax.errors.invalid_parameter_group_state_fault.InvalidParameterGroupStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_dax.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_dax.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NodeQuotaForClusterExceededFault":
             raise capo_dax.errors.node_quota_for_cluster_exceeded_fault.NodeQuotaForClusterExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NodeQuotaForCustomerExceededFault":
             raise capo_dax.errors.node_quota_for_customer_exceeded_fault.NodeQuotaForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterGroupNotFoundFault":
             raise capo_dax.errors.parameter_group_not_found_fault.ParameterGroupNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_dax.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_dax.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SubnetGroupNotFoundFault":
             raise capo_dax.errors.subnet_group_not_found_fault.SubnetGroupNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_dax.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

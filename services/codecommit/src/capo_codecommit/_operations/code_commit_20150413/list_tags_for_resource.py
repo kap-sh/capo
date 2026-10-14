@@ -34,19 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceArnException":
             raise capo_codecommit.errors.invalid_resource_arn_exception.InvalidResourceArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryDoesNotExistException":
             raise capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceArnRequiredException":
             raise capo_codecommit.errors.resource_arn_required_exception.ResourceArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

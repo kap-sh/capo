@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codecommit.errors import ServiceError
@@ -36,7 +37,11 @@ class EncryptionKeyInvalidUsageException(ServiceError):
     code: str | None = "EncryptionKeyInvalidUsageException"
 
     def __init__(
-        self, data: EncryptionKeyInvalidUsageException_, message: str | None = None
+        self,
+        data: EncryptionKeyInvalidUsageException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class EncryptionKeyInvalidUsageException(ServiceError):
             is_retryable=False,
             code="EncryptionKeyInvalidUsageException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "EncryptionKeyInvalidUsageException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

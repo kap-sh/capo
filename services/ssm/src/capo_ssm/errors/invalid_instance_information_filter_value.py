@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ssm.errors import ServiceError
@@ -35,7 +36,11 @@ class InvalidInstanceInformationFilterValue(ServiceError):
     code: str | None = "InvalidInstanceInformationFilterValue"
 
     def __init__(
-        self, data: InvalidInstanceInformationFilterValue_, message: str | None = None
+        self,
+        data: InvalidInstanceInformationFilterValue_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class InvalidInstanceInformationFilterValue(ServiceError):
             is_retryable=False,
             code="InvalidInstanceInformationFilterValue",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidInstanceInformationFilterValue":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -58,111 +58,111 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BeforeCommitIdAndAfterCommitIdAreSameException":
             raise capo_codecommit.errors.before_commit_id_and_after_commit_id_are_same_exception.BeforeCommitIdAndAfterCommitIdAreSameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClientRequestTokenRequiredException":
             raise capo_codecommit.errors.client_request_token_required_exception.ClientRequestTokenRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentContentRequiredException":
             raise capo_codecommit.errors.comment_content_required_exception.CommentContentRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentContentSizeLimitExceededException":
             raise capo_codecommit.errors.comment_content_size_limit_exceeded_exception.CommentContentSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommitDoesNotExistException":
             raise capo_codecommit.errors.commit_does_not_exist_exception.CommitDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommitIdRequiredException":
             raise capo_codecommit.errors.commit_id_required_exception.CommitIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionIntegrityChecksFailedException":
             raise capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyAccessDeniedException":
             raise capo_codecommit.errors.encryption_key_access_denied_exception.EncryptionKeyAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyDisabledException":
             raise capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyNotFoundException":
             raise capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyUnavailableException":
             raise capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IdempotencyParameterMismatchException":
             raise capo_codecommit.errors.idempotency_parameter_mismatch_exception.IdempotencyParameterMismatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientRequestTokenException":
             raise capo_codecommit.errors.invalid_client_request_token_exception.InvalidClientRequestTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCommitIdException":
             raise capo_codecommit.errors.invalid_commit_id_exception.InvalidCommitIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFileLocationException":
             raise capo_codecommit.errors.invalid_file_location_exception.InvalidFileLocationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFilePositionException":
             raise capo_codecommit.errors.invalid_file_position_exception.InvalidFilePositionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPathException":
             raise capo_codecommit.errors.invalid_path_exception.InvalidPathException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPullRequestIdException":
             raise capo_codecommit.errors.invalid_pull_request_id_exception.InvalidPullRequestIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRelativeFileVersionEnumException":
             raise capo_codecommit.errors.invalid_relative_file_version_enum_exception.InvalidRelativeFileVersionEnumException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PathDoesNotExistException":
             raise capo_codecommit.errors.path_does_not_exist_exception.PathDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PathRequiredException":
             raise capo_codecommit.errors.path_required_exception.PathRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PullRequestDoesNotExistException":
             raise capo_codecommit.errors.pull_request_does_not_exist_exception.PullRequestDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PullRequestIdRequiredException":
             raise capo_codecommit.errors.pull_request_id_required_exception.PullRequestIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryDoesNotExistException":
             raise capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNameRequiredException":
             raise capo_codecommit.errors.repository_name_required_exception.RepositoryNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNotAssociatedWithPullRequestException":
             raise capo_codecommit.errors.repository_not_associated_with_pull_request_exception.RepositoryNotAssociatedWithPullRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

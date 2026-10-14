@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DefaultUndefinedFault":
             raise capo_swf.errors.default_undefined_fault.DefaultUndefinedFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededFault":
             raise capo_swf.errors.limit_exceeded_fault.LimitExceededFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedFault":
             raise capo_swf.errors.operation_not_permitted_fault.OperationNotPermittedFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "TypeDeprecatedFault":
             raise capo_swf.errors.type_deprecated_fault.TypeDeprecatedFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnknownResourceFault":
             raise capo_swf.errors.unknown_resource_fault.UnknownResourceFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "WorkflowExecutionAlreadyStartedFault":
             raise capo_swf.errors.workflow_execution_already_started_fault.WorkflowExecutionAlreadyStartedFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

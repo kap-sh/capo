@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cognito_identity_provider.errors import ServiceError
@@ -38,7 +39,11 @@ class InvalidLambdaResponseException(ServiceError):
     code: str | None = "InvalidLambdaResponseException"
 
     def __init__(
-        self, data: InvalidLambdaResponseException_, message: str | None = None
+        self,
+        data: InvalidLambdaResponseException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class InvalidLambdaResponseException(ServiceError):
             is_retryable=False,
             code="InvalidLambdaResponseException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidLambdaResponseException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

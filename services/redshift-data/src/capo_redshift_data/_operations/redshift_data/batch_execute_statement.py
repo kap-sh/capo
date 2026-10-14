@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ActiveSessionsExceededException":
             raise capo_redshift_data.errors.active_sessions_exceeded_exception.ActiveSessionsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ActiveStatementsExceededException":
             raise capo_redshift_data.errors.active_statements_exceeded_exception.ActiveStatementsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "BatchExecuteStatementException":
             raise capo_redshift_data.errors.batch_execute_statement_exception.BatchExecuteStatementException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_redshift_data.errors.internal_server_exception.InternalServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_redshift_data.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_redshift_data.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

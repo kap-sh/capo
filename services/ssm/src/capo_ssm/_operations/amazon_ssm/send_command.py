@@ -48,47 +48,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateInstanceId":
             raise capo_ssm.errors.duplicate_instance_id.DuplicateInstanceId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocument":
             raise capo_ssm.errors.invalid_document.InvalidDocument.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentVersion":
             raise capo_ssm.errors.invalid_document_version.InvalidDocumentVersion.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceId":
             raise capo_ssm.errors.invalid_instance_id.InvalidInstanceId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidNotificationConfig":
             raise capo_ssm.errors.invalid_notification_config.InvalidNotificationConfig.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidOutputFolder":
             raise capo_ssm.errors.invalid_output_folder.InvalidOutputFolder.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameters":
             raise capo_ssm.errors.invalid_parameters.InvalidParameters.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRole":
             raise capo_ssm.errors.invalid_role.InvalidRole.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxDocumentSizeExceeded":
             raise capo_ssm.errors.max_document_size_exceeded.MaxDocumentSizeExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedPlatformType":
             raise capo_ssm.errors.unsupported_platform_type.UnsupportedPlatformType.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

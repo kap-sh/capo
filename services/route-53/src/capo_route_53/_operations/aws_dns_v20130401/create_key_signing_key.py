@@ -50,43 +50,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModification":
             raise capo_route_53.errors.concurrent_modification.ConcurrentModification.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_route_53.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKeySigningKeyName":
             raise capo_route_53.errors.invalid_key_signing_key_name.InvalidKeySigningKeyName.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKeySigningKeyStatus":
             raise capo_route_53.errors.invalid_key_signing_key_status.InvalidKeySigningKeyStatus.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKMSArn":
             raise capo_route_53.errors.invalid_kms_arn.InvalidKMSArn.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSigningStatus":
             raise capo_route_53.errors.invalid_signing_status.InvalidSigningStatus.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "KeySigningKeyAlreadyExists":
             raise capo_route_53.errors.key_signing_key_already_exists.KeySigningKeyAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchHostedZone":
             raise capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyKeySigningKeys":
             raise capo_route_53.errors.too_many_key_signing_keys.TooManyKeySigningKeys.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

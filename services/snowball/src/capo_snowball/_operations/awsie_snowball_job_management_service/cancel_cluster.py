@@ -32,15 +32,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidJobStateException":
             raise capo_snowball.errors.invalid_job_state_exception.InvalidJobStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceException":
             raise capo_snowball.errors.invalid_resource_exception.InvalidResourceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSRequestFailedException":
             raise capo_snowball.errors.kms_request_failed_exception.KMSRequestFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

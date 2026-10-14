@@ -38,19 +38,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DisabledOperationException":
             raise capo_elasticsearch_service.errors.disabled_operation_exception.DisabledOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalException":
             raise capo_elasticsearch_service.errors.internal_exception.InternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_elasticsearch_service.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_elasticsearch_service.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

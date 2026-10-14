@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#SchemaRegistryUnavailableException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_eventbridgev2.errors import ServiceError
@@ -30,7 +31,11 @@ class SchemaRegistryUnavailableException(ServiceError):
     code: str | None = "SchemaRegistryUnavailableException"
 
     def __init__(
-        self, data: SchemaRegistryUnavailableException_, message: str | None = None
+        self,
+        data: SchemaRegistryUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -38,11 +43,12 @@ class SchemaRegistryUnavailableException(ServiceError):
             is_retryable=True,
             code="SchemaRegistryUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_cbor(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SchemaRegistryUnavailableException":
-        return cls(deserialize_cbor(data), message)
+        return cls(deserialize_cbor(data), message, response=response)

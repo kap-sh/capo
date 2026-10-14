@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workdocs.errors import ServiceError
@@ -35,7 +36,11 @@ class StorageLimitWillExceedException(ServiceError):
     code: str | None = "StorageLimitWillExceedException"
 
     def __init__(
-        self, data: StorageLimitWillExceedException_, message: str | None = None
+        self,
+        data: StorageLimitWillExceedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class StorageLimitWillExceedException(ServiceError):
             is_retryable=False,
             code="StorageLimitWillExceedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "StorageLimitWillExceedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

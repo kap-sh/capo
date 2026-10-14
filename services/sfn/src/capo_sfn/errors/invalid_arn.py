@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sfn.errors import ServiceError
@@ -34,16 +35,25 @@ class InvalidArn(ServiceError):
 
     code: str | None = "InvalidArn"
 
-    def __init__(self, data: InvalidArn_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidArn_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidArn",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_aws_json_1_0(cls, data: dict, message: str | None = None) -> "InvalidArn":
-        return cls(deserialize_aws_json_1_0(data), message)
+    def from_aws_json_1_0(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidArn":
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

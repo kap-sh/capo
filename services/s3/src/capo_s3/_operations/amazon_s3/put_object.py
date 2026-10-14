@@ -54,18 +54,20 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EncryptionTypeMismatch":
             raise capo_s3.errors.encryption_type_mismatch.EncryptionTypeMismatch.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRequest":
             raise capo_s3.errors.invalid_request.InvalidRequest.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidWriteOffset":
             raise capo_s3.errors.invalid_write_offset.InvalidWriteOffset.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyParts":
-            raise capo_s3.errors.too_many_parts.TooManyParts.from_xml(error_el, message)
+            raise capo_s3.errors.too_many_parts.TooManyParts.from_xml(
+                error_el, message, response=response
+            )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
 

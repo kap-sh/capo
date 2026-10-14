@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -47,6 +48,8 @@ class TooManyDistributionsAssociatedToFieldLevelEncryptionConfig(ServiceError):
         self,
         data: TooManyDistributionsAssociatedToFieldLevelEncryptionConfig_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -54,11 +57,12 @@ class TooManyDistributionsAssociatedToFieldLevelEncryptionConfig(ServiceError):
             is_retryable=False,
             code="TooManyDistributionsAssociatedToFieldLevelEncryptionConfig",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyDistributionsAssociatedToFieldLevelEncryptionConfig":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

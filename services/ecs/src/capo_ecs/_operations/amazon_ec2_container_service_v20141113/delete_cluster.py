@@ -40,43 +40,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_ecs.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClientException":
             raise capo_ecs.errors.client_exception.ClientException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterContainsCapacityProviderException":
             raise capo_ecs.errors.cluster_contains_capacity_provider_exception.ClusterContainsCapacityProviderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterContainsContainerInstancesException":
             raise capo_ecs.errors.cluster_contains_container_instances_exception.ClusterContainsContainerInstancesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterContainsServicesException":
             raise capo_ecs.errors.cluster_contains_services_exception.ClusterContainsServicesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterContainsTasksException":
             raise capo_ecs.errors.cluster_contains_tasks_exception.ClusterContainsTasksException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClusterNotFoundException":
             raise capo_ecs.errors.cluster_not_found_exception.ClusterNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ecs.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecs.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UpdateInProgressException":
             raise capo_ecs.errors.update_in_progress_exception.UpdateInProgressException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

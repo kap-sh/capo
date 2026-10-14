@@ -48,51 +48,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_kinesis.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_kinesis.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSAccessDeniedException":
             raise capo_kinesis.errors.kms_access_denied_exception.KMSAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSDisabledException":
             raise capo_kinesis.errors.kms_disabled_exception.KMSDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInvalidStateException":
             raise capo_kinesis.errors.kms_invalid_state_exception.KMSInvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSNotFoundException":
             raise capo_kinesis.errors.kms_not_found_exception.KMSNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSOptInRequired":
             raise capo_kinesis.errors.kms_opt_in_required.KMSOptInRequired.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSThrottlingException":
             raise capo_kinesis.errors.kms_throttling_exception.KMSThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_kinesis.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_kinesis.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_kinesis.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_kinesis.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -43,35 +43,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFound":
             raise capo_redshift.errors.cluster_not_found_fault.ClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidScheduledAction":
             raise capo_redshift.errors.invalid_scheduled_action_fault.InvalidScheduledActionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSchedule":
             raise capo_redshift.errors.invalid_schedule_fault.InvalidScheduleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ScheduledActionAlreadyExists":
             raise capo_redshift.errors.scheduled_action_already_exists_fault.ScheduledActionAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ScheduledActionQuotaExceeded":
             raise capo_redshift.errors.scheduled_action_quota_exceeded_fault.ScheduledActionQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ScheduledActionTypeUnsupported":
             raise capo_redshift.errors.scheduled_action_type_unsupported_fault.ScheduledActionTypeUnsupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnauthorizedOperation":
             raise capo_redshift.errors.unauthorized_operation.UnauthorizedOperation.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -42,31 +42,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_mediaconnect.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_mediaconnect.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "CreateBridge420Exception":
             raise capo_mediaconnect.errors.create_bridge420_exception.CreateBridge420Exception.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_mediaconnect.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_mediaconnect.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_mediaconnect.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_mediaconnect.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

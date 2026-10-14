@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidNextTokenException":
             raise capo_ram.errors.invalid_next_token_exception.InvalidNextTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ram.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_ram.errors.operation_not_permitted_exception.OperationNotPermittedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_ram.errors.server_internal_exception.ServerInternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_ram.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

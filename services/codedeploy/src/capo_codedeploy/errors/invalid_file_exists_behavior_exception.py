@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codedeploy.errors import ServiceError
@@ -36,7 +37,11 @@ class InvalidFileExistsBehaviorException(ServiceError):
     code: str | None = "InvalidFileExistsBehaviorException"
 
     def __init__(
-        self, data: InvalidFileExistsBehaviorException_, message: str | None = None
+        self,
+        data: InvalidFileExistsBehaviorException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class InvalidFileExistsBehaviorException(ServiceError):
             is_retryable=False,
             code="InvalidFileExistsBehaviorException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidFileExistsBehaviorException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -46,53 +46,55 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidAddress":
             raise capo_sqs.errors.invalid_address.InvalidAddress.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidSecurity":
             raise capo_sqs.errors.invalid_security.InvalidSecurity.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDenied":
             raise capo_sqs.errors.kms_access_denied.KmsAccessDenied.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsDisabled":
             raise capo_sqs.errors.kms_disabled.KmsDisabled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidKeyUsage":
             raise capo_sqs.errors.kms_invalid_key_usage.KmsInvalidKeyUsage.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidState":
             raise capo_sqs.errors.kms_invalid_state.KmsInvalidState.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsNotFound":
             raise capo_sqs.errors.kms_not_found.KmsNotFound.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsOptInRequired":
             raise capo_sqs.errors.kms_opt_in_required.KmsOptInRequired.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsThrottled":
             raise capo_sqs.errors.kms_throttled.KmsThrottled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "OverLimit":
-            raise capo_sqs.errors.over_limit.OverLimit.from_aws_json_1_0(data, message)
+            raise capo_sqs.errors.over_limit.OverLimit.from_aws_json_1_0(
+                data, message, response=response
+            )
         case "QueueDoesNotExist":
             raise capo_sqs.errors.queue_does_not_exist.QueueDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "RequestThrottled":
             raise capo_sqs.errors.request_throttled.RequestThrottled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_sqs.errors.unsupported_operation.UnsupportedOperation.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

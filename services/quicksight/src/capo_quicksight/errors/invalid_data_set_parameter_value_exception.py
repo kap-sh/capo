@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_quicksight.errors import ServiceError
@@ -41,7 +42,11 @@ class InvalidDataSetParameterValueException(ServiceError):
     code: str | None = "InvalidDataSetParameterValueException"
 
     def __init__(
-        self, data: InvalidDataSetParameterValueException_, message: str | None = None
+        self,
+        data: InvalidDataSetParameterValueException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class InvalidDataSetParameterValueException(ServiceError):
             is_retryable=False,
             code="InvalidDataSetParameterValueException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidDataSetParameterValueException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

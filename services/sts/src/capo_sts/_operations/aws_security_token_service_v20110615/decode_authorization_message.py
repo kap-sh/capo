@@ -32,7 +32,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidAuthorizationMessageException":
             raise capo_sts.errors.invalid_authorization_message_exception.InvalidAuthorizationMessageException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

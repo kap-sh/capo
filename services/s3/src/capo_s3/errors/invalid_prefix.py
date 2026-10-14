@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#InvalidPrefix``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
@@ -25,16 +26,25 @@ class InvalidPrefix(ServiceError):
 
     code: str | None = "InvalidPrefix"
 
-    def __init__(self, data: InvalidPrefix_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidPrefix_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidPrefix",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_xml(cls, el: Element, message: str | None = None) -> "InvalidPrefix":
-        return cls(deserialize_xml(el), message)
+    def from_xml(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "InvalidPrefix":
+        return cls(deserialize_xml(el), message, response=response)

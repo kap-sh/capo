@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codedeploy.errors import ServiceError
@@ -41,6 +42,8 @@ class UnsupportedActionForDeploymentTypeException(ServiceError):
         self,
         data: UnsupportedActionForDeploymentTypeException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +51,12 @@ class UnsupportedActionForDeploymentTypeException(ServiceError):
             is_retryable=False,
             code="UnsupportedActionForDeploymentTypeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedActionForDeploymentTypeException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

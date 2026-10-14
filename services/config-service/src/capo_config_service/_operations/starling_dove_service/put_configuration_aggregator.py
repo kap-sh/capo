@@ -40,27 +40,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterValueException":
             raise capo_config_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_config_service.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_config_service.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoAvailableOrganizationException":
             raise capo_config_service.errors.no_available_organization_exception.NoAvailableOrganizationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationAccessDeniedException":
             raise capo_config_service.errors.organization_access_denied_exception.OrganizationAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationAllFeaturesNotEnabledException":
             raise capo_config_service.errors.organization_all_features_not_enabled_exception.OrganizationAllFeaturesNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

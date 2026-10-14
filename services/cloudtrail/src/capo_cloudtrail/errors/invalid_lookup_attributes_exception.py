@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudtrail.errors import ServiceError
@@ -36,7 +37,11 @@ class InvalidLookupAttributesException(ServiceError):
     code: str | None = "InvalidLookupAttributesException"
 
     def __init__(
-        self, data: InvalidLookupAttributesException_, message: str | None = None
+        self,
+        data: InvalidLookupAttributesException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class InvalidLookupAttributesException(ServiceError):
             is_retryable=False,
             code="InvalidLookupAttributesException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidLookupAttributesException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

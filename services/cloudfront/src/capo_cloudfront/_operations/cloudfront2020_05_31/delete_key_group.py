@@ -47,19 +47,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchResource":
             raise capo_cloudfront.errors.no_such_resource.NoSuchResource.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceInUse":
             raise capo_cloudfront.errors.resource_in_use.ResourceInUse.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

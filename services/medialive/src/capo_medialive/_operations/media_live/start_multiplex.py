@@ -43,35 +43,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadGatewayException":
             raise capo_medialive.errors.bad_gateway_exception.BadGatewayException.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequestException":
             raise capo_medialive.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_medialive.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenException":
             raise capo_medialive.errors.forbidden_exception.ForbiddenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "GatewayTimeoutException":
             raise capo_medialive.errors.gateway_timeout_exception.GatewayTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerErrorException":
             raise capo_medialive.errors.internal_server_error_exception.InternalServerErrorException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_medialive.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_medialive.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

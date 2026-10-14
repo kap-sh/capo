@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_lex_runtime_v2._iter import AnyIterator
@@ -224,7 +225,9 @@ def serialize_event_json(value: _StartConversationResponseEventStream) -> bytes:
             )
 
 
-def deserialize_event_json(message: Message) -> _StartConversationResponseEventStream:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _StartConversationResponseEventStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -237,7 +240,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.access_denied_exception.AccessDeniedException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ResourceNotFoundException":
                 import capo_lex_runtime_v2.errors.resource_not_found_exception
@@ -246,7 +249,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.resource_not_found_exception.ResourceNotFoundException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ValidationException":
                 import capo_lex_runtime_v2.errors.validation_exception
@@ -255,7 +258,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.validation_exception.ValidationException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ThrottlingException":
                 import capo_lex_runtime_v2.errors.throttling_exception
@@ -264,7 +267,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.throttling_exception.ThrottlingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "InternalServerException":
                 import capo_lex_runtime_v2.errors.internal_server_exception
@@ -273,7 +276,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.internal_server_exception.InternalServerException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ConflictException":
                 import capo_lex_runtime_v2.errors.conflict_exception
@@ -282,7 +285,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.conflict_exception.ConflictException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "DependencyFailedException":
                 import capo_lex_runtime_v2.errors.dependency_failed_exception
@@ -291,7 +294,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.dependency_failed_exception.DependencyFailedException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "BadGatewayException":
                 import capo_lex_runtime_v2.errors.bad_gateway_exception
@@ -300,10 +303,10 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
                     message
                 )
                 raise capo_lex_runtime_v2.errors.bad_gateway_exception.BadGatewayException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -311,7 +314,7 @@ def deserialize_event_json(message: Message) -> _StartConversationResponseEventS
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

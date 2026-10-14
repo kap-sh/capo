@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, Any
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_mwaa.errors import ServiceError
@@ -41,21 +42,28 @@ class RestApiClientException(ServiceError):
 
     code: str | None = "RestApiClientException"
 
-    def __init__(self, data: RestApiClientException_, message: str | None = None):
+    def __init__(
+        self,
+        data: RestApiClientException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="RestApiClientException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RestApiClientException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)
 
 
 def redact_sensitive(value: RestApiClientException_) -> dict[str, Any]:

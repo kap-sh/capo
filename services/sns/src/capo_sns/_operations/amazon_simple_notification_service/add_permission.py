@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationError":
             raise capo_sns.errors.authorization_error_exception.AuthorizationErrorException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InternalError":
             raise capo_sns.errors.internal_error_exception.InternalErrorException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameter":
             raise capo_sns.errors.invalid_parameter_exception.InvalidParameterException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NotFound":
             raise capo_sns.errors.not_found_exception.NotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

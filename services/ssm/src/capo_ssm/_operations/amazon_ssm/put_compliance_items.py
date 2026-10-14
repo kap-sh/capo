@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ComplianceTypeCountLimitExceededException":
             raise capo_ssm.errors.compliance_type_count_limit_exceeded_exception.ComplianceTypeCountLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidItemContentException":
             raise capo_ssm.errors.invalid_item_content_exception.InvalidItemContentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceId":
             raise capo_ssm.errors.invalid_resource_id.InvalidResourceId.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidResourceType":
             raise capo_ssm.errors.invalid_resource_type.InvalidResourceType.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ItemSizeLimitExceededException":
             raise capo_ssm.errors.item_size_limit_exceeded_exception.ItemSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TotalSizeLimitExceededException":
             raise capo_ssm.errors.total_size_limit_exceeded_exception.TotalSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

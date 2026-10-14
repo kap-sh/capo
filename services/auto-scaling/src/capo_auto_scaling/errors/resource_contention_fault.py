@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_auto_scaling._protocol.xml import Element
@@ -40,18 +41,25 @@ class ResourceContentionFault(ServiceError):
 
     code: str | None = "ResourceContentionFault"
 
-    def __init__(self, data: ResourceContentionFault_, message: str | None = None):
+    def __init__(
+        self,
+        data: ResourceContentionFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="ResourceContentionFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceContentionFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

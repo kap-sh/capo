@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_dynamodb.errors import ServiceError
@@ -39,6 +40,8 @@ class ItemCollectionSizeLimitExceededException(ServiceError):
         self,
         data: ItemCollectionSizeLimitExceededException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +49,12 @@ class ItemCollectionSizeLimitExceededException(ServiceError):
             is_retryable=False,
             code="ItemCollectionSizeLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ItemCollectionSizeLimitExceededException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

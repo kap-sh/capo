@@ -42,27 +42,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceNotFound":
             raise capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationAlreadyExistsFault":
             raise capo_rds.errors.integration_already_exists_fault.IntegrationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationConflictOperationFault":
             raise capo_rds.errors.integration_conflict_operation_fault.IntegrationConflictOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationQuotaExceededFault":
             raise capo_rds.errors.integration_quota_exceeded_fault.IntegrationQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_rds.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

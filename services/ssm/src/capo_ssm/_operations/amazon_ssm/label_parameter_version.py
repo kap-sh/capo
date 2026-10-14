@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterNotFound":
             raise capo_ssm.errors.parameter_not_found.ParameterNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterVersionLabelLimitExceeded":
             raise capo_ssm.errors.parameter_version_label_limit_exceeded.ParameterVersionLabelLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ParameterVersionNotFound":
             raise capo_ssm.errors.parameter_version_not_found.ParameterVersionNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyUpdates":
             raise capo_ssm.errors.too_many_updates.TooManyUpdates.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

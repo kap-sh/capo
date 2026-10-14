@@ -36,15 +36,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBSecurityGroupAlreadyExists":
             raise capo_rds.errors.db_security_group_already_exists_fault.DBSecurityGroupAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSecurityGroupNotSupported":
             raise capo_rds.errors.db_security_group_not_supported_fault.DBSecurityGroupNotSupportedFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "QuotaExceeded.DBSecurityGroup":
             raise capo_rds.errors.db_security_group_quota_exceeded_fault.DBSecurityGroupQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

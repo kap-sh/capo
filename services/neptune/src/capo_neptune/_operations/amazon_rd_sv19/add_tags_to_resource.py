@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_neptune.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceNotFound":
             raise capo_neptune.errors.db_instance_not_found_fault.DBInstanceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSnapshotNotFound":
             raise capo_neptune.errors.db_snapshot_not_found_fault.DBSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

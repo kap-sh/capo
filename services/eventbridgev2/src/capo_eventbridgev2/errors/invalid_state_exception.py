@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#InvalidStateException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_eventbridgev2.errors import ServiceError
@@ -29,18 +30,25 @@ class InvalidStateException(ServiceError):
 
     code: str | None = "InvalidStateException"
 
-    def __init__(self, data: InvalidStateException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidStateException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidStateException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_cbor(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidStateException":
-        return cls(deserialize_cbor(data), message)
+        return cls(deserialize_cbor(data), message, response=response)

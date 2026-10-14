@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_license_manager.errors import ServiceError
@@ -35,7 +36,11 @@ class NoEntitlementsAllowedException(ServiceError):
     code: str | None = "NoEntitlementsAllowedException"
 
     def __init__(
-        self, data: NoEntitlementsAllowedException_, message: str | None = None
+        self,
+        data: NoEntitlementsAllowedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class NoEntitlementsAllowedException(ServiceError):
             is_retryable=False,
             code="NoEntitlementsAllowedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "NoEntitlementsAllowedException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

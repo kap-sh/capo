@@ -71,159 +71,159 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BranchDoesNotExistException":
             raise capo_codecommit.errors.branch_does_not_exist_exception.BranchDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "BranchNameIsTagNameException":
             raise capo_codecommit.errors.branch_name_is_tag_name_exception.BranchNameIsTagNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "BranchNameRequiredException":
             raise capo_codecommit.errors.branch_name_required_exception.BranchNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommitDoesNotExistException":
             raise capo_codecommit.errors.commit_does_not_exist_exception.CommitDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommitMessageLengthExceededException":
             raise capo_codecommit.errors.commit_message_length_exceeded_exception.CommitMessageLengthExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommitRequiredException":
             raise capo_codecommit.errors.commit_required_exception.CommitRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentReferenceUpdateException":
             raise capo_codecommit.errors.concurrent_reference_update_exception.ConcurrentReferenceUpdateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionIntegrityChecksFailedException":
             raise capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyAccessDeniedException":
             raise capo_codecommit.errors.encryption_key_access_denied_exception.EncryptionKeyAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyDisabledException":
             raise capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyNotFoundException":
             raise capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyUnavailableException":
             raise capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "FileContentSizeLimitExceededException":
             raise capo_codecommit.errors.file_content_size_limit_exceeded_exception.FileContentSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "FileModeRequiredException":
             raise capo_codecommit.errors.file_mode_required_exception.FileModeRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "FolderContentSizeLimitExceededException":
             raise capo_codecommit.errors.folder_content_size_limit_exceeded_exception.FolderContentSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidBranchNameException":
             raise capo_codecommit.errors.invalid_branch_name_exception.InvalidBranchNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCommitException":
             raise capo_codecommit.errors.invalid_commit_exception.InvalidCommitException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidConflictDetailLevelException":
             raise capo_codecommit.errors.invalid_conflict_detail_level_exception.InvalidConflictDetailLevelException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidConflictResolutionException":
             raise capo_codecommit.errors.invalid_conflict_resolution_exception.InvalidConflictResolutionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidConflictResolutionStrategyException":
             raise capo_codecommit.errors.invalid_conflict_resolution_strategy_exception.InvalidConflictResolutionStrategyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEmailException":
             raise capo_codecommit.errors.invalid_email_exception.InvalidEmailException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFileModeException":
             raise capo_codecommit.errors.invalid_file_mode_exception.InvalidFileModeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPathException":
             raise capo_codecommit.errors.invalid_path_exception.InvalidPathException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidReplacementContentException":
             raise capo_codecommit.errors.invalid_replacement_content_exception.InvalidReplacementContentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidReplacementTypeException":
             raise capo_codecommit.errors.invalid_replacement_type_exception.InvalidReplacementTypeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTargetBranchException":
             raise capo_codecommit.errors.invalid_target_branch_exception.InvalidTargetBranchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ManualMergeRequiredException":
             raise capo_codecommit.errors.manual_merge_required_exception.ManualMergeRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaximumConflictResolutionEntriesExceededException":
             raise capo_codecommit.errors.maximum_conflict_resolution_entries_exceeded_exception.MaximumConflictResolutionEntriesExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaximumFileContentToLoadExceededException":
             raise capo_codecommit.errors.maximum_file_content_to_load_exceeded_exception.MaximumFileContentToLoadExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaximumItemsToCompareExceededException":
             raise capo_codecommit.errors.maximum_items_to_compare_exceeded_exception.MaximumItemsToCompareExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MultipleConflictResolutionEntriesException":
             raise capo_codecommit.errors.multiple_conflict_resolution_entries_exception.MultipleConflictResolutionEntriesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NameLengthExceededException":
             raise capo_codecommit.errors.name_length_exceeded_exception.NameLengthExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PathRequiredException":
             raise capo_codecommit.errors.path_required_exception.PathRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ReplacementContentRequiredException":
             raise capo_codecommit.errors.replacement_content_required_exception.ReplacementContentRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ReplacementTypeRequiredException":
             raise capo_codecommit.errors.replacement_type_required_exception.ReplacementTypeRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryDoesNotExistException":
             raise capo_codecommit.errors.repository_does_not_exist_exception.RepositoryDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNameRequiredException":
             raise capo_codecommit.errors.repository_name_required_exception.RepositoryNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TipsDivergenceExceededException":
             raise capo_codecommit.errors.tips_divergence_exceeded_exception.TipsDivergenceExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

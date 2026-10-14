@@ -48,35 +48,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "OriginRequestPolicyAlreadyExists":
             raise capo_cloudfront.errors.origin_request_policy_already_exists.OriginRequestPolicyAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCookiesInOriginRequestPolicy":
             raise capo_cloudfront.errors.too_many_cookies_in_origin_request_policy.TooManyCookiesInOriginRequestPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyHeadersInOriginRequestPolicy":
             raise capo_cloudfront.errors.too_many_headers_in_origin_request_policy.TooManyHeadersInOriginRequestPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyOriginRequestPolicies":
             raise capo_cloudfront.errors.too_many_origin_request_policies.TooManyOriginRequestPolicies.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyQueryStringsInOriginRequestPolicy":
             raise capo_cloudfront.errors.too_many_query_strings_in_origin_request_policy.TooManyQueryStringsInOriginRequestPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

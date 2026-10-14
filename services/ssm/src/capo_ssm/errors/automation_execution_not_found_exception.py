@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ssm.errors import ServiceError
@@ -35,7 +36,11 @@ class AutomationExecutionNotFoundException(ServiceError):
     code: str | None = "AutomationExecutionNotFoundException"
 
     def __init__(
-        self, data: AutomationExecutionNotFoundException_, message: str | None = None
+        self,
+        data: AutomationExecutionNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class AutomationExecutionNotFoundException(ServiceError):
             is_retryable=False,
             code="AutomationExecutionNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AutomationExecutionNotFoundException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

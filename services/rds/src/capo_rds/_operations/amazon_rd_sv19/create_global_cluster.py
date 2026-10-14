@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "GlobalClusterAlreadyExistsFault":
             raise capo_rds.errors.global_cluster_already_exists_fault.GlobalClusterAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "GlobalClusterQuotaExceededFault":
             raise capo_rds.errors.global_cluster_quota_exceeded_fault.GlobalClusterQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBShardGroupState":
             raise capo_rds.errors.invalid_db_shard_group_state_fault.InvalidDBShardGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceNotFoundFault":
             raise capo_rds.errors.resource_not_found_fault.ResourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

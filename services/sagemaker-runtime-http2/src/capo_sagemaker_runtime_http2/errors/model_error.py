@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakerruntimehttp2#ModelError``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sagemaker_runtime_http2.errors import ServiceError
@@ -54,16 +55,25 @@ class ModelError(ServiceError):
 
     code: str | None = "ModelError"
 
-    def __init__(self, data: ModelError_, message: str | None = None):
+    def __init__(
+        self,
+        data: ModelError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ModelError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ModelError":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ModelError":
+        return cls(deserialize_json(data), message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#Ipv6CidrBlockNotFoundException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_redshift_serverless.errors import DeserializationError, ServiceError
@@ -31,7 +32,11 @@ class Ipv6CidrBlockNotFoundException(ServiceError):
     code: str | None = "Ipv6CidrBlockNotFoundException"
 
     def __init__(
-        self, data: Ipv6CidrBlockNotFoundException_, message: str | None = None
+        self,
+        data: Ipv6CidrBlockNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -39,11 +44,12 @@ class Ipv6CidrBlockNotFoundException(ServiceError):
             is_retryable=False,
             code="Ipv6CidrBlockNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "Ipv6CidrBlockNotFoundException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakerruntimehttp2#ServiceUnavailableError``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sagemaker_runtime_http2.errors import ServiceError
@@ -36,18 +37,25 @@ class ServiceUnavailableError(ServiceError):
 
     code: str | None = "ServiceUnavailableError"
 
-    def __init__(self, data: ServiceUnavailableError_, message: str | None = None):
+    def __init__(
+        self,
+        data: ServiceUnavailableError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="ServiceUnavailableError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ServiceUnavailableError":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

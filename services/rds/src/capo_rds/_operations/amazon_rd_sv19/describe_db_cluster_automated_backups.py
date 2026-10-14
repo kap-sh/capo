@@ -34,7 +34,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterAutomatedBackupNotFoundFault":
             raise capo_rds.errors.db_cluster_automated_backup_not_found_fault.DBClusterAutomatedBackupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

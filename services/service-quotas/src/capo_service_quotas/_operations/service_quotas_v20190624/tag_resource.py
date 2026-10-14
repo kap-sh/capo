@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_service_quotas.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IllegalArgumentException":
             raise capo_service_quotas.errors.illegal_argument_exception.IllegalArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchResourceException":
             raise capo_service_quotas.errors.no_such_resource_exception.NoSuchResourceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_service_quotas.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagPolicyViolationException":
             raise capo_service_quotas.errors.tag_policy_violation_exception.TagPolicyViolationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_service_quotas.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_service_quotas.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

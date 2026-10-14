@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elasticache._protocol.xml import Element
@@ -38,7 +39,11 @@ class CacheSubnetQuotaExceededFault(ServiceError):
     code: str | None = "CacheSubnetQuotaExceededFault"
 
     def __init__(
-        self, data: CacheSubnetQuotaExceededFault_, message: str | None = None
+        self,
+        data: CacheSubnetQuotaExceededFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class CacheSubnetQuotaExceededFault(ServiceError):
             is_retryable=False,
             code="CacheSubnetQuotaExceededFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "CacheSubnetQuotaExceededFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

@@ -46,43 +46,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "KMSAccessDeniedFault":
             raise capo_database_migration_service.errors.kms_access_denied_fault.KMSAccessDeniedFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSDisabledFault":
             raise capo_database_migration_service.errors.kms_disabled_fault.KMSDisabledFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInvalidStateFault":
             raise capo_database_migration_service.errors.kms_invalid_state_fault.KMSInvalidStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSNotFoundFault":
             raise capo_database_migration_service.errors.kms_not_found_fault.KMSNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSThrottlingFault":
             raise capo_database_migration_service.errors.kms_throttling_fault.KMSThrottlingFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsFault":
             raise capo_database_migration_service.errors.resource_already_exists_fault.ResourceAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundFault":
             raise capo_database_migration_service.errors.resource_not_found_fault.ResourceNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceQuotaExceededFault":
             raise capo_database_migration_service.errors.resource_quota_exceeded_fault.ResourceQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SNSInvalidTopicFault":
             raise capo_database_migration_service.errors.sns_invalid_topic_fault.SNSInvalidTopicFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SNSNoAuthorizationFault":
             raise capo_database_migration_service.errors.sns_no_authorization_fault.SNSNoAuthorizationFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

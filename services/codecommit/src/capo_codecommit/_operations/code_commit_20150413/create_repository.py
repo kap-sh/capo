@@ -48,71 +48,71 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EncryptionIntegrityChecksFailedException":
             raise capo_codecommit.errors.encryption_integrity_checks_failed_exception.EncryptionIntegrityChecksFailedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyAccessDeniedException":
             raise capo_codecommit.errors.encryption_key_access_denied_exception.EncryptionKeyAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyDisabledException":
             raise capo_codecommit.errors.encryption_key_disabled_exception.EncryptionKeyDisabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyInvalidIdException":
             raise capo_codecommit.errors.encryption_key_invalid_id_exception.EncryptionKeyInvalidIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyInvalidUsageException":
             raise capo_codecommit.errors.encryption_key_invalid_usage_exception.EncryptionKeyInvalidUsageException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyNotFoundException":
             raise capo_codecommit.errors.encryption_key_not_found_exception.EncryptionKeyNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EncryptionKeyUnavailableException":
             raise capo_codecommit.errors.encryption_key_unavailable_exception.EncryptionKeyUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryDescriptionException":
             raise capo_codecommit.errors.invalid_repository_description_exception.InvalidRepositoryDescriptionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRepositoryNameException":
             raise capo_codecommit.errors.invalid_repository_name_exception.InvalidRepositoryNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSystemTagUsageException":
             raise capo_codecommit.errors.invalid_system_tag_usage_exception.InvalidSystemTagUsageException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagsMapException":
             raise capo_codecommit.errors.invalid_tags_map_exception.InvalidTagsMapException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotAllowedException":
             raise capo_codecommit.errors.operation_not_allowed_exception.OperationNotAllowedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryLimitExceededException":
             raise capo_codecommit.errors.repository_limit_exceeded_exception.RepositoryLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNameExistsException":
             raise capo_codecommit.errors.repository_name_exists_exception.RepositoryNameExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNameRequiredException":
             raise capo_codecommit.errors.repository_name_required_exception.RepositoryNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagPolicyException":
             raise capo_codecommit.errors.tag_policy_exception.TagPolicyException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyTagsException":
             raise capo_codecommit.errors.too_many_tags_exception.TooManyTagsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

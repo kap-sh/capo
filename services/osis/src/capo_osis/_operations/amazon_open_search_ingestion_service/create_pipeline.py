@@ -42,31 +42,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_osis.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "DisabledOperationException":
             raise capo_osis.errors.disabled_operation_exception.DisabledOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalException":
             raise capo_osis.errors.internal_exception.InternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_osis.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsException":
             raise capo_osis.errors.resource_already_exists_exception.ResourceAlreadyExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_osis.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_osis.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

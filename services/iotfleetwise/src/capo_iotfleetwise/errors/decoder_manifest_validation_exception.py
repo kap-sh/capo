@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iotfleetwise.errors import ServiceError
@@ -77,7 +78,11 @@ class DecoderManifestValidationException(ServiceError):
     code: str | None = "DecoderManifestValidationException"
 
     def __init__(
-        self, data: DecoderManifestValidationException_, message: str | None = None
+        self,
+        data: DecoderManifestValidationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -85,11 +90,12 @@ class DecoderManifestValidationException(ServiceError):
             is_retryable=False,
             code="DecoderManifestValidationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DecoderManifestValidationException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

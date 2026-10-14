@@ -30,7 +30,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "WAFInternalErrorException":
             raise capo_waf_regional.errors.waf_internal_error_exception.WAFInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

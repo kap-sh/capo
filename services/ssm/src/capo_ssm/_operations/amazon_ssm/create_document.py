@@ -43,35 +43,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DocumentAlreadyExists":
             raise capo_ssm.errors.document_already_exists.DocumentAlreadyExists.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DocumentLimitExceeded":
             raise capo_ssm.errors.document_limit_exceeded.DocumentLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentContent":
             raise capo_ssm.errors.invalid_document_content.InvalidDocumentContent.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentSchemaVersion":
             raise capo_ssm.errors.invalid_document_schema_version.InvalidDocumentSchemaVersion.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxDocumentSizeExceeded":
             raise capo_ssm.errors.max_document_size_exceeded.MaxDocumentSizeExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoLongerSupportedException":
             raise capo_ssm.errors.no_longer_supported_exception.NoLongerSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyUpdates":
             raise capo_ssm.errors.too_many_updates.TooManyUpdates.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

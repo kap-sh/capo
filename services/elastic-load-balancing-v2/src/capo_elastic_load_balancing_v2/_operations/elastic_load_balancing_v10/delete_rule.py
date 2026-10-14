@@ -41,11 +41,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "OperationNotPermitted":
             raise capo_elastic_load_balancing_v2.errors.operation_not_permitted_exception.OperationNotPermittedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RuleNotFound":
             raise capo_elastic_load_balancing_v2.errors.rule_not_found_exception.RuleNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

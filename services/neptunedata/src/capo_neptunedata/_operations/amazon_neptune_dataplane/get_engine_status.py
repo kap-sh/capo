@@ -39,35 +39,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientTimeoutException":
             raise capo_neptunedata.errors.client_timeout_exception.ClientTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConstraintViolationException":
             raise capo_neptunedata.errors.constraint_violation_exception.ConstraintViolationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "IllegalArgumentException":
             raise capo_neptunedata.errors.illegal_argument_exception.IllegalArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_neptunedata.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_neptunedata.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PreconditionsFailedException":
             raise capo_neptunedata.errors.preconditions_failed_exception.PreconditionsFailedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_neptunedata.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_neptunedata.errors.unsupported_operation_exception.UnsupportedOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

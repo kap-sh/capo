@@ -42,15 +42,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing_v2.errors.load_balancer_not_found_exception.LoadBalancerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationNotPermitted":
             raise capo_elastic_load_balancing_v2.errors.operation_not_permitted_exception.OperationNotPermittedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceInUse":
             raise capo_elastic_load_balancing_v2.errors.resource_in_use_exception.ResourceInUseException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

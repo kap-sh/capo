@@ -37,31 +37,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestError":
             raise capo_wickr.errors.bad_request_error.BadRequestError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ForbiddenError":
             raise capo_wickr.errors.forbidden_error.ForbiddenError.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_wickr.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case "RateLimitError":
             raise capo_wickr.errors.rate_limit_error.RateLimitError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundError":
             raise capo_wickr.errors.resource_not_found_error.ResourceNotFoundError.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedError":
             raise capo_wickr.errors.unauthorized_error.UnauthorizedError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationError":
             raise capo_wickr.errors.validation_error.ValidationError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

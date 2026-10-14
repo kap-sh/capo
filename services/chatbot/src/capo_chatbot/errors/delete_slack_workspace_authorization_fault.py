@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_chatbot.errors import ServiceError
@@ -35,7 +36,11 @@ class DeleteSlackWorkspaceAuthorizationFault(ServiceError):
     code: str | None = "DeleteSlackWorkspaceAuthorizationFault"
 
     def __init__(
-        self, data: DeleteSlackWorkspaceAuthorizationFault_, message: str | None = None
+        self,
+        data: DeleteSlackWorkspaceAuthorizationFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -43,11 +48,12 @@ class DeleteSlackWorkspaceAuthorizationFault(ServiceError):
             is_retryable=False,
             code="DeleteSlackWorkspaceAuthorizationFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DeleteSlackWorkspaceAuthorizationFault":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

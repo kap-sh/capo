@@ -43,30 +43,32 @@ def handle_error(response: zapros.Response) -> Never:
     code, message = parse_error_metadata_json(response, data)
     match code:
         case "BadRequest":
-            raise capo_efs.errors.bad_request.BadRequest.from_json(data, message)
+            raise capo_efs.errors.bad_request.BadRequest.from_json(
+                data, message, response=response
+            )
         case "FileSystemNotFound":
             raise capo_efs.errors.file_system_not_found.FileSystemNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "IncorrectFileSystemLifeCycleState":
             raise capo_efs.errors.incorrect_file_system_life_cycle_state.IncorrectFileSystemLifeCycleState.from_json(
-                data, message
+                data, message, response=response
             )
         case "InsufficientThroughputCapacity":
             raise capo_efs.errors.insufficient_throughput_capacity.InsufficientThroughputCapacity.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_efs.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThroughputLimitExceeded":
             raise capo_efs.errors.throughput_limit_exceeded.ThroughputLimitExceeded.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequests":
             raise capo_efs.errors.too_many_requests.TooManyRequests.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

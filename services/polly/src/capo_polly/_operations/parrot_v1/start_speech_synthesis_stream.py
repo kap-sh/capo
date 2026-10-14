@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 
@@ -46,19 +47,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ServiceFailureException":
             raise capo_polly.errors.service_failure_exception.ServiceFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceQuotaExceededException":
             raise capo_polly.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_polly.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_polly.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -68,7 +69,10 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_polly.types.start_speech_synthesis_stream_output.StartSpeechSynthesisStreamOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_polly.types.start_speech_synthesis_stream_event_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_polly.types.start_speech_synthesis_stream_event_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_polly.types.start_speech_synthesis_stream_output.StartSpeechSynthesisStreamOutput = {
         "event_stream": cast(
@@ -82,7 +86,10 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_polly.types.start_speech_synthesis_stream_output.StartSpeechSynthesisStreamOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_polly.types.start_speech_synthesis_stream_event_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_polly.types.start_speech_synthesis_stream_event_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_polly.types.start_speech_synthesis_stream_output.StartSpeechSynthesisStreamOutput = {
         "event_stream": cast(

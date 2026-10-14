@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_memorydb.errors import ServiceError
@@ -34,18 +35,25 @@ class ParameterGroupNotFoundFault(ServiceError):
 
     code: str | None = "ParameterGroupNotFoundFault"
 
-    def __init__(self, data: ParameterGroupNotFoundFault_, message: str | None = None):
+    def __init__(
+        self,
+        data: ParameterGroupNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ParameterGroupNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ParameterGroupNotFoundFault":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

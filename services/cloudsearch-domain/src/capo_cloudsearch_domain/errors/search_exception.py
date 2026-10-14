@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudsearch_domain.errors import ServiceError
@@ -35,16 +36,25 @@ class SearchException(ServiceError):
 
     code: str | None = "SearchException"
 
-    def __init__(self, data: SearchException_, message: str | None = None):
+    def __init__(
+        self,
+        data: SearchException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="SearchException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "SearchException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "SearchException":
+        return cls(deserialize_json(data), message, response=response)

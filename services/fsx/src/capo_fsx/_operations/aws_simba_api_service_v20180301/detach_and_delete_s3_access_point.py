@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequest":
             raise capo_fsx.errors.bad_request.BadRequest.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IncompatibleParameterError":
             raise capo_fsx.errors.incompatible_parameter_error.IncompatibleParameterError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_fsx.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "S3AccessPointAttachmentNotFound":
             raise capo_fsx.errors.s3_access_point_attachment_not_found.S3AccessPointAttachmentNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_fsx.errors.unsupported_operation.UnsupportedOperation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

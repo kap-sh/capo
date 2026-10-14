@@ -35,11 +35,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentResourcesLimitExceeded":
             raise capo_cloudformation.errors.concurrent_resources_limit_exceeded_exception.ConcurrentResourcesLimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "GeneratedTemplateNotFound":
             raise capo_cloudformation.errors.generated_template_not_found_exception.GeneratedTemplateNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

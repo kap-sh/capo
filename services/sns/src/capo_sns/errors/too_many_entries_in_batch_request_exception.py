@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sns._protocol.xml import Element
@@ -40,7 +41,11 @@ class TooManyEntriesInBatchRequestException(ServiceError):
     code: str | None = "TooManyEntriesInBatchRequestException"
 
     def __init__(
-        self, data: TooManyEntriesInBatchRequestException_, message: str | None = None
+        self,
+        data: TooManyEntriesInBatchRequestException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class TooManyEntriesInBatchRequestException(ServiceError):
             is_retryable=False,
             code="TooManyEntriesInBatchRequestException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TooManyEntriesInBatchRequestException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

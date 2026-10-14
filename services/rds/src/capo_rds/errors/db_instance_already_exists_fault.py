@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
@@ -37,18 +38,25 @@ class DBInstanceAlreadyExistsFault(ServiceError):
 
     code: str | None = "DBInstanceAlreadyExistsFault"
 
-    def __init__(self, data: DBInstanceAlreadyExistsFault_, message: str | None = None):
+    def __init__(
+        self,
+        data: DBInstanceAlreadyExistsFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="DBInstanceAlreadyExistsFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "DBInstanceAlreadyExistsFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

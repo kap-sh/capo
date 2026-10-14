@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workdocs.errors import ServiceError
@@ -49,18 +50,25 @@ class EntityNotExistsException(ServiceError):
 
     code: str | None = "EntityNotExistsException"
 
-    def __init__(self, data: EntityNotExistsException_, message: str | None = None):
+    def __init__(
+        self,
+        data: EntityNotExistsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="EntityNotExistsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "EntityNotExistsException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBProxyNotFoundFault":
             raise capo_rds.errors.db_proxy_not_found_fault.DBProxyNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBProxyStateFault":
             raise capo_rds.errors.invalid_db_proxy_state_fault.InvalidDBProxyStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -42,7 +42,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "PolicyTypeNotFound":
             raise capo_elastic_load_balancing.errors.policy_type_not_found_exception.PolicyTypeNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

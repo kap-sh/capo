@@ -42,11 +42,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ElasticBeanstalkServiceException":
             raise capo_elastic_beanstalk.errors.elastic_beanstalk_service_exception.ElasticBeanstalkServiceException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ManagedActionInvalidStateException":
             raise capo_elastic_beanstalk.errors.managed_action_invalid_state_exception.ManagedActionInvalidStateException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

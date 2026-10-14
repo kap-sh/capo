@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_glue.errors import ServiceError
@@ -45,7 +46,11 @@ class FederatedResourceAlreadyExistsException(ServiceError):
     code: str | None = "FederatedResourceAlreadyExistsException"
 
     def __init__(
-        self, data: FederatedResourceAlreadyExistsException_, message: str | None = None
+        self,
+        data: FederatedResourceAlreadyExistsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -53,11 +58,12 @@ class FederatedResourceAlreadyExistsException(ServiceError):
             is_retryable=False,
             code="FederatedResourceAlreadyExistsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "FederatedResourceAlreadyExistsException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

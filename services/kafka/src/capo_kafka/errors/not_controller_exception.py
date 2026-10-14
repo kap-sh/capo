@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kafka.errors import ServiceError
@@ -41,18 +42,25 @@ class NotControllerException(ServiceError):
 
     code: str | None = "NotControllerException"
 
-    def __init__(self, data: NotControllerException_, message: str | None = None):
+    def __init__(
+        self,
+        data: NotControllerException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="NotControllerException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "NotControllerException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

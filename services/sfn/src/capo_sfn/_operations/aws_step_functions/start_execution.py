@@ -41,47 +41,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ExecutionAlreadyExists":
             raise capo_sfn.errors.execution_already_exists.ExecutionAlreadyExists.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ExecutionLimitExceeded":
             raise capo_sfn.errors.execution_limit_exceeded.ExecutionLimitExceeded.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidArn":
             raise capo_sfn.errors.invalid_arn.InvalidArn.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidExecutionInput":
             raise capo_sfn.errors.invalid_execution_input.InvalidExecutionInput.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidName":
             raise capo_sfn.errors.invalid_name.InvalidName.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDeniedException":
             raise capo_sfn.errors.kms_access_denied_exception.KmsAccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidStateException":
             raise capo_sfn.errors.kms_invalid_state_exception.KmsInvalidStateException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsThrottlingException":
             raise capo_sfn.errors.kms_throttling_exception.KmsThrottlingException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "StateMachineDeleting":
             raise capo_sfn.errors.state_machine_deleting.StateMachineDeleting.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "StateMachineDoesNotExist":
             raise capo_sfn.errors.state_machine_does_not_exist.StateMachineDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_sfn.errors.validation_exception.ValidationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#ConversationNotFoundException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_healthlake.errors import DeserializationError, ServiceError
@@ -31,7 +32,11 @@ class ConversationNotFoundException(ServiceError):
     code: str | None = "ConversationNotFoundException"
 
     def __init__(
-        self, data: ConversationNotFoundException_, message: str | None = None
+        self,
+        data: ConversationNotFoundException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -39,11 +44,12 @@ class ConversationNotFoundException(ServiceError):
             is_retryable=False,
             code="ConversationNotFoundException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ConversationNotFoundException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

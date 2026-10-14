@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudtrail.errors import ServiceError
@@ -36,7 +37,11 @@ class ResourcePolicyNotValidException(ServiceError):
     code: str | None = "ResourcePolicyNotValidException"
 
     def __init__(
-        self, data: ResourcePolicyNotValidException_, message: str | None = None
+        self,
+        data: ResourcePolicyNotValidException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class ResourcePolicyNotValidException(ServiceError):
             is_retryable=False,
             code="ResourcePolicyNotValidException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourcePolicyNotValidException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

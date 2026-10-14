@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ExpiredTradeInTokenException":
             raise capo_sts.errors.expired_trade_in_token_exception.ExpiredTradeInTokenException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "PackedPolicyTooLarge":
             raise capo_sts.errors.packed_policy_too_large_exception.PackedPolicyTooLargeException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RegionDisabledException":
             raise capo_sts.errors.region_disabled_exception.RegionDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

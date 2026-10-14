@@ -35,27 +35,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_inspector.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalException":
             raise capo_inspector.errors.internal_exception.InternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_inspector.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchEntityException":
             raise capo_inspector.errors.no_such_entity_exception.NoSuchEntityException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PreviewGenerationInProgressException":
             raise capo_inspector.errors.preview_generation_in_progress_exception.PreviewGenerationInProgressException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceTemporarilyUnavailableException":
             raise capo_inspector.errors.service_temporarily_unavailable_exception.ServiceTemporarilyUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

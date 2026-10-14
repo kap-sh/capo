@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_securityhub.errors import ServiceError
@@ -39,16 +40,25 @@ class InternalException(ServiceError):
 
     code: str | None = "InternalException"
 
-    def __init__(self, data: InternalException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="InternalException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "InternalException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InternalException":
+        return cls(deserialize_json(data), message, response=response)

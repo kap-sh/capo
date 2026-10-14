@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#UnsupportedMediaType``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_s3._protocol.xml import Element, SubElement
@@ -25,18 +26,25 @@ class UnsupportedMediaType(ServiceError):
 
     code: str | None = "UnsupportedMediaType"
 
-    def __init__(self, data: UnsupportedMediaType_, message: str | None = None):
+    def __init__(
+        self,
+        data: UnsupportedMediaType_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="UnsupportedMediaType",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedMediaType":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

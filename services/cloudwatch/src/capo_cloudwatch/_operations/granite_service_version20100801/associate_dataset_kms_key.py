@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_cloudwatch.errors.conflict_exception.ConflictException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDeniedException":
             raise capo_cloudwatch.errors.kms_access_denied_exception.KmsAccessDeniedException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsKeyDisabledException":
             raise capo_cloudwatch.errors.kms_key_disabled_exception.KmsKeyDisabledException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsKeyNotFoundException":
             raise capo_cloudwatch.errors.kms_key_not_found_exception.KmsKeyNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cloudwatch.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

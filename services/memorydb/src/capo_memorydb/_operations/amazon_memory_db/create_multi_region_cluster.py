@@ -37,27 +37,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterQuotaForCustomerExceededFault":
             raise capo_memorydb.errors.cluster_quota_for_customer_exceeded_fault.ClusterQuotaForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MultiRegionClusterAlreadyExistsFault":
             raise capo_memorydb.errors.multi_region_cluster_already_exists_fault.MultiRegionClusterAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MultiRegionParameterGroupNotFoundFault":
             raise capo_memorydb.errors.multi_region_parameter_group_not_found_fault.MultiRegionParameterGroupNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_memorydb.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

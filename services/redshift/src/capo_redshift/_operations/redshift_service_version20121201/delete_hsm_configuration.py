@@ -32,11 +32,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HsmConfigurationNotFoundFault":
             raise capo_redshift.errors.hsm_configuration_not_found_fault.HsmConfigurationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidHsmConfigurationStateFault":
             raise capo_redshift.errors.invalid_hsm_configuration_state_fault.InvalidHsmConfigurationStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

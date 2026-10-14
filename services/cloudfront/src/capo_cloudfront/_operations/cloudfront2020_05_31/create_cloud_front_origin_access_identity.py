@@ -45,23 +45,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudFrontOriginAccessIdentityAlreadyExists":
             raise capo_cloudfront.errors.cloud_front_origin_access_identity_already_exists.CloudFrontOriginAccessIdentityAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "MissingBody":
             raise capo_cloudfront.errors.missing_body.MissingBody.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCloudFrontOriginAccessIdentities":
             raise capo_cloudfront.errors.too_many_cloud_front_origin_access_identities.TooManyCloudFrontOriginAccessIdentities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

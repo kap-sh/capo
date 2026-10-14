@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#StreamSessionAccessNotReadyException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_gameliftstreams.errors import DeserializationError, ServiceError
@@ -34,7 +35,11 @@ class StreamSessionAccessNotReadyException(ServiceError):
     code: str | None = "StreamSessionAccessNotReadyException"
 
     def __init__(
-        self, data: StreamSessionAccessNotReadyException_, message: str | None = None
+        self,
+        data: StreamSessionAccessNotReadyException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -42,11 +47,12 @@ class StreamSessionAccessNotReadyException(ServiceError):
             is_retryable=True,
             code="StreamSessionAccessNotReadyException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "StreamSessionAccessNotReadyException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

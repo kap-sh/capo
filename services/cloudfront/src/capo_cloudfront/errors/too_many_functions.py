@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -35,16 +36,25 @@ class TooManyFunctions(ServiceError):
 
     code: str | None = "TooManyFunctions"
 
-    def __init__(self, data: TooManyFunctions_, message: str | None = None):
+    def __init__(
+        self,
+        data: TooManyFunctions_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TooManyFunctions",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_xml(cls, el: Element, message: str | None = None) -> "TooManyFunctions":
-        return cls(deserialize_xml(el), message)
+    def from_xml(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "TooManyFunctions":
+        return cls(deserialize_xml(el), message, response=response)

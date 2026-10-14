@@ -41,35 +41,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterCombination":
             raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidServerlessCacheStateFault":
             raise capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServerlessCacheNotFoundFault":
             raise capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServerlessCacheSnapshotAlreadyExistsFault":
             raise capo_elasticache.errors.serverless_cache_snapshot_already_exists_fault.ServerlessCacheSnapshotAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServerlessCacheSnapshotQuotaExceededFault":
             raise capo_elasticache.errors.serverless_cache_snapshot_quota_exceeded_fault.ServerlessCacheSnapshotQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_elasticache.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_elasticache.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

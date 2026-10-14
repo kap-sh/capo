@@ -39,15 +39,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IntegrationConflictOperationFault":
             raise capo_rds.errors.integration_conflict_operation_fault.IntegrationConflictOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationNotFoundFault":
             raise capo_rds.errors.integration_not_found_fault.IntegrationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIntegrationStateFault":
             raise capo_rds.errors.invalid_integration_state_fault.InvalidIntegrationStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

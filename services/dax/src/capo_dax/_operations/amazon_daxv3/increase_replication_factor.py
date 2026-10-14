@@ -40,39 +40,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterNotFoundFault":
             raise capo_dax.errors.cluster_not_found_fault.ClusterNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientClusterCapacityFault":
             raise capo_dax.errors.insufficient_cluster_capacity_fault.InsufficientClusterCapacityFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidClusterStateFault":
             raise capo_dax.errors.invalid_cluster_state_fault.InvalidClusterStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_dax.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_dax.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_dax.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NodeQuotaForClusterExceededFault":
             raise capo_dax.errors.node_quota_for_cluster_exceeded_fault.NodeQuotaForClusterExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NodeQuotaForCustomerExceededFault":
             raise capo_dax.errors.node_quota_for_customer_exceeded_fault.NodeQuotaForCustomerExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_dax.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

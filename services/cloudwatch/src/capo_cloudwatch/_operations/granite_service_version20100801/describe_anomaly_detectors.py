@@ -38,19 +38,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceFault":
             raise capo_cloudwatch.errors.internal_service_fault.InternalServiceFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidNextToken":
             raise capo_cloudwatch.errors.invalid_next_token.InvalidNextToken.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterCombinationException":
             raise capo_cloudwatch.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_cloudwatch.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

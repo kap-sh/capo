@@ -43,19 +43,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessForbidden":
             raise capo_sagemaker_featurestore_runtime.errors.access_forbidden.AccessForbidden.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailure":
             raise capo_sagemaker_featurestore_runtime.errors.internal_failure.InternalFailure.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailable":
             raise capo_sagemaker_featurestore_runtime.errors.service_unavailable.ServiceUnavailable.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationError":
             raise capo_sagemaker_featurestore_runtime.errors.validation_error.ValidationError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

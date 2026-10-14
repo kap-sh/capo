@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediaconnect#RouterInputServiceQuotaExceededException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_mediaconnect.errors import DeserializationError, ServiceError
@@ -36,6 +37,8 @@ class RouterInputServiceQuotaExceededException(ServiceError):
         self,
         data: RouterInputServiceQuotaExceededException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +46,12 @@ class RouterInputServiceQuotaExceededException(ServiceError):
             is_retryable=False,
             code="RouterInputServiceQuotaExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RouterInputServiceQuotaExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

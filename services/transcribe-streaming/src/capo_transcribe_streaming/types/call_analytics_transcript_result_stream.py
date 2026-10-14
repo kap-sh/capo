@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_transcribe_streaming._iter import AnyIterator
@@ -122,7 +123,9 @@ def serialize_event_json(value: _CallAnalyticsTranscriptResultStream) -> bytes:
             )
 
 
-def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultStream:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _CallAnalyticsTranscriptResultStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -135,7 +138,7 @@ def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultSt
                     message
                 )
                 raise capo_transcribe_streaming.errors.bad_request_exception.BadRequestException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "LimitExceededException":
                 import capo_transcribe_streaming.errors.limit_exceeded_exception
@@ -144,7 +147,7 @@ def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultSt
                     message
                 )
                 raise capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "InternalFailureException":
                 import capo_transcribe_streaming.errors.internal_failure_exception
@@ -153,7 +156,7 @@ def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultSt
                     message
                 )
                 raise capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ConflictException":
                 import capo_transcribe_streaming.errors.conflict_exception
@@ -162,7 +165,7 @@ def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultSt
                     message
                 )
                 raise capo_transcribe_streaming.errors.conflict_exception.ConflictException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "ServiceUnavailableException":
                 import capo_transcribe_streaming.errors.service_unavailable_exception
@@ -171,10 +174,10 @@ def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultSt
                     message
                 )
                 raise capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -182,7 +185,7 @@ def deserialize_event_json(message: Message) -> _CallAnalyticsTranscriptResultSt
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

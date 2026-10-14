@@ -41,35 +41,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "WAFDuplicateItemException":
             raise capo_wafv2.errors.waf_duplicate_item_exception.WAFDuplicateItemException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInternalErrorException":
             raise capo_wafv2.errors.waf_internal_error_exception.WAFInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidOperationException":
             raise capo_wafv2.errors.waf_invalid_operation_exception.WAFInvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFInvalidParameterException":
             raise capo_wafv2.errors.waf_invalid_parameter_exception.WAFInvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFLimitsExceededException":
             raise capo_wafv2.errors.waf_limits_exceeded_exception.WAFLimitsExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFOptimisticLockException":
             raise capo_wafv2.errors.waf_optimistic_lock_exception.WAFOptimisticLockException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFTagOperationException":
             raise capo_wafv2.errors.waf_tag_operation_exception.WAFTagOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WAFTagOperationInternalErrorException":
             raise capo_wafv2.errors.waf_tag_operation_internal_error_exception.WAFTagOperationInternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

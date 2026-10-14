@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConformancePackTemplateValidationException":
             raise capo_config_service.errors.conformance_pack_template_validation_exception.ConformancePackTemplateValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InsufficientPermissionsException":
             raise capo_config_service.errors.insufficient_permissions_exception.InsufficientPermissionsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_config_service.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxNumberOfConformancePacksExceededException":
             raise capo_config_service.errors.max_number_of_conformance_packs_exceeded_exception.MaxNumberOfConformancePacksExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_config_service.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

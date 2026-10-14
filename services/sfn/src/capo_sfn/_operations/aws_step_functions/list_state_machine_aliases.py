@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArn":
             raise capo_sfn.errors.invalid_arn.InvalidArn.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidToken":
             raise capo_sfn.errors.invalid_token.InvalidToken.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFound":
             raise capo_sfn.errors.resource_not_found.ResourceNotFound.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "StateMachineDeleting":
             raise capo_sfn.errors.state_machine_deleting.StateMachineDeleting.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "StateMachineDoesNotExist":
             raise capo_sfn.errors.state_machine_does_not_exist.StateMachineDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

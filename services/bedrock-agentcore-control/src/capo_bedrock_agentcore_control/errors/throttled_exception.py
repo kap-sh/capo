@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ThrottledException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_bedrock_agentcore_control.errors import ServiceError
@@ -29,16 +30,25 @@ class ThrottledException(ServiceError):
 
     code: str | None = "ThrottledException"
 
-    def __init__(self, data: ThrottledException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ThrottledException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=True,
             code="ThrottledException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ThrottledException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ThrottledException":
+        return cls(deserialize_json(data), message, response=response)

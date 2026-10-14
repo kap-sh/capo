@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterException":
             raise capo_workmail.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationNotFoundException":
             raise capo_workmail.errors.organization_not_found_exception.OrganizationNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationStateException":
             raise capo_workmail.errors.organization_state_exception.OrganizationStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_workmail.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

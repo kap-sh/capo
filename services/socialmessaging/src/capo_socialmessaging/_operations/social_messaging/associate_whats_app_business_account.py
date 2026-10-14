@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_socialmessaging.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_socialmessaging.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "DependencyException":
             raise capo_socialmessaging.errors.dependency_exception.DependencyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParametersException":
             raise capo_socialmessaging.errors.invalid_parameters_exception.InvalidParametersException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_socialmessaging.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottledRequestException":
             raise capo_socialmessaging.errors.throttled_request_exception.ThrottledRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

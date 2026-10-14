@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lambda.errors import ServiceError
@@ -44,6 +45,8 @@ class SerializedRequestEntityTooLargeException(ServiceError):
         self,
         data: SerializedRequestEntityTooLargeException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -51,11 +54,12 @@ class SerializedRequestEntityTooLargeException(ServiceError):
             is_retryable=False,
             code="SerializedRequestEntityTooLargeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SerializedRequestEntityTooLargeException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

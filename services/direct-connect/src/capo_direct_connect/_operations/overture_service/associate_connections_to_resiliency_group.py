@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DirectConnectClientException":
             raise capo_direct_connect.errors.direct_connect_client_exception.DirectConnectClientException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DirectConnectServerException":
             raise capo_direct_connect.errors.direct_connect_server_exception.DirectConnectServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_direct_connect.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

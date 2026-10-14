@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kinesis_video_media.errors import ServiceError
@@ -34,18 +35,25 @@ class InvalidEndpointException(ServiceError):
 
     code: str | None = "InvalidEndpointException"
 
-    def __init__(self, data: InvalidEndpointException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InvalidEndpointException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="InvalidEndpointException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidEndpointException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

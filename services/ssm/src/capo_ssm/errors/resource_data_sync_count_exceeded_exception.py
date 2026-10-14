@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ssm.errors import ServiceError
@@ -35,7 +36,11 @@ class ResourceDataSyncCountExceededException(ServiceError):
     code: str | None = "ResourceDataSyncCountExceededException"
 
     def __init__(
-        self, data: ResourceDataSyncCountExceededException_, message: str | None = None
+        self,
+        data: ResourceDataSyncCountExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class ResourceDataSyncCountExceededException(ServiceError):
             is_retryable=False,
             code="ResourceDataSyncCountExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceDataSyncCountExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

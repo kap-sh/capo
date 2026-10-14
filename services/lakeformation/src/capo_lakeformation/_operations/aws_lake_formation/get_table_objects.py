@@ -38,31 +38,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "EntityNotFoundException":
             raise capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_lakeformation.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_lakeformation.errors.invalid_input_exception.InvalidInputException.from_json(
-                data, message
+                data, message, response=response
             )
         case "OperationTimeoutException":
             raise capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotReadyException":
             raise capo_lakeformation.errors.resource_not_ready_exception.ResourceNotReadyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TransactionCanceledException":
             raise capo_lakeformation.errors.transaction_canceled_exception.TransactionCanceledException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TransactionCommittedException":
             raise capo_lakeformation.errors.transaction_committed_exception.TransactionCommittedException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

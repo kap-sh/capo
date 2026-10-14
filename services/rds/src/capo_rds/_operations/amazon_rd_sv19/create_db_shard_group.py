@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBShardGroupAlreadyExists":
             raise capo_rds.errors.db_shard_group_already_exists_fault.DBShardGroupAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_rds.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "MaxDBShardGroupLimitReached":
             raise capo_rds.errors.max_db_shard_group_limit_reached.MaxDBShardGroupLimitReached.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NetworkTypeNotSupported":
             raise capo_rds.errors.network_type_not_supported.NetworkTypeNotSupported.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedDBEngineVersion":
             raise capo_rds.errors.unsupported_db_engine_version_fault.UnsupportedDBEngineVersionFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

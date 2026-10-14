@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_lambda.errors import ServiceError
@@ -42,7 +43,11 @@ class S3FilesMountConnectivityException(ServiceError):
     code: str | None = "S3FilesMountConnectivityException"
 
     def __init__(
-        self, data: S3FilesMountConnectivityException_, message: str | None = None
+        self,
+        data: S3FilesMountConnectivityException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +55,12 @@ class S3FilesMountConnectivityException(ServiceError):
             is_retryable=False,
             code="S3FilesMountConnectivityException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "S3FilesMountConnectivityException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

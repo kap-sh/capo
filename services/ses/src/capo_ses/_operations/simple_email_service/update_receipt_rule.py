@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidLambdaFunction":
             raise capo_ses.errors.invalid_lambda_function_exception.InvalidLambdaFunctionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidS3Configuration":
             raise capo_ses.errors.invalid_s3_configuration_exception.InvalidS3ConfigurationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSnsTopic":
             raise capo_ses.errors.invalid_sns_topic_exception.InvalidSnsTopicException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LimitExceeded":
             raise capo_ses.errors.limit_exceeded_exception.LimitExceededException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RuleDoesNotExist":
             raise capo_ses.errors.rule_does_not_exist_exception.RuleDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "RuleSetDoesNotExist":
             raise capo_ses.errors.rule_set_does_not_exist_exception.RuleSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

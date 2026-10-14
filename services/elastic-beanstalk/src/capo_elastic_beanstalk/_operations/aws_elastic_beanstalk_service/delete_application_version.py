@@ -42,19 +42,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientPrivilegesException":
             raise capo_elastic_beanstalk.errors.insufficient_privileges_exception.InsufficientPrivilegesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationInProgressFailure":
             raise capo_elastic_beanstalk.errors.operation_in_progress_exception.OperationInProgressException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "S3LocationNotInServiceRegionException":
             raise capo_elastic_beanstalk.errors.s3_location_not_in_service_region_exception.S3LocationNotInServiceRegionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SourceBundleDeletionFailure":
             raise capo_elastic_beanstalk.errors.source_bundle_deletion_exception.SourceBundleDeletionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

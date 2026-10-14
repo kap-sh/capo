@@ -45,15 +45,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "HealthUnavailable":
             raise capo_elastic_load_balancing_v2.errors.health_unavailable_exception.HealthUnavailableException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTarget":
             raise capo_elastic_load_balancing_v2.errors.invalid_target_exception.InvalidTargetException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TargetGroupNotFound":
             raise capo_elastic_load_balancing_v2.errors.target_group_not_found_exception.TargetGroupNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

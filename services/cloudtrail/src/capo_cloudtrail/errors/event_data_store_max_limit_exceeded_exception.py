@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudtrail.errors import ServiceError
@@ -36,7 +37,11 @@ class EventDataStoreMaxLimitExceededException(ServiceError):
     code: str | None = "EventDataStoreMaxLimitExceededException"
 
     def __init__(
-        self, data: EventDataStoreMaxLimitExceededException_, message: str | None = None
+        self,
+        data: EventDataStoreMaxLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class EventDataStoreMaxLimitExceededException(ServiceError):
             is_retryable=False,
             code="EventDataStoreMaxLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "EventDataStoreMaxLimitExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AuthorizationAlreadyExists":
             raise capo_rds.errors.authorization_already_exists_fault.AuthorizationAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "AuthorizationQuotaExceeded":
             raise capo_rds.errors.authorization_quota_exceeded_fault.AuthorizationQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSecurityGroupNotFound":
             raise capo_rds.errors.db_security_group_not_found_fault.DBSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSecurityGroupState":
             raise capo_rds.errors.invalid_db_security_group_state_fault.InvalidDBSecurityGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

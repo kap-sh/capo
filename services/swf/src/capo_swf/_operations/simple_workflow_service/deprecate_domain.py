@@ -31,15 +31,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DomainDeprecatedFault":
             raise capo_swf.errors.domain_deprecated_fault.DomainDeprecatedFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedFault":
             raise capo_swf.errors.operation_not_permitted_fault.OperationNotPermittedFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnknownResourceFault":
             raise capo_swf.errors.unknown_resource_fault.UnknownResourceFault.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

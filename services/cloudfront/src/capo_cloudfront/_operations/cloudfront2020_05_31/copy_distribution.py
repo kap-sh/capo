@@ -108,259 +108,259 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "CNAMEAlreadyExists":
             raise capo_cloudfront.errors.cname_already_exists.CNAMEAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "DistributionAlreadyExists":
             raise capo_cloudfront.errors.distribution_already_exists.DistributionAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "IllegalFieldLevelEncryptionConfigAssociationWithCacheBehavior":
             raise capo_cloudfront.errors.illegal_field_level_encryption_config_association_with_cache_behavior.IllegalFieldLevelEncryptionConfigAssociationWithCacheBehavior.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDefaultRootObject":
             raise capo_cloudfront.errors.invalid_default_root_object.InvalidDefaultRootObject.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidErrorCode":
             raise capo_cloudfront.errors.invalid_error_code.InvalidErrorCode.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidForwardCookies":
             raise capo_cloudfront.errors.invalid_forward_cookies.InvalidForwardCookies.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidFunctionAssociation":
             raise capo_cloudfront.errors.invalid_function_association.InvalidFunctionAssociation.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidGeoRestrictionParameter":
             raise capo_cloudfront.errors.invalid_geo_restriction_parameter.InvalidGeoRestrictionParameter.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidHeadersForS3Origin":
             raise capo_cloudfront.errors.invalid_headers_for_s3_origin.InvalidHeadersForS3Origin.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidLambdaFunctionAssociation":
             raise capo_cloudfront.errors.invalid_lambda_function_association.InvalidLambdaFunctionAssociation.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidLocationCode":
             raise capo_cloudfront.errors.invalid_location_code.InvalidLocationCode.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidMinimumProtocolVersion":
             raise capo_cloudfront.errors.invalid_minimum_protocol_version.InvalidMinimumProtocolVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOrigin":
             raise capo_cloudfront.errors.invalid_origin.InvalidOrigin.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOriginAccessControl":
             raise capo_cloudfront.errors.invalid_origin_access_control.InvalidOriginAccessControl.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOriginAccessIdentity":
             raise capo_cloudfront.errors.invalid_origin_access_identity.InvalidOriginAccessIdentity.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOriginKeepaliveTimeout":
             raise capo_cloudfront.errors.invalid_origin_keepalive_timeout.InvalidOriginKeepaliveTimeout.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidOriginReadTimeout":
             raise capo_cloudfront.errors.invalid_origin_read_timeout.InvalidOriginReadTimeout.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidProtocolSettings":
             raise capo_cloudfront.errors.invalid_protocol_settings.InvalidProtocolSettings.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidQueryStringParameters":
             raise capo_cloudfront.errors.invalid_query_string_parameters.InvalidQueryStringParameters.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRelativePath":
             raise capo_cloudfront.errors.invalid_relative_path.InvalidRelativePath.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRequiredProtocol":
             raise capo_cloudfront.errors.invalid_required_protocol.InvalidRequiredProtocol.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidResponseCode":
             raise capo_cloudfront.errors.invalid_response_code.InvalidResponseCode.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidTTLOrder":
             raise capo_cloudfront.errors.invalid_ttl_order.InvalidTTLOrder.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidViewerCertificate":
             raise capo_cloudfront.errors.invalid_viewer_certificate.InvalidViewerCertificate.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidWebACLId":
             raise capo_cloudfront.errors.invalid_web_acl_id.InvalidWebACLId.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "MissingBody":
             raise capo_cloudfront.errors.missing_body.MissingBody.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchCachePolicy":
             raise capo_cloudfront.errors.no_such_cache_policy.NoSuchCachePolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchDistribution":
             raise capo_cloudfront.errors.no_such_distribution.NoSuchDistribution.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchFieldLevelEncryptionConfig":
             raise capo_cloudfront.errors.no_such_field_level_encryption_config.NoSuchFieldLevelEncryptionConfig.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchOrigin":
             raise capo_cloudfront.errors.no_such_origin.NoSuchOrigin.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchOriginRequestPolicy":
             raise capo_cloudfront.errors.no_such_origin_request_policy.NoSuchOriginRequestPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchRealtimeLogConfig":
             raise capo_cloudfront.errors.no_such_realtime_log_config.NoSuchRealtimeLogConfig.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchResponseHeadersPolicy":
             raise capo_cloudfront.errors.no_such_response_headers_policy.NoSuchResponseHeadersPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "RealtimeLogConfigOwnerMismatch":
             raise capo_cloudfront.errors.realtime_log_config_owner_mismatch.RealtimeLogConfigOwnerMismatch.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCacheBehaviors":
             raise capo_cloudfront.errors.too_many_cache_behaviors.TooManyCacheBehaviors.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCertificates":
             raise capo_cloudfront.errors.too_many_certificates.TooManyCertificates.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyCookieNamesInWhiteList":
             raise capo_cloudfront.errors.too_many_cookie_names_in_white_list.TooManyCookieNamesInWhiteList.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionCNAMEs":
             raise capo_cloudfront.errors.too_many_distribution_cnam_es.TooManyDistributionCNAMEs.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributions":
             raise capo_cloudfront.errors.too_many_distributions.TooManyDistributions.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsAssociatedToCachePolicy":
             raise capo_cloudfront.errors.too_many_distributions_associated_to_cache_policy.TooManyDistributionsAssociatedToCachePolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsAssociatedToFieldLevelEncryptionConfig":
             raise capo_cloudfront.errors.too_many_distributions_associated_to_field_level_encryption_config.TooManyDistributionsAssociatedToFieldLevelEncryptionConfig.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsAssociatedToKeyGroup":
             raise capo_cloudfront.errors.too_many_distributions_associated_to_key_group.TooManyDistributionsAssociatedToKeyGroup.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsAssociatedToOriginAccessControl":
             raise capo_cloudfront.errors.too_many_distributions_associated_to_origin_access_control.TooManyDistributionsAssociatedToOriginAccessControl.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsAssociatedToOriginRequestPolicy":
             raise capo_cloudfront.errors.too_many_distributions_associated_to_origin_request_policy.TooManyDistributionsAssociatedToOriginRequestPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsAssociatedToResponseHeadersPolicy":
             raise capo_cloudfront.errors.too_many_distributions_associated_to_response_headers_policy.TooManyDistributionsAssociatedToResponseHeadersPolicy.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsWithFunctionAssociations":
             raise capo_cloudfront.errors.too_many_distributions_with_function_associations.TooManyDistributionsWithFunctionAssociations.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsWithLambdaAssociations":
             raise capo_cloudfront.errors.too_many_distributions_with_lambda_associations.TooManyDistributionsWithLambdaAssociations.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyDistributionsWithSingleFunctionARN":
             raise capo_cloudfront.errors.too_many_distributions_with_single_function_arn.TooManyDistributionsWithSingleFunctionARN.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFunctionAssociations":
             raise capo_cloudfront.errors.too_many_function_associations.TooManyFunctionAssociations.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyHeadersInForwardedValues":
             raise capo_cloudfront.errors.too_many_headers_in_forwarded_values.TooManyHeadersInForwardedValues.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyKeyGroupsAssociatedToDistribution":
             raise capo_cloudfront.errors.too_many_key_groups_associated_to_distribution.TooManyKeyGroupsAssociatedToDistribution.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyLambdaFunctionAssociations":
             raise capo_cloudfront.errors.too_many_lambda_function_associations.TooManyLambdaFunctionAssociations.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyOriginCustomHeaders":
             raise capo_cloudfront.errors.too_many_origin_custom_headers.TooManyOriginCustomHeaders.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyOriginGroupsPerDistribution":
             raise capo_cloudfront.errors.too_many_origin_groups_per_distribution.TooManyOriginGroupsPerDistribution.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyOrigins":
             raise capo_cloudfront.errors.too_many_origins.TooManyOrigins.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyQueryStringParameters":
             raise capo_cloudfront.errors.too_many_query_string_parameters.TooManyQueryStringParameters.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTrustedSigners":
             raise capo_cloudfront.errors.too_many_trusted_signers.TooManyTrustedSigners.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustedKeyGroupDoesNotExist":
             raise capo_cloudfront.errors.trusted_key_group_does_not_exist.TrustedKeyGroupDoesNotExist.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TrustedSignerDoesNotExist":
             raise capo_cloudfront.errors.trusted_signer_does_not_exist.TrustedSignerDoesNotExist.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

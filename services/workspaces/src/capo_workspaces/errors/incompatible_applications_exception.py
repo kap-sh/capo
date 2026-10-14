@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspaces#IncompatibleApplicationsException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_workspaces.errors import ServiceError
@@ -26,7 +27,11 @@ class IncompatibleApplicationsException(ServiceError):
     code: str | None = "IncompatibleApplicationsException"
 
     def __init__(
-        self, data: IncompatibleApplicationsException_, message: str | None = None
+        self,
+        data: IncompatibleApplicationsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -34,11 +39,12 @@ class IncompatibleApplicationsException(ServiceError):
             is_retryable=False,
             code="IncompatibleApplicationsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "IncompatibleApplicationsException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

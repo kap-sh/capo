@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -38,7 +39,11 @@ class ContinuousDeploymentPolicyAlreadyExists(ServiceError):
     code: str | None = "ContinuousDeploymentPolicyAlreadyExists"
 
     def __init__(
-        self, data: ContinuousDeploymentPolicyAlreadyExists_, message: str | None = None
+        self,
+        data: ContinuousDeploymentPolicyAlreadyExists_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class ContinuousDeploymentPolicyAlreadyExists(ServiceError):
             is_retryable=False,
             code="ContinuousDeploymentPolicyAlreadyExists",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_xml(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ContinuousDeploymentPolicyAlreadyExists":
-        return cls(deserialize_xml(el), message)
+        return cls(deserialize_xml(el), message, response=response)

@@ -38,35 +38,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientRequestTokenRequiredException":
             raise capo_codecommit.errors.client_request_token_required_exception.ClientRequestTokenRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentContentRequiredException":
             raise capo_codecommit.errors.comment_content_required_exception.CommentContentRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentContentSizeLimitExceededException":
             raise capo_codecommit.errors.comment_content_size_limit_exceeded_exception.CommentContentSizeLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentDoesNotExistException":
             raise capo_codecommit.errors.comment_does_not_exist_exception.CommentDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CommentIdRequiredException":
             raise capo_codecommit.errors.comment_id_required_exception.CommentIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IdempotencyParameterMismatchException":
             raise capo_codecommit.errors.idempotency_parameter_mismatch_exception.IdempotencyParameterMismatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientRequestTokenException":
             raise capo_codecommit.errors.invalid_client_request_token_exception.InvalidClientRequestTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCommentIdException":
             raise capo_codecommit.errors.invalid_comment_id_exception.InvalidCommentIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

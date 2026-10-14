@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_clouddirectory.errors import ServiceError
@@ -35,7 +36,11 @@ class CannotListParentOfRootException(ServiceError):
     code: str | None = "CannotListParentOfRootException"
 
     def __init__(
-        self, data: CannotListParentOfRootException_, message: str | None = None
+        self,
+        data: CannotListParentOfRootException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class CannotListParentOfRootException(ServiceError):
             is_retryable=False,
             code="CannotListParentOfRootException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CannotListParentOfRootException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

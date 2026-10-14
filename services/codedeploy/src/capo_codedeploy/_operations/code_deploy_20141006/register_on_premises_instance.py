@@ -38,43 +38,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IamArnRequiredException":
             raise capo_codedeploy.errors.iam_arn_required_exception.IamArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IamSessionArnAlreadyRegisteredException":
             raise capo_codedeploy.errors.iam_session_arn_already_registered_exception.IamSessionArnAlreadyRegisteredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IamUserArnAlreadyRegisteredException":
             raise capo_codedeploy.errors.iam_user_arn_already_registered_exception.IamUserArnAlreadyRegisteredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IamUserArnRequiredException":
             raise capo_codedeploy.errors.iam_user_arn_required_exception.IamUserArnRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InstanceNameAlreadyRegisteredException":
             raise capo_codedeploy.errors.instance_name_already_registered_exception.InstanceNameAlreadyRegisteredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InstanceNameRequiredException":
             raise capo_codedeploy.errors.instance_name_required_exception.InstanceNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidIamSessionArnException":
             raise capo_codedeploy.errors.invalid_iam_session_arn_exception.InvalidIamSessionArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidIamUserArnException":
             raise capo_codedeploy.errors.invalid_iam_user_arn_exception.InvalidIamUserArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceNameException":
             raise capo_codedeploy.errors.invalid_instance_name_exception.InvalidInstanceNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MultipleIamArnsProvidedException":
             raise capo_codedeploy.errors.multiple_iam_arns_provided_exception.MultipleIamArnsProvidedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

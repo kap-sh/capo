@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidPullRequestIdException":
             raise capo_codecommit.errors.invalid_pull_request_id_exception.InvalidPullRequestIdException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTitleException":
             raise capo_codecommit.errors.invalid_title_exception.InvalidTitleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PullRequestAlreadyClosedException":
             raise capo_codecommit.errors.pull_request_already_closed_exception.PullRequestAlreadyClosedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PullRequestDoesNotExistException":
             raise capo_codecommit.errors.pull_request_does_not_exist_exception.PullRequestDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PullRequestIdRequiredException":
             raise capo_codecommit.errors.pull_request_id_required_exception.PullRequestIdRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TitleRequiredException":
             raise capo_codecommit.errors.title_required_exception.TitleRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore._iter import AnyIterator
@@ -154,7 +155,9 @@ def serialize_event_json(value: _InvokeHarnessStreamOutput) -> bytes:
             )
 
 
-def deserialize_event_json(message: Message) -> _InvokeHarnessStreamOutput:
+def deserialize_event_json(
+    message: Message, *, response: zapros.Response
+) -> _InvokeHarnessStreamOutput:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -167,7 +170,7 @@ def deserialize_event_json(message: Message) -> _InvokeHarnessStreamOutput:
                     message
                 )
                 raise capo_bedrock_agentcore.errors.internal_server_exception.InternalServerException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "validationException":
                 import capo_bedrock_agentcore.errors.validation_exception
@@ -176,7 +179,7 @@ def deserialize_event_json(message: Message) -> _InvokeHarnessStreamOutput:
                     message
                 )
                 raise capo_bedrock_agentcore.errors.validation_exception.ValidationException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "runtimeClientError":
                 import capo_bedrock_agentcore.errors.runtime_client_error
@@ -185,10 +188,10 @@ def deserialize_event_json(message: Message) -> _InvokeHarnessStreamOutput:
                     message
                 )
                 raise capo_bedrock_agentcore.errors.runtime_client_error.RuntimeClientError(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -196,7 +199,7 @@ def deserialize_event_json(message: Message) -> _InvokeHarnessStreamOutput:
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

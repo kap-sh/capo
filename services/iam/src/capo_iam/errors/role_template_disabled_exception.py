@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iam._protocol.xml import Element
@@ -40,7 +41,11 @@ class RoleTemplateDisabledException(ServiceError):
     code: str | None = "RoleTemplateDisabledException"
 
     def __init__(
-        self, data: RoleTemplateDisabledException_, message: str | None = None
+        self,
+        data: RoleTemplateDisabledException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class RoleTemplateDisabledException(ServiceError):
             is_retryable=False,
             code="RoleTemplateDisabledException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "RoleTemplateDisabledException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

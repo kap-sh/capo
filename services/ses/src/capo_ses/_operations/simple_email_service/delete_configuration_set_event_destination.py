@@ -33,11 +33,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConfigurationSetDoesNotExist":
             raise capo_ses.errors.configuration_set_does_not_exist_exception.ConfigurationSetDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "EventDestinationDoesNotExist":
             raise capo_ses.errors.event_destination_does_not_exist_exception.EventDestinationDoesNotExistException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

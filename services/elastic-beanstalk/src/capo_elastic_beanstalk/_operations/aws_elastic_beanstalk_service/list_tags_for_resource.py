@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InsufficientPrivilegesException":
             raise capo_elastic_beanstalk.errors.insufficient_privileges_exception.InsufficientPrivilegesException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_elastic_beanstalk.errors.resource_not_found_exception.ResourceNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceTypeNotSupportedException":
             raise capo_elastic_beanstalk.errors.resource_type_not_supported_exception.ResourceTypeNotSupportedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

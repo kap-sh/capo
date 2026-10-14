@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 from urllib.parse import quote
@@ -47,27 +48,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InputValidationError":
             raise capo_sagemaker_runtime_http2.errors.input_validation_error.InputValidationError.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_sagemaker_runtime_http2.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalStreamFailure":
             raise capo_sagemaker_runtime_http2.errors.internal_stream_failure.InternalStreamFailure.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelError":
             raise capo_sagemaker_runtime_http2.errors.model_error.ModelError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ModelStreamError":
             raise capo_sagemaker_runtime_http2.errors.model_stream_error.ModelStreamError.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableError":
             raise capo_sagemaker_runtime_http2.errors.service_unavailable_error.ServiceUnavailableError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -77,8 +78,9 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output.InvokeEndpointWithBidirectionalStreamOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = (
-        capo_sagemaker_runtime_http2.types.response_stream_event.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_sagemaker_runtime_http2.types.response_stream_event.deserialize_event_json,
+        response=response,
     )
     _iter = cast(Any, response.iter_bytes())
     out: capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output.InvokeEndpointWithBidirectionalStreamOutput = {
@@ -95,8 +97,9 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output.InvokeEndpointWithBidirectionalStreamOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = (
-        capo_sagemaker_runtime_http2.types.response_stream_event.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_sagemaker_runtime_http2.types.response_stream_event.deserialize_event_json,
+        response=response,
     )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_sagemaker_runtime_http2.types.invoke_endpoint_with_bidirectional_stream_output.InvokeEndpointWithBidirectionalStreamOutput = {

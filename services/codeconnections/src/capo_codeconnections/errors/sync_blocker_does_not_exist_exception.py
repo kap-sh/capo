@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_codeconnections.errors import ServiceError
@@ -35,7 +36,11 @@ class SyncBlockerDoesNotExistException(ServiceError):
     code: str | None = "SyncBlockerDoesNotExistException"
 
     def __init__(
-        self, data: SyncBlockerDoesNotExistException_, message: str | None = None
+        self,
+        data: SyncBlockerDoesNotExistException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class SyncBlockerDoesNotExistException(ServiceError):
             is_retryable=False,
             code="SyncBlockerDoesNotExistException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SyncBlockerDoesNotExistException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

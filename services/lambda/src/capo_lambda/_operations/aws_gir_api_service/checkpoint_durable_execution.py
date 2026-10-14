@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterValueException":
             raise capo_lambda.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "KMSAccessDeniedException":
             raise capo_lambda.errors.kms_access_denied_exception.KMSAccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "KMSDisabledException":
             raise capo_lambda.errors.kms_disabled_exception.KMSDisabledException.from_json(
-                data, message
+                data, message, response=response
             )
         case "KMSInvalidStateException":
             raise capo_lambda.errors.kms_invalid_state_exception.KMSInvalidStateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "KMSNotFoundException":
             raise capo_lambda.errors.kms_not_found_exception.KMSNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_lambda.errors.service_exception.ServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_lambda.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

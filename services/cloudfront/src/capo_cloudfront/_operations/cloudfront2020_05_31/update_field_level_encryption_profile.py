@@ -57,51 +57,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDenied":
             raise capo_cloudfront.errors.access_denied.AccessDenied.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "FieldLevelEncryptionProfileAlreadyExists":
             raise capo_cloudfront.errors.field_level_encryption_profile_already_exists.FieldLevelEncryptionProfileAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "FieldLevelEncryptionProfileSizeExceeded":
             raise capo_cloudfront.errors.field_level_encryption_profile_size_exceeded.FieldLevelEncryptionProfileSizeExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "IllegalUpdate":
             raise capo_cloudfront.errors.illegal_update.IllegalUpdate.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InconsistentQuantities":
             raise capo_cloudfront.errors.inconsistent_quantities.InconsistentQuantities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidIfMatchVersion":
             raise capo_cloudfront.errors.invalid_if_match_version.InvalidIfMatchVersion.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchFieldLevelEncryptionProfile":
             raise capo_cloudfront.errors.no_such_field_level_encryption_profile.NoSuchFieldLevelEncryptionProfile.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchPublicKey":
             raise capo_cloudfront.errors.no_such_public_key.NoSuchPublicKey.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PreconditionFailed":
             raise capo_cloudfront.errors.precondition_failed.PreconditionFailed.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionEncryptionEntities":
             raise capo_cloudfront.errors.too_many_field_level_encryption_encryption_entities.TooManyFieldLevelEncryptionEncryptionEntities.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyFieldLevelEncryptionFieldPatterns":
             raise capo_cloudfront.errors.too_many_field_level_encryption_field_patterns.TooManyFieldLevelEncryptionFieldPatterns.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

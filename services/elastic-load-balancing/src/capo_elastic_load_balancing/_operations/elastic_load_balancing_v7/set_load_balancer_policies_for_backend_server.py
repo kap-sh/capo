@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing.errors.access_point_not_found_exception.AccessPointNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "PolicyNotFound":
             raise capo_elastic_load_balancing.errors.policy_not_found_exception.PolicyNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_connect.errors import ServiceError
@@ -39,7 +40,11 @@ class InvalidContactFlowModuleException(ServiceError):
     code: str | None = "InvalidContactFlowModuleException"
 
     def __init__(
-        self, data: InvalidContactFlowModuleException_, message: str | None = None
+        self,
+        data: InvalidContactFlowModuleException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -47,11 +52,12 @@ class InvalidContactFlowModuleException(ServiceError):
             is_retryable=False,
             code="InvalidContactFlowModuleException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidContactFlowModuleException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

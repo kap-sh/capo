@@ -46,59 +46,59 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DraftUploadOutOfSyncException":
             raise capo_workdocs.errors.draft_upload_out_of_sync_exception.DraftUploadOutOfSyncException.from_json(
-                data, message
+                data, message, response=response
             )
         case "EntityAlreadyExistsException":
             raise capo_workdocs.errors.entity_already_exists_exception.EntityAlreadyExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "EntityNotExistsException":
             raise capo_workdocs.errors.entity_not_exists_exception.EntityNotExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "FailedDependencyException":
             raise capo_workdocs.errors.failed_dependency_exception.FailedDependencyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_workdocs.errors.invalid_argument_exception.InvalidArgumentException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidPasswordException":
             raise capo_workdocs.errors.invalid_password_exception.InvalidPasswordException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_workdocs.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ProhibitedStateException":
             raise capo_workdocs.errors.prohibited_state_exception.ProhibitedStateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyCheckedOutException":
             raise capo_workdocs.errors.resource_already_checked_out_exception.ResourceAlreadyCheckedOutException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_workdocs.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "StorageLimitExceededException":
             raise capo_workdocs.errors.storage_limit_exceeded_exception.StorageLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "StorageLimitWillExceedException":
             raise capo_workdocs.errors.storage_limit_will_exceed_exception.StorageLimitWillExceedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedOperationException":
             raise capo_workdocs.errors.unauthorized_operation_exception.UnauthorizedOperationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnauthorizedResourceAccessException":
             raise capo_workdocs.errors.unauthorized_resource_access_exception.UnauthorizedResourceAccessException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

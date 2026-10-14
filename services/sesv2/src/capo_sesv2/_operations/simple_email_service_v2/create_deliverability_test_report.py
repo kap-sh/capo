@@ -41,39 +41,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccountSuspendedException":
             raise capo_sesv2.errors.account_suspended_exception.AccountSuspendedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequestException":
             raise capo_sesv2.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConcurrentModificationException":
             raise capo_sesv2.errors.concurrent_modification_exception.ConcurrentModificationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_sesv2.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MailFromDomainNotVerifiedException":
             raise capo_sesv2.errors.mail_from_domain_not_verified_exception.MailFromDomainNotVerifiedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MessageRejected":
             raise capo_sesv2.errors.message_rejected.MessageRejected.from_json(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_sesv2.errors.not_found_exception.NotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SendingPausedException":
             raise capo_sesv2.errors.sending_paused_exception.SendingPausedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_sesv2.errors.too_many_requests_exception.TooManyRequestsException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

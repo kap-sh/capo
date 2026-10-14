@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_cloudwatch_logs._iter import AnyIterator
@@ -50,7 +51,9 @@ def serialize_event_aws_json_1_1(value: _GetLogObjectResponseStream) -> bytes:
             )
 
 
-def deserialize_event_aws_json_1_1(message: Message) -> _GetLogObjectResponseStream:
+def deserialize_event_aws_json_1_1(
+    message: Message, *, response: zapros.Response
+) -> _GetLogObjectResponseStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -63,10 +66,10 @@ def deserialize_event_aws_json_1_1(message: Message) -> _GetLogObjectResponseStr
                     message
                 )
                 raise capo_cloudwatch_logs.errors.internal_streaming_exception.InternalStreamingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -74,7 +77,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _GetLogObjectResponseStr
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

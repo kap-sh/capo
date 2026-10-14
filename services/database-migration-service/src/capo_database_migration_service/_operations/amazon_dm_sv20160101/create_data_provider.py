@@ -39,19 +39,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedFault":
             raise capo_database_migration_service.errors.access_denied_fault.AccessDeniedFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "FailedDependencyFault":
             raise capo_database_migration_service.errors.failed_dependency_fault.FailedDependencyFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAlreadyExistsFault":
             raise capo_database_migration_service.errors.resource_already_exists_fault.ResourceAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceQuotaExceededFault":
             raise capo_database_migration_service.errors.resource_quota_exceeded_fault.ResourceQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

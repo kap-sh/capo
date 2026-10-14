@@ -47,27 +47,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CaCertificatesBundleNotFound":
             raise capo_elastic_load_balancing_v2.errors.ca_certificates_bundle_not_found_exception.CaCertificatesBundleNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateTagKeys":
             raise capo_elastic_load_balancing_v2.errors.duplicate_tag_keys_exception.DuplicateTagKeysException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateTrustStoreName":
             raise capo_elastic_load_balancing_v2.errors.duplicate_trust_store_name_exception.DuplicateTrustStoreNameException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidCaCertificatesBundle":
             raise capo_elastic_load_balancing_v2.errors.invalid_ca_certificates_bundle_exception.InvalidCaCertificatesBundleException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTags":
             raise capo_elastic_load_balancing_v2.errors.too_many_tags_exception.TooManyTagsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTrustStores":
             raise capo_elastic_load_balancing_v2.errors.too_many_trust_stores_exception.TooManyTrustStoresException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

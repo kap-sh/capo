@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds_data.errors import ServiceError
@@ -34,18 +35,25 @@ class SecretsErrorException(ServiceError):
 
     code: str | None = "SecretsErrorException"
 
-    def __init__(self, data: SecretsErrorException_, message: str | None = None):
+    def __init__(
+        self,
+        data: SecretsErrorException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="SecretsErrorException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SecretsErrorException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

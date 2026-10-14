@@ -32,15 +32,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidPolicyRevisionIdException":
             raise capo_xray.errors.invalid_policy_revision_id_exception.InvalidPolicyRevisionIdException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_xray.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottledException":
             raise capo_xray.errors.throttled_exception.ThrottledException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

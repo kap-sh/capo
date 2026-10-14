@@ -46,27 +46,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidOperationException":
             raise capo_cloudformation.errors.invalid_operation_exception.InvalidOperationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationIdAlreadyExistsException":
             raise capo_cloudformation.errors.operation_id_already_exists_exception.OperationIdAlreadyExistsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationInProgressException":
             raise capo_cloudformation.errors.operation_in_progress_exception.OperationInProgressException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StackInstanceNotFoundException":
             raise capo_cloudformation.errors.stack_instance_not_found_exception.StackInstanceNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StackSetNotFoundException":
             raise capo_cloudformation.errors.stack_set_not_found_exception.StackSetNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StaleRequestException":
             raise capo_cloudformation.errors.stale_request_exception.StaleRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

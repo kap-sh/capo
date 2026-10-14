@@ -49,71 +49,71 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BatchEntryIdsNotDistinct":
             raise capo_sqs.errors.batch_entry_ids_not_distinct.BatchEntryIdsNotDistinct.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "BatchRequestTooLong":
             raise capo_sqs.errors.batch_request_too_long.BatchRequestTooLong.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "EmptyBatchRequest":
             raise capo_sqs.errors.empty_batch_request.EmptyBatchRequest.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidAddress":
             raise capo_sqs.errors.invalid_address.InvalidAddress.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidBatchEntryId":
             raise capo_sqs.errors.invalid_batch_entry_id.InvalidBatchEntryId.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "InvalidSecurity":
             raise capo_sqs.errors.invalid_security.InvalidSecurity.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsAccessDenied":
             raise capo_sqs.errors.kms_access_denied.KmsAccessDenied.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsDisabled":
             raise capo_sqs.errors.kms_disabled.KmsDisabled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidKeyUsage":
             raise capo_sqs.errors.kms_invalid_key_usage.KmsInvalidKeyUsage.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsInvalidState":
             raise capo_sqs.errors.kms_invalid_state.KmsInvalidState.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsNotFound":
             raise capo_sqs.errors.kms_not_found.KmsNotFound.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsOptInRequired":
             raise capo_sqs.errors.kms_opt_in_required.KmsOptInRequired.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "KmsThrottled":
             raise capo_sqs.errors.kms_throttled.KmsThrottled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "QueueDoesNotExist":
             raise capo_sqs.errors.queue_does_not_exist.QueueDoesNotExist.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "RequestThrottled":
             raise capo_sqs.errors.request_throttled.RequestThrottled.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "TooManyEntriesInBatchRequest":
             raise capo_sqs.errors.too_many_entries_in_batch_request.TooManyEntriesInBatchRequest.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_sqs.errors.unsupported_operation.UnsupportedOperation.from_aws_json_1_0(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

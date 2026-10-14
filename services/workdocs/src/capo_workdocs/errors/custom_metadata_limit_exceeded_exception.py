@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workdocs.errors import ServiceError
@@ -35,7 +36,11 @@ class CustomMetadataLimitExceededException(ServiceError):
     code: str | None = "CustomMetadataLimitExceededException"
 
     def __init__(
-        self, data: CustomMetadataLimitExceededException_, message: str | None = None
+        self,
+        data: CustomMetadataLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class CustomMetadataLimitExceededException(ServiceError):
             is_retryable=False,
             code="CustomMetadataLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CustomMetadataLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

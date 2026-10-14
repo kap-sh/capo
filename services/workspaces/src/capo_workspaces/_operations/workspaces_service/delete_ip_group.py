@@ -33,19 +33,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_workspaces.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValuesException":
             raise capo_workspaces.errors.invalid_parameter_values_exception.InvalidParameterValuesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceAssociatedException":
             raise capo_workspaces.errors.resource_associated_exception.ResourceAssociatedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_workspaces.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_efs.errors import DeserializationError, ServiceError
@@ -41,16 +42,25 @@ class BadRequest(ServiceError):
 
     code: str | None = "BadRequest"
 
-    def __init__(self, data: BadRequest_, message: str | None = None):
+    def __init__(
+        self,
+        data: BadRequest_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="BadRequest",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "BadRequest":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "BadRequest":
+        return cls(deserialize_json(data), message, response=response)

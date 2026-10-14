@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_redshift._protocol.xml import Element
@@ -38,7 +39,11 @@ class ScheduledActionAlreadyExistsFault(ServiceError):
     code: str | None = "ScheduledActionAlreadyExistsFault"
 
     def __init__(
-        self, data: ScheduledActionAlreadyExistsFault_, message: str | None = None
+        self,
+        data: ScheduledActionAlreadyExistsFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class ScheduledActionAlreadyExistsFault(ServiceError):
             is_retryable=False,
             code="ScheduledActionAlreadyExistsFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ScheduledActionAlreadyExistsFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

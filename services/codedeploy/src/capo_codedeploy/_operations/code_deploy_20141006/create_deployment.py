@@ -64,119 +64,119 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AlarmsLimitExceededException":
             raise capo_codedeploy.errors.alarms_limit_exceeded_exception.AlarmsLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationDoesNotExistException":
             raise capo_codedeploy.errors.application_does_not_exist_exception.ApplicationDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ApplicationNameRequiredException":
             raise capo_codedeploy.errors.application_name_required_exception.ApplicationNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentConfigDoesNotExistException":
             raise capo_codedeploy.errors.deployment_config_does_not_exist_exception.DeploymentConfigDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupDoesNotExistException":
             raise capo_codedeploy.errors.deployment_group_does_not_exist_exception.DeploymentGroupDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentGroupNameRequiredException":
             raise capo_codedeploy.errors.deployment_group_name_required_exception.DeploymentGroupNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentLimitExceededException":
             raise capo_codedeploy.errors.deployment_limit_exceeded_exception.DeploymentLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DescriptionTooLongException":
             raise capo_codedeploy.errors.description_too_long_exception.DescriptionTooLongException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAlarmConfigException":
             raise capo_codedeploy.errors.invalid_alarm_config_exception.InvalidAlarmConfigException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidApplicationNameException":
             raise capo_codedeploy.errors.invalid_application_name_exception.InvalidApplicationNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAutoRollbackConfigException":
             raise capo_codedeploy.errors.invalid_auto_rollback_config_exception.InvalidAutoRollbackConfigException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidAutoScalingGroupException":
             raise capo_codedeploy.errors.invalid_auto_scaling_group_exception.InvalidAutoScalingGroupException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidComputePlatformException":
             raise capo_codedeploy.errors.invalid_compute_platform_exception.InvalidComputePlatformException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentConfigNameException":
             raise capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentGroupNameException":
             raise capo_codedeploy.errors.invalid_deployment_group_name_exception.InvalidDeploymentGroupNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidECSServiceException":
             raise capo_codedeploy.errors.invalid_ecs_service_exception.InvalidECSServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidFileExistsBehaviorException":
             raise capo_codedeploy.errors.invalid_file_exists_behavior_exception.InvalidFileExistsBehaviorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidGitHubAccountTokenException":
             raise capo_codedeploy.errors.invalid_git_hub_account_token_exception.InvalidGitHubAccountTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidIgnoreApplicationStopFailuresValueException":
             raise capo_codedeploy.errors.invalid_ignore_application_stop_failures_value_exception.InvalidIgnoreApplicationStopFailuresValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_codedeploy.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidLoadBalancerInfoException":
             raise capo_codedeploy.errors.invalid_load_balancer_info_exception.InvalidLoadBalancerInfoException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRevisionException":
             raise capo_codedeploy.errors.invalid_revision_exception.InvalidRevisionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRoleException":
             raise capo_codedeploy.errors.invalid_role_exception.InvalidRoleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTargetInstancesException":
             raise capo_codedeploy.errors.invalid_target_instances_exception.InvalidTargetInstancesException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTrafficRoutingConfigurationException":
             raise capo_codedeploy.errors.invalid_traffic_routing_configuration_exception.InvalidTrafficRoutingConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidUpdateOutdatedInstancesOnlyValueException":
             raise capo_codedeploy.errors.invalid_update_outdated_instances_only_value_exception.InvalidUpdateOutdatedInstancesOnlyValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RevisionDoesNotExistException":
             raise capo_codedeploy.errors.revision_does_not_exist_exception.RevisionDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RevisionRequiredException":
             raise capo_codedeploy.errors.revision_required_exception.RevisionRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_codedeploy.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

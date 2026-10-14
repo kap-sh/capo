@@ -38,23 +38,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_chatbot.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "CreateTeamsChannelConfigurationException":
             raise capo_chatbot.errors.create_teams_channel_configuration_exception.CreateTeamsChannelConfigurationException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_chatbot.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_chatbot.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_chatbot.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

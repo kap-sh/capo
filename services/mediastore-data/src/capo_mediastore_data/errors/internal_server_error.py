@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_mediastore_data.errors import ServiceError
@@ -34,16 +35,25 @@ class InternalServerError(ServiceError):
 
     code: str | None = "InternalServerError"
 
-    def __init__(self, data: InternalServerError_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalServerError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="InternalServerError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "InternalServerError":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "InternalServerError":
+        return cls(deserialize_json(data), message, response=response)

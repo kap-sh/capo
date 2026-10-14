@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kinesisvideowebrtcstorage#ClientLimitExceededException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_kinesis_video_webrtc_storage.errors import ServiceError
@@ -29,18 +30,25 @@ class ClientLimitExceededException(ServiceError):
 
     code: str | None = "ClientLimitExceededException"
 
-    def __init__(self, data: ClientLimitExceededException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ClientLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ClientLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ClientLimitExceededException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

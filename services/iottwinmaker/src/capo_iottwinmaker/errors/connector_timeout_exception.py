@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_iottwinmaker.errors import ServiceError
@@ -34,18 +35,25 @@ class ConnectorTimeoutException(ServiceError):
 
     code: str | None = "ConnectorTimeoutException"
 
-    def __init__(self, data: ConnectorTimeoutException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ConnectorTimeoutException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ConnectorTimeoutException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ConnectorTimeoutException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -3,6 +3,7 @@
 import json
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sagemaker_runtime._protocol.eventstream import HeaderValue, Message
@@ -43,19 +44,28 @@ class ModelStreamError(ServiceError):
 
     code: str | None = "ModelStreamError"
 
-    def __init__(self, data: ModelStreamError_, message: str | None = None):
+    def __init__(
+        self,
+        data: ModelStreamError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ModelStreamError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "ModelStreamError":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "ModelStreamError":
+        return cls(deserialize_json(data), message, response=response)
 
 
 def serialize_event_json(value: ModelStreamError_) -> bytes:

@@ -39,35 +39,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterCombinationException":
             raise capo_memorydb.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_memorydb.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSnapshotStateFault":
             raise capo_memorydb.errors.invalid_snapshot_state_fault.InvalidSnapshotStateFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_memorydb.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SnapshotAlreadyExistsFault":
             raise capo_memorydb.errors.snapshot_already_exists_fault.SnapshotAlreadyExistsFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SnapshotNotFoundFault":
             raise capo_memorydb.errors.snapshot_not_found_fault.SnapshotNotFoundFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SnapshotQuotaExceededFault":
             raise capo_memorydb.errors.snapshot_quota_exceeded_fault.SnapshotQuotaExceededFault.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_memorydb.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

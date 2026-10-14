@@ -44,15 +44,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing_v2.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSecurityGroup":
             raise capo_elastic_load_balancing_v2.errors.invalid_security_group_exception.InvalidSecurityGroupException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing_v2.errors.load_balancer_not_found_exception.LoadBalancerNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_ram.errors import DeserializationError, ServiceError
@@ -41,6 +42,8 @@ class ResourceShareInvitationAlreadyRejectedException(ServiceError):
         self,
         data: ResourceShareInvitationAlreadyRejectedException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +51,12 @@ class ResourceShareInvitationAlreadyRejectedException(ServiceError):
             is_retryable=False,
             code="ResourceShareInvitationAlreadyRejectedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceShareInvitationAlreadyRejectedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

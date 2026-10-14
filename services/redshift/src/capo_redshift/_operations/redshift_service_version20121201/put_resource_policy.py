@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictPolicyUpdateFault":
             raise capo_redshift.errors.conflict_policy_update_fault.ConflictPolicyUpdateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidPolicyFault":
             raise capo_redshift.errors.invalid_policy_fault.InvalidPolicyFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceNotFoundFault":
             raise capo_redshift.errors.resource_not_found_fault.ResourceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

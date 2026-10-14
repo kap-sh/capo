@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.timestreaminfluxdb#InternalServerException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_timestream_influxdb.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class InternalServerException(ServiceError):
 
     code: str | None = "InternalServerException"
 
-    def __init__(self, data: InternalServerException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalServerException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=True,
             code="InternalServerException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalServerException":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

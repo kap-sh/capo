@@ -43,15 +43,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidArgument":
             raise capo_cloudfront.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "PublicKeyAlreadyExists":
             raise capo_cloudfront.errors.public_key_already_exists.PublicKeyAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyPublicKeys":
             raise capo_cloudfront.errors.too_many_public_keys.TooManyPublicKeys.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

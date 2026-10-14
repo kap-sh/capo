@@ -56,51 +56,51 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CertificateNotFound":
             raise capo_elastic_load_balancing.errors.certificate_not_found_exception.CertificateNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateLoadBalancerName":
             raise capo_elastic_load_balancing.errors.duplicate_access_point_name_exception.DuplicateAccessPointNameException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateTagKeys":
             raise capo_elastic_load_balancing.errors.duplicate_tag_keys_exception.DuplicateTagKeysException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidConfigurationRequest":
             raise capo_elastic_load_balancing.errors.invalid_configuration_request_exception.InvalidConfigurationRequestException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidScheme":
             raise capo_elastic_load_balancing.errors.invalid_scheme_exception.InvalidSchemeException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSecurityGroup":
             raise capo_elastic_load_balancing.errors.invalid_security_group_exception.InvalidSecurityGroupException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_elastic_load_balancing.errors.invalid_subnet_exception.InvalidSubnetException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "OperationNotPermitted":
             raise capo_elastic_load_balancing.errors.operation_not_permitted_exception.OperationNotPermittedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SubnetNotFound":
             raise capo_elastic_load_balancing.errors.subnet_not_found_exception.SubnetNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyLoadBalancers":
             raise capo_elastic_load_balancing.errors.too_many_access_points_exception.TooManyAccessPointsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTags":
             raise capo_elastic_load_balancing.errors.too_many_tags_exception.TooManyTagsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedProtocol":
             raise capo_elastic_load_balancing.errors.unsupported_protocol_exception.UnsupportedProtocolException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

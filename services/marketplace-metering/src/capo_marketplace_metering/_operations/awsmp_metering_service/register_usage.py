@@ -41,35 +41,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CustomerNotEntitledException":
             raise capo_marketplace_metering.errors.customer_not_entitled_exception.CustomerNotEntitledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DisabledApiException":
             raise capo_marketplace_metering.errors.disabled_api_exception.DisabledApiException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_marketplace_metering.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidProductCodeException":
             raise capo_marketplace_metering.errors.invalid_product_code_exception.InvalidProductCodeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPublicKeyVersionException":
             raise capo_marketplace_metering.errors.invalid_public_key_version_exception.InvalidPublicKeyVersionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRegionException":
             raise capo_marketplace_metering.errors.invalid_region_exception.InvalidRegionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PlatformNotSupportedException":
             raise capo_marketplace_metering.errors.platform_not_supported_exception.PlatformNotSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_marketplace_metering.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

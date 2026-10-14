@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ssm.errors import ServiceError
@@ -47,7 +48,11 @@ class ResourcePolicyLimitExceededException(ServiceError):
     code: str | None = "ResourcePolicyLimitExceededException"
 
     def __init__(
-        self, data: ResourcePolicyLimitExceededException_, message: str | None = None
+        self,
+        data: ResourcePolicyLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -55,11 +60,12 @@ class ResourcePolicyLimitExceededException(ServiceError):
             is_retryable=False,
             code="ResourcePolicyLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourcePolicyLimitExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

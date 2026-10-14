@@ -30,7 +30,7 @@ from zapros import (
 from capo_iot_data_plane._async import anysleep
 from capo_iot_data_plane._body import Body
 from capo_iot_data_plane._iter import StaticAnyIterator
-from capo_iot_data_plane.errors import ServiceError
+from capo_iot_data_plane.errors import ServiceError, UnknownServiceError
 
 if TYPE_CHECKING:
     from capo_iot_data_plane._auth._identity import Credentials
@@ -163,16 +163,26 @@ def raise_error(response: Response, handle_error: Callable[[Response], Never]) -
     try:
         handle_error(response)
     except ServiceError as exc:
-        # The response itself can say a retry is safe, even when the error is
-        # not marked @retryable: a 429, a transient 5xx or a Retry-After header.
-        if response.status == 429:
-            exc.is_throttling_error = True
-        if (
-            response.status in (429, 500, 502, 503, 504)
-            or "retry-after" in response.headers
-        ):
-            exc.is_retryable = True
+        _apply_retry_rules(exc, response)
         raise
+    except Exception as exc:
+        # The error body could not be decoded (an HTML page from a proxy, a
+        # truncated read): the status code is all there is to go on.
+        error = UnknownServiceError(code=None, message=None, response=response)
+        _apply_retry_rules(error, response)
+        raise error from exc
+
+
+def _apply_retry_rules(exc: ServiceError, response: Response) -> None:
+    # The response itself can say a retry is safe, even when the error is
+    # not marked @retryable: a 429, a transient 5xx or a Retry-After header.
+    if response.status == 429:
+        exc.is_throttling_error = True
+    if (
+        response.status in (429, 500, 502, 503, 504)
+        or "retry-after" in response.headers
+    ):
+        exc.is_retryable = True
 
 
 def _is_retryable(exc: Exception) -> bool:

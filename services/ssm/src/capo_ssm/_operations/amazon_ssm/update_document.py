@@ -42,43 +42,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DocumentVersionLimitExceeded":
             raise capo_ssm.errors.document_version_limit_exceeded.DocumentVersionLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicateDocumentContent":
             raise capo_ssm.errors.duplicate_document_content.DuplicateDocumentContent.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicateDocumentVersionName":
             raise capo_ssm.errors.duplicate_document_version_name.DuplicateDocumentVersionName.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_ssm.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocument":
             raise capo_ssm.errors.invalid_document.InvalidDocument.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentContent":
             raise capo_ssm.errors.invalid_document_content.InvalidDocumentContent.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentOperation":
             raise capo_ssm.errors.invalid_document_operation.InvalidDocumentOperation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentSchemaVersion":
             raise capo_ssm.errors.invalid_document_schema_version.InvalidDocumentSchemaVersion.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDocumentVersion":
             raise capo_ssm.errors.invalid_document_version.InvalidDocumentVersion.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "MaxDocumentSizeExceeded":
             raise capo_ssm.errors.max_document_size_exceeded.MaxDocumentSizeExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

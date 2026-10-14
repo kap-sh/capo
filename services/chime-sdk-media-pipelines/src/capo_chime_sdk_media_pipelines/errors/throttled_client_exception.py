@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_chime_sdk_media_pipelines.errors import ServiceError
@@ -54,18 +55,25 @@ class ThrottledClientException(ServiceError):
 
     code: str | None = "ThrottledClientException"
 
-    def __init__(self, data: ThrottledClientException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ThrottledClientException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ThrottledClientException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ThrottledClientException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

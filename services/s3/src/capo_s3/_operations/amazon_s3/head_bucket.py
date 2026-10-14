@@ -39,7 +39,9 @@ def handle_error(response: zapros.Response) -> Never:
         error_el = Element("Error")
     match code:
         case "NotFound":
-            raise capo_s3.errors.not_found.NotFound.from_xml(error_el, message)
+            raise capo_s3.errors.not_found.NotFound.from_xml(
+                error_el, message, response=response
+            )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
 

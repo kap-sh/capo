@@ -45,59 +45,59 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BlueGreenDeploymentNotFoundFault":
             raise capo_rds.errors.blue_green_deployment_not_found_fault.BlueGreenDeploymentNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterNotFoundFault":
             raise capo_rds.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceNotFound":
             raise capo_rds.errors.db_instance_not_found_fault.DBInstanceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyEndpointNotFoundFault":
             raise capo_rds.errors.db_proxy_endpoint_not_found_fault.DBProxyEndpointNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyNotFoundFault":
             raise capo_rds.errors.db_proxy_not_found_fault.DBProxyNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBProxyTargetGroupNotFoundFault":
             raise capo_rds.errors.db_proxy_target_group_not_found_fault.DBProxyTargetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBShardGroupNotFound":
             raise capo_rds.errors.db_shard_group_not_found_fault.DBShardGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSnapshotNotFound":
             raise capo_rds.errors.db_snapshot_not_found_fault.DBSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSnapshotTenantDatabaseNotFoundFault":
             raise capo_rds.errors.db_snapshot_tenant_database_not_found_fault.DBSnapshotTenantDatabaseNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "IntegrationNotFoundFault":
             raise capo_rds.errors.integration_not_found_fault.IntegrationNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterEndpointStateFault":
             raise capo_rds.errors.invalid_db_cluster_endpoint_state_fault.InvalidDBClusterEndpointStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_rds.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBInstanceState":
             raise capo_rds.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TenantDatabaseNotFound":
             raise capo_rds.errors.tenant_database_not_found_fault.TenantDatabaseNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

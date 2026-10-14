@@ -36,19 +36,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ReservedNodeAlreadyExists":
             raise capo_redshift.errors.reserved_node_already_exists_fault.ReservedNodeAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeOfferingNotFound":
             raise capo_redshift.errors.reserved_node_offering_not_found_fault.ReservedNodeOfferingNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedNodeQuotaExceeded":
             raise capo_redshift.errors.reserved_node_quota_exceeded_fault.ReservedNodeQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UnsupportedOperation":
             raise capo_redshift.errors.unsupported_operation_fault.UnsupportedOperationFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

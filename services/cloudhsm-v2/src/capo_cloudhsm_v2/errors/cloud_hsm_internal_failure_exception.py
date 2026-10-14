@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudhsm_v2.errors import ServiceError
@@ -35,7 +36,11 @@ class CloudHsmInternalFailureException(ServiceError):
     code: str | None = "CloudHsmInternalFailureException"
 
     def __init__(
-        self, data: CloudHsmInternalFailureException_, message: str | None = None
+        self,
+        data: CloudHsmInternalFailureException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -43,11 +48,12 @@ class CloudHsmInternalFailureException(ServiceError):
             is_retryable=False,
             code="CloudHsmInternalFailureException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "CloudHsmInternalFailureException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

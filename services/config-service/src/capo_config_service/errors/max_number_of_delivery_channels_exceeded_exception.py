@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_config_service.errors import ServiceError
@@ -43,6 +44,8 @@ class MaxNumberOfDeliveryChannelsExceededException(ServiceError):
         self,
         data: MaxNumberOfDeliveryChannelsExceededException_,
         message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -50,11 +53,12 @@ class MaxNumberOfDeliveryChannelsExceededException(ServiceError):
             is_retryable=False,
             code="MaxNumberOfDeliveryChannelsExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "MaxNumberOfDeliveryChannelsExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

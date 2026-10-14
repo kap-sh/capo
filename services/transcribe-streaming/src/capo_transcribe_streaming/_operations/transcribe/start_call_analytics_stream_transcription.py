@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 
@@ -51,23 +52,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BadRequestException":
             raise capo_transcribe_streaming.errors.bad_request_exception.BadRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ConflictException":
             raise capo_transcribe_streaming.errors.conflict_exception.ConflictException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalFailureException":
             raise capo_transcribe_streaming.errors.internal_failure_exception.InternalFailureException.from_json(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_transcribe_streaming.errors.limit_exceeded_exception.LimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_transcribe_streaming.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -77,7 +78,10 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response.StartCallAnalyticsStreamTranscriptionResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_transcribe_streaming.types.call_analytics_transcript_result_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_transcribe_streaming.types.call_analytics_transcript_result_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response.StartCallAnalyticsStreamTranscriptionResponse = {
         "call_analytics_transcript_result_stream": cast(
@@ -170,7 +174,10 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response.StartCallAnalyticsStreamTranscriptionResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_transcribe_streaming.types.call_analytics_transcript_result_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_transcribe_streaming.types.call_analytics_transcript_result_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response.StartCallAnalyticsStreamTranscriptionResponse = {
         "call_analytics_transcript_result_stream": cast(

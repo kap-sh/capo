@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cost_explorer.errors import ServiceError
@@ -35,7 +36,11 @@ class BackfillLimitExceededException(ServiceError):
     code: str | None = "BackfillLimitExceededException"
 
     def __init__(
-        self, data: BackfillLimitExceededException_, message: str | None = None
+        self,
+        data: BackfillLimitExceededException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class BackfillLimitExceededException(ServiceError):
             is_retryable=False,
             code="BackfillLimitExceededException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "BackfillLimitExceededException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

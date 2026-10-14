@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_dynamodb.errors import ServiceError
@@ -55,18 +56,25 @@ class RequestLimitExceeded(ServiceError):
 
     code: str | None = "RequestLimitExceeded"
 
-    def __init__(self, data: RequestLimitExceeded_, message: str | None = None):
+    def __init__(
+        self,
+        data: RequestLimitExceeded_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="RequestLimitExceeded",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_0(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RequestLimitExceeded":
-        return cls(deserialize_aws_json_1_0(data), message)
+        return cls(deserialize_aws_json_1_0(data), message, response=response)

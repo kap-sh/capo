@@ -39,31 +39,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServerException":
             raise capo_sso_oidc.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientMetadataException":
             raise capo_sso_oidc.errors.invalid_client_metadata_exception.InvalidClientMetadataException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRedirectUriException":
             raise capo_sso_oidc.errors.invalid_redirect_uri_exception.InvalidRedirectUriException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_sso_oidc.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidScopeException":
             raise capo_sso_oidc.errors.invalid_scope_exception.InvalidScopeException.from_json(
-                data, message
+                data, message, response=response
             )
         case "SlowDownException":
             raise capo_sso_oidc.errors.slow_down_exception.SlowDownException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedGrantTypeException":
             raise capo_sso_oidc.errors.unsupported_grant_type_exception.UnsupportedGrantTypeException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

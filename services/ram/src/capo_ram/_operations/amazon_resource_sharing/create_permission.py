@@ -41,43 +41,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IdempotentParameterMismatchException":
             raise capo_ram.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientTokenException":
             raise capo_ram.errors.invalid_client_token_exception.InvalidClientTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ram.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidPolicyException":
             raise capo_ram.errors.invalid_policy_exception.InvalidPolicyException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MalformedPolicyTemplateException":
             raise capo_ram.errors.malformed_policy_template_exception.MalformedPolicyTemplateException.from_json(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_ram.errors.operation_not_permitted_exception.OperationNotPermittedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PermissionAlreadyExistsException":
             raise capo_ram.errors.permission_already_exists_exception.PermissionAlreadyExistsException.from_json(
-                data, message
+                data, message, response=response
             )
         case "PermissionLimitExceededException":
             raise capo_ram.errors.permission_limit_exceeded_exception.PermissionLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_ram.errors.server_internal_exception.ServerInternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_ram.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

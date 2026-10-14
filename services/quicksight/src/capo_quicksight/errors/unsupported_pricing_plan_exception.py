@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_quicksight.errors import ServiceError
@@ -41,7 +42,11 @@ class UnsupportedPricingPlanException(ServiceError):
     code: str | None = "UnsupportedPricingPlanException"
 
     def __init__(
-        self, data: UnsupportedPricingPlanException_, message: str | None = None
+        self,
+        data: UnsupportedPricingPlanException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class UnsupportedPricingPlanException(ServiceError):
             is_retryable=False,
             code="UnsupportedPricingPlanException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnsupportedPricingPlanException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

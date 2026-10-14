@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AcceleratorNotFoundException":
             raise capo_global_accelerator.errors.accelerator_not_found_exception.AcceleratorNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "AttachmentNotFoundException":
             raise capo_global_accelerator.errors.attachment_not_found_exception.AttachmentNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EndpointGroupNotFoundException":
             raise capo_global_accelerator.errors.endpoint_group_not_found_exception.EndpointGroupNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_global_accelerator.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArgumentException":
             raise capo_global_accelerator.errors.invalid_argument_exception.InvalidArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ListenerNotFoundException":
             raise capo_global_accelerator.errors.listener_not_found_exception.ListenerNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

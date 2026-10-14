@@ -37,23 +37,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BackupNotFound":
             raise capo_fsx.errors.backup_not_found.BackupNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "BadRequest":
             raise capo_fsx.errors.bad_request.BadRequest.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "FileSystemNotFound":
             raise capo_fsx.errors.file_system_not_found.FileSystemNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_fsx.errors.internal_server_error.InternalServerError.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "VolumeNotFound":
             raise capo_fsx.errors.volume_not_found.VolumeNotFound.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

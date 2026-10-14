@@ -39,43 +39,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IdempotentParameterMismatchException":
             raise capo_ram.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidClientTokenException":
             raise capo_ram.errors.invalid_client_token_exception.InvalidClientTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ram.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidStateTransitionException":
             raise capo_ram.errors.invalid_state_transition_exception.InvalidStateTransitionException.from_json(
-                data, message
+                data, message, response=response
             )
         case "MalformedArnException":
             raise capo_ram.errors.malformed_arn_exception.MalformedArnException.from_json(
-                data, message
+                data, message, response=response
             )
         case "OperationNotPermittedException":
             raise capo_ram.errors.operation_not_permitted_exception.OperationNotPermittedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerInternalException":
             raise capo_ram.errors.server_internal_exception.ServerInternalException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_ram.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_ram.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnknownResourceException":
             raise capo_ram.errors.unknown_resource_exception.UnknownResourceException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

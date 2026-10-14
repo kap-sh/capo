@@ -34,11 +34,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClusterParameterGroupNotFound":
             raise capo_redshift.errors.cluster_parameter_group_not_found_fault.ClusterParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidClusterParameterGroupState":
             raise capo_redshift.errors.invalid_cluster_parameter_group_state_fault.InvalidClusterParameterGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

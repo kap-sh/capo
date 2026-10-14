@@ -44,43 +44,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_directory_service.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ClientException":
             raise capo_directory_service.errors.client_exception.ClientException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DirectoryAlreadySharedException":
             raise capo_directory_service.errors.directory_already_shared_exception.DirectoryAlreadySharedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EntityDoesNotExistException":
             raise capo_directory_service.errors.entity_does_not_exist_exception.EntityDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_directory_service.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTargetException":
             raise capo_directory_service.errors.invalid_target_exception.InvalidTargetException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationsException":
             raise capo_directory_service.errors.organizations_exception.OrganizationsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_directory_service.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ShareLimitExceededException":
             raise capo_directory_service.errors.share_limit_exceeded_exception.ShareLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_directory_service.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

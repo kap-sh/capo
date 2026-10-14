@@ -50,75 +50,75 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CacheClusterNotFound":
             raise capo_elasticache.errors.cache_cluster_not_found_fault.CacheClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CacheParameterGroupNotFound":
             raise capo_elasticache.errors.cache_parameter_group_not_found_fault.CacheParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CacheSecurityGroupNotFound":
             raise capo_elasticache.errors.cache_security_group_not_found_fault.CacheSecurityGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "CacheSubnetGroupNotFoundFault":
             raise capo_elasticache.errors.cache_subnet_group_not_found_fault.CacheSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "GlobalReplicationGroupNotFoundFault":
             raise capo_elasticache.errors.global_replication_group_not_found_fault.GlobalReplicationGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidARN":
             raise capo_elasticache.errors.invalid_arn_fault.InvalidARNFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidReplicationGroupState":
             raise capo_elasticache.errors.invalid_replication_group_state_fault.InvalidReplicationGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidServerlessCacheSnapshotStateFault":
             raise capo_elasticache.errors.invalid_serverless_cache_snapshot_state_fault.InvalidServerlessCacheSnapshotStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidServerlessCacheStateFault":
             raise capo_elasticache.errors.invalid_serverless_cache_state_fault.InvalidServerlessCacheStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReplicationGroupNotFoundFault":
             raise capo_elasticache.errors.replication_group_not_found_fault.ReplicationGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ReservedCacheNodeNotFound":
             raise capo_elasticache.errors.reserved_cache_node_not_found_fault.ReservedCacheNodeNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServerlessCacheNotFoundFault":
             raise capo_elasticache.errors.serverless_cache_not_found_fault.ServerlessCacheNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServerlessCacheSnapshotNotFoundFault":
             raise capo_elasticache.errors.serverless_cache_snapshot_not_found_fault.ServerlessCacheSnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "SnapshotNotFoundFault":
             raise capo_elasticache.errors.snapshot_not_found_fault.SnapshotNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_elasticache.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UserGroupNotFound":
             raise capo_elasticache.errors.user_group_not_found_fault.UserGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UserNotFound":
             raise capo_elasticache.errors.user_not_found_fault.UserNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

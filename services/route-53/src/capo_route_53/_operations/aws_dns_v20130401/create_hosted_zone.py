@@ -52,39 +52,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictingDomainExists":
             raise capo_route_53.errors.conflicting_domain_exists.ConflictingDomainExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "DelegationSetNotAvailable":
             raise capo_route_53.errors.delegation_set_not_available.DelegationSetNotAvailable.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "DelegationSetNotReusable":
             raise capo_route_53.errors.delegation_set_not_reusable.DelegationSetNotReusable.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "HostedZoneAlreadyExists":
             raise capo_route_53.errors.hosted_zone_already_exists.HostedZoneAlreadyExists.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDomainName":
             raise capo_route_53.errors.invalid_domain_name.InvalidDomainName.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCId":
             raise capo_route_53.errors.invalid_vpc_id.InvalidVPCId.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchDelegationSet":
             raise capo_route_53.errors.no_such_delegation_set.NoSuchDelegationSet.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyHostedZones":
             raise capo_route_53.errors.too_many_hosted_zones.TooManyHostedZones.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.groundstation#DependencyException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_groundstation.errors import ServiceError
@@ -35,16 +36,25 @@ class DependencyException(ServiceError):
 
     code: str | None = "DependencyException"
 
-    def __init__(self, data: DependencyException_, message: str | None = None):
+    def __init__(
+        self,
+        data: DependencyException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="DependencyException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "DependencyException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "DependencyException":
+        return cls(deserialize_json(data), message, response=response)

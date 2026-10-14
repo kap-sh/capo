@@ -43,31 +43,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DuplicateUserName":
             raise capo_elasticache.errors.duplicate_user_name_fault.DuplicateUserNameFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterCombination":
             raise capo_elasticache.errors.invalid_parameter_combination_exception.InvalidParameterCombinationException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidParameterValue":
             raise capo_elasticache.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ServiceLinkedRoleNotFoundFault":
             raise capo_elasticache.errors.service_linked_role_not_found_fault.ServiceLinkedRoleNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TagQuotaPerResourceExceeded":
             raise capo_elasticache.errors.tag_quota_per_resource_exceeded.TagQuotaPerResourceExceeded.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UserAlreadyExists":
             raise capo_elasticache.errors.user_already_exists_fault.UserAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "UserQuotaExceeded":
             raise capo_elasticache.errors.user_quota_exceeded_fault.UserQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

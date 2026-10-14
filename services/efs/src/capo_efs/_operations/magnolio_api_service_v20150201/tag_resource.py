@@ -34,17 +34,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessPointNotFound":
             raise capo_efs.errors.access_point_not_found.AccessPointNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "BadRequest":
-            raise capo_efs.errors.bad_request.BadRequest.from_json(data, message)
+            raise capo_efs.errors.bad_request.BadRequest.from_json(
+                data, message, response=response
+            )
         case "FileSystemNotFound":
             raise capo_efs.errors.file_system_not_found.FileSystemNotFound.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerError":
             raise capo_efs.errors.internal_server_error.InternalServerError.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

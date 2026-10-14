@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workdocs.errors import ServiceError
@@ -41,7 +42,11 @@ class DeactivatingLastSystemUserException(ServiceError):
     code: str | None = "DeactivatingLastSystemUserException"
 
     def __init__(
-        self, data: DeactivatingLastSystemUserException_, message: str | None = None
+        self,
+        data: DeactivatingLastSystemUserException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -49,11 +54,12 @@ class DeactivatingLastSystemUserException(ServiceError):
             is_retryable=False,
             code="DeactivatingLastSystemUserException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "DeactivatingLastSystemUserException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

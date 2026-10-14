@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_migration_hub_refactor_spaces.errors import DeserializationError, ServiceError
@@ -36,7 +37,11 @@ class InvalidResourcePolicyException(ServiceError):
     code: str | None = "InvalidResourcePolicyException"
 
     def __init__(
-        self, data: InvalidResourcePolicyException_, message: str | None = None
+        self,
+        data: InvalidResourcePolicyException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -44,11 +49,12 @@ class InvalidResourcePolicyException(ServiceError):
             is_retryable=False,
             code="InvalidResourcePolicyException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidResourcePolicyException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

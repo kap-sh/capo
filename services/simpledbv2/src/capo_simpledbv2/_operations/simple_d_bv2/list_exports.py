@@ -33,15 +33,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidNextTokenException":
             raise capo_simpledbv2.errors.invalid_next_token_exception.InvalidNextTokenException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterValueException":
             raise capo_simpledbv2.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message
+                data, message, response=response
             )
         case "NoSuchDomainException":
             raise capo_simpledbv2.errors.no_such_domain_exception.NoSuchDomainException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

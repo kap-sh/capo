@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sagemaker_runtime.errors import ServiceError
@@ -34,18 +35,25 @@ class InternalDependencyException(ServiceError):
 
     code: str | None = "InternalDependencyException"
 
-    def __init__(self, data: InternalDependencyException_, message: str | None = None):
+    def __init__(
+        self,
+        data: InternalDependencyException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "server",
             is_throttling_error=False,
             is_retryable=False,
             code="InternalDependencyException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InternalDependencyException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -31,15 +31,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoSuchOrganizationConformancePackException":
             raise capo_config_service.errors.no_such_organization_conformance_pack_exception.NoSuchOrganizationConformancePackException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationAccessDeniedException":
             raise capo_config_service.errors.organization_access_denied_exception.OrganizationAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_config_service.errors.resource_in_use_exception.ResourceInUseException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

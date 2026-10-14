@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sesv2.errors import ServiceError
@@ -34,18 +35,25 @@ class SendingPausedException(ServiceError):
 
     code: str | None = "SendingPausedException"
 
-    def __init__(self, data: SendingPausedException_, message: str | None = None):
+    def __init__(
+        self,
+        data: SendingPausedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="SendingPausedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "SendingPausedException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

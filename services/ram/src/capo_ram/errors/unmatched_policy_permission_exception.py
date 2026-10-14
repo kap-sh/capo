@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_ram.errors import DeserializationError, ServiceError
@@ -38,7 +39,11 @@ class UnmatchedPolicyPermissionException(ServiceError):
     code: str | None = "UnmatchedPolicyPermissionException"
 
     def __init__(
-        self, data: UnmatchedPolicyPermissionException_, message: str | None = None
+        self,
+        data: UnmatchedPolicyPermissionException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class UnmatchedPolicyPermissionException(ServiceError):
             is_retryable=False,
             code="UnmatchedPolicyPermissionException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "UnmatchedPolicyPermissionException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_sso_oidc.errors import ServiceError
@@ -44,16 +45,25 @@ class SlowDownException(ServiceError):
 
     code: str | None = "SlowDownException"
 
-    def __init__(self, data: SlowDownException_, message: str | None = None):
+    def __init__(
+        self,
+        data: SlowDownException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="SlowDownException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "SlowDownException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "SlowDownException":
+        return cls(deserialize_json(data), message, response=response)

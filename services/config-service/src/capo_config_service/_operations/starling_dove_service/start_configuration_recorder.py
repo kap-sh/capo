@@ -31,15 +31,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoAvailableDeliveryChannelException":
             raise capo_config_service.errors.no_available_delivery_channel_exception.NoAvailableDeliveryChannelException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NoSuchConfigurationRecorderException":
             raise capo_config_service.errors.no_such_configuration_recorder_exception.NoSuchConfigurationRecorderException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnmodifiableEntityException":
             raise capo_config_service.errors.unmodifiable_entity_exception.UnmodifiableEntityException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

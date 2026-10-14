@@ -36,23 +36,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConditionCheckFailureException":
             raise capo_glue.errors.condition_check_failure_exception.ConditionCheckFailureException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EntityNotFoundException":
             raise capo_glue.errors.entity_not_found_exception.EntityNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_glue.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_glue.errors.invalid_input_exception.InvalidInputException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationTimeoutException":
             raise capo_glue.errors.operation_timeout_exception.OperationTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -55,27 +55,31 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AnnotationLimitExceeded":
             raise capo_s3.errors.annotation_limit_exceeded.AnnotationLimitExceeded.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "AnnotationNameTooLong":
             raise capo_s3.errors.annotation_name_too_long.AnnotationNameTooLong.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidAnnotationName":
             raise capo_s3.errors.invalid_annotation_name.InvalidAnnotationName.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidRequest":
             raise capo_s3.errors.invalid_request.InvalidRequest.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchBucket":
-            raise capo_s3.errors.no_such_bucket.NoSuchBucket.from_xml(error_el, message)
+            raise capo_s3.errors.no_such_bucket.NoSuchBucket.from_xml(
+                error_el, message, response=response
+            )
         case "NoSuchKey":
-            raise capo_s3.errors.no_such_key.NoSuchKey.from_xml(error_el, message)
+            raise capo_s3.errors.no_such_key.NoSuchKey.from_xml(
+                error_el, message, response=response
+            )
         case "UnsupportedMediaType":
             raise capo_s3.errors.unsupported_media_type.UnsupportedMediaType.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

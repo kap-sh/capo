@@ -34,15 +34,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BatchLimitExceededException":
             raise capo_codedeploy.errors.batch_limit_exceeded_exception.BatchLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InstanceNameRequiredException":
             raise capo_codedeploy.errors.instance_name_required_exception.InstanceNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInstanceNameException":
             raise capo_codedeploy.errors.invalid_instance_name_exception.InvalidInstanceNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

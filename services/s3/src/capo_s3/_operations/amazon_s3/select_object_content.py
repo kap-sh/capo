@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 from typing import Any, cast
 from urllib.parse import quote
 
@@ -50,8 +51,9 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_s3.types.select_object_content_output.SelectObjectContentOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = (
-        capo_s3.types.select_object_content_event_stream.deserialize_event_xml
+    _union_deser = functools.partial(
+        capo_s3.types.select_object_content_event_stream.deserialize_event_xml,
+        response=response,
     )
     _iter = cast(Any, response.iter_bytes())
     out: capo_s3.types.select_object_content_output.SelectObjectContentOutput = {
@@ -66,8 +68,9 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_s3.types.select_object_content_output.SelectObjectContentOutput:
     _message_decoder = MessageDecoder()
-    _union_deser = (
-        capo_s3.types.select_object_content_event_stream.deserialize_event_xml
+    _union_deser = functools.partial(
+        capo_s3.types.select_object_content_event_stream.deserialize_event_xml,
+        response=response,
     )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_s3.types.select_object_content_output.SelectObjectContentOutput = {

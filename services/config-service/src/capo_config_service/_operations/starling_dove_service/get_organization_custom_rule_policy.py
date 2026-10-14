@@ -31,11 +31,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "NoSuchOrganizationConfigRuleException":
             raise capo_config_service.errors.no_such_organization_config_rule_exception.NoSuchOrganizationConfigRuleException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OrganizationAccessDeniedException":
             raise capo_config_service.errors.organization_access_denied_exception.OrganizationAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

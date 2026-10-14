@@ -42,15 +42,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ResourceNotFoundException":
             raise capo_quicksight.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_quicksight.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedUserEditionException":
             raise capo_quicksight.errors.unsupported_user_edition_exception.UnsupportedUserEditionException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

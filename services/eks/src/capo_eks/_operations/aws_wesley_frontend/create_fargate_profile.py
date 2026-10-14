@@ -40,27 +40,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientException":
             raise capo_eks.errors.client_exception.ClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_eks.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidRequestException":
             raise capo_eks.errors.invalid_request_exception.InvalidRequestException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceLimitExceededException":
             raise capo_eks.errors.resource_limit_exceeded_exception.ResourceLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_eks.errors.server_exception.ServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedAvailabilityZoneException":
             raise capo_eks.errors.unsupported_availability_zone_exception.UnsupportedAvailabilityZoneException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_cloudfront._protocol.xml import Element, SubElement
@@ -35,16 +36,25 @@ class TooManyOrigins(ServiceError):
 
     code: str | None = "TooManyOrigins"
 
-    def __init__(self, data: TooManyOrigins_, message: str | None = None):
+    def __init__(
+        self,
+        data: TooManyOrigins_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="TooManyOrigins",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_xml(cls, el: Element, message: str | None = None) -> "TooManyOrigins":
-        return cls(deserialize_xml(el), message)
+    def from_xml(
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
+    ) -> "TooManyOrigins":
+        return cls(deserialize_xml(el), message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ses._protocol.xml import Element
@@ -38,7 +39,11 @@ class InvalidTrackingOptionsException(ServiceError):
     code: str | None = "InvalidTrackingOptionsException"
 
     def __init__(
-        self, data: InvalidTrackingOptionsException_, message: str | None = None
+        self,
+        data: InvalidTrackingOptionsException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class InvalidTrackingOptionsException(ServiceError):
             is_retryable=False,
             code="InvalidTrackingOptionsException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidTrackingOptionsException":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

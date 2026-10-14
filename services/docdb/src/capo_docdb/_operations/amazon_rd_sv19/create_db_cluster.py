@@ -55,75 +55,75 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DBClusterAlreadyExistsFault":
             raise capo_docdb.errors.db_cluster_already_exists_fault.DBClusterAlreadyExistsFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterNotFoundFault":
             raise capo_docdb.errors.db_cluster_not_found_fault.DBClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterParameterGroupNotFound":
             raise capo_docdb.errors.db_cluster_parameter_group_not_found_fault.DBClusterParameterGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBClusterQuotaExceededFault":
             raise capo_docdb.errors.db_cluster_quota_exceeded_fault.DBClusterQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBInstanceNotFound":
             raise capo_docdb.errors.db_instance_not_found_fault.DBInstanceNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupDoesNotCoverEnoughAZs":
             raise capo_docdb.errors.db_subnet_group_does_not_cover_enough_a_zs.DBSubnetGroupDoesNotCoverEnoughAZs.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DBSubnetGroupNotFoundFault":
             raise capo_docdb.errors.db_subnet_group_not_found_fault.DBSubnetGroupNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "GlobalClusterNotFoundFault":
             raise capo_docdb.errors.global_cluster_not_found_fault.GlobalClusterNotFoundFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InsufficientStorageClusterCapacity":
             raise capo_docdb.errors.insufficient_storage_cluster_capacity_fault.InsufficientStorageClusterCapacityFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBClusterStateFault":
             raise capo_docdb.errors.invalid_db_cluster_state_fault.InvalidDBClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBInstanceState":
             raise capo_docdb.errors.invalid_db_instance_state_fault.InvalidDBInstanceStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidDBSubnetGroupStateFault":
             raise capo_docdb.errors.invalid_db_subnet_group_state_fault.InvalidDBSubnetGroupStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidGlobalClusterStateFault":
             raise capo_docdb.errors.invalid_global_cluster_state_fault.InvalidGlobalClusterStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidSubnet":
             raise capo_docdb.errors.invalid_subnet.InvalidSubnet.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidVPCNetworkStateFault":
             raise capo_docdb.errors.invalid_vpc_network_state_fault.InvalidVPCNetworkStateFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "KMSKeyNotAccessibleFault":
             raise capo_docdb.errors.kms_key_not_accessible_fault.KMSKeyNotAccessibleFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "NetworkTypeNotSupported":
             raise capo_docdb.errors.network_type_not_supported.NetworkTypeNotSupported.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "StorageQuotaExceeded":
             raise capo_docdb.errors.storage_quota_exceeded_fault.StorageQuotaExceededFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

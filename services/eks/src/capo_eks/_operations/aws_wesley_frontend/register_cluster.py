@@ -40,35 +40,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_eks.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ClientException":
             raise capo_eks.errors.client_exception.ClientException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_eks.errors.invalid_parameter_exception.InvalidParameterException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceInUseException":
             raise capo_eks.errors.resource_in_use_exception.ResourceInUseException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourceLimitExceededException":
             raise capo_eks.errors.resource_limit_exceeded_exception.ResourceLimitExceededException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ResourcePropagationDelayException":
             raise capo_eks.errors.resource_propagation_delay_exception.ResourcePropagationDelayException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_eks.errors.server_exception.ServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_eks.errors.service_unavailable_exception.ServiceUnavailableException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

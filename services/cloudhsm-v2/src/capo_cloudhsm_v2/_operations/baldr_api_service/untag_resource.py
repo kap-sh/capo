@@ -36,27 +36,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CloudHsmAccessDeniedException":
             raise capo_cloudhsm_v2.errors.cloud_hsm_access_denied_exception.CloudHsmAccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmInternalFailureException":
             raise capo_cloudhsm_v2.errors.cloud_hsm_internal_failure_exception.CloudHsmInternalFailureException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmInvalidRequestException":
             raise capo_cloudhsm_v2.errors.cloud_hsm_invalid_request_exception.CloudHsmInvalidRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmResourceNotFoundException":
             raise capo_cloudhsm_v2.errors.cloud_hsm_resource_not_found_exception.CloudHsmResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmServiceException":
             raise capo_cloudhsm_v2.errors.cloud_hsm_service_exception.CloudHsmServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "CloudHsmTagException":
             raise capo_cloudhsm_v2.errors.cloud_hsm_tag_exception.CloudHsmTagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

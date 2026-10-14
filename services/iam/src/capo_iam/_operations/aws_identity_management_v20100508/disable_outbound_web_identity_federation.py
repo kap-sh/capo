@@ -30,7 +30,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "FeatureDisabled":
             raise capo_iam.errors.feature_disabled_exception.FeatureDisabledException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

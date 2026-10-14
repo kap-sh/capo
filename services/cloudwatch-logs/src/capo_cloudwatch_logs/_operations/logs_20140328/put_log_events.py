@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DataAlreadyAcceptedException":
             raise capo_cloudwatch_logs.errors.data_already_accepted_exception.DataAlreadyAcceptedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudwatch_logs.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidSequenceTokenException":
             raise capo_cloudwatch_logs.errors.invalid_sequence_token_exception.InvalidSequenceTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cloudwatch_logs.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceUnavailableException":
             raise capo_cloudwatch_logs.errors.service_unavailable_exception.ServiceUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnrecognizedClientException":
             raise capo_cloudwatch_logs.errors.unrecognized_client_exception.UnrecognizedClientException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

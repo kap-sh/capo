@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "BaseException":
             raise capo_cloudsearch.errors.base_exception.BaseException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InternalException":
             raise capo_cloudsearch.errors.internal_exception.InternalException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ResourceNotFound":
             raise capo_cloudsearch.errors.resource_not_found_exception.ResourceNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

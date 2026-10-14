@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_global_accelerator.errors import ServiceError
@@ -35,7 +36,11 @@ class AcceleratorNotDisabledException(ServiceError):
     code: str | None = "AcceleratorNotDisabledException"
 
     def __init__(
-        self, data: AcceleratorNotDisabledException_, message: str | None = None
+        self,
+        data: AcceleratorNotDisabledException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class AcceleratorNotDisabledException(ServiceError):
             is_retryable=False,
             code="AcceleratorNotDisabledException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "AcceleratorNotDisabledException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

@@ -38,15 +38,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InternalServiceException":
             raise capo_resource_groups_tagging_api.errors.internal_service_exception.InternalServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_resource_groups_tagging_api.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottledException":
             raise capo_resource_groups_tagging_api.errors.throttled_exception.ThrottledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

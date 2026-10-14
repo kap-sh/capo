@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_rds._protocol.xml import Element
@@ -40,7 +41,11 @@ class DBClusterAutomatedBackupNotFoundFault(ServiceError):
     code: str | None = "DBClusterAutomatedBackupNotFoundFault"
 
     def __init__(
-        self, data: DBClusterAutomatedBackupNotFoundFault_, message: str | None = None
+        self,
+        data: DBClusterAutomatedBackupNotFoundFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class DBClusterAutomatedBackupNotFoundFault(ServiceError):
             is_retryable=False,
             code="DBClusterAutomatedBackupNotFoundFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "DBClusterAutomatedBackupNotFoundFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

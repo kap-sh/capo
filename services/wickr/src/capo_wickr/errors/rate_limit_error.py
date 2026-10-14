@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_wickr.errors import ServiceError
@@ -36,16 +37,25 @@ class RateLimitError(ServiceError):
 
     code: str | None = "RateLimitError"
 
-    def __init__(self, data: RateLimitError_, message: str | None = None):
+    def __init__(
+        self,
+        data: RateLimitError_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="RateLimitError",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "RateLimitError":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "RateLimitError":
+        return cls(deserialize_json(data), message, response=response)

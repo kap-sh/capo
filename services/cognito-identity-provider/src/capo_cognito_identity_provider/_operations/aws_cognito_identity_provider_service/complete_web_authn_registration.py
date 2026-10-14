@@ -46,59 +46,59 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ForbiddenException":
             raise capo_cognito_identity_provider.errors.forbidden_exception.ForbiddenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalErrorException":
             raise capo_cognito_identity_provider.errors.internal_error_exception.InternalErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cognito_identity_provider.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_cognito_identity_provider.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotAuthorizedException":
             raise capo_cognito_identity_provider.errors.not_authorized_exception.NotAuthorizedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationNotEnabledException":
             raise capo_cognito_identity_provider.errors.operation_not_enabled_exception.OperationNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PasswordResetRequiredException":
             raise capo_cognito_identity_provider.errors.password_reset_required_exception.PasswordResetRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_cognito_identity_provider.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WebAuthnChallengeNotFoundException":
             raise capo_cognito_identity_provider.errors.web_authn_challenge_not_found_exception.WebAuthnChallengeNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WebAuthnClientMismatchException":
             raise capo_cognito_identity_provider.errors.web_authn_client_mismatch_exception.WebAuthnClientMismatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WebAuthnCredentialNotSupportedException":
             raise capo_cognito_identity_provider.errors.web_authn_credential_not_supported_exception.WebAuthnCredentialNotSupportedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WebAuthnNotEnabledException":
             raise capo_cognito_identity_provider.errors.web_authn_not_enabled_exception.WebAuthnNotEnabledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WebAuthnOriginNotAllowedException":
             raise capo_cognito_identity_provider.errors.web_authn_origin_not_allowed_exception.WebAuthnOriginNotAllowedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "WebAuthnRelyingPartyMismatchException":
             raise capo_cognito_identity_provider.errors.web_authn_relying_party_mismatch_exception.WebAuthnRelyingPartyMismatchException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

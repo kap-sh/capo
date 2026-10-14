@@ -43,43 +43,43 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DependencyTimeoutException":
             raise capo_kms.errors.dependency_timeout_exception.DependencyTimeoutException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ExpiredImportTokenException":
             raise capo_kms.errors.expired_import_token_exception.ExpiredImportTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IncorrectKeyMaterialException":
             raise capo_kms.errors.incorrect_key_material_exception.IncorrectKeyMaterialException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidArnException":
             raise capo_kms.errors.invalid_arn_exception.InvalidArnException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidCiphertextException":
             raise capo_kms.errors.invalid_ciphertext_exception.InvalidCiphertextException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidImportTokenException":
             raise capo_kms.errors.invalid_import_token_exception.InvalidImportTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInternalException":
             raise capo_kms.errors.kms_internal_exception.KMSInternalException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "KMSInvalidStateException":
             raise capo_kms.errors.kms_invalid_state_exception.KMSInvalidStateException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "NotFoundException":
             raise capo_kms.errors.not_found_exception.NotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedOperationException":
             raise capo_kms.errors.unsupported_operation_exception.UnsupportedOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

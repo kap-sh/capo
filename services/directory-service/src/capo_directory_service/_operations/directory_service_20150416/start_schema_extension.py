@@ -38,27 +38,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ClientException":
             raise capo_directory_service.errors.client_exception.ClientException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DirectoryUnavailableException":
             raise capo_directory_service.errors.directory_unavailable_exception.DirectoryUnavailableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "EntityDoesNotExistException":
             raise capo_directory_service.errors.entity_does_not_exist_exception.EntityDoesNotExistException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_directory_service.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_directory_service.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "SnapshotLimitExceededException":
             raise capo_directory_service.errors.snapshot_limit_exceeded_exception.SnapshotLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

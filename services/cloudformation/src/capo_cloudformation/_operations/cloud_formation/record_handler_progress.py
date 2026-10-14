@@ -38,11 +38,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidStateTransition":
             raise capo_cloudformation.errors.invalid_state_transition_exception.InvalidStateTransitionException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "ConditionalCheckFailed":
             raise capo_cloudformation.errors.operation_status_check_failed_exception.OperationStatusCheckFailedException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

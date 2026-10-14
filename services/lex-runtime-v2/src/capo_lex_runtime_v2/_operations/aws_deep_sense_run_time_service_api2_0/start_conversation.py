@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 from urllib.parse import quote
@@ -43,19 +44,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_lex_runtime_v2.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServerException":
             raise capo_lex_runtime_v2.errors.internal_server_exception.InternalServerException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_lex_runtime_v2.errors.throttling_exception.ThrottlingException.from_json(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_lex_runtime_v2.errors.validation_exception.ValidationException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -65,7 +66,10 @@ def handle_response(
     response: zapros.Response,
 ) -> capo_lex_runtime_v2.types.start_conversation_response.StartConversationResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_lex_runtime_v2.types.start_conversation_response_event_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_lex_runtime_v2.types.start_conversation_response_event_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.iter_bytes())
     out: capo_lex_runtime_v2.types.start_conversation_response.StartConversationResponse = {
         "response_event_stream": cast(
@@ -79,7 +83,10 @@ async def async_handle_response(
     response: zapros.Response,
 ) -> capo_lex_runtime_v2.types.start_conversation_response.StartConversationResponse:
     _message_decoder = MessageDecoder()
-    _union_deser = capo_lex_runtime_v2.types.start_conversation_response_event_stream.deserialize_event_json
+    _union_deser = functools.partial(
+        capo_lex_runtime_v2.types.start_conversation_response_event_stream.deserialize_event_json,
+        response=response,
+    )
     _iter = cast(Any, response.async_iter_bytes())
     out: capo_lex_runtime_v2.types.start_conversation_response.StartConversationResponse = {
         "response_event_stream": cast(

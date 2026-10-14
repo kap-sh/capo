@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_workspaces.errors import ServiceError
@@ -43,7 +44,11 @@ class OperationNotSupportedException(ServiceError):
     code: str | None = "OperationNotSupportedException"
 
     def __init__(
-        self, data: OperationNotSupportedException_, message: str | None = None
+        self,
+        data: OperationNotSupportedException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -51,11 +56,12 @@ class OperationNotSupportedException(ServiceError):
             is_retryable=False,
             code="OperationNotSupportedException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "OperationNotSupportedException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

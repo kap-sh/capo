@@ -34,23 +34,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConflictException":
             raise capo_codepipeline.errors.conflict_exception.ConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicatedStopRequestException":
             raise capo_codepipeline.errors.duplicated_stop_request_exception.DuplicatedStopRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PipelineExecutionNotStoppableException":
             raise capo_codepipeline.errors.pipeline_execution_not_stoppable_exception.PipelineExecutionNotStoppableException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "PipelineNotFoundException":
             raise capo_codepipeline.errors.pipeline_not_found_exception.PipelineNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_codepipeline.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

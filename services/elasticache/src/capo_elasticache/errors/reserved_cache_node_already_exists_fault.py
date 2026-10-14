@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elasticache._protocol.xml import Element
@@ -40,7 +41,11 @@ class ReservedCacheNodeAlreadyExistsFault(ServiceError):
     code: str | None = "ReservedCacheNodeAlreadyExistsFault"
 
     def __init__(
-        self, data: ReservedCacheNodeAlreadyExistsFault_, message: str | None = None
+        self,
+        data: ReservedCacheNodeAlreadyExistsFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -48,11 +53,12 @@ class ReservedCacheNodeAlreadyExistsFault(ServiceError):
             is_retryable=False,
             code="ReservedCacheNodeAlreadyExistsFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "ReservedCacheNodeAlreadyExistsFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

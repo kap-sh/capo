@@ -49,39 +49,39 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ConcurrentModification":
             raise capo_route_53.errors.concurrent_modification.ConcurrentModification.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "DNSSECNotFound":
             raise capo_route_53.errors.dnssec_not_found.DNSSECNotFound.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "HostedZonePartiallyDelegated":
             raise capo_route_53.errors.hosted_zone_partially_delegated.HostedZonePartiallyDelegated.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidArgument":
             raise capo_route_53.errors.invalid_argument.InvalidArgument.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53.errors.invalid_input.InvalidInput.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKeySigningKeyStatus":
             raise capo_route_53.errors.invalid_key_signing_key_status.InvalidKeySigningKeyStatus.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidKMSArn":
             raise capo_route_53.errors.invalid_kms_arn.InvalidKMSArn.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "KeySigningKeyWithActiveStatusNotFound":
             raise capo_route_53.errors.key_signing_key_with_active_status_not_found.KeySigningKeyWithActiveStatusNotFound.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case "NoSuchHostedZone":
             raise capo_route_53.errors.no_such_hosted_zone.NoSuchHostedZone.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

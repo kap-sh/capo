@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.launchwizard#ResourceLimitException``."""
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_launch_wizard.errors import ServiceError
@@ -29,18 +30,25 @@ class ResourceLimitException(ServiceError):
 
     code: str | None = "ResourceLimitException"
 
-    def __init__(self, data: ResourceLimitException_, message: str | None = None):
+    def __init__(
+        self,
+        data: ResourceLimitException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="ResourceLimitException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "ResourceLimitException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

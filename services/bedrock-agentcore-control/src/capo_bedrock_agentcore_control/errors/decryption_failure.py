@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#DecryptionFailure``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore_control.errors import DeserializationError, ServiceError
@@ -30,16 +31,25 @@ class DecryptionFailure(ServiceError):
 
     code: str | None = "DecryptionFailure"
 
-    def __init__(self, data: DecryptionFailure_, message: str | None = None):
+    def __init__(
+        self,
+        data: DecryptionFailure_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="DecryptionFailure",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "DecryptionFailure":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "DecryptionFailure":
+        return cls(deserialize_json(data), message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_elasticache._protocol.xml import Element
@@ -38,7 +39,11 @@ class TestFailoverNotAvailableFault(ServiceError):
     code: str | None = "TestFailoverNotAvailableFault"
 
     def __init__(
-        self, data: TestFailoverNotAvailableFault_, message: str | None = None
+        self,
+        data: TestFailoverNotAvailableFault_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -46,11 +51,12 @@ class TestFailoverNotAvailableFault(ServiceError):
             is_retryable=False,
             code="TestFailoverNotAvailableFault",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_query(
-        cls, el: Element, message: str | None = None
+        cls, el: Element, message: str | None = None, *, response: zapros.Response
     ) -> "TestFailoverNotAvailableFault":
-        return cls(deserialize_query(el), message)
+        return cls(deserialize_query(el), message, response=response)

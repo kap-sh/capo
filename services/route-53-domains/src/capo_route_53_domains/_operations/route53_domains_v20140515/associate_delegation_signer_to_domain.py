@@ -39,27 +39,27 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DnssecLimitExceeded":
             raise capo_route_53_domains.errors.dnssec_limit_exceeded.DnssecLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicateRequest":
             raise capo_route_53_domains.errors.duplicate_request.DuplicateRequest.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidInput":
             raise capo_route_53_domains.errors.invalid_input.InvalidInput.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "OperationLimitExceeded":
             raise capo_route_53_domains.errors.operation_limit_exceeded.OperationLimitExceeded.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TLDRulesViolation":
             raise capo_route_53_domains.errors.tld_rules_violation.TLDRulesViolation.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedTLD":
             raise capo_route_53_domains.errors.unsupported_tld.UnsupportedTLD.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

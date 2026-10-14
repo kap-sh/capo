@@ -44,7 +44,7 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "IdempotencyParameterMismatch":
             raise capo_s3.errors.idempotency_parameter_mismatch.IdempotencyParameterMismatch.from_xml(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING, TypeAlias
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_cloudwatch_logs._iter import AnyIterator
@@ -80,7 +81,9 @@ def serialize_event_aws_json_1_1(value: _StartLiveTailResponseStream) -> bytes:
             )
 
 
-def deserialize_event_aws_json_1_1(message: Message) -> _StartLiveTailResponseStream:
+def deserialize_event_aws_json_1_1(
+    message: Message, *, response: zapros.Response
+) -> _StartLiveTailResponseStream:
     headers = message.headers
     message_type = headers.get(":message-type", "event")
     if message_type == "exception":
@@ -93,7 +96,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _StartLiveTailResponseSt
                     message
                 )
                 raise capo_cloudwatch_logs.errors.session_timeout_exception.SessionTimeoutException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
             case "SessionStreamingException":
                 import capo_cloudwatch_logs.errors.session_streaming_exception
@@ -102,10 +105,10 @@ def deserialize_event_aws_json_1_1(message: Message) -> _StartLiveTailResponseSt
                     message
                 )
                 raise capo_cloudwatch_logs.errors.session_streaming_exception.SessionStreamingException(
-                    data, message=data.get("message")
+                    data, message=data.get("message"), response=response
                 )
         raise UnknownServiceError(
-            code=str(exception_type), message=None, response=message
+            code=str(exception_type), message=None, response=response
         )
     if message_type == "error":
         error_code = headers.get(":error-code")
@@ -113,7 +116,7 @@ def deserialize_event_aws_json_1_1(message: Message) -> _StartLiveTailResponseSt
         raise UnknownServiceError(
             code=None if error_code is None else str(error_code),
             message=None if error_message is None else str(error_message),
-            response=message,
+            response=response,
         )
     event_type = headers.get(":event-type")
     match event_type:

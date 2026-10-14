@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_clouddirectory.errors import ServiceError
@@ -34,16 +35,25 @@ class NotNodeException(ServiceError):
 
     code: str | None = "NotNodeException"
 
-    def __init__(self, data: NotNodeException_, message: str | None = None):
+    def __init__(
+        self,
+        data: NotNodeException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=False,
             code="NotNodeException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
-    def from_json(cls, data: dict, message: str | None = None) -> "NotNodeException":
-        return cls(deserialize_json(data), message)
+    def from_json(
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
+    ) -> "NotNodeException":
+        return cls(deserialize_json(data), message, response=response)

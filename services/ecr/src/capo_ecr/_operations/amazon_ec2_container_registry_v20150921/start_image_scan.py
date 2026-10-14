@@ -39,35 +39,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "ImageArchivedException":
             raise capo_ecr.errors.image_archived_exception.ImageArchivedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ImageNotFoundException":
             raise capo_ecr.errors.image_not_found_exception.ImageNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_ecr.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_ecr.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "RepositoryNotFoundException":
             raise capo_ecr.errors.repository_not_found_exception.RepositoryNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServerException":
             raise capo_ecr.errors.server_exception.ServerException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "UnsupportedImageTypeException":
             raise capo_ecr.errors.unsupported_image_type_exception.UnsupportedImageTypeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ValidationException":
             raise capo_ecr.errors.validation_exception.ValidationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

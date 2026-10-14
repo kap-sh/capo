@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_ec2_instance_connect.errors import ServiceError
@@ -35,7 +36,11 @@ class EC2InstanceUnavailableException(ServiceError):
     code: str | None = "EC2InstanceUnavailableException"
 
     def __init__(
-        self, data: EC2InstanceUnavailableException_, message: str | None = None
+        self,
+        data: EC2InstanceUnavailableException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "server",
@@ -43,11 +48,12 @@ class EC2InstanceUnavailableException(ServiceError):
             is_retryable=False,
             code="EC2InstanceUnavailableException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_aws_json_1_1(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "EC2InstanceUnavailableException":
-        return cls(deserialize_aws_json_1_1(data), message)
+        return cls(deserialize_aws_json_1_1(data), message, response=response)

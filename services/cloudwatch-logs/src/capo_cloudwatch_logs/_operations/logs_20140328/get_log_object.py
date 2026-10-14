@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import json
 from typing import Any, cast
 
@@ -41,23 +42,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_cloudwatch_logs.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidOperationException":
             raise capo_cloudwatch_logs.errors.invalid_operation_exception.InvalidOperationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidParameterException":
             raise capo_cloudwatch_logs.errors.invalid_parameter_exception.InvalidParameterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "LimitExceededException":
             raise capo_cloudwatch_logs.errors.limit_exceeded_exception.LimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ResourceNotFoundException":
             raise capo_cloudwatch_logs.errors.resource_not_found_exception.ResourceNotFoundException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
@@ -73,7 +74,10 @@ def handle_response(
         Any,
         capo_cloudwatch_logs._iter.map_sync_iterator(
             _messages,
-            capo_cloudwatch_logs.types.get_log_object_response_stream.deserialize_event_aws_json_1_1,
+            functools.partial(
+                capo_cloudwatch_logs.types.get_log_object_response_stream.deserialize_event_aws_json_1_1,
+                response=response,
+            ),
         ),
     )
     return out
@@ -89,7 +93,10 @@ async def async_handle_response(
         Any,
         capo_cloudwatch_logs._iter.map_async_iterator(
             _messages,
-            capo_cloudwatch_logs.types.get_log_object_response_stream.deserialize_event_aws_json_1_1,
+            functools.partial(
+                capo_cloudwatch_logs.types.get_log_object_response_stream.deserialize_event_aws_json_1_1,
+                response=response,
+            ),
         ),
     )
     return out

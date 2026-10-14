@@ -44,15 +44,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "LoadBalancerNotFound":
             raise capo_elastic_load_balancing.errors.access_point_not_found_exception.AccessPointNotFoundException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "DuplicateTagKeys":
             raise capo_elastic_load_balancing.errors.duplicate_tag_keys_exception.DuplicateTagKeysException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "TooManyTags":
             raise capo_elastic_load_balancing.errors.too_many_tags_exception.TooManyTagsException.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

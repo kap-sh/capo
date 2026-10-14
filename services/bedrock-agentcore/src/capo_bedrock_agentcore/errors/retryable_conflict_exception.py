@@ -1,5 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#RetryableConflictException``."""
 
+import zapros
 from typing_extensions import TypedDict
 
 from capo_bedrock_agentcore.errors import DeserializationError, ServiceError
@@ -30,18 +31,25 @@ class RetryableConflictException(ServiceError):
 
     code: str | None = "RetryableConflictException"
 
-    def __init__(self, data: RetryableConflictException_, message: str | None = None):
+    def __init__(
+        self,
+        data: RetryableConflictException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
+    ):
         super().__init__(
             "client",
             is_throttling_error=False,
             is_retryable=True,
             code="RetryableConflictException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "RetryableConflictException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

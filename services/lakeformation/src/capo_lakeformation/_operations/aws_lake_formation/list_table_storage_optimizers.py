@@ -35,19 +35,19 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_lakeformation.errors.access_denied_exception.AccessDeniedException.from_json(
-                data, message
+                data, message, response=response
             )
         case "EntityNotFoundException":
             raise capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceException":
             raise capo_lakeformation.errors.internal_service_exception.InternalServiceException.from_json(
-                data, message
+                data, message, response=response
             )
         case "InvalidInputException":
             raise capo_lakeformation.errors.invalid_input_exception.InvalidInputException.from_json(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

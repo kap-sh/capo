@@ -35,11 +35,11 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidDataShareFault":
             raise capo_redshift.errors.invalid_data_share_fault.InvalidDataShareFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case "InvalidNamespaceFault":
             raise capo_redshift.errors.invalid_namespace_fault.InvalidNamespaceFault.from_query(
-                error_el, message
+                error_el, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

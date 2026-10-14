@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+import zapros
 from typing_extensions import NotRequired, TypedDict
 
 from capo_imagebuilder.errors import ServiceError
@@ -35,7 +36,11 @@ class InvalidParameterCombinationException(ServiceError):
     code: str | None = "InvalidParameterCombinationException"
 
     def __init__(
-        self, data: InvalidParameterCombinationException_, message: str | None = None
+        self,
+        data: InvalidParameterCombinationException_,
+        message: str | None = None,
+        *,
+        response: zapros.Response,
     ):
         super().__init__(
             "client",
@@ -43,11 +48,12 @@ class InvalidParameterCombinationException(ServiceError):
             is_retryable=False,
             code="InvalidParameterCombinationException",
             message=message,
+            response=response,
         )
         self.data = data
 
     @classmethod
     def from_json(
-        cls, data: dict, message: str | None = None
+        cls, data: dict, message: str | None = None, *, response: zapros.Response
     ) -> "InvalidParameterCombinationException":
-        return cls(deserialize_json(data), message)
+        return cls(deserialize_json(data), message, response=response)

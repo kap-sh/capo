@@ -35,15 +35,15 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidNextTokenException":
             raise capo_codedeploy.errors.invalid_next_token_exception.InvalidNextTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidRegistrationStatusException":
             raise capo_codedeploy.errors.invalid_registration_status_exception.InvalidRegistrationStatusException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagFilterException":
             raise capo_codedeploy.errors.invalid_tag_filter_exception.InvalidTagFilterException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

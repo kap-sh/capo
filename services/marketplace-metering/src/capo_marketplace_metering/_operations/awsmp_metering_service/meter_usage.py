@@ -45,47 +45,47 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "CustomerNotEntitledException":
             raise capo_marketplace_metering.errors.customer_not_entitled_exception.CustomerNotEntitledException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DuplicateRequestException":
             raise capo_marketplace_metering.errors.duplicate_request_exception.DuplicateRequestException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IdempotencyConflictException":
             raise capo_marketplace_metering.errors.idempotency_conflict_exception.IdempotencyConflictException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InternalServiceErrorException":
             raise capo_marketplace_metering.errors.internal_service_error_exception.InternalServiceErrorException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidEndpointRegionException":
             raise capo_marketplace_metering.errors.invalid_endpoint_region_exception.InvalidEndpointRegionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidProductCodeException":
             raise capo_marketplace_metering.errors.invalid_product_code_exception.InvalidProductCodeException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTagException":
             raise capo_marketplace_metering.errors.invalid_tag_exception.InvalidTagException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidUsageAllocationsException":
             raise capo_marketplace_metering.errors.invalid_usage_allocations_exception.InvalidUsageAllocationsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidUsageDimensionException":
             raise capo_marketplace_metering.errors.invalid_usage_dimension_exception.InvalidUsageDimensionException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ThrottlingException":
             raise capo_marketplace_metering.errors.throttling_exception.ThrottlingException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TimestampOutOfBoundsException":
             raise capo_marketplace_metering.errors.timestamp_out_of_bounds_exception.TimestampOutOfBoundsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

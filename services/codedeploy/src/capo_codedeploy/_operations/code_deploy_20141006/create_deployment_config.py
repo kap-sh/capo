@@ -41,35 +41,35 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "DeploymentConfigAlreadyExistsException":
             raise capo_codedeploy.errors.deployment_config_already_exists_exception.DeploymentConfigAlreadyExistsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentConfigLimitExceededException":
             raise capo_codedeploy.errors.deployment_config_limit_exceeded_exception.DeploymentConfigLimitExceededException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "DeploymentConfigNameRequiredException":
             raise capo_codedeploy.errors.deployment_config_name_required_exception.DeploymentConfigNameRequiredException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidComputePlatformException":
             raise capo_codedeploy.errors.invalid_compute_platform_exception.InvalidComputePlatformException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidDeploymentConfigNameException":
             raise capo_codedeploy.errors.invalid_deployment_config_name_exception.InvalidDeploymentConfigNameException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidMinimumHealthyHostValueException":
             raise capo_codedeploy.errors.invalid_minimum_healthy_host_value_exception.InvalidMinimumHealthyHostValueException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidTrafficRoutingConfigurationException":
             raise capo_codedeploy.errors.invalid_traffic_routing_configuration_exception.InvalidTrafficRoutingConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidZonalDeploymentConfigurationException":
             raise capo_codedeploy.errors.invalid_zonal_deployment_configuration_exception.InvalidZonalDeploymentConfigurationException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)

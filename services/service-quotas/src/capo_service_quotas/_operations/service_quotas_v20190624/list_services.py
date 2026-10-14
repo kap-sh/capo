@@ -35,23 +35,23 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_service_quotas.errors.access_denied_exception.AccessDeniedException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "IllegalArgumentException":
             raise capo_service_quotas.errors.illegal_argument_exception.IllegalArgumentException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "InvalidPaginationTokenException":
             raise capo_service_quotas.errors.invalid_pagination_token_exception.InvalidPaginationTokenException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "ServiceException":
             raise capo_service_quotas.errors.service_exception.ServiceException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case "TooManyRequestsException":
             raise capo_service_quotas.errors.too_many_requests_exception.TooManyRequestsException.from_aws_json_1_1(
-                data, message
+                data, message, response=response
             )
         case _:
             raise UnknownServiceError(code=code, message=message, response=response)
