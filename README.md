@@ -544,6 +544,104 @@ async def main():
 ```
 <!-- --8<-- [end:http] -->
 
+<!-- --8<-- [start:logging] -->
+## Logging
+
+Every operation call is logged to the `<package>.operation` logger, e.g. `capo_s3.operation` or `capo_quicksight.operation`. All records are emitted at `DEBUG`, so nothing shows up until you enable that level:
+
+```python
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+logging.getLogger("capo_s3.operation").setLevel(logging.DEBUG)
+```
+
+A successful call logs its input and output:
+
+```
+DEBUG capo_s3.operation: PutObject input: {'bucket': 'my-bucket', 'key': 'report.csv', 'body': '*** Streaming Data Redacted ***', 'sse_customer_algorithm': 'AES256', 'sse_customer_key': '*** Sensitive Data Redacted ***'}
+DEBUG capo_s3.operation: PutObject output: {'e_tag': '"9b2cf535f27731c974343645a3985328"'}
+```
+
+A failed call logs the exception instead of the output:
+
+```
+DEBUG capo_s3.operation: GetObject input: {'bucket': 'my-bucket', 'key': 'missing.csv'}
+DEBUG capo_s3.operation: GetObject failed: NoSuchKey('NoSuchKey: The specified key does not exist.')
+```
+
+Retried attempts are logged between the input and the final result, along with the backoff delay:
+
+```
+DEBUG capo_s3.operation: DeleteObject input: {'bucket': 'my-bucket', 'key': 'report.csv'}
+DEBUG capo_s3.operation: attempt 1/3 failed: UnknownServiceError('SlowDown: Please reduce your request rate.'), retrying in 0.31s
+DEBUG capo_s3.operation: DeleteObject output: {}
+```
+
+If the error is retryable but the request body is a stream that can't be sent twice, the call fails without retrying:
+
+```
+DEBUG capo_s3.operation: attempt 1/3 failed: UnknownServiceError('SlowDown: Please reduce your request rate.'), not retrying because the request body cannot be replayed
+DEBUG capo_s3.operation: PutObject failed: UnknownServiceError('SlowDown: Please reduce your request rate.')
+```
+
+Retry lines don't include the operation name yet.
+
+### Redaction
+
+Members marked `@sensitive` in the Smithy model (SSE-C keys, KMS key IDs, session credentials and so on) are logged as `*** Sensitive Data Redacted ***`, and streaming members such as object bodies and event streams as `*** Streaming Data Redacted ***`. This applies to nested members too.
+
+Everything else is logged as-is. For S3 that includes object keys, tags, user metadata and bucket policies, so be careful where `DEBUG` output ends up.
+
+Redaction only happens when `DEBUG` is enabled, so it costs nothing otherwise.
+
+For streaming operations like `get_object`, the output is logged once the response headers arrive, before the body is read.
+
+### Structured logging
+
+Each record also carries its values as `extra` fields, so you don't need to parse the message:
+
+| Record | Fields |
+|---|---|
+| input | `operation`, `input` |
+| output | `operation`, `output` |
+| failed | `operation`, `error` |
+| retrying | `attempt`, `max_attempts`, `error`, `delay` |
+| not retrying | `attempt`, `max_attempts`, `error` |
+
+`input` and `output` are the redacted dicts, and `error` is the exception object itself. Serialising them is up to your formatter. A JSON formatter using only the standard library:
+
+```python
+import json
+import logging
+
+_STANDARD = set(logging.makeLogRecord({}).__dict__) | {"message", "asctime"}
+
+
+class JsonFormatter(logging.Formatter):
+    def format(self, record: logging.LogRecord) -> str:
+        fields = {k: v for k, v in record.__dict__.items() if k not in _STANDARD}
+        return json.dumps(
+            {"level": record.levelname, "logger": record.name, "message": record.getMessage(), **fields},
+            default=repr,
+        )
+
+
+handler = logging.StreamHandler()
+handler.setFormatter(JsonFormatter())
+logger = logging.getLogger("capo_s3.operation")
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
+logger.propagate = False
+```
+
+```json
+{"level": "DEBUG", "logger": "capo_s3.operation", "message": "PutObject input: {...}", "operation": "PutObject", "input": {"bucket": "my-bucket", "key": "report.csv", "body": "*** Streaming Data Redacted ***", "sse_customer_key": "*** Sensitive Data Redacted ***"}}
+{"level": "DEBUG", "logger": "capo_s3.operation", "message": "attempt 1/3 failed: UnknownServiceError('SlowDown: Please reduce your request rate.'), retrying in 0.31s", "attempt": 1, "max_attempts": 3, "error": "UnknownServiceError('SlowDown: Please reduce your request rate.')", "delay": 0.31}
+{"level": "DEBUG", "logger": "capo_s3.operation", "message": "PutObject output: {'e_tag': '\"9b2c\"'}", "operation": "PutObject", "output": {"e_tag": "\"9b2c\""}}
+```
+<!-- --8<-- [end:logging] -->
+
 <!-- --8<-- [start:caching] -->
 ## Caching
 

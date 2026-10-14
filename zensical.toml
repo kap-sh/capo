@@ -18,6 +18,7 @@ nav = [
   { "Streaming" = "streaming.md" },
   { "Waiters, Pagination, Presigning" = "operations.md" },
   { "Interceptors & HTTP" = "http.md" },
+  { "Logging" = "logging.md" },
   { "Caching" = "caching.md" },
   { "WASM (Pyodide)" = "wasm.md" },
   { "Services" = "services.md" },
