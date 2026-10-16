@@ -13,6 +13,7 @@ the sync twin below it.
 from __future__ import annotations
 
 import hashlib
+import sys
 import time
 from collections.abc import Iterator, Mapping, Sequence
 from pathlib import Path
@@ -263,6 +264,8 @@ class TestAsyncTranscribeStreaming:  # unasync: generate
         transcript = " ".join(final_transcripts(events)).lower()
         assert "hello" in transcript, transcript
 
+    # zapros's Pyodide handler buffers the whole request body before fetch, so AWS never sees the silence.
+    @pytest.mark.skipif(sys.platform == "emscripten", reason="Pyodide buffers streaming request bodies")
     async def test_in_stream_exception_is_raised_typed(self):
         # One chunk, then silence: AWS closes the stream with an in-band
         # BadRequestException frame after 15 s without audio.
@@ -298,6 +301,8 @@ class TestTranscribeStreaming:  # unasync: generated
         transcript = " ".join(final_transcripts(events)).lower()
         assert "hello" in transcript, transcript
 
+    # zapros's Pyodide handler buffers the whole request body before fetch, so AWS never sees the silence.
+    @pytest.mark.skipif(sys.platform == "emscripten", reason="Pyodide buffers streaming request bodies")
     def test_in_stream_exception_is_raised_typed(self):
         # One chunk, then silence: AWS closes the stream with an in-band
         # BadRequestException frame after 15 s without audio.

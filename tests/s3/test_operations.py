@@ -354,6 +354,10 @@ class TestAsyncObjects:  # unasync: generate
         await async_s3.put_object(bucket, "a.txt", body=b"x")
         await async_s3.wait_until_object_exists(bucket, "a.txt", max_wait_time=10)
 
+    # TODO: drop once zapros maps OSErrors from the TLS handshake to zapros.ConnectionError.
+    # Today a reset during wrap_socket escapes as a raw ConnectionResetError, which the
+    # retry interceptor does not treat as retryable, so a transient reset fails the test.
+    @pytest.mark.xfail(raises=ConnectionResetError, strict=False, reason="zapros does not map TLS handshake errors")
     async def test_concurrent_puts(self, async_s3: AsyncS3Client, bucket: str):
         counter = itertools.count()
 
@@ -458,6 +462,10 @@ class TestObjects:  # unasync: generated
         s3.put_object(bucket, "a.txt", body=b"x")
         s3.wait_until_object_exists(bucket, "a.txt", max_wait_time=10)
 
+    # TODO: drop once zapros maps OSErrors from the TLS handshake to zapros.ConnectionError.
+    # Today a reset during wrap_socket escapes as a raw ConnectionResetError, which the
+    # retry interceptor does not treat as retryable, so a transient reset fails the test.
+    @pytest.mark.xfail(raises=ConnectionResetError, strict=False, reason="zapros does not map TLS handshake errors")
     def test_concurrent_puts(self, s3: S3Client, bucket: str):
         counter = itertools.count()
 
