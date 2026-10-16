@@ -28,6 +28,12 @@ from zapros import (
 )
 
 from capo_docdb._async import anysleep
+from capo_docdb._aws import (
+    KNOWN_RETRYABLE_CODES,
+    KNOWN_RETRYABLE_STATUSES,
+    KNOWN_THROTTLING_CODES,
+    KNOWN_THROTTLING_STATUSES,
+)
 from capo_docdb._body import Body
 from capo_docdb._iter import StaticAnyIterator
 from capo_docdb.errors import ServiceError, UnknownServiceError
@@ -174,12 +180,17 @@ def raise_error(response: Response, handle_error: Callable[[Response], Never]) -
 
 
 def _apply_retry_rules(exc: ServiceError, response: Response) -> None:
-    # The response itself can say a retry is safe, even when the error is
-    # not marked @retryable: a 429, a transient 5xx or a Retry-After header.
-    if response.status == 429:
-        exc.is_throttling_error = True
+    # A retry can be safe even when the error is not marked @retryable: a known
+    # throttling or transient status or error code, or a Retry-After header.
     if (
-        response.status in (429, 500, 502, 503, 504)
+        response.status in KNOWN_THROTTLING_STATUSES
+        or exc.code in KNOWN_THROTTLING_CODES
+    ):
+        exc.is_throttling_error = True
+        exc.is_retryable = True
+    if (
+        response.status in KNOWN_RETRYABLE_STATUSES
+        or exc.code in KNOWN_RETRYABLE_CODES
         or "retry-after" in response.headers
     ):
         exc.is_retryable = True

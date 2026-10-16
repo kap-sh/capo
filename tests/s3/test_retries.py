@@ -12,12 +12,6 @@ from tests.s3.fakes import LIST_BUCKETS, LIST_BUCKETS_OK, s3_error
 
 class TestAsyncRetries:  # unasync: generate
     @pytest.mark.usefixtures("no_retry_delay")
-    @pytest.mark.xfail(
-        strict=True,
-        raises=AssertionError,
-        reason="retryability comes from the status code alone (429, 5xx, Retry-After); every AWS SDK retries "
-        "S3's 400 RequestTimeout",
-    )
     async def test_request_timeout_is_retried(self, offline_async_s3: AsyncS3Client, s3_mocks: MockRouter):
         s3_mocks.add(Mock.given(LIST_BUCKETS).callback(s3_error(400, "RequestTimeout")).once().name("timeout"))
         s3_mocks.add(Mock.given(LIST_BUCKETS).callback(LIST_BUCKETS_OK).once().name("retry"))
@@ -25,11 +19,6 @@ class TestAsyncRetries:  # unasync: generate
             await offline_async_s3.list_buckets()
 
     @pytest.mark.usefixtures("no_retry_delay")
-    @pytest.mark.xfail(
-        strict=True,
-        raises=AssertionError,
-        reason="only a 429 marks an error as throttling; S3 throttles with 503 SlowDown",
-    )
     async def test_slow_down_is_a_throttling_error(self, offline_async_s3: AsyncS3Client, s3_mocks: MockRouter):
         s3_mocks.add(Mock.given(LIST_BUCKETS).callback(s3_error(503, "SlowDown")).expect(3))
         async with offline_async_s3:
@@ -62,12 +51,6 @@ class TestAsyncRetries:  # unasync: generate
 
 class TestRetries:  # unasync: generated
     @pytest.mark.usefixtures("no_retry_delay")
-    @pytest.mark.xfail(
-        strict=True,
-        raises=AssertionError,
-        reason="retryability comes from the status code alone (429, 5xx, Retry-After); every AWS SDK retries "
-        "S3's 400 RequestTimeout",
-    )
     def test_request_timeout_is_retried(self, offline_s3: S3Client, s3_mocks: MockRouter):
         s3_mocks.add(Mock.given(LIST_BUCKETS).callback(s3_error(400, "RequestTimeout")).once().name("timeout"))
         s3_mocks.add(Mock.given(LIST_BUCKETS).callback(LIST_BUCKETS_OK).once().name("retry"))
@@ -75,11 +58,6 @@ class TestRetries:  # unasync: generated
             offline_s3.list_buckets()
 
     @pytest.mark.usefixtures("no_retry_delay")
-    @pytest.mark.xfail(
-        strict=True,
-        raises=AssertionError,
-        reason="only a 429 marks an error as throttling; S3 throttles with 503 SlowDown",
-    )
     def test_slow_down_is_a_throttling_error(self, offline_s3: S3Client, s3_mocks: MockRouter):
         s3_mocks.add(Mock.given(LIST_BUCKETS).callback(s3_error(503, "SlowDown")).expect(3))
         with offline_s3:

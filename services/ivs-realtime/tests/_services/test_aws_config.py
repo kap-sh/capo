@@ -19,6 +19,7 @@ def clean_env(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         "AWS_DEFAULT_PROFILE",
         "AWS_CONFIG_FILE",
         "AWS_REGION",
+        "AWS_DEFAULT_REGION",
         "AWS_ENDPOINT_URL",
         "AWS_ENDPOINT_URL_IVS_REAL_TIME",
         "AWS_USE_FIPS_ENDPOINT",
@@ -97,6 +98,33 @@ def test_region_env_beats_profile(
     write_config(tmp_path, "[default]\nregion = eu-central-1\n")
     monkeypatch.setenv("AWS_REGION", "us-west-2")
     assert load_aws_settings().region == "us-west-2"
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason="the region is read from AWS_REGION and the profile only, not AWS_DEFAULT_REGION",
+)
+def test_region_from_default_region_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("AWS_DEFAULT_REGION", "ap-south-1")
+    assert load_aws_settings().region == "ap-south-1"
+
+
+def test_region_env_beats_default_region_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("AWS_DEFAULT_REGION", "ap-south-1")
+    monkeypatch.setenv("AWS_REGION", "us-west-2")
+    assert load_aws_settings().region == "us-west-2"
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason="the region is read from AWS_REGION and the profile only, not AWS_DEFAULT_REGION",
+)
+def test_default_region_env_beats_profile(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    write_config(tmp_path, "[default]\nregion = eu-central-1\n")
+    monkeypatch.setenv("AWS_DEFAULT_REGION", "ap-south-1")
+    assert load_aws_settings().region == "ap-south-1"
 
 
 def test_named_profile_section(tmp_path: Path) -> None:
