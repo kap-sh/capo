@@ -1,6 +1,6 @@
 """``presign_post`` without a server: what the form holds and where it posts to.
 
-The upload itself is in ``tests/test_s3.py``.
+The upload itself is in ``tests/s3/test_operations.py``.
 """
 
 from __future__ import annotations

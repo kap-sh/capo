@@ -56,6 +56,9 @@ packages:
       - id: make-async-s3-client
         match: '\bmake_async_s3_client\b'
         replace: 'make_s3_client'
+      - id: offline-async-s3-fixture
+        match: '\boffline_async_s3\b'
+        replace: 'offline_s3'
       # capo_s3.Body constructors
       - id: body-async-from-path
         match: '\basync_from_path\b'
@@ -63,18 +66,18 @@ packages:
       - id: astream
         match: '\bastream\b'
         replace: 'stream'
-      # tests/test_s3_transfer.py
+      # tests/s3/test_transfer.py
       - id: async-transfer-manager
         match: '\bAsyncTransferManager\b'
         replace: 'TransferManager'
       - id: async-transfer-manager-fixture
         match: '\basync_transfer_manager\b'
         replace: 'transfer_manager'
-      # tests/test_body.py
+      # tests/s3/test_body.py
       - id: faulty-async-s3-fixture
         match: '\bfaulty_async_s3\b'
         replace: 'faulty_s3'
-      # tests/test_caching.py
+      # tests/s3/test_caching.py
       - id: cached-async-s3-fixture
         match: '\bcached_async_s3\b'
         replace: 'cached_s3'
