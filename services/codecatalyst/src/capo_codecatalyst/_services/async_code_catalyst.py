@@ -25,6 +25,7 @@ from capo_codecatalyst._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
     OperationLogging,
+    RetryQuota,
     aexecute_pipeline,
     alog_operation,
     aretry,
@@ -179,6 +180,8 @@ class AsyncCodeCatalystClient:
     ):
         client = AsyncClient(http_handler)
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
+        # One retry quota for all of this client's operations.
+        self._retry_quota = RetryQuota()
         if bearer is not None and bearer_provider is not None:
             warnings.warn(
                 "Both bearer and bearer_provider given; provider takes precedence"
@@ -218,6 +221,7 @@ class AsyncCodeCatalystClient:
         interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
+            retry_quota=self._retry_quota,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),

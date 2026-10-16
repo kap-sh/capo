@@ -29,6 +29,7 @@ from capo_dynamodb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
     OperationLogging,
+    RetryQuota,
     aexecute_pipeline,
     alog_operation,
     aretry,
@@ -316,6 +317,8 @@ class AsyncDynamoDBClient:
         # it for their one-off calls.
         raw_handler = client.handler
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
+        # One retry quota for all of this client's operations.
+        self._retry_quota = RetryQuota()
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -361,6 +364,7 @@ class AsyncDynamoDBClient:
         interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
+            retry_quota=self._retry_quota,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),

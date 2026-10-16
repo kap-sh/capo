@@ -32,6 +32,7 @@ from capo_pca_connector_scep._services._pipeline import (
     OperationOptions,
     OperationRequest,
     OperationResponse,
+    ThreadSafeRetryQuota,
     execute_pipeline,
     log_operation,
     retry,
@@ -118,6 +119,8 @@ class PcaConnectorScepClient:
         # it for their one-off calls.
         raw_handler = client.handler
         self._client = client.wrap_with_middleware(lambda next: AuthMiddleware(next))
+        # One retry quota for all of this client's operations.
+        self._retry_quota = ThreadSafeRetryQuota()
         if credentials is not None and credentials_provider is not None:
             warnings.warn(
                 "Both credentials and credentials_provider given; provider takes precedence"
@@ -165,6 +168,7 @@ class PcaConnectorScepClient:
         interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
+            retry_quota=self._retry_quota,
             retry_max_attempts=overrides.get(
                 "retry_max_attempts", self._config.get("retry_max_attempts")
             ),

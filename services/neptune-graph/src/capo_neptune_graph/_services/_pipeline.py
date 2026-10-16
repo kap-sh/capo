@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import random
+import threading
 import time
 from collections.abc import AsyncIterator, Iterator, Sequence
 from dataclasses import dataclass
@@ -48,9 +49,49 @@ TInput = TypeVar("TInput")
 TOutput = TypeVar("TOutput")
 
 
+class RetryQuota:
+    """Retry tokens shared by all operations of one client: retries spend them, successes refund them."""
+
+    CAPACITY: int = 500
+    TRANSIENT_COST: int = 14
+    THROTTLING_COST: int = 5
+    NO_RETRY_INCREMENT: int = 1
+
+    def __init__(self) -> None:
+        self._available: int = self.CAPACITY
+
+    def acquire(self, is_throttling: bool) -> int | None:
+        cost = self.THROTTLING_COST if is_throttling else self.TRANSIENT_COST
+        if cost > self._available:
+            return None
+        self._available -= cost
+        return cost
+
+    def release(self, last_retry_cost: int | None) -> None:
+        refund = self.NO_RETRY_INCREMENT if last_retry_cost is None else last_retry_cost
+        self._available = min(self.CAPACITY, self._available + refund)
+
+
+class ThreadSafeRetryQuota(RetryQuota):
+    """A ``RetryQuota`` that sync clients can share across threads."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._lock: threading.Lock = threading.Lock()
+
+    def acquire(self, is_throttling: bool) -> int | None:
+        with self._lock:
+            return super().acquire(is_throttling)
+
+    def release(self, last_retry_cost: int | None) -> None:
+        with self._lock:
+            super().release(last_retry_cost)
+
+
 @dataclass
 class OperationOptions:
     client: Client
+    retry_quota: RetryQuota
     api_type: str | None = None
     use_fips: bool | None = None
     use_dual_stack: bool | None = None
@@ -64,6 +105,7 @@ class OperationOptions:
 @dataclass
 class AsyncOperationOptions:
     client: AsyncClient
+    retry_quota: RetryQuota
     api_type: str | None = None
     use_fips: bool | None = None
     use_dual_stack: bool | None = None
@@ -257,51 +299,64 @@ def retry() -> Interceptor[TInput, TOutput]:
         request: OperationRequest[TInput], next: NextFn[TInput, TOutput]
     ) -> OperationResponse[TOutput]:
         max_attempts = request.options.retry_max_attempts or 3
-        last_exc: Exception | None = None
+        quota = request.options.retry_quota
+        last_retry_cost: int | None = None
         for attempt in range(1, max_attempts + 1):
             try:
-                return next(request)
+                response = next(request)
             except Exception as exc:
-                if not _is_retryable(exc):
+                if not _is_retryable(exc) or attempt == max_attempts:
                     raise
-                last_exc = exc
-                if attempt < max_attempts:
-                    if not _is_pre_transmission(exc) and not _prepare_retry(
-                        request.input
-                    ):
-                        logger.debug(
-                            "attempt %d/%d failed: %r, not retrying because the request body cannot be replayed",
-                            attempt,
-                            max_attempts,
-                            exc,
-                            extra={
-                                "attempt": attempt,
-                                "max_attempts": max_attempts,
-                                "error": exc,
-                            },
-                        )
-                        raise
-                    is_throttling = (
-                        isinstance(exc, ServiceError) and exc.is_throttling_error
-                    )
-                    delay = _retry_delay(attempt, is_throttling)
+                if not _is_pre_transmission(exc) and not _prepare_retry(request.input):
                     logger.debug(
-                        "attempt %d/%d failed: %r, retrying in %.2fs",
+                        "attempt %d/%d failed: %r, not retrying because the request body cannot be replayed",
                         attempt,
                         max_attempts,
                         exc,
-                        delay,
                         extra={
                             "attempt": attempt,
                             "max_attempts": max_attempts,
                             "error": exc,
-                            "delay": delay,
                         },
                     )
-                    time.sleep(delay)
-
-        assert last_exc
-        raise last_exc
+                    raise
+                is_throttling = (
+                    isinstance(exc, ServiceError) and exc.is_throttling_error
+                )
+                cost = quota.acquire(is_throttling)
+                if cost is None:
+                    logger.debug(
+                        "attempt %d/%d failed: %r, not retrying because the retry quota is exhausted",
+                        attempt,
+                        max_attempts,
+                        exc,
+                        extra={
+                            "attempt": attempt,
+                            "max_attempts": max_attempts,
+                            "error": exc,
+                        },
+                    )
+                    raise
+                last_retry_cost = cost
+                delay = _retry_delay(attempt, is_throttling)
+                logger.debug(
+                    "attempt %d/%d failed: %r, retrying in %.2fs",
+                    attempt,
+                    max_attempts,
+                    exc,
+                    delay,
+                    extra={
+                        "attempt": attempt,
+                        "max_attempts": max_attempts,
+                        "error": exc,
+                        "delay": delay,
+                    },
+                )
+                time.sleep(delay)
+            else:
+                quota.release(last_retry_cost)
+                return response
+        raise AssertionError("unreachable")
 
     return interceptor
 
@@ -311,51 +366,66 @@ def aretry() -> AsyncInterceptor[TInput, TOutput]:
         request: AsyncOperationRequest[TInput], next: AsyncNextFn[TInput, TOutput]
     ) -> AsyncOperationResponse[TOutput]:
         max_attempts = request.options.retry_max_attempts or 3
-        last_exc: Exception | None = None
+        quota = request.options.retry_quota
+        last_retry_cost: int | None = None
         for attempt in range(1, max_attempts + 1):
             try:
-                return await next(request)
+                response = await next(request)
             except Exception as exc:
-                if not _is_retryable(exc):
+                if not _is_retryable(exc) or attempt == max_attempts:
                     raise
-                last_exc = exc
-                if attempt < max_attempts:
-                    if not _is_pre_transmission(exc) and not await _aprepare_retry(
-                        request.input
-                    ):
-                        logger.debug(
-                            "attempt %d/%d failed: %r, not retrying because the request body cannot be replayed",
-                            attempt,
-                            max_attempts,
-                            exc,
-                            extra={
-                                "attempt": attempt,
-                                "max_attempts": max_attempts,
-                                "error": exc,
-                            },
-                        )
-                        raise
-                    is_throttling = (
-                        isinstance(exc, ServiceError) and exc.is_throttling_error
-                    )
-                    delay = _retry_delay(attempt, is_throttling)
+                if not _is_pre_transmission(exc) and not await _aprepare_retry(
+                    request.input
+                ):
                     logger.debug(
-                        "attempt %d/%d failed: %r, retrying in %.2fs",
+                        "attempt %d/%d failed: %r, not retrying because the request body cannot be replayed",
                         attempt,
                         max_attempts,
                         exc,
-                        delay,
                         extra={
                             "attempt": attempt,
                             "max_attempts": max_attempts,
                             "error": exc,
-                            "delay": delay,
                         },
                     )
-                    await anysleep(delay)
-
-        assert last_exc
-        raise last_exc
+                    raise
+                is_throttling = (
+                    isinstance(exc, ServiceError) and exc.is_throttling_error
+                )
+                cost = quota.acquire(is_throttling)
+                if cost is None:
+                    logger.debug(
+                        "attempt %d/%d failed: %r, not retrying because the retry quota is exhausted",
+                        attempt,
+                        max_attempts,
+                        exc,
+                        extra={
+                            "attempt": attempt,
+                            "max_attempts": max_attempts,
+                            "error": exc,
+                        },
+                    )
+                    raise
+                last_retry_cost = cost
+                delay = _retry_delay(attempt, is_throttling)
+                logger.debug(
+                    "attempt %d/%d failed: %r, retrying in %.2fs",
+                    attempt,
+                    max_attempts,
+                    exc,
+                    delay,
+                    extra={
+                        "attempt": attempt,
+                        "max_attempts": max_attempts,
+                        "error": exc,
+                        "delay": delay,
+                    },
+                )
+                await anysleep(delay)
+            else:
+                quota.release(last_retry_cost)
+                return response
+        raise AssertionError("unreachable")
 
     return interceptor
 
