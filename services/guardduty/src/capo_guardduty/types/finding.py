@@ -43,6 +43,8 @@ class Finding(TypedDict, closed=True):
     """<p>The time and date when the finding was last updated.</p>"""
     associated_attack_sequence_arn: NotRequired["capo_guardduty.types.string.String"]
     """<p>Amazon Resource Name (ARN) associated with the attack sequence finding.</p>"""
+    custom_detection_rule_name: NotRequired["capo_guardduty.types.string.String"]
+    """<p>The name of the custom detection rule that generated this finding.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -102,6 +104,8 @@ def serialize_json(value: Finding) -> dict:
         out["updatedAt"] = value["updated_at"]
     if "associated_attack_sequence_arn" in value:
         out["associatedAttackSequenceArn"] = value["associated_attack_sequence_arn"]
+    if "custom_detection_rule_name" in value:
+        out["customDetectionRuleName"] = value["custom_detection_rule_name"]
     return out
 
 
@@ -145,6 +149,8 @@ def deserialize_json(data: dict) -> Finding:
         out["updated_at"] = data["updatedAt"]
     if data.get("associatedAttackSequenceArn") is not None:
         out["associated_attack_sequence_arn"] = data["associatedAttackSequenceArn"]
+    if data.get("customDetectionRuleName") is not None:
+        out["custom_detection_rule_name"] = data["customDetectionRuleName"]
     return out
 
 

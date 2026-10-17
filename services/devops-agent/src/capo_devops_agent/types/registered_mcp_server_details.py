@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_devops_agent.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_devops_agent.types.custom_header_names
     import capo_devops_agent.types.description
     import capo_devops_agent.types.mcp_server_authorization_method
 
@@ -22,6 +23,10 @@ class RegisteredMCPServerDetails(TypedDict, closed=True):
     """<p>Optional description for the MCP server.</p>"""
     api_key_header: NotRequired["str"]
     """<p>If the MCP server uses API key authentication, these details are provided.</p>"""
+    custom_header_names: NotRequired[
+        "capo_devops_agent.types.custom_header_names.CustomHeaderNames"
+    ]
+    """<p>The configured custom authentication header names when the MCP server uses custom-header authentication. Secret values are not returned.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -40,6 +45,14 @@ def serialize_json(value: RegisteredMCPServerDetails) -> dict:
         out["description"] = value["description"]
     if "api_key_header" in value:
         out["apiKeyHeader"] = value["api_key_header"]
+    if "custom_header_names" in value:
+        import capo_devops_agent.types.custom_header_names
+
+        out["customHeaderNames"] = (
+            capo_devops_agent.types.custom_header_names.serialize_json(
+                value["custom_header_names"]
+            )
+        )
     return out
 
 
@@ -69,6 +82,14 @@ def deserialize_json(data: dict) -> RegisteredMCPServerDetails:
         out["description"] = data["description"]
     if data.get("apiKeyHeader") is not None:
         out["api_key_header"] = data["apiKeyHeader"]
+    if data.get("customHeaderNames") is not None:
+        import capo_devops_agent.types.custom_header_names
+
+        out["custom_header_names"] = (
+            capo_devops_agent.types.custom_header_names.deserialize_json(
+                data["customHeaderNames"]
+            )
+        )
     return out
 
 

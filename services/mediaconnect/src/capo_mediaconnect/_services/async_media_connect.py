@@ -210,6 +210,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.media_stream_attributes_request
     import capo_mediaconnect.types.media_stream_type
     import capo_mediaconnect.types.monitoring_config
+    import capo_mediaconnect.types.ndi_audio_reference_level
     import capo_mediaconnect.types.ndi_config
     import capo_mediaconnect.types.ndi_output_timecode_source
     import capo_mediaconnect.types.ndi_source_settings
@@ -2913,6 +2914,9 @@ class AsyncMediaConnectClient:
         ndi_output_timecode_source: Optional[
             "capo_mediaconnect.types.ndi_output_timecode_source.NdiOutputTimecodeSource"
         ] = None,
+        ndi_audio_reference_level: Optional[
+            "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_output_response.UpdateFlowOutputResponse":
         """<p> Updates an existing flow output.</p>
 
@@ -2939,6 +2943,7 @@ class AsyncMediaConnectClient:
             ndi_speed_hq_quality: <p>A quality setting for the NDI Speed HQ encoder. </p>
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow output.</p>
             ndi_output_timecode_source: <p>Controls how MediaConnect generates timecodes for NDI output frames. If you don't specify this field, MediaConnect leaves the value unchanged.</p> <ul> <li> <p> <code>EMBEDDED_TIMECODE</code> - Preserves timecodes from the input transport stream. The timecodes must be embedded in the video stream as SEI timing messages. If no embedded timecode is detected, MediaConnect uses the UTC system time instead.</p> </li> <li> <p> <code>UTC_SYSTEM_TIME</code> - Generates timecodes based on the system clock time when each frame is sent.</p> </li> </ul>
+            ndi_audio_reference_level: <p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). If you don't specify this field, MediaConnect leaves the value unchanged.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -3018,6 +3023,8 @@ class AsyncMediaConnectClient:
             )
         if ndi_output_timecode_source is not None:
             input_["ndi_output_timecode_source"] = ndi_output_timecode_source
+        if ndi_audio_reference_level is not None:
+            input_["ndi_audio_reference_level"] = ndi_audio_reference_level
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -4012,7 +4019,7 @@ class AsyncMediaConnectClient:
             configuration: <p>The configuration settings for the router input, which can include the protocol, network interface, and other details.</p>
             maximum_bitrate: <p>The maximum bitrate for the router input.</p>
             routing_scope: <p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - connects only to outputs in same Region. GLOBAL - connects to outputs in any Region.</p>
-            tier: <p>The tier level for the router input.</p>
+            tier: <p>The tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
             region_name: <p>The Amazon Web Services Region for the router input. Defaults to the current region if not specified.</p>
             availability_zone: <p>The Availability Zone where you want to create the router input. This must be a valid Availability Zone for the region specified by <code>regionName</code>, or the current region if no <code>regionName</code> is provided. </p>
             transit_encryption: <p>The transit encryption settings for the router input.</p>
@@ -4171,7 +4178,7 @@ class AsyncMediaConnectClient:
             configuration: <p>The updated configuration settings for the router input. Changing the type of the configuration is not supported.</p>
             maximum_bitrate: <p>The updated maximum bitrate for the router input.</p>
             routing_scope: <p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - can be assigned only to outputs in the same Region. GLOBAL - can be assigned to outputs in any Region.</p>
-            tier: <p>The updated tier level for the router input.</p>
+            tier: <p>The updated tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
             transit_encryption: <p>The updated transit encryption settings for the router input.</p>
             maintenance_configuration: <p>The updated maintenance configuration settings for the router input, including any changes to preferred maintenance windows and schedules.</p>
             content_quality_analysis_configuration: <p>The content quality analysis configuration for the router input.</p>
@@ -5081,7 +5088,7 @@ class AsyncMediaConnectClient:
             configuration: <p>The configuration settings for the router output.</p>
             maximum_bitrate: <p>The maximum bitrate for the router output.</p>
             routing_scope: <p>Specifies whether the router output can take inputs that are in different Regions. REGIONAL (default) - can only take inputs from same Region. GLOBAL - can take inputs from any Region.</p>
-            tier: <p>The tier level for the router output.</p>
+            tier: <p>The tier level for the router output. The tier sets the maximum bitrate, in Mbps, for the router output. Valid values include the following:</p> <ul> <li> <p> <code>OUTPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>OUTPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>OUTPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>OUTPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>OUTPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
             region_name: <p>The Amazon Web Services Region for the router output. Defaults to the current region if not specified.</p>
             availability_zone: <p>The Availability Zone where you want to create the router output. This must be a valid Availability Zone for the region specified by <code>regionName</code>, or the current region if no <code>regionName</code> is provided. </p>
             maintenance_configuration: <p>The maintenance configuration settings for the router output, including preferred maintenance windows and schedules.</p>
@@ -5230,7 +5237,7 @@ class AsyncMediaConnectClient:
             configuration: <p>The updated configuration settings for the router output. Changing the type of the configuration is not supported.</p>
             maximum_bitrate: <p>The updated maximum bitrate for the router output.</p>
             routing_scope: <p>Specifies whether the router output can take inputs that are in different Regions. REGIONAL (default) - can only take inputs from same Region. GLOBAL - can take inputs from any Region.</p>
-            tier: <p>The updated tier level for the router output.</p>
+            tier: <p>The updated tier level for the router output. The tier sets the maximum bitrate, in Mbps, for the router output. Valid values include the following:</p> <ul> <li> <p> <code>OUTPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>OUTPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>OUTPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>OUTPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>OUTPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
             maintenance_configuration: <p>The updated maintenance configuration settings for the router output, including any changes to preferred maintenance windows and schedules.</p>
             fabric_configuration: <p>The updated fabric configuration settings for the router output. You cannot update the fabric configuration while the output has an active route. You must unroute the output before updating the fabric configuration.</p>
 

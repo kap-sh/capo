@@ -1261,7 +1261,8 @@
                     ],
                     "version": "1.0"
                 }
-            }
+            },
+            "version": "2017-08-22"
         },
         "com.amazonaws.acmpca#ASN1PrintableString64": {
             "type": "string",

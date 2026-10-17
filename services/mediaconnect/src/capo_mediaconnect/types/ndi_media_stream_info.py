@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_mediaconnect.types.color_information
     import capo_mediaconnect.types.frame_resolution
     import capo_mediaconnect.types.scan_mode
 
@@ -18,6 +19,8 @@ class NdiMediaStreamInfo(TypedDict, closed=True):
     """<p> A unique identifier for the media stream. </p>"""
     scan_mode: NotRequired["capo_mediaconnect.types.scan_mode.ScanMode"]
     """<p> The method used to display video frames. Used when the <code>streamType</code> is <code>Video</code>.</p>"""
+    color: NotRequired["capo_mediaconnect.types.color_information.ColorInformation"]
+    """<p> The color signaling of the video stream. Used when the <code>streamType</code> is <code>Video</code>. </p>"""
     frame_resolution: NotRequired[
         "capo_mediaconnect.types.frame_resolution.FrameResolution"
     ]
@@ -44,6 +47,12 @@ def serialize_json(value: NdiMediaStreamInfo) -> dict:
 
         out["scanMode"] = capo_mediaconnect.types.scan_mode.serialize_json(
             value["scan_mode"]
+        )
+    if "color" in value:
+        import capo_mediaconnect.types.color_information
+
+        out["color"] = capo_mediaconnect.types.color_information.serialize_json(
+            value["color"]
         )
     if "frame_resolution" in value:
         import capo_mediaconnect.types.frame_resolution
@@ -75,6 +84,12 @@ def deserialize_json(data: dict) -> NdiMediaStreamInfo:
 
         out["scan_mode"] = capo_mediaconnect.types.scan_mode.deserialize_json(
             data["scanMode"]
+        )
+    if data.get("color") is not None:
+        import capo_mediaconnect.types.color_information
+
+        out["color"] = capo_mediaconnect.types.color_information.deserialize_json(
+            data["color"]
         )
     if data.get("frameResolution") is not None:
         import capo_mediaconnect.types.frame_resolution

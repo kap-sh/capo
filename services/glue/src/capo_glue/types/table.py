@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     import capo_glue.types.non_negative_integer
     import capo_glue.types.nullable_boolean
     import capo_glue.types.parameters_map
+    import capo_glue.types.rls_properties
     import capo_glue.types.storage_descriptor
     import capo_glue.types.table_identifier
     import capo_glue.types.table_status
@@ -88,6 +89,8 @@ class Table(TypedDict, closed=True):
     """<p>The latest Apache Iceberg table metadata for the table, including format version, schemas, partition specifications, and sort orders. This field is populated for Iceberg tables and reflects the current state of the table's Iceberg metadata.</p>"""
     status: NotRequired["capo_glue.types.table_status.TableStatus"]
     """<p>Indicates the the state of an asynchronous change to a table.</p>"""
+    rls_properties: NotRequired["capo_glue.types.rls_properties.RLSProperties"]
+    """<p>A <code>RLSProperties</code> structure that describes the default row-level security policy of the table.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -195,6 +198,12 @@ def serialize_aws_json_1_1(value: Table) -> dict:
 
         out["Status"] = capo_glue.types.table_status.serialize_aws_json_1_1(
             value["status"]
+        )
+    if "rls_properties" in value:
+        import capo_glue.types.rls_properties
+
+        out["RLSProperties"] = capo_glue.types.rls_properties.serialize_aws_json_1_1(
+            value["rls_properties"]
         )
     return out
 
@@ -314,5 +323,11 @@ def deserialize_aws_json_1_1(data: dict) -> Table:
 
         out["status"] = capo_glue.types.table_status.deserialize_aws_json_1_1(
             data["Status"]
+        )
+    if data.get("RLSProperties") is not None:
+        import capo_glue.types.rls_properties
+
+        out["rls_properties"] = capo_glue.types.rls_properties.deserialize_aws_json_1_1(
+            data["RLSProperties"]
         )
     return out

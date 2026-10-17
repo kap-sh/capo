@@ -70,6 +70,8 @@ class PhoneNumberInformation(TypedDict, closed=True):
         "capo_pinpoint_sms_voice_v2.types.messaging_limits.MessagingLimits"
     ]
     """<p>The messaging limits that apply to the phone number, including the per-capability send rates and any advisory per-provider daily message caps.</p>"""
+    pricing_tier: NotRequired["str"]
+    """<p>The pricing model.</p>"""
     created_timestamp: "datetime.datetime"
     """<p>The time when the phone number was created, in <a href="https://www.epochconverter.com/">UNIX epoch time</a> format.</p>"""
 
@@ -116,6 +118,8 @@ def serialize_aws_json_1_0(value: PhoneNumberInformation) -> dict:
                 value["messaging_limits"]
             )
         )
+    if "pricing_tier" in value:
+        out["PricingTier"] = value["pricing_tier"]
     import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 
     out["CreatedTimestamp"] = (
@@ -208,6 +212,8 @@ def deserialize_aws_json_1_0(data: dict) -> PhoneNumberInformation:
                 data["MessagingLimits"]
             )
         )
+    if data.get("PricingTier") is not None:
+        out["pricing_tier"] = data["PricingTier"]
     if data.get("CreatedTimestamp") is not None:
         import capo_pinpoint_sms_voice_v2.types._prelude.timestamp
 

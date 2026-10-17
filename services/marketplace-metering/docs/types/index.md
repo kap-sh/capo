@@ -1,5 +1,6 @@
 # Types
 
+- [AgreementId](agreement_id.md)
 - [AllocatedUsageQuantity](allocated_usage_quantity.md)
 - [BatchMeterUsageRequest](batch_meter_usage_request.md)
 - [BatchMeterUsageResult](batch_meter_usage_result.md)
@@ -9,6 +10,7 @@
 - [CustomerIdentifier](customer_identifier.md)
 - [errorMessage](error_message.md)
 - [LicenseArn](license_arn.md)
+- [Metadata](metadata.md)
 - [MeterUsageRequest](meter_usage_request.md)
 - [MeterUsageResult](meter_usage_result.md)
 - [NonEmptyString](non_empty_string.md)

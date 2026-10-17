@@ -17,6 +17,7 @@ import capo_dynamodb_streams.errors.trimmed_data_access_exception
 import capo_dynamodb_streams.types.get_shard_iterator_input
 import capo_dynamodb_streams.types.get_shard_iterator_output
 import capo_dynamodb_streams.types.shard_iterator_type
+import capo_dynamodb_streams.types.timestamp
 from capo_dynamodb_streams._protocol.errors import parse_error_metadata_json
 from capo_dynamodb_streams._rule_engine._endpoint_rule_set import (
     EndpointParams,

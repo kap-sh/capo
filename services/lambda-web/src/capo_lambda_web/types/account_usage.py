@@ -7,7 +7,7 @@ from capo_lambda_web.errors import DeserializationError
 
 class AccountUsage(TypedDict, closed=True):
     function_count: "int"
-    """<p>The number of web functions in your account in the current AWS Region.</p>"""
+    """<p>The number of web functions in your account in the current AWS Region. This count includes web functions in all states, not only functions in the <code>Active</code> state.</p>"""
 
 
 # --- restJson1 ser/de ---

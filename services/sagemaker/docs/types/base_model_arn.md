@@ -1,0 +1,8 @@
+---
+title: BaseModelArn
+---
+
+::: capo_sagemaker.types.base_model_arn.BaseModelArn
+    options:
+      show_source: true
+      merge_init_into_class: false

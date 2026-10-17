@@ -17,6 +17,7 @@ import capo_route_53_domains.errors.unsupported_tld
 import capo_route_53_domains.types.check_domain_availability_request
 import capo_route_53_domains.types.check_domain_availability_response
 import capo_route_53_domains.types.domain_availability
+import capo_route_53_domains.types.price_with_currency
 from capo_route_53_domains._protocol.errors import parse_error_metadata_json
 from capo_route_53_domains._rule_engine._endpoint_rule_set import (
     EndpointParams,

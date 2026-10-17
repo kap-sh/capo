@@ -43,15 +43,15 @@ class GetDataQualityResultResponse(TypedDict, closed=True):
     rule_results: NotRequired[
         "capo_glue.types.data_quality_rule_results.DataQualityRuleResults"
     ]
-    """<p>A list of <code>DataQualityRuleResult</code> objects representing the results for each rule. </p>"""
+    """<p>A list of <code>DataQualityRuleResult</code> objects representing the results for each rule.</p>"""
     analyzer_results: NotRequired[
         "capo_glue.types.data_quality_analyzer_results.DataQualityAnalyzerResults"
     ]
-    """<p>A list of <code>DataQualityAnalyzerResult</code> objects representing the results for each analyzer. </p>"""
+    """<p>A list of <code>DataQualityAnalyzerResult</code> objects representing the results for each analyzer.</p>"""
     observations: NotRequired[
         "capo_glue.types.data_quality_observations.DataQualityObservations"
     ]
-    """<p>A list of <code>DataQualityObservation</code> objects representing the observations generated after evaluating the rules and analyzers. </p>"""
+    """<p>A list of <code>DataQualityObservation</code> objects representing the anomaly detection observations generated after evaluating the rules and analyzers.</p>"""
     aggregated_metrics: NotRequired[
         "capo_glue.types.data_quality_aggregated_metrics.DataQualityAggregatedMetrics"
     ]

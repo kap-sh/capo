@@ -29,6 +29,8 @@ class RegisterComputeNodeGroupInstanceResponse(TypedDict, closed=True):
         "capo_pcs.types.node_lifecycle_actions.NodeLifecycleActions"
     ]
     """<p>The node lifecycle actions configured for the node group, including scripts to run when a compute node finishes bootstrapping or becomes ready to accept jobs.</p>"""
+    scheduler_version: NotRequired["str"]
+    """<p>The scheduler version that the cluster is running. A compute node uses this value to run the matching scheduler version.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -55,6 +57,8 @@ def serialize_aws_json_1_0(value: RegisterComputeNodeGroupInstanceResponse) -> d
                 value["node_lifecycle_actions"]
             )
         )
+    if "scheduler_version" in value:
+        out["schedulerVersion"] = value["scheduler_version"]
     return out
 
 
@@ -96,6 +100,8 @@ def deserialize_aws_json_1_0(data: dict) -> RegisterComputeNodeGroupInstanceResp
                 data["nodeLifecycleActions"]
             )
         )
+    if data.get("schedulerVersion") is not None:
+        out["scheduler_version"] = data["schedulerVersion"]
     return out
 
 

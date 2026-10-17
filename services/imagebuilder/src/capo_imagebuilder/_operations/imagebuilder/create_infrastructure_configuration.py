@@ -27,6 +27,7 @@ import capo_imagebuilder.types.create_infrastructure_configuration_response
 import capo_imagebuilder.types.instance_metadata_options
 import capo_imagebuilder.types.instance_type_list
 import capo_imagebuilder.types.logging
+import capo_imagebuilder.types.parent_instance_configuration
 import capo_imagebuilder.types.placement
 import capo_imagebuilder.types.resource_tag_map
 import capo_imagebuilder.types.security_group_ids

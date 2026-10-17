@@ -463,8 +463,18 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_arc_region_switch.types.get_plan_execution_response.GetPlanExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.get_plan_execution_response
+
+            return capo_arc_region_switch.types.get_plan_execution_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetPlanExecution")
+            config_overrides,
+            OperationLogging("GetPlanExecution", redact_output=_redact_output),
         )
         input_: capo_arc_region_switch.types.get_plan_execution_request.GetPlanExecutionRequest = {
             "plan_arn": plan_arn,
@@ -541,8 +551,18 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_arc_region_switch.types.get_plan_in_region_response.GetPlanInRegionResponse",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.get_plan_in_region_response
+
+            return capo_arc_region_switch.types.get_plan_in_region_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetPlanInRegion")
+            config_overrides,
+            OperationLogging("GetPlanInRegion", redact_output=_redact_output),
         )
         input_: capo_arc_region_switch.types.get_plan_in_region_request.GetPlanInRegionRequest = {
             "arn": arn
@@ -1054,7 +1074,7 @@ class ARCRegionswitchClient:
             "capo_arc_region_switch.types.next_token.NextToken"
         ] = None,
     ) -> "capo_arc_region_switch.types.list_service_quota_warnings_response.ListServiceQuotaWarningsResponse":
-        """<p>Lists the service quota warnings for the plans that you can access. Region switch creates a warning when the applied quota value in one Region of a plan is lower than the value required for the matching resource in another Region or account in the plan.</p> <p>Returns the warnings for the plans that you own and for plans that are shared with your account through AWS Resource Access Manager (AWS RAM). To return warnings for specific plans, provide a list of plan Amazon Resource Names (ARNs). Region switch ignores any plan ARN that you can't access. If you don't provide any plan ARNs, Region switch returns the warnings for all of your accessible plans.</p>
+        """<p>Lists the service quota warnings for the plans that you can access. Region switch creates a warning when the applied quota value in one Region of a plan is lower than the value required for the matching resource in another Region or account in the plan.</p> <p>Returns the warnings for the plans that you own and for plans that are shared with your account through Resource Access Manager (RAM). To return warnings for specific plans, provide a list of plan Amazon Resource Names (ARNs). Region switch ignores any plan ARN that you can't access. If you don't provide any plan ARNs, Region switch returns the warnings for all of your accessible plans.</p>
 
         Args:
             plan_arns: <p>The Amazon Resource Names (ARNs) of the plans to return service quota warnings for. You can specify up to 100 plan ARNs. Region switch ignores any plan ARN that you can't access. If you omit this parameter, Region switch returns the warnings for all of your accessible plans.</p>
@@ -1386,8 +1406,29 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_arc_region_switch.types.create_plan_request.CreatePlanRequest",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.create_plan_request
+
+            return capo_arc_region_switch.types.create_plan_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_arc_region_switch.types.create_plan_response.CreatePlanResponse",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.create_plan_response
+
+            return capo_arc_region_switch.types.create_plan_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreatePlan")
+            config_overrides,
+            OperationLogging(
+                "CreatePlan", redact_input=_redact_input, redact_output=_redact_output
+            ),
         )
         input_: capo_arc_region_switch.types.create_plan_request.CreatePlanRequest = {
             "workflows": workflows,
@@ -1451,8 +1492,17 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_output(
+            output: "capo_arc_region_switch.types.get_plan_response.GetPlanResponse",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.get_plan_response
+
+            return capo_arc_region_switch.types.get_plan_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetPlan")
+            config_overrides, OperationLogging("GetPlan", redact_output=_redact_output)
         )
         input_: capo_arc_region_switch.types.get_plan_request.GetPlanRequest = {
             "arn": arn
@@ -1518,8 +1568,29 @@ class ARCRegionswitchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
+        def _redact_input(
+            input_: "capo_arc_region_switch.types.update_plan_request.UpdatePlanRequest",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.update_plan_request
+
+            return capo_arc_region_switch.types.update_plan_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_arc_region_switch.types.update_plan_response.UpdatePlanResponse",
+        ) -> dict[str, Any]:
+            import capo_arc_region_switch.types.update_plan_response
+
+            return capo_arc_region_switch.types.update_plan_response.redact_sensitive(
+                output
+            )
+
         interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdatePlan")
+            config_overrides,
+            OperationLogging(
+                "UpdatePlan", redact_input=_redact_input, redact_output=_redact_output
+            ),
         )
         input_: capo_arc_region_switch.types.update_plan_request.UpdatePlanRequest = {
             "arn": arn,

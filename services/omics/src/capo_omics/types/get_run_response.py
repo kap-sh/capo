@@ -138,7 +138,7 @@ class GetRunResponse(TypedDict, closed=True):
     engine_settings: NotRequired["capo_omics.types.engine_settings.EngineSettings"]
     """<p>The engine-specific settings for the workflow run.</p>"""
     session_policy: NotRequired["capo_omics.types.session_policy.SessionPolicy"]
-    """Inline policy json for scoping down permissions via a session policy on the IAM role."""
+    """<p>Inline policy json for scoping down permissions via a session policy on the IAM role.</p>"""
 
 
 # --- restJson1 ser/de ---

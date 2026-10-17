@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.get_operator_app_output
     import capo_devops_agent.types.idp_client_id
     import capo_devops_agent.types.idp_client_secret
+    import capo_devops_agent.types.included_data
     import capo_devops_agent.types.kms_key_arn
     import capo_devops_agent.types.list_agent_spaces_input
     import capo_devops_agent.types.list_agent_spaces_output
@@ -168,11 +169,15 @@ class AgentSpaceResource:
         agent_space_id: "capo_devops_agent.types.agent_space_id.AgentSpaceId",
         *,
         config_overrides: Optional[DevOpsAgentClientConfig] = None,
+        included_data: Optional[
+            "capo_devops_agent.types.included_data.IncludedData"
+        ] = None,
     ) -> "capo_devops_agent.types.get_agent_space_output.GetAgentSpaceOutput":
         """<p>Retrieves detailed information about a specific AgentSpace.</p>
 
         Args:
             agent_space_id: <p>The unique identifier of the AgentSpace</p>
+            included_data: <p>How much data to include in the response.</p>
 
         Raises:
             capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
@@ -217,6 +222,8 @@ class AgentSpaceResource:
         input_: capo_devops_agent.types.get_agent_space_input.GetAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
+        if included_data is not None:
+            input_["included_data"] = included_data
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -653,12 +660,16 @@ class AgentSpaceResource:
         config_overrides: Optional[DevOpsAgentClientConfig] = None,
         max_results: Optional[int] = None,
         next_token: Optional["capo_devops_agent.types.next_token.NextToken"] = None,
+        included_data: Optional[
+            "capo_devops_agent.types.included_data.IncludedData"
+        ] = None,
     ) -> "capo_devops_agent.types.list_agent_spaces_output.ListAgentSpacesOutput":
         """<p>Lists all AgentSpaces with optional pagination.</p>
 
         Args:
             max_results: <p>Maximum number of results to return in a single call.</p>
             next_token: <p>Token for the next page of results.</p>
+            included_data: <p>How much data to include in the response.</p>
 
         Raises:
             capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
@@ -705,6 +716,8 @@ class AgentSpaceResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if included_data is not None:
+            input_["included_data"] = included_data
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -828,11 +841,15 @@ class AsyncAgentSpaceResource:
         agent_space_id: "capo_devops_agent.types.agent_space_id.AgentSpaceId",
         *,
         config_overrides: Optional[AsyncDevOpsAgentClientConfig] = None,
+        included_data: Optional[
+            "capo_devops_agent.types.included_data.IncludedData"
+        ] = None,
     ) -> "capo_devops_agent.types.get_agent_space_output.GetAgentSpaceOutput":
         """<p>Retrieves detailed information about a specific AgentSpace.</p>
 
         Args:
             agent_space_id: <p>The unique identifier of the AgentSpace</p>
+            included_data: <p>How much data to include in the response.</p>
 
         Raises:
             capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
@@ -878,6 +895,8 @@ class AsyncAgentSpaceResource:
         input_: capo_devops_agent.types.get_agent_space_input.GetAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
+        if included_data is not None:
+            input_["included_data"] = included_data
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1320,12 +1339,16 @@ class AsyncAgentSpaceResource:
         config_overrides: Optional[AsyncDevOpsAgentClientConfig] = None,
         max_results: Optional[int] = None,
         next_token: Optional["capo_devops_agent.types.next_token.NextToken"] = None,
+        included_data: Optional[
+            "capo_devops_agent.types.included_data.IncludedData"
+        ] = None,
     ) -> "capo_devops_agent.types.list_agent_spaces_output.ListAgentSpacesOutput":
         """<p>Lists all AgentSpaces with optional pagination.</p>
 
         Args:
             max_results: <p>Maximum number of results to return in a single call.</p>
             next_token: <p>Token for the next page of results.</p>
+            included_data: <p>How much data to include in the response.</p>
 
         Raises:
             capo_devops_agent.errors.access_denied_exception.AccessDeniedException: <p>Access to the requested resource is denied due to insufficient permissions.</p>
@@ -1373,6 +1396,8 @@ class AsyncAgentSpaceResource:
             input_["max_results"] = max_results
         if next_token is not None:
             input_["next_token"] = next_token
+        if included_data is not None:
+            input_["included_data"] = included_data
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

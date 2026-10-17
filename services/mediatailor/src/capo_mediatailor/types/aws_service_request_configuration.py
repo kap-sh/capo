@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
     import capo_mediatailor.types.aws_target_service
+    import capo_mediatailor.types.http_request_cache_configuration
     import capo_mediatailor.types.method_type
     import capo_mediatailor.types.runtime_type
 
@@ -30,6 +31,10 @@ class AwsServiceRequestConfiguration(TypedDict, closed=True):
     """<p>An expression that evaluates to the request body for the AWS service API call. The body must conform to the input format that the target service operation expects. Applies only when the target operation accepts a request body. The maximum size after evaluation is 64 KB.</p>"""
     headers: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
     """<p>A map of HTTP header names to expression values. MediaTailor evaluates each header value expression at runtime and includes the result in the outbound request to the AWS service. Use this to pass any headers required by the target service operation. You can include a maximum of 50 headers.</p>"""
+    cache: NotRequired[
+        "capo_mediatailor.types.http_request_cache_configuration.HttpRequestCacheConfiguration"
+    ]
+    """<p>The optional response-caching configuration for the function. When present, MediaTailor caches the responses that the function receives from the AWS service, within the time-to-live (TTL) bounds that you specify. Omit this configuration to disable response caching.</p>"""
     target_service: "capo_mediatailor.types.aws_target_service.AwsTargetService"
     """<p>The AWS service to call. Valid value: <code>elemental-inference</code> (AWS Elemental Inference).</p>"""
     target_region: "capo_mediatailor.types.__string.__string"
@@ -64,6 +69,14 @@ def serialize_json(value: AwsServiceRequestConfiguration) -> dict:
 
         out["Headers"] = capo_mediatailor.types.__map_of__string.serialize_json(
             value["headers"]
+        )
+    if "cache" in value:
+        import capo_mediatailor.types.http_request_cache_configuration
+
+        out["Cache"] = (
+            capo_mediatailor.types.http_request_cache_configuration.serialize_json(
+                value["cache"]
+            )
         )
     out["TargetService"] = value["target_service"]
     out["TargetRegion"] = value["target_region"]
@@ -113,6 +126,14 @@ def deserialize_json(data: dict) -> AwsServiceRequestConfiguration:
 
         out["headers"] = capo_mediatailor.types.__map_of__string.deserialize_json(
             data["Headers"]
+        )
+    if data.get("Cache") is not None:
+        import capo_mediatailor.types.http_request_cache_configuration
+
+        out["cache"] = (
+            capo_mediatailor.types.http_request_cache_configuration.deserialize_json(
+                data["Cache"]
+            )
         )
     if data.get("TargetService") is not None:
         out["target_service"] = data["TargetService"]

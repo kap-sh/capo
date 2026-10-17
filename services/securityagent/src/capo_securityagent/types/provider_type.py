@@ -6,6 +6,7 @@ from typing import Literal, TypeAlias, cast
 ProviderType: TypeAlias = Literal[
     "SOURCE_CODE",
     "DOCUMENTATION",
+    "ISSUE_TRACKING",
 ]
 
 

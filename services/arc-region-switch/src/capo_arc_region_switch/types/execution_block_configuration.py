@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#ExecutionBlockConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     import capo_arc_region_switch.types.rds_switchover_read_replica_configuration
     import capo_arc_region_switch.types.region_switch_plan_configuration
     import capo_arc_region_switch.types.route53_health_check_configuration
+    import capo_arc_region_switch.types.ssm_send_command_configuration
 
 
 class _ExecutionBlockConfiguration_customActionLambdaConfig(TypedDict, closed=True):
@@ -111,6 +112,10 @@ class _ExecutionBlockConfiguration_rdsSwitchoverReadReplicaConfig(
     rdsSwitchoverReadReplicaConfig: "capo_arc_region_switch.types.rds_switchover_read_replica_configuration.RdsSwitchoverReadReplicaConfiguration"
 
 
+class _ExecutionBlockConfiguration_ssmSendCommandConfig(TypedDict, closed=True):
+    ssmSendCommandConfig: "capo_arc_region_switch.types.ssm_send_command_configuration.SsmSendCommandConfiguration"
+
+
 ExecutionBlockConfiguration: TypeAlias = (
     _ExecutionBlockConfiguration_customActionLambdaConfig
     | _ExecutionBlockConfiguration_ec2AsgCapacityIncreaseConfig
@@ -130,6 +135,7 @@ ExecutionBlockConfiguration: TypeAlias = (
     | _ExecutionBlockConfiguration_auroraProvisionedScalingConfig
     | _ExecutionBlockConfiguration_neptuneGlobalDatabaseConfig
     | _ExecutionBlockConfiguration_rdsSwitchoverReadReplicaConfig
+    | _ExecutionBlockConfiguration_ssmSendCommandConfig
 )
 
 
@@ -277,6 +283,14 @@ def serialize_aws_json_1_0(value: ExecutionBlockConfiguration) -> dict:
         return {
             "rdsSwitchoverReadReplicaConfig": capo_arc_region_switch.types.rds_switchover_read_replica_configuration.serialize_aws_json_1_0(
                 value["rdsSwitchoverReadReplicaConfig"]
+            )
+        }
+    elif "ssmSendCommandConfig" in value:
+        import capo_arc_region_switch.types.ssm_send_command_configuration
+
+        return {
+            "ssmSendCommandConfig": capo_arc_region_switch.types.ssm_send_command_configuration.serialize_aws_json_1_0(
+                value["ssmSendCommandConfig"]
             )
         }
     else:
@@ -428,7 +442,36 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionBlockConfiguration:
                 data["rdsSwitchoverReadReplicaConfig"]
             )
         }
+    elif data.get("ssmSendCommandConfig") is not None:
+        import capo_arc_region_switch.types.ssm_send_command_configuration
+
+        return {
+            "ssmSendCommandConfig": capo_arc_region_switch.types.ssm_send_command_configuration.deserialize_aws_json_1_0(
+                data["ssmSendCommandConfig"]
+            )
+        }
     else:
         raise DeserializationError(
             "ExecutionBlockConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ExecutionBlockConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customActionLambdaConfig" in value:
+        import capo_arc_region_switch.types.custom_action_lambda_configuration
+
+        out["customActionLambdaConfig"] = (
+            capo_arc_region_switch.types.custom_action_lambda_configuration.redact_sensitive(
+                value["customActionLambdaConfig"]
+            )
+        )
+    if "parallelConfig" in value:
+        import capo_arc_region_switch.types.parallel_execution_block_configuration
+
+        out["parallelConfig"] = (
+            capo_arc_region_switch.types.parallel_execution_block_configuration.redact_sensitive(
+                value["parallelConfig"]
+            )
+        )
+    return out

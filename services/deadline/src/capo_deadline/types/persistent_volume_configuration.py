@@ -36,7 +36,7 @@ def serialize_json(value: PersistentVolumeConfiguration) -> dict:
     out["iops"] = value.get("iops", 3000)
     out["throughputMiB"] = value.get("throughput_mi_b", 125)
     out["mountPath"] = value["mount_path"]
-    out["lastUsedTtlHours"] = value.get("last_used_ttl_hours", 168)
+    out["lastUsedTtlHours"] = value.get("last_used_ttl_hours", 12)
     return out
 
 
@@ -61,5 +61,5 @@ def deserialize_json(data: dict) -> PersistentVolumeConfiguration:
     if data.get("lastUsedTtlHours") is not None:
         out["last_used_ttl_hours"] = data["lastUsedTtlHours"]
     else:
-        out["last_used_ttl_hours"] = 168
+        out["last_used_ttl_hours"] = 12
     return out

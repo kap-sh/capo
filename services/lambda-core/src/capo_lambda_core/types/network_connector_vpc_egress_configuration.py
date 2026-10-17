@@ -19,7 +19,7 @@ class NetworkConnectorVpcEgressConfiguration(TypedDict, closed=True):
     security_group_ids: NotRequired[
         "capo_lambda_core.types.network_connector_security_group_ids.NetworkConnectorSecurityGroupIds"
     ]
-    """<p>The IDs of the VPC security groups to attach to the ENIs. Specify 0 to 5 security groups. All security groups must be in the same VPC as the subnets.</p>"""
+    """<p>The IDs of the VPC security groups to attach to the ENIs. All security groups must be in the same VPC as the subnets.</p>"""
     network_protocol: NotRequired[
         "capo_lambda_core.types.network_protocol.NetworkProtocol"
     ]
@@ -27,7 +27,7 @@ class NetworkConnectorVpcEgressConfiguration(TypedDict, closed=True):
     associated_compute_resource_types: NotRequired[
         "capo_lambda_core.types.associated_compute_resource_types_list.AssociatedComputeResourceTypesList"
     ]
-    """<p>The types of Lambda compute resources that can use this connector. Currently, only <code>MicroVm</code> is supported.</p>"""
+    """<p>The types of Lambda compute resources that can use this connector. Valid values are <code>MicroVm</code> and <code>WebFunction</code>. Specify exactly one value.</p>"""
 
 
 # --- restJson1 ser/de ---

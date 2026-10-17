@@ -75,6 +75,10 @@ if TYPE_CHECKING:
     import capo_securityagent.types.batch_delete_security_requirements_output
     import capo_securityagent.types.batch_delete_threat_models_input
     import capo_securityagent.types.batch_delete_threat_models_output
+    import capo_securityagent.types.batch_disassociate_finding_issue_input
+    import capo_securityagent.types.batch_disassociate_finding_issue_output
+    import capo_securityagent.types.batch_export_findings_input
+    import capo_securityagent.types.batch_export_findings_output
     import capo_securityagent.types.batch_get_agent_spaces_input
     import capo_securityagent.types.batch_get_agent_spaces_output
     import capo_securityagent.types.batch_get_artifact_metadata_input
@@ -187,6 +191,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.integration_filter
     import capo_securityagent.types.integration_id
     import capo_securityagent.types.integration_summary
+    import capo_securityagent.types.issue_destination
     import capo_securityagent.types.job_type
     import capo_securityagent.types.kms_key_id
     import capo_securityagent.types.list_actor_messages_input
@@ -298,6 +303,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.target_url
     import capo_securityagent.types.task_id_list
     import capo_securityagent.types.task_summary
+    import capo_securityagent.types.test_scope
     import capo_securityagent.types.threat_anchor_shape
     import capo_securityagent.types.threat_evidence_list
     import capo_securityagent.types.threat_id_list
@@ -761,6 +767,133 @@ class SecurityAgentClient:
             "threat_model_ids": threat_model_ids,
             "agent_space_id": agent_space_id,
         }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def batch_disassociate_finding_issue(
+        self,
+        agent_space_id: str,
+        finding_ids: "capo_securityagent.types.finding_id_list.FindingIdList",
+        *,
+        config_overrides: Optional[SecurityAgentClientConfig] = None,
+        pentest_job_id: Optional[str] = None,
+        code_review_job_id: Optional[str] = None,
+    ) -> "capo_securityagent.types.batch_disassociate_finding_issue_output.BatchDisassociateFindingIssueOutput":
+        """<p>Disassociates a batch of findings from their linked issues.</p>
+
+        Args:
+            agent_space_id: <p>The identifier of the agent space where the job exists.</p>
+            pentest_job_id: <p>The identifier of the penetration test job. This parameter is mutually exclusive with <code>codeReviewJobId</code>.</p>
+            code_review_job_id: <p>The identifier of the code review job. This parameter is mutually exclusive with <code>pentestJobId</code>.</p>
+            finding_ids: <p>The identifiers of the findings to disassociate from their issues. Each must belong to the specified job.</p>
+
+        Raises:
+            capo_securityagent.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_securityagent.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the resource.</p>
+            capo_securityagent.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred during the processing of your request.</p>
+            capo_securityagent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify that the resource identifier is correct and that the resource exists in the specified agent space or account.</p>
+            capo_securityagent.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota. Review your current usage and request a quota increase if needed.</p>
+            capo_securityagent.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_securityagent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_securityagent.types.batch_disassociate_finding_issue_input.BatchDisassociateFindingIssueInput]",
+        ) -> OperationResponse[
+            "capo_securityagent.types.batch_disassociate_finding_issue_output.BatchDisassociateFindingIssueOutput"
+        ]:
+            import capo_securityagent._operations.security_agent.batch_disassociate_finding_issue
+
+            output, http_response = (
+                capo_securityagent._operations.security_agent.batch_disassociate_finding_issue.batch_disassociate_finding_issue(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDisassociateFindingIssue")
+        )
+        input_: capo_securityagent.types.batch_disassociate_finding_issue_input.BatchDisassociateFindingIssueInput = {
+            "agent_space_id": agent_space_id,
+            "finding_ids": finding_ids,
+        }
+        if pentest_job_id is not None:
+            input_["pentest_job_id"] = pentest_job_id
+        if code_review_job_id is not None:
+            input_["code_review_job_id"] = code_review_job_id
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def batch_export_findings(
+        self,
+        agent_space_id: str,
+        issue_destination: "capo_securityagent.types.issue_destination.IssueDestination",
+        finding_ids: "capo_securityagent.types.finding_id_list.FindingIdList",
+        *,
+        config_overrides: Optional[SecurityAgentClientConfig] = None,
+        pentest_job_id: Optional[str] = None,
+        code_review_job_id: Optional[str] = None,
+    ) -> "capo_securityagent.types.batch_export_findings_output.BatchExportFindingsOutput":
+        """<p>Exports a batch of findings to the connected issue tracker as issues.</p>
+
+        Args:
+            agent_space_id: <p>The identifier of the agent space where the job exists.</p>
+            pentest_job_id: <p>The identifier of the penetration test job. This parameter is mutually exclusive with <code>codeReviewJobId</code>.</p>
+            code_review_job_id: <p>The identifier of the code review job. This parameter is mutually exclusive with <code>pentestJobId</code>.</p>
+            issue_destination: <p>The destination issue-tracker project the findings are exported to. Must be a connected capability of the agent space.</p>
+            finding_ids: <p>The identifiers of the findings to export. Each must belong to the specified job.</p>
+
+        Raises:
+            capo_securityagent.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
+            capo_securityagent.errors.conflict_exception.ConflictException: <p>The request could not be completed due to a conflict with the current state of the resource.</p>
+            capo_securityagent.errors.internal_server_exception.InternalServerException: <p>An unexpected error occurred during the processing of your request.</p>
+            capo_securityagent.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found. Verify that the resource identifier is correct and that the resource exists in the specified agent space or account.</p>
+            capo_securityagent.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>The request exceeds a service quota. Review your current usage and request a quota increase if needed.</p>
+            capo_securityagent.errors.throttling_exception.ThrottlingException: <p>The request was denied due to request throttling.</p>
+            capo_securityagent.errors.validation_exception.ValidationException: <p>The input fails to satisfy the constraints specified by the service.</p>
+            capo_securityagent.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_securityagent.types.batch_export_findings_input.BatchExportFindingsInput]",
+        ) -> OperationResponse[
+            "capo_securityagent.types.batch_export_findings_output.BatchExportFindingsOutput"
+        ]:
+            import capo_securityagent._operations.security_agent.batch_export_findings
+
+            output, http_response = (
+                capo_securityagent._operations.security_agent.batch_export_findings.batch_export_findings(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchExportFindings")
+        )
+        input_: capo_securityagent.types.batch_export_findings_input.BatchExportFindingsInput = {
+            "agent_space_id": agent_space_id,
+            "issue_destination": issue_destination,
+            "finding_ids": finding_ids,
+        }
+        if pentest_job_id is not None:
+            input_["pentest_job_id"] = pentest_job_id
+        if code_review_job_id is not None:
+            input_["code_review_job_id"] = code_review_job_id
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1696,6 +1829,7 @@ class SecurityAgentClient:
         cicd_configuration: Optional[
             "capo_securityagent.types.ci_cd_configuration.CiCdConfiguration"
         ] = None,
+        test_scope: Optional["capo_securityagent.types.test_scope.TestScope"] = None,
     ) -> "capo_securityagent.types.create_pentest_output.CreatePentestOutput":
         """<p>Creates a new pentest configuration in an agent space. A pentest defines the security test parameters, including target assets, risk type exclusions, and logging configuration.</p>
 
@@ -1787,6 +1921,8 @@ class SecurityAgentClient:
             input_["report_filters"] = report_filters
         if cicd_configuration is not None:
             input_["cicd_configuration"] = cicd_configuration
+        if test_scope is not None:
+            input_["test_scope"] = test_scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -4582,6 +4718,7 @@ class SecurityAgentClient:
         cicd_configuration: Optional[
             "capo_securityagent.types.ci_cd_configuration.CiCdConfiguration"
         ] = None,
+        test_scope: Optional["capo_securityagent.types.test_scope.TestScope"] = None,
     ) -> "capo_securityagent.types.update_pentest_output.UpdatePentestOutput":
         """<p>Updates an existing pentest configuration.</p>
 
@@ -4676,6 +4813,8 @@ class SecurityAgentClient:
             input_["report_filters"] = report_filters
         if cicd_configuration is not None:
             input_["cicd_configuration"] = cicd_configuration
+        if test_scope is not None:
+            input_["test_scope"] = test_scope
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

@@ -16,6 +16,7 @@ import capo_route_53_domains.errors.invalid_input
 import capo_route_53_domains.errors.operation_limit_exceeded
 import capo_route_53_domains.errors.tld_rules_violation
 import capo_route_53_domains.errors.unsupported_tld
+import capo_route_53_domains.types.consent
 import capo_route_53_domains.types.renew_domain_request
 import capo_route_53_domains.types.renew_domain_response
 from capo_route_53_domains._protocol.errors import parse_error_metadata_json

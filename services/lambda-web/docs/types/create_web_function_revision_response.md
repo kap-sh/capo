@@ -1,0 +1,8 @@
+---
+title: CreateWebFunctionRevisionResponse
+---
+
+::: capo_lambda_web.types.create_web_function_revision_response.CreateWebFunctionRevisionResponse
+    options:
+      show_source: true
+      merge_init_into_class: false

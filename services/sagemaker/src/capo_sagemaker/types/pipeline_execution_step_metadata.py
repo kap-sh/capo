@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_sagemaker.types.athena_step_metadata
     import capo_sagemaker.types.auto_ml_job_step_metadata
     import capo_sagemaker.types.bedrock_custom_model_deployment_metadata
     import capo_sagemaker.types.bedrock_custom_model_metadata
@@ -12,11 +13,14 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.bedrock_provisioned_model_throughput_metadata
     import capo_sagemaker.types.callback_step_metadata
     import capo_sagemaker.types.clarify_check_step_metadata
+    import capo_sagemaker.types.cleanup_step_metadata
     import capo_sagemaker.types.condition_step_metadata
+    import capo_sagemaker.types.emr_serverless_step_metadata
     import capo_sagemaker.types.emr_step_metadata
     import capo_sagemaker.types.endpoint_config_step_metadata
     import capo_sagemaker.types.endpoint_step_metadata
     import capo_sagemaker.types.fail_step_metadata
+    import capo_sagemaker.types.for_each_step_metadata
     import capo_sagemaker.types.inference_component_metadata
     import capo_sagemaker.types.job_step_metadata
     import capo_sagemaker.types.lambda_step_metadata
@@ -60,6 +64,9 @@ PipelineExecutionStepMetadata = TypedDict(
             "capo_sagemaker.types.lambda_step_metadata.LambdaStepMetadata"
         ],
         "emr": NotRequired["capo_sagemaker.types.emr_step_metadata.EMRStepMetadata"],
+        "emr_serverless": NotRequired[
+            "capo_sagemaker.types.emr_serverless_step_metadata.EMRServerlessStepMetadata"
+        ],
         "quality_check": NotRequired[
             "capo_sagemaker.types.quality_check_step_metadata.QualityCheckStepMetadata"
         ],
@@ -93,6 +100,15 @@ PipelineExecutionStepMetadata = TypedDict(
         ],
         "lineage": NotRequired["capo_sagemaker.types.lineage_metadata.LineageMetadata"],
         "job": NotRequired["capo_sagemaker.types.job_step_metadata.JobStepMetadata"],
+        "athena": NotRequired[
+            "capo_sagemaker.types.athena_step_metadata.AthenaStepMetadata"
+        ],
+        "cleanup": NotRequired[
+            "capo_sagemaker.types.cleanup_step_metadata.CleanupStepMetadata"
+        ],
+        "for_each": NotRequired[
+            "capo_sagemaker.types.for_each_step_metadata.ForEachStepMetadata"
+        ],
     },
     closed=True,
 )
@@ -176,6 +192,14 @@ def serialize_aws_json_1_1(value: PipelineExecutionStepMetadata) -> dict:
 
         out["EMR"] = capo_sagemaker.types.emr_step_metadata.serialize_aws_json_1_1(
             value["emr"]
+        )
+    if "emr_serverless" in value:
+        import capo_sagemaker.types.emr_serverless_step_metadata
+
+        out["EMRServerless"] = (
+            capo_sagemaker.types.emr_serverless_step_metadata.serialize_aws_json_1_1(
+                value["emr_serverless"]
+            )
         )
     if "quality_check" in value:
         import capo_sagemaker.types.quality_check_step_metadata
@@ -275,6 +299,30 @@ def serialize_aws_json_1_1(value: PipelineExecutionStepMetadata) -> dict:
         out["Job"] = capo_sagemaker.types.job_step_metadata.serialize_aws_json_1_1(
             value["job"]
         )
+    if "athena" in value:
+        import capo_sagemaker.types.athena_step_metadata
+
+        out["Athena"] = (
+            capo_sagemaker.types.athena_step_metadata.serialize_aws_json_1_1(
+                value["athena"]
+            )
+        )
+    if "cleanup" in value:
+        import capo_sagemaker.types.cleanup_step_metadata
+
+        out["Cleanup"] = (
+            capo_sagemaker.types.cleanup_step_metadata.serialize_aws_json_1_1(
+                value["cleanup"]
+            )
+        )
+    if "for_each" in value:
+        import capo_sagemaker.types.for_each_step_metadata
+
+        out["ForEach"] = (
+            capo_sagemaker.types.for_each_step_metadata.serialize_aws_json_1_1(
+                value["for_each"]
+            )
+        )
     return out
 
 
@@ -357,6 +405,14 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineExecutionStepMetadata:
 
         out["emr"] = capo_sagemaker.types.emr_step_metadata.deserialize_aws_json_1_1(
             data["EMR"]
+        )
+    if data.get("EMRServerless") is not None:
+        import capo_sagemaker.types.emr_serverless_step_metadata
+
+        out["emr_serverless"] = (
+            capo_sagemaker.types.emr_serverless_step_metadata.deserialize_aws_json_1_1(
+                data["EMRServerless"]
+            )
         )
     if data.get("QualityCheck") is not None:
         import capo_sagemaker.types.quality_check_step_metadata
@@ -455,5 +511,29 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineExecutionStepMetadata:
 
         out["job"] = capo_sagemaker.types.job_step_metadata.deserialize_aws_json_1_1(
             data["Job"]
+        )
+    if data.get("Athena") is not None:
+        import capo_sagemaker.types.athena_step_metadata
+
+        out["athena"] = (
+            capo_sagemaker.types.athena_step_metadata.deserialize_aws_json_1_1(
+                data["Athena"]
+            )
+        )
+    if data.get("Cleanup") is not None:
+        import capo_sagemaker.types.cleanup_step_metadata
+
+        out["cleanup"] = (
+            capo_sagemaker.types.cleanup_step_metadata.deserialize_aws_json_1_1(
+                data["Cleanup"]
+            )
+        )
+    if data.get("ForEach") is not None:
+        import capo_sagemaker.types.for_each_step_metadata
+
+        out["for_each"] = (
+            capo_sagemaker.types.for_each_step_metadata.deserialize_aws_json_1_1(
+                data["ForEach"]
+            )
         )
     return out

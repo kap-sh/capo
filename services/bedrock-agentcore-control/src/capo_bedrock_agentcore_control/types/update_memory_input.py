@@ -19,7 +19,7 @@ class UpdateMemoryInput(TypedDict, closed=True):
     client_token: NotRequired[
         "capo_bedrock_agentcore_control.types.non_empty_string.NonEmptyString"
     ]
-    """<p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique AWS identifier.</p>"""
+    """<p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>"""
     memory_id: "capo_bedrock_agentcore_control.types.memory_id.MemoryId"
     """<p>The unique identifier of the memory to update.</p>"""
     description: NotRequired[

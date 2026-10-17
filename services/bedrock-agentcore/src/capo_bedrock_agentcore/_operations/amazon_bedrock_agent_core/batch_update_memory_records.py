@@ -22,6 +22,7 @@ import capo_bedrock_agentcore.types.batch_update_memory_records_input
 import capo_bedrock_agentcore.types.batch_update_memory_records_output
 import capo_bedrock_agentcore.types.memory_records_output_list
 import capo_bedrock_agentcore.types.memory_records_update_input_list
+import capo_bedrock_agentcore.types.record_expiry_specification
 from capo_bedrock_agentcore._protocol.errors import parse_error_metadata_json
 from capo_bedrock_agentcore._rule_engine._endpoint_rule_set import (
     EndpointParams,

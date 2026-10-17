@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_guardduty.types.detection_rule_arn
     import capo_guardduty.types.detection_rule_data_source
     import capo_guardduty.types.detection_rule_description
+    import capo_guardduty.types.detection_rule_runtime_monitoring_details
     import capo_guardduty.types.detection_rule_service_name
     import capo_guardduty.types.detection_rule_severity
     import capo_guardduty.types.mitre_tactic
@@ -53,6 +54,10 @@ class RuleDetail(TypedDict, closed=True):
     """<p>The language used for the detection logic expression.</p>"""
     schema: NotRequired["capo_guardduty.types.rule_schema.RuleSchema"]
     """<p>The schema version used by the rule definition.</p>"""
+    runtime_monitoring_details: NotRequired[
+        "capo_guardduty.types.detection_rule_runtime_monitoring_details.DetectionRuleRuntimeMonitoringDetails"
+    ]
+    """<p>Runtime Monitoring-specific details for the rule, including the platforms on which the rule can run and the minimum GuardDuty agent version required on each.</p>"""
     created_at: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
     """<p>The timestamp when the rule was created.</p>"""
     updated_at: NotRequired["capo_guardduty.types.timestamp.Timestamp"]
@@ -106,6 +111,14 @@ def serialize_json(value: RuleDetail) -> dict:
         import capo_guardduty.types.rule_schema
 
         out["schema"] = capo_guardduty.types.rule_schema.serialize_json(value["schema"])
+    if "runtime_monitoring_details" in value:
+        import capo_guardduty.types.detection_rule_runtime_monitoring_details
+
+        out["runtimeMonitoringDetails"] = (
+            capo_guardduty.types.detection_rule_runtime_monitoring_details.serialize_json(
+                value["runtime_monitoring_details"]
+            )
+        )
     if "created_at" in value:
         import capo_guardduty.types.timestamp
 
@@ -168,6 +181,14 @@ def deserialize_json(data: dict) -> RuleDetail:
 
         out["schema"] = capo_guardduty.types.rule_schema.deserialize_json(
             data["schema"]
+        )
+    if data.get("runtimeMonitoringDetails") is not None:
+        import capo_guardduty.types.detection_rule_runtime_monitoring_details
+
+        out["runtime_monitoring_details"] = (
+            capo_guardduty.types.detection_rule_runtime_monitoring_details.deserialize_json(
+                data["runtimeMonitoringDetails"]
+            )
         )
     if data.get("createdAt") is not None:
         import capo_guardduty.types.timestamp

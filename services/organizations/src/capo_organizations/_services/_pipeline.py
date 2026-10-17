@@ -94,8 +94,8 @@ class OperationOptions:
     retry_quota: RetryQuota
     use_dual_stack: bool | None = None
     use_fips: bool | None = None
-    region: str | None = None
     endpoint: str | None = None
+    region: str | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
     anonymous: bool | None = None
@@ -107,8 +107,8 @@ class AsyncOperationOptions:
     retry_quota: RetryQuota
     use_dual_stack: bool | None = None
     use_fips: bool | None = None
-    region: str | None = None
     endpoint: str | None = None
+    region: str | None = None
     retry_max_attempts: int | None = None
     credentials_provider: IdentityProvider[Credentials] | None = None
     anonymous: bool | None = None

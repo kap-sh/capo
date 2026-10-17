@@ -21,6 +21,7 @@ import capo_resiliencehubv2.types.associated_system_list
 import capo_resiliencehubv2.types.create_service_request
 import capo_resiliencehubv2.types.create_service_response
 import capo_resiliencehubv2.types.dependency_discovery_input
+import capo_resiliencehubv2.types.dev_ops_agent_configuration
 import capo_resiliencehubv2.types.permission_model
 import capo_resiliencehubv2.types.region_list
 import capo_resiliencehubv2.types.service

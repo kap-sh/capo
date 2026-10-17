@@ -12,6 +12,7 @@ class GetNetworkConnectorRequest(TypedDict, closed=True):
     identifier: (
         "capo_lambda_core.types.network_connector_identifier.NetworkConnectorIdentifier"
     )
+    """<p>The identifier of the network connector to retrieve. You can specify the connector ID, name, or ARN. Provide an unqualified ARN (or an ID or name) to retrieve the connector's latest version, or a version-qualified ARN — one that includes the immutable version suffix — to retrieve a specific historical version.</p>"""
 
 
 # --- restJson1 ser/de ---

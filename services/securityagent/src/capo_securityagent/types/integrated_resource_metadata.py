@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.confluence_document_metadata
     import capo_securityagent.types.git_hub_repository_metadata
     import capo_securityagent.types.git_lab_repository_metadata
+    import capo_securityagent.types.jira_project_metadata
 
 
 class _IntegratedResourceMetadata_githubRepository(TypedDict, closed=True):
@@ -38,12 +39,17 @@ class _IntegratedResourceMetadata_azureDevOpsRepository(TypedDict, closed=True):
     azureDevOpsRepository: "capo_securityagent.types.azure_dev_ops_repository_metadata.AzureDevOpsRepositoryMetadata"
 
 
+class _IntegratedResourceMetadata_jiraProject(TypedDict, closed=True):
+    jiraProject: "capo_securityagent.types.jira_project_metadata.JiraProjectMetadata"
+
+
 IntegratedResourceMetadata: TypeAlias = (
     _IntegratedResourceMetadata_githubRepository
     | _IntegratedResourceMetadata_gitlabRepository
     | _IntegratedResourceMetadata_bitbucketRepository
     | _IntegratedResourceMetadata_confluenceDocument
     | _IntegratedResourceMetadata_azureDevOpsRepository
+    | _IntegratedResourceMetadata_jiraProject
 )
 
 
@@ -89,6 +95,14 @@ def serialize_json(value: IntegratedResourceMetadata) -> dict:
                 value["azureDevOpsRepository"]
             )
         }
+    elif "jiraProject" in value:
+        import capo_securityagent.types.jira_project_metadata
+
+        return {
+            "jiraProject": capo_securityagent.types.jira_project_metadata.serialize_json(
+                value["jiraProject"]
+            )
+        }
     else:
         raise SerializationError("IntegratedResourceMetadata: no variant present")
 
@@ -132,6 +146,14 @@ def deserialize_json(data: dict) -> IntegratedResourceMetadata:
         return {
             "azureDevOpsRepository": capo_securityagent.types.azure_dev_ops_repository_metadata.deserialize_json(
                 data["azureDevOpsRepository"]
+            )
+        }
+    elif data.get("jiraProject") is not None:
+        import capo_securityagent.types.jira_project_metadata
+
+        return {
+            "jiraProject": capo_securityagent.types.jira_project_metadata.deserialize_json(
+                data["jiraProject"]
             )
         }
     else:

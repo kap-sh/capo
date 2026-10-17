@@ -5,10 +5,12 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_securityhub.types.criticality_source_list
     import capo_securityhub.types.discovery_type
     import capo_securityhub.types.non_empty_string
     import capo_securityhub.types.resource_category
     import capo_securityhub.types.resource_config
+    import capo_securityhub.types.resource_criticality
     import capo_securityhub.types.resource_findings_summary_list
     import capo_securityhub.types.resource_info
     import capo_securityhub.types.resource_sub_category
@@ -82,6 +84,14 @@ class ResourceResult(TypedDict, closed=True):
     """<p>Specifies how the resource was discovered. If the value is <code>Managed</code>, the resource is natively provided by a cloud service provider. If the value is <code>SelfHosted</code>, the resource is hosted on customer-managed infrastructure, such as a compute instance or container image.</p>"""
     resource_info: NotRequired["capo_securityhub.types.resource_info.ResourceInfo"]
     """<p>Additional resource-type-specific details. For self-hosted AI resources and their host resources, contains an <code>AIDetails</code> structure.</p>"""
+    resource_criticality: NotRequired[
+        "capo_securityhub.types.resource_criticality.ResourceCriticality"
+    ]
+    """<p>The criticality assigned to a resource.</p>"""
+    criticality_sources: NotRequired[
+        "capo_securityhub.types.criticality_source_list.CriticalitySourceList"
+    ]
+    """<p>The sources of criticalities determined from a resource.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -158,6 +168,22 @@ def serialize_json(value: ResourceResult) -> dict:
 
         out["ResourceInfo"] = capo_securityhub.types.resource_info.serialize_json(
             value["resource_info"]
+        )
+    if "resource_criticality" in value:
+        import capo_securityhub.types.resource_criticality
+
+        out["ResourceCriticality"] = (
+            capo_securityhub.types.resource_criticality.serialize_json(
+                value["resource_criticality"]
+            )
+        )
+    if "criticality_sources" in value:
+        import capo_securityhub.types.criticality_source_list
+
+        out["CriticalitySources"] = (
+            capo_securityhub.types.criticality_source_list.serialize_json(
+                value["criticality_sources"]
+            )
         )
     return out
 
@@ -237,5 +263,21 @@ def deserialize_json(data: dict) -> ResourceResult:
 
         out["resource_info"] = capo_securityhub.types.resource_info.deserialize_json(
             data["ResourceInfo"]
+        )
+    if data.get("ResourceCriticality") is not None:
+        import capo_securityhub.types.resource_criticality
+
+        out["resource_criticality"] = (
+            capo_securityhub.types.resource_criticality.deserialize_json(
+                data["ResourceCriticality"]
+            )
+        )
+    if data.get("CriticalitySources") is not None:
+        import capo_securityhub.types.criticality_source_list
+
+        out["criticality_sources"] = (
+            capo_securityhub.types.criticality_source_list.deserialize_json(
+                data["CriticalitySources"]
+            )
         )
     return out

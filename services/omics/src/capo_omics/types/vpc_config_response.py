@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_omics.types.aws_account_id
     import capo_omics.types.security_group_ids
     import capo_omics.types.subnet_ids
     import capo_omics.types.vpc_id
@@ -19,6 +20,8 @@ class VpcConfigResponse(TypedDict, closed=True):
     """<p>List of subnet IDs.</p>"""
     vpc_id: NotRequired["capo_omics.types.vpc_id.VpcId"]
     """<p>VPC ID computed from the provided subnet IDs.</p>"""
+    vpc_owner_account_id: NotRequired["capo_omics.types.aws_account_id.AwsAccountId"]
+    """<p>The Amazon Web Services account ID of the cross-account VPC owner for RAM-shared VPC configurations.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -38,6 +41,8 @@ def serialize_json(value: VpcConfigResponse) -> dict:
         )
     if "vpc_id" in value:
         out["vpcId"] = value["vpc_id"]
+    if "vpc_owner_account_id" in value:
+        out["vpcOwnerAccountId"] = value["vpc_owner_account_id"]
     return out
 
 
@@ -59,4 +64,6 @@ def deserialize_json(data: dict) -> VpcConfigResponse:
         )
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
+    if data.get("vpcOwnerAccountId") is not None:
+        out["vpc_owner_account_id"] = data["vpcOwnerAccountId"]
     return out
