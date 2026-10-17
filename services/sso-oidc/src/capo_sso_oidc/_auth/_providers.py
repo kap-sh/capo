@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import configparser
+import json
 import os
+import subprocess
 from abc import abstractmethod
 from datetime import datetime, timezone
 from pathlib import Path
@@ -18,6 +20,10 @@ from capo_sso_oidc._services._aws_config import _load_profile, active_profile
 
 class IdentityNotFound(Exception):
     """Raised when a provider cannot resolve an identity. Chain continues."""
+
+
+class CredentialProcessError(Exception):
+    """Raised when a profile's `credential_process` fails or prints unusable output. Chain stops."""
 
 
 IdentityT = TypeVar("IdentityT", bound="Identity")
@@ -127,13 +133,27 @@ class ProfileCredentialsProvider(CredentialsProvider):
         self, credentials_file: Path | None = None, profile: str | None = None
     ) -> None:
         self._profile = profile or active_profile()
-        self._cred_file = credentials_file or Path(
-            os.environ.get("AWS_SHARED_CREDENTIALS_FILE")
-            or Path.home() / ".aws" / "credentials"
-        )
+        self._cred_file = credentials_file or _shared_credentials_file()
 
     def resolve_identity(self) -> Credentials:
-        section = self._load_section()
+        from_config, _ = _load_profile(self._profile)
+        from_credentials_file = _credentials_file_section(
+            self._profile, self._cred_file
+        )
+        section = {**from_config, **from_credentials_file}
+        if not section:
+            raise IdentityNotFound(
+                f"profile {self._profile!r} not found in credentials/config files"
+            )
+        # botocore's order: keys from the credentials file, then credential_process, then keys from the
+        # config file, so a profile with a process only takes its keys from the credentials file
+        if "credential_process" in section and not (
+            from_credentials_file.get("aws_access_key_id")
+            and from_credentials_file.get("aws_secret_access_key")
+        ):
+            raise IdentityNotFound(
+                f"profile {self._profile!r}: credential_process comes before the keys in the config file"
+            )
         ak = section.get("aws_access_key_id")
         sk = section.get("aws_secret_access_key")
         if not ak or not sk:
@@ -146,19 +166,94 @@ class ProfileCredentialsProvider(CredentialsProvider):
             out["session_token"] = token
         return out
 
-    def _load_section(self) -> dict[str, str]:
-        # config-file profile reuses the loader from _services/_aws_config
-        merged, _ = _load_profile(self._profile)
-        if self._cred_file.is_file():
-            cfg = configparser.ConfigParser(interpolation=None)
-            cfg.read(self._cred_file)
-            if cfg.has_section(self._profile):
-                merged.update(dict(cfg.items(self._profile)))
-        if not merged:
-            raise IdentityNotFound(
-                f"profile {self._profile!r} not found in credentials/config files"
+
+class ProcessCredentialsProvider(CredentialsProvider):
+    """Run the profile's ``credential_process`` command and read the credentials it prints.
+
+    This is how helpers such as ``aws-sso-cli`` hand out short-term credentials. The command
+    runs through the system shell, as in the Rust, Kotlin and Swift SDKs, so a quoted Windows path
+    works as written, and it must print the JSON document the AWS SDKs define (``Version`` 1).
+    The key is read from the credentials file as well as the config file. A profile without
+    ``credential_process`` is skipped; a command that fails or outlives the timeout stops the chain.
+    """
+
+    def __init__(
+        self,
+        credentials_file: Path | None = None,
+        profile: str | None = None,
+        timeout: float = 60.0,
+    ) -> None:
+        self._profile = profile or active_profile()
+        self._cred_file = credentials_file or _shared_credentials_file()
+        self._timeout = timeout
+
+    def resolve_identity(self) -> Credentials:
+        section = _load_merged_profile(self._profile, self._cred_file)
+        command = section.get("credential_process")
+        if not command:
+            raise IdentityNotFound(f"profile {self._profile!r}: no credential_process")
+        try:
+            # the shell is sh -c on POSIX and cmd.exe /c on Windows, which parses the path natively
+            result = subprocess.run(
+                command,
+                shell=True,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=self._timeout,
             )
-        return merged
+        except subprocess.TimeoutExpired:
+            raise CredentialProcessError(
+                f"profile {self._profile!r}: credential_process did not finish within {self._timeout} seconds"
+            ) from None
+        except OSError as e:
+            raise CredentialProcessError(f"profile {self._profile!r}: {e}") from e
+        # stdout carries the secret, so only stderr ever goes into an error message
+        if result.returncode != 0:
+            raise CredentialProcessError(
+                f"profile {self._profile!r}: credential_process exited with {result.returncode}: {result.stderr.strip()}"
+            )
+        try:
+            data = json.loads(result.stdout)
+        except ValueError:
+            raise CredentialProcessError(
+                f"profile {self._profile!r}: credential_process did not print JSON"
+            ) from None
+        if not isinstance(data, dict) or data.get("Version") != 1:
+            raise CredentialProcessError(
+                f"profile {self._profile!r}: credential_process output must be a JSON object with Version 1"
+            )
+        try:
+            return _credentials_from_json(data, token_key="SessionToken")
+        except IdentityNotFound as e:
+            raise CredentialProcessError(f"profile {self._profile!r}: {e}") from None
+        except ValueError:
+            raise CredentialProcessError(
+                f"profile {self._profile!r}: credential_process printed an invalid Expiration"
+            ) from None
+
+
+def _shared_credentials_file() -> Path:
+    return Path(
+        os.environ.get("AWS_SHARED_CREDENTIALS_FILE")
+        or Path.home() / ".aws" / "credentials"
+    )
+
+
+def _load_merged_profile(profile: str, credentials_file: Path) -> dict[str, str]:
+    """The profile's keys from the config file, overlaid by the credentials file, as the AWS SDKs merge them."""
+    # config-file profile reuses the loader from _services/_aws_config
+    merged, _ = _load_profile(profile)
+    merged.update(_credentials_file_section(profile, credentials_file))
+    return merged
+
+
+def _credentials_file_section(profile: str, credentials_file: Path) -> dict[str, str]:
+    if not credentials_file.is_file():
+        return {}
+    cfg = configparser.ConfigParser(interpolation=None)
+    cfg.read(credentials_file)
+    return dict(cfg.items(profile)) if cfg.has_section(profile) else {}
 
 
 class EcsContainerCredentialsProvider(CredentialsProvider):
@@ -286,7 +381,10 @@ def _parse_iso8601(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
-def _credentials_from_json(data: dict[str, object]) -> Credentials:
+def _credentials_from_json(
+    data: dict[str, object], *, token_key: str = "Token"
+) -> Credentials:
+    # ECS and IMDS name the session token Token; credential_process names it SessionToken
     ak = data.get("AccessKeyId")
     sk = data.get("SecretAccessKey")
     if not isinstance(ak, str) or not isinstance(sk, str):
@@ -294,7 +392,7 @@ def _credentials_from_json(data: dict[str, object]) -> Credentials:
             "credentials response missing AccessKeyId/SecretAccessKey"
         )
     out: Credentials = {"access_key": ak, "secret_key": sk}
-    token = data.get("Token")
+    token = data.get(token_key)
     if isinstance(token, str):
         out["session_token"] = token
     exp = data.get("Expiration")
@@ -310,6 +408,7 @@ def default_aws_credentials_chain(
         ChainedProvider(
             EnvCredentialsProvider(),
             ProfileCredentialsProvider(),
+            ProcessCredentialsProvider(),
             EcsContainerCredentialsProvider(client),
             Ec2InstanceMetadataProvider(client),
         )

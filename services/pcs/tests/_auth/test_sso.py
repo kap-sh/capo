@@ -342,6 +342,7 @@ def test_chain_order_matches_aws() -> None:
         "WebIdentityCredentialsProvider",
         "SsoCredentialsProvider",
         "ProfileCredentialsProvider",
+        "ProcessCredentialsProvider",
         "EcsContainerCredentialsProvider",
         "Ec2InstanceMetadataProvider",
     ]

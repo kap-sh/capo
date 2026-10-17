@@ -27,6 +27,9 @@ from ._auth._providers import (
     ChainedProvider as ChainedProvider,
 )
 from ._auth._providers import (
+    CredentialProcessError as CredentialProcessError,
+)
+from ._auth._providers import (
     CredentialsProvider as CredentialsProvider,
 )
 from ._auth._providers import (
@@ -40,6 +43,9 @@ from ._auth._providers import (
 )
 from ._auth._providers import (
     MissingDependencyError as MissingDependencyError,
+)
+from ._auth._providers import (
+    ProcessCredentialsProvider as ProcessCredentialsProvider,
 )
 from ._auth._providers import (
     ProfileCredentialsProvider as ProfileCredentialsProvider,
