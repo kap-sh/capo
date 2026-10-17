@@ -6,6 +6,8 @@ RouterOutputTier: TypeAlias = Literal[
     "OUTPUT_100",
     "OUTPUT_50",
     "OUTPUT_20",
+    "OUTPUT_500",
+    "OUTPUT_250",
 ]
 
 

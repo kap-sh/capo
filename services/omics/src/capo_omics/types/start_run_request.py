@@ -83,7 +83,7 @@ class StartRunRequest(TypedDict, closed=True):
     ]
     """<p>Optional configuration name to use for the workflow run.</p>"""
     session_policy: NotRequired["capo_omics.types.session_policy.SessionPolicy"]
-    """Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter."""
+    """<p>Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter.</p>"""
     engine_settings: NotRequired["capo_omics.types.engine_settings.EngineSettings"]
     """<p>Engine-specific settings for the workflow run. Use this field to specify configuration options that are specific to the workflow engine (for example, Nextflow profiles).</p>"""
 

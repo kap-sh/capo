@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 class RecordTypeSchemaOverride(TypedDict, closed=True):
     record_type: "capo_agent_registry_control.types.record_type.RecordType"
-    """<p>The record type that this schema override applies to.</p>"""
+    """<p>The record type these fields apply to.</p>"""
     schema: "capo_agent_registry_control.types.custom_metadata_schema_definition.CustomMetadataSchemaDefinition"
-    """<p>The JSON Schema for the specified record type. Must follow the same structural rules as the default schema.</p>"""
+    """<p>A JSON Schema with the fields for this record type.</p>"""
 
 
 # --- restJson1 ser/de ---

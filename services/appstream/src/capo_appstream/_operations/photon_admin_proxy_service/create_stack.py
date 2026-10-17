@@ -27,6 +27,7 @@ import capo_appstream.types.create_stack_request
 import capo_appstream.types.create_stack_result
 import capo_appstream.types.embed_host_domains
 import capo_appstream.types.stack
+import capo_appstream.types.storage_connector_authentication
 import capo_appstream.types.storage_connector_list
 import capo_appstream.types.streaming_experience_settings
 import capo_appstream.types.tags

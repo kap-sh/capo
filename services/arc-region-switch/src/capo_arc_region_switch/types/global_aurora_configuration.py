@@ -24,11 +24,11 @@ class GlobalAuroraConfiguration(TypedDict, closed=True):
     external_id: NotRequired["str"]
     """<p>The external ID (secret key) for the configuration.</p>"""
     behavior: "capo_arc_region_switch.types.global_aurora_default_behavior.GlobalAuroraDefaultBehavior"
-    """<p>The behavior for a global database, that is, only allow switchover or also allow failover.</p>"""
+    """<p>The default behavior for the Aurora global database execution block. Valid values:</p> <ul> <li> <p> <code>switchoverOnly</code> - Calls <code>SwitchoverGlobalCluster</code> for a zero-data-loss switchover during graceful execution.</p> </li> <li> <p> <code>failover</code> - Calls <code>FailoverGlobalCluster</code> with <code>AllowDataLoss</code> set to <code>true</code>. This operation might cause data loss, including during graceful execution.</p> </li> </ul>"""
     ungraceful: NotRequired[
         "capo_arc_region_switch.types.global_aurora_ungraceful.GlobalAuroraUngraceful"
     ]
-    """<p>The settings for ungraceful execution.</p>"""
+    """<p>The behavior to use when the plan runs in ungraceful mode. If you omit this value, Region switch uses the value of <code>behavior</code>.</p>"""
     global_cluster_identifier: (
         "capo_arc_region_switch.types.global_cluster_identifier.GlobalClusterIdentifier"
     )

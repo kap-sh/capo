@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>A machine-readable code indicating why the connector reached its current state. Use this for programmatic error handling.</p>"""
 NetworkConnectorStateReasonCode: TypeAlias = Literal[
     "DisallowedByVpcEncryptionControl",
     "Ec2RequestLimitExceeded",
@@ -9,6 +10,7 @@ NetworkConnectorStateReasonCode: TypeAlias = Literal[
     "InternalError",
     "InvalidSecurityGroup",
     "InvalidSubnet",
+    "SecurityGroupsPerInterfaceLimitExceeded",
     "SubnetOutOfIPAddresses",
 ]
 

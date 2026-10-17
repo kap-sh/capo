@@ -133,7 +133,7 @@ class RunResource:
             networking_mode: <p>Optional configuration for run networking behavior. If not specified, this will default to RESTRICTED.</p>
             scratch_storage_mode: <p>Optional configuration for enabling scratch ephemeral storage mounted at /tmp. If not specified, this will default to SHARED. This configuration is applicable only for CPU tasks. For tasks using GPUs, scratch storage is always LOCAL.</p>
             configuration_name: <p>Optional configuration name to use for the workflow run.</p>
-            session_policy: Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter.
+            session_policy: <p>Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter.</p>
             engine_settings: <p>Engine-specific settings for the workflow run. Use this field to specify configuration options that are specific to the workflow engine (for example, Nextflow profiles).</p>
 
         Raises:
@@ -504,7 +504,7 @@ class AsyncRunResource:
             networking_mode: <p>Optional configuration for run networking behavior. If not specified, this will default to RESTRICTED.</p>
             scratch_storage_mode: <p>Optional configuration for enabling scratch ephemeral storage mounted at /tmp. If not specified, this will default to SHARED. This configuration is applicable only for CPU tasks. For tasks using GPUs, scratch storage is always LOCAL.</p>
             configuration_name: <p>Optional configuration name to use for the workflow run.</p>
-            session_policy: Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter.
+            session_policy: <p>Optional inline policy json for scoping down permissions via a session policy on the IAM role provided in the roleArn parameter.</p>
             engine_settings: <p>Engine-specific settings for the workflow run. Use this field to specify configuration options that are specific to the workflow engine (for example, Nextflow profiles).</p>
 
         Raises:

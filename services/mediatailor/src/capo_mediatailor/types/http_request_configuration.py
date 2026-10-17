@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     import capo_mediatailor.types.__integer
     import capo_mediatailor.types.__map_of__string
     import capo_mediatailor.types.__string
+    import capo_mediatailor.types.http_request_cache_configuration
     import capo_mediatailor.types.method_type
     import capo_mediatailor.types.runtime_type
 
@@ -29,6 +30,10 @@ class HttpRequestConfiguration(TypedDict, closed=True):
     """<p>An expression that evaluates to the request body. Used with <code>POST</code> requests. The maximum size after evaluation is 64 KB.</p>"""
     headers: NotRequired["capo_mediatailor.types.__map_of__string.__mapOf__string"]
     """<p>A map of HTTP header names to expression values. MediaTailor evaluates each header value expression at runtime and includes the result in the outbound HTTP request. Maximum 50 headers.</p>"""
+    cache: NotRequired[
+        "capo_mediatailor.types.http_request_cache_configuration.HttpRequestCacheConfiguration"
+    ]
+    """<p>The optional response-caching configuration for the function. When present, MediaTailor caches the responses that the function receives from the HTTP endpoint, within the time-to-live (TTL) bounds that you specify. Omit this configuration to disable response caching.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -59,6 +64,14 @@ def serialize_json(value: HttpRequestConfiguration) -> dict:
 
         out["Headers"] = capo_mediatailor.types.__map_of__string.serialize_json(
             value["headers"]
+        )
+    if "cache" in value:
+        import capo_mediatailor.types.http_request_cache_configuration
+
+        out["Cache"] = (
+            capo_mediatailor.types.http_request_cache_configuration.serialize_json(
+                value["cache"]
+            )
         )
     return out
 
@@ -104,5 +117,13 @@ def deserialize_json(data: dict) -> HttpRequestConfiguration:
 
         out["headers"] = capo_mediatailor.types.__map_of__string.deserialize_json(
             data["Headers"]
+        )
+    if data.get("Cache") is not None:
+        import capo_mediatailor.types.http_request_cache_configuration
+
+        out["cache"] = (
+            capo_mediatailor.types.http_request_cache_configuration.deserialize_json(
+                data["Cache"]
+            )
         )
     return out

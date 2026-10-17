@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 from capo_route_53_domains.errors import DeserializationError
 
@@ -18,7 +18,9 @@ class GetDomainSuggestionsRequest(TypedDict, closed=True):
     suggestion_count: "capo_route_53_domains.types.integer.Integer"
     """<p>The number of suggested domain names that you want Route 53 to return. Specify a value between 1 and 50. Note that fewer than the requested number might be returned.</p>"""
     only_available: "capo_route_53_domains.types.boolean.Boolean"
-    """<p>If <code>OnlyAvailable</code> is <code>true</code>, Route 53 returns only domain names that are available. If <code>OnlyAvailable</code> is <code>false</code>, Route 53 returns domain names without checking whether they're available to be registered. To determine whether the domain is available, you can call <code>checkDomainAvailability</code> for each suggestion.</p>"""
+    """<p>If <code>OnlyAvailable</code> is <code>true</code>, Route 53 returns only domain names that are available. If <code>OnlyAvailable</code> is <code>false</code>, Route 53 returns domain names without checking whether they're available to be registered. To determine whether the domain is available, call <code>checkDomainAvailability</code> for each suggestion.</p> <p>If <code>OnlyAvailable</code> is <code>false</code>, Route 53 does not return pricing information for the suggested domain names.</p>"""
+    only_standard_prices: NotRequired["capo_route_53_domains.types.boolean.Boolean"]
+    """<p>If <code>true</code>, Route 53 returns only domain names that are priced at the standard registration rate for their TLD. If <code>false</code>, Route 53 includes domain names with premium pricing in the suggestions list. The default is <code>true</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -27,6 +29,8 @@ def serialize_aws_json_1_1(value: GetDomainSuggestionsRequest) -> dict:
     out["DomainName"] = value["domain_name"]
     out["SuggestionCount"] = value.get("suggestion_count", 0)
     out["OnlyAvailable"] = value["only_available"]
+    if "only_standard_prices" in value:
+        out["OnlyStandardPrices"] = value["only_standard_prices"]
     return out
 
 
@@ -46,4 +50,6 @@ def deserialize_aws_json_1_1(data: dict) -> GetDomainSuggestionsRequest:
         raise DeserializationError(
             "GetDomainSuggestionsRequest.only_available required"
         )
+    if data.get("OnlyStandardPrices") is not None:
+        out["only_standard_prices"] = data["OnlyStandardPrices"]
     return out

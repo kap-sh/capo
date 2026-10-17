@@ -155,6 +155,7 @@ if TYPE_CHECKING:
     import capo_connect.types.contact_data_request_list
     import capo_connect.types.contact_fields
     import capo_connect.types.contact_flow
+    import capo_connect.types.contact_flow_alias_summary
     import capo_connect.types.contact_flow_content
     import capo_connect.types.contact_flow_description
     import capo_connect.types.contact_flow_id
@@ -195,6 +196,8 @@ if TYPE_CHECKING:
     import capo_connect.types.create_attached_file_response
     import capo_connect.types.create_auth_code_request
     import capo_connect.types.create_auth_code_response
+    import capo_connect.types.create_contact_flow_alias_request
+    import capo_connect.types.create_contact_flow_alias_response
     import capo_connect.types.create_contact_flow_module_alias_request
     import capo_connect.types.create_contact_flow_module_alias_response
     import capo_connect.types.create_contact_flow_module_request
@@ -302,6 +305,8 @@ if TYPE_CHECKING:
     import capo_connect.types.delete_contact_data_request
     import capo_connect.types.delete_contact_data_response
     import capo_connect.types.delete_contact_evaluation_request
+    import capo_connect.types.delete_contact_flow_alias_request
+    import capo_connect.types.delete_contact_flow_alias_response
     import capo_connect.types.delete_contact_flow_module_alias_request
     import capo_connect.types.delete_contact_flow_module_alias_response
     import capo_connect.types.delete_contact_flow_module_request
@@ -369,6 +374,8 @@ if TYPE_CHECKING:
     import capo_connect.types.describe_authentication_profile_response
     import capo_connect.types.describe_contact_evaluation_request
     import capo_connect.types.describe_contact_evaluation_response
+    import capo_connect.types.describe_contact_flow_alias_request
+    import capo_connect.types.describe_contact_flow_alias_response
     import capo_connect.types.describe_contact_flow_module_alias_request
     import capo_connect.types.describe_contact_flow_module_alias_response
     import capo_connect.types.describe_contact_flow_module_request
@@ -632,6 +639,8 @@ if TYPE_CHECKING:
     import capo_connect.types.list_child_hours_of_operations_response
     import capo_connect.types.list_contact_evaluations_request
     import capo_connect.types.list_contact_evaluations_response
+    import capo_connect.types.list_contact_flow_aliases_request
+    import capo_connect.types.list_contact_flow_aliases_response
     import capo_connect.types.list_contact_flow_module_aliases_request
     import capo_connect.types.list_contact_flow_module_aliases_response
     import capo_connect.types.list_contact_flow_module_versions_request
@@ -1106,6 +1115,8 @@ if TYPE_CHECKING:
     import capo_connect.types.update_contact_attributes_response
     import capo_connect.types.update_contact_evaluation_request
     import capo_connect.types.update_contact_evaluation_response
+    import capo_connect.types.update_contact_flow_alias_request
+    import capo_connect.types.update_contact_flow_alias_response
     import capo_connect.types.update_contact_flow_content_request
     import capo_connect.types.update_contact_flow_content_response
     import capo_connect.types.update_contact_flow_metadata_request
@@ -3641,6 +3652,73 @@ class ConnectClient:
         response.response.close()
         return response.output
 
+    def create_contact_flow_alias(
+        self,
+        instance_id: "capo_connect.types.instance_id_or_arn.InstanceIdOrArn",
+        contact_flow_id: "capo_connect.types.arn.ARN",
+        contact_flow_version: "capo_connect.types.resource_version.ResourceVersion",
+        alias_name: "capo_connect.types.contact_flow_name.ContactFlowName",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+        description: Optional[
+            "capo_connect.types.contact_flow_description.ContactFlowDescription"
+        ] = None,
+    ) -> "capo_connect.types.create_contact_flow_alias_response.CreateContactFlowAliasResponse":
+        """<p>Creates a named alias that points to a specific version of a flow.</p>
+
+        Args:
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            description: <p>The description of the alias.</p>
+            contact_flow_id: <p>The identifier of the flow.</p>
+            contact_flow_version: <p>The version of the flow.</p>
+            alias_name: <p>The name of the alias.</p>
+
+        Raises:
+            capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
+            capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
+            capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
+            capo_connect.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the specified parameters are not valid.</p>
+            capo_connect.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
+            capo_connect.errors.limit_exceeded_exception.LimitExceededException: <p>The allowed limit for the resource has been exceeded.</p>
+            capo_connect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
+            capo_connect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_connect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connect.types.create_contact_flow_alias_request.CreateContactFlowAliasRequest]",
+        ) -> OperationResponse[
+            "capo_connect.types.create_contact_flow_alias_response.CreateContactFlowAliasResponse"
+        ]:
+            import capo_connect._operations.amazon_connect_service.create_contact_flow_alias
+
+            output, http_response = (
+                capo_connect._operations.amazon_connect_service.create_contact_flow_alias.create_contact_flow_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactFlowAlias")
+        )
+        input_: capo_connect.types.create_contact_flow_alias_request.CreateContactFlowAliasRequest = {
+            "instance_id": instance_id,
+            "contact_flow_id": contact_flow_id,
+            "contact_flow_version": contact_flow_version,
+            "alias_name": alias_name,
+        }
+        if description is not None:
+            input_["description"] = description
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def create_contact_flow_module(
         self,
         instance_id: "capo_connect.types.instance_id.InstanceId",
@@ -3883,7 +3961,7 @@ class ConnectClient:
             "capo_connect.types.region_name.RegionName"
         ] = None,
     ) -> "capo_connect.types.create_contact_flow_version_response.CreateContactFlowVersionResponse":
-        """<p>Publishes a new version of the flow provided. Versions are immutable and monotonically increasing. If the <code>FlowContentSha256</code> provided is different from the <code>FlowContentSha256</code> of the <code>$LATEST</code> published flow content, then an error is returned. This API only supports creating versions for flows of type <code>Campaign</code>.</p>
+        """<p>Publishes a new version of the flow provided. Versions are immutable and monotonically increasing. If the <code>FlowContentSha256</code> provided is different from the <code>FlowContentSha256</code> of the <code>$LATEST</code> published flow content, then an error is returned.</p>
 
         Args:
             instance_id: <p>The identifier of the Connect Customer instance.</p>
@@ -6801,6 +6879,62 @@ class ConnectClient:
         response.response.close()
         return response.output
 
+    def delete_contact_flow_alias(
+        self,
+        instance_id: "capo_connect.types.instance_id_or_arn.InstanceIdOrArn",
+        contact_flow_id: "capo_connect.types.arn.ARN",
+        alias_id: "capo_connect.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+    ) -> "capo_connect.types.delete_contact_flow_alias_response.DeleteContactFlowAliasResponse":
+        """<p>Deletes an alias from a flow without deleting the version that the alias points to.</p>
+
+        Args:
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            contact_flow_id: <p>The identifier of the flow.</p>
+            alias_id: <p>The identifier of the alias.</p>
+
+        Raises:
+            capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
+            capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
+            capo_connect.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the specified parameters are not valid.</p>
+            capo_connect.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
+            capo_connect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
+            capo_connect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_connect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connect.types.delete_contact_flow_alias_request.DeleteContactFlowAliasRequest]",
+        ) -> OperationResponse[
+            "capo_connect.types.delete_contact_flow_alias_response.DeleteContactFlowAliasResponse"
+        ]:
+            import capo_connect._operations.amazon_connect_service.delete_contact_flow_alias
+
+            output, http_response = (
+                capo_connect._operations.amazon_connect_service.delete_contact_flow_alias.delete_contact_flow_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactFlowAlias")
+        )
+        input_: capo_connect.types.delete_contact_flow_alias_request.DeleteContactFlowAliasRequest = {
+            "instance_id": instance_id,
+            "contact_flow_id": contact_flow_id,
+            "alias_id": alias_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
     def delete_contact_flow_module(
         self,
         instance_id: "capo_connect.types.instance_id.InstanceId",
@@ -9019,6 +9153,62 @@ class ConnectClient:
         input_: capo_connect.types.describe_contact_flow_request.DescribeContactFlowRequest = {
             "instance_id": instance_id,
             "contact_flow_id": contact_flow_id,
+        }
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def describe_contact_flow_alias(
+        self,
+        instance_id: "capo_connect.types.instance_id_or_arn.InstanceIdOrArn",
+        contact_flow_id: "capo_connect.types.arn.ARN",
+        alias_id: "capo_connect.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+    ) -> "capo_connect.types.describe_contact_flow_alias_response.DescribeContactFlowAliasResponse":
+        """<p>Returns information about a specific flow alias, including the version that it points to.</p>
+
+        Args:
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            contact_flow_id: <p>The identifier of the flow.</p>
+            alias_id: <p>The identifier of the alias.</p>
+
+        Raises:
+            capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
+            capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
+            capo_connect.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the specified parameters are not valid.</p>
+            capo_connect.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
+            capo_connect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
+            capo_connect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_connect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connect.types.describe_contact_flow_alias_request.DescribeContactFlowAliasRequest]",
+        ) -> OperationResponse[
+            "capo_connect.types.describe_contact_flow_alias_response.DescribeContactFlowAliasResponse"
+        ]:
+            import capo_connect._operations.amazon_connect_service.describe_contact_flow_alias
+
+            output, http_response = (
+                capo_connect._operations.amazon_connect_service.describe_contact_flow_alias.describe_contact_flow_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContactFlowAlias")
+        )
+        input_: capo_connect.types.describe_contact_flow_alias_request.DescribeContactFlowAliasRequest = {
+            "instance_id": instance_id,
+            "contact_flow_id": contact_flow_id,
+            "alias_id": alias_id,
         }
 
         response = execute_pipeline(
@@ -13763,6 +13953,92 @@ class ConnectClient:
                 next_token=_token,
             )
             _page = _resolve_path(_response, ("evaluation_summary_list",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    def list_contact_flow_aliases(
+        self,
+        instance_id: "capo_connect.types.instance_id_or_arn.InstanceIdOrArn",
+        contact_flow_id: "capo_connect.types.arn.ARN",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+        next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
+    ) -> "capo_connect.types.list_contact_flow_aliases_response.ListContactFlowAliasesResponse":
+        """<p>Lists the aliases associated with a flow, including the version that each alias points to.</p>
+
+        Args:
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            contact_flow_id: <p>The identifier of the flow.</p>
+            next_token: <p>The token for the next set of results. Use the value returned in the previous response in the next request to retrieve the next set of results.</p>
+            max_results: <p>The maximum number of results to return per page.</p>
+
+        Raises:
+            capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
+            capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
+            capo_connect.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the specified parameters are not valid.</p>
+            capo_connect.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
+            capo_connect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
+            capo_connect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_connect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connect.types.list_contact_flow_aliases_request.ListContactFlowAliasesRequest]",
+        ) -> OperationResponse[
+            "capo_connect.types.list_contact_flow_aliases_response.ListContactFlowAliasesResponse"
+        ]:
+            import capo_connect._operations.amazon_connect_service.list_contact_flow_aliases
+
+            output, http_response = (
+                capo_connect._operations.amazon_connect_service.list_contact_flow_aliases.list_contact_flow_aliases(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactFlowAliases")
+        )
+        input_: capo_connect.types.list_contact_flow_aliases_request.ListContactFlowAliasesRequest = {
+            "instance_id": instance_id,
+            "contact_flow_id": contact_flow_id,
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def iter_list_contact_flow_aliases(
+        self,
+        instance_id: "capo_connect.types.instance_id_or_arn.InstanceIdOrArn",
+        contact_flow_id: "capo_connect.types.arn.ARN",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+        next_token: Optional["capo_connect.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_connect.types.max_result1000.MaxResult1000"] = None,
+    ) -> "Iterator[capo_connect.types.contact_flow_alias_summary.ContactFlowAliasSummary]":
+        _token = next_token
+        while True:
+            _response = self.list_contact_flow_aliases(
+                instance_id,
+                contact_flow_id,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+            )
+            _page = _resolve_path(_response, ("contact_flow_alias_summary_list",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))
@@ -25139,6 +25415,80 @@ class ConnectClient:
             input_["notes"] = notes
         if updated_by is not None:
             input_["updated_by"] = updated_by
+
+        response = execute_pipeline(
+            OperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        response.response.close()
+        return response.output
+
+    def update_contact_flow_alias(
+        self,
+        instance_id: "capo_connect.types.instance_id_or_arn.InstanceIdOrArn",
+        contact_flow_id: "capo_connect.types.arn.ARN",
+        alias_id: "capo_connect.types.resource_id.ResourceId",
+        *,
+        config_overrides: Optional[ConnectClientConfig] = None,
+        name: Optional["capo_connect.types.contact_flow_name.ContactFlowName"] = None,
+        description: Optional[
+            "capo_connect.types.contact_flow_description.ContactFlowDescription"
+        ] = None,
+        contact_flow_version: Optional[
+            "capo_connect.types.resource_version.ResourceVersion"
+        ] = None,
+    ) -> "capo_connect.types.update_contact_flow_alias_response.UpdateContactFlowAliasResponse":
+        """<p>Updates the name, description, or flow version associated with an alias.</p>
+
+        Args:
+            instance_id: <p>The identifier of the Connect Customer instance. You can <a href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in the Amazon Resource Name (ARN) of the instance.</p>
+            contact_flow_id: <p>The identifier of the flow.</p>
+            alias_id: <p>The identifier of the alias.</p>
+            name: <p>The name of the alias.</p>
+            description: <p>The description of the alias.</p>
+            contact_flow_version: <p>The version of the flow.</p>
+
+        Raises:
+            capo_connect.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient permissions to perform this action.</p>
+            capo_connect.errors.conditional_operation_failed_exception.ConditionalOperationFailedException: <p>Request processing failed because dependent condition failed.</p>
+            capo_connect.errors.duplicate_resource_exception.DuplicateResourceException: <p>A resource with the specified name already exists.</p>
+            capo_connect.errors.internal_service_exception.InternalServiceException: <p>Request processing failed because of an error or failure with the service.</p>
+            capo_connect.errors.invalid_parameter_exception.InvalidParameterException: <p>One or more of the specified parameters are not valid.</p>
+            capo_connect.errors.invalid_request_exception.InvalidRequestException: <p>The request is not valid.</p>
+            capo_connect.errors.resource_not_found_exception.ResourceNotFoundException: <p>The specified resource was not found.</p>
+            capo_connect.errors.throttling_exception.ThrottlingException: <p>The throttling limit has been exceeded.</p>
+            capo_connect.errors.UnknownServiceError: The service returned an error code this client does not model.
+        """
+
+        def _handler(
+            req: "OperationRequest[capo_connect.types.update_contact_flow_alias_request.UpdateContactFlowAliasRequest]",
+        ) -> OperationResponse[
+            "capo_connect.types.update_contact_flow_alias_response.UpdateContactFlowAliasResponse"
+        ]:
+            import capo_connect._operations.amazon_connect_service.update_contact_flow_alias
+
+            output, http_response = (
+                capo_connect._operations.amazon_connect_service.update_contact_flow_alias.update_contact_flow_alias(
+                    req.options, req.input
+                )
+            )
+            return OperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactFlowAlias")
+        )
+        input_: capo_connect.types.update_contact_flow_alias_request.UpdateContactFlowAliasRequest = {
+            "instance_id": instance_id,
+            "contact_flow_id": contact_flow_id,
+            "alias_id": alias_id,
+        }
+        if name is not None:
+            input_["name"] = name
+        if description is not None:
+            input_["description"] = description
+        if contact_flow_version is not None:
+            input_["contact_flow_version"] = contact_flow_version
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

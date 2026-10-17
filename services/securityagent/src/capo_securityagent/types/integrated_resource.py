@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.confluence_document_resource
     import capo_securityagent.types.git_hub_repository_resource
     import capo_securityagent.types.git_lab_repository_resource
+    import capo_securityagent.types.jira_project_resource
 
 
 class _IntegratedResource_githubRepository(TypedDict, closed=True):
@@ -38,12 +39,17 @@ class _IntegratedResource_azureDevOpsRepository(TypedDict, closed=True):
     azureDevOpsRepository: "capo_securityagent.types.azure_dev_ops_repository_resource.AzureDevOpsRepositoryResource"
 
 
+class _IntegratedResource_jiraProject(TypedDict, closed=True):
+    jiraProject: "capo_securityagent.types.jira_project_resource.JiraProjectResource"
+
+
 IntegratedResource: TypeAlias = (
     _IntegratedResource_githubRepository
     | _IntegratedResource_gitlabRepository
     | _IntegratedResource_bitbucketRepository
     | _IntegratedResource_confluenceDocument
     | _IntegratedResource_azureDevOpsRepository
+    | _IntegratedResource_jiraProject
 )
 
 
@@ -89,6 +95,14 @@ def serialize_json(value: IntegratedResource) -> dict:
                 value["azureDevOpsRepository"]
             )
         }
+    elif "jiraProject" in value:
+        import capo_securityagent.types.jira_project_resource
+
+        return {
+            "jiraProject": capo_securityagent.types.jira_project_resource.serialize_json(
+                value["jiraProject"]
+            )
+        }
     else:
         raise SerializationError("IntegratedResource: no variant present")
 
@@ -132,6 +146,14 @@ def deserialize_json(data: dict) -> IntegratedResource:
         return {
             "azureDevOpsRepository": capo_securityagent.types.azure_dev_ops_repository_resource.deserialize_json(
                 data["azureDevOpsRepository"]
+            )
+        }
+    elif data.get("jiraProject") is not None:
+        import capo_securityagent.types.jira_project_resource
+
+        return {
+            "jiraProject": capo_securityagent.types.jira_project_resource.deserialize_json(
+                data["jiraProject"]
             )
         }
     else:

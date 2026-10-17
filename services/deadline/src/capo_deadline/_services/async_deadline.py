@@ -265,6 +265,8 @@ if TYPE_CHECKING:
     import capo_deadline.types.list_license_endpoints_response
     import capo_deadline.types.list_limits_request
     import capo_deadline.types.list_limits_response
+    import capo_deadline.types.list_memberships_request
+    import capo_deadline.types.list_memberships_response
     import capo_deadline.types.list_metered_products_request
     import capo_deadline.types.list_metered_products_response
     import capo_deadline.types.list_monitors_request
@@ -309,6 +311,8 @@ if TYPE_CHECKING:
     import capo_deadline.types.max_retries_per_task
     import capo_deadline.types.max_worker_count
     import capo_deadline.types.membership_level
+    import capo_deadline.types.membership_resource_types
+    import capo_deadline.types.membership_summary
     import capo_deadline.types.metered_product_id
     import capo_deadline.types.metered_product_summary
     import capo_deadline.types.min_zero_max_integer
@@ -1516,6 +1520,121 @@ class AsyncdeadlineClient:
                 max_results=max_results,
             )
             _page = _resolve_path(_response, ("metered_products",))
+            for _item in _page or []:
+                yield _item
+            _token = _resolve_path(_response, ("next_token",))
+            if not _token:
+                break
+
+    async def list_memberships(
+        self,
+        principal_id: "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId",
+        *,
+        config_overrides: Optional[AsyncdeadlineClientConfig] = None,
+        next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
+        identity_store_id: Optional[
+            "capo_deadline.types.identity_store_id.IdentityStoreId"
+        ] = None,
+        identity_center_region: Optional["capo_deadline.types.region.Region"] = None,
+        resource_types: Optional[
+            "capo_deadline.types.membership_resource_types.MembershipResourceTypes"
+        ] = None,
+    ) -> "capo_deadline.types.list_memberships_response.ListMembershipsResponse":
+        """<p>Lists the Deadline Cloud resource memberships associated with a specified IAM Identity Center principal, optionally filtered by the requested resource types.</p>
+
+        Args:
+            next_token: <p>The token for the next set of results, or <code>null</code> to start from the beginning.</p>
+            max_results: <p>The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of sequential pages.</p>
+            principal_id: <p>The ID of the IAM Identity Center principal whose Deadline Cloud resource memberships you want to list.</p>
+            identity_store_id: <p>The identity store ID that contains the principal. This parameter is required for callers that do not use a monitor session.</p>
+            identity_center_region: <p>The Region of the IAM Identity Center instance. If not provided, the service defaults to the Amazon Web Services Region in which you make the request.</p>
+            resource_types: <p>The resource types to include when listing the principal's memberships. If not specified, memberships for all supported resource types are returned.</p>
+
+        Raises:
+            capo_deadline.errors.access_denied_exception.AccessDeniedException: <p>You don't have permission to perform the action.</p>
+            capo_deadline.errors.internal_server_error_exception.InternalServerErrorException: <p>Deadline Cloud can't process your request right now. Try again later.</p>
+            capo_deadline.errors.resource_not_found_exception.ResourceNotFoundException: <p>The requested resource can't be found.</p>
+            capo_deadline.errors.throttling_exception.ThrottlingException: <p>Your request exceeded a request rate quota.</p>
+            capo_deadline.errors.validation_exception.ValidationException: <p>The request isn't valid. This can occur if your request contains malformed JSON or unsupported characters.</p>
+            capo_deadline.errors.UnknownServiceError: The service returned an error code this client does not model.
+
+        Examples:
+            List memberships using a cross-region identity store
+
+            >>> await client.list_memberships(principal_id='12345678-1234-1234-1234-123456789abc', identity_store_id='d-1234567890', identity_center_region='us-east-1', resource_types=['QUEUE', 'JOB'])
+            List a Monitor user's memberships of every resource type
+
+            >>> await client.list_memberships(principal_id='12345678-1234-1234-1234-123456789abc')
+        """
+
+        async def _handler(
+            req: "AsyncOperationRequest[capo_deadline.types.list_memberships_request.ListMembershipsRequest]",
+        ) -> AsyncOperationResponse[
+            "capo_deadline.types.list_memberships_response.ListMembershipsResponse"
+        ]:
+            import capo_deadline._operations.deadline.list_memberships
+
+            (
+                output,
+                http_response,
+            ) = await capo_deadline._operations.deadline.list_memberships.async_list_memberships(
+                req.options, req.input
+            )
+            return AsyncOperationResponse(output=output, response=http_response)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
+        input_: capo_deadline.types.list_memberships_request.ListMembershipsRequest = {
+            "principal_id": principal_id
+        }
+        if next_token is not None:
+            input_["next_token"] = next_token
+        if max_results is not None:
+            input_["max_results"] = max_results
+        if identity_store_id is not None:
+            input_["identity_store_id"] = identity_store_id
+        if identity_center_region is not None:
+            input_["identity_center_region"] = identity_center_region
+        if resource_types is not None:
+            input_["resource_types"] = resource_types
+
+        response = await aexecute_pipeline(
+            AsyncOperationRequest(input=input_, options=options_),
+            handler=_handler,
+            interceptors=list(interceptors_),
+        )
+        await response.response.aclose()
+        return response.output
+
+    async def iter_list_memberships(
+        self,
+        principal_id: "capo_deadline.types.identity_center_principal_id.IdentityCenterPrincipalId",
+        *,
+        config_overrides: Optional[AsyncdeadlineClientConfig] = None,
+        next_token: Optional["capo_deadline.types.next_token.NextToken"] = None,
+        max_results: Optional["capo_deadline.types.max_results.MaxResults"] = None,
+        identity_store_id: Optional[
+            "capo_deadline.types.identity_store_id.IdentityStoreId"
+        ] = None,
+        identity_center_region: Optional["capo_deadline.types.region.Region"] = None,
+        resource_types: Optional[
+            "capo_deadline.types.membership_resource_types.MembershipResourceTypes"
+        ] = None,
+    ) -> "AsyncIterator[capo_deadline.types.membership_summary.MembershipSummary]":
+        _token = next_token
+        while True:
+            _response = await self.list_memberships(
+                principal_id,
+                config_overrides=config_overrides,
+                next_token=_token,
+                max_results=max_results,
+                identity_store_id=identity_store_id,
+                identity_center_region=identity_center_region,
+                resource_types=resource_types,
+            )
+            _page = _resolve_path(_response, ("memberships",))
             for _item in _page or []:
                 yield _item
             _token = _resolve_path(_response, ("next_token",))

@@ -324,6 +324,7 @@
 - [StopImageBuilderRequest](stop_image_builder_request.md)
 - [StopImageBuilderResult](stop_image_builder_result.md)
 - [StorageConnector](storage_connector.md)
+- [StorageConnectorAuthentication](storage_connector_authentication.md)
 - [StorageConnectorList](storage_connector_list.md)
 - [StorageConnectorType](storage_connector_type.md)
 - [StreamView](stream_view.md)

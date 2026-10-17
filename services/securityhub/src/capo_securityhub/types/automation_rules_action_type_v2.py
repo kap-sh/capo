@@ -5,6 +5,7 @@ from typing import Literal, TypeAlias, cast
 AutomationRulesActionTypeV2: TypeAlias = Literal[
     "FINDING_FIELDS_UPDATE",
     "EXTERNAL_INTEGRATION",
+    "RESOURCE_FIELDS_UPDATE",
 ]
 
 

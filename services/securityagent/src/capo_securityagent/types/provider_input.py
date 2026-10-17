@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.confluence_integration_input
     import capo_securityagent.types.git_hub_integration_input
     import capo_securityagent.types.git_lab_integration_input
+    import capo_securityagent.types.jira_integration_input
 
 
 class _ProviderInput_github(TypedDict, closed=True):
@@ -41,6 +42,10 @@ class _ProviderInput_bitbucketDataCenter(TypedDict, closed=True):
     bitbucketDataCenter: "capo_securityagent.types.bitbucket_data_center_integration_input.BitbucketDataCenterIntegrationInput"
 
 
+class _ProviderInput_jira(TypedDict, closed=True):
+    jira: "capo_securityagent.types.jira_integration_input.JiraIntegrationInput"
+
+
 ProviderInput: TypeAlias = (
     _ProviderInput_github
     | _ProviderInput_gitlab
@@ -48,6 +53,7 @@ ProviderInput: TypeAlias = (
     | _ProviderInput_confluence
     | _ProviderInput_azureDevOps
     | _ProviderInput_bitbucketDataCenter
+    | _ProviderInput_jira
 )
 
 
@@ -101,6 +107,14 @@ def serialize_json(value: ProviderInput) -> dict:
                 value["bitbucketDataCenter"]
             )
         }
+    elif "jira" in value:
+        import capo_securityagent.types.jira_integration_input
+
+        return {
+            "jira": capo_securityagent.types.jira_integration_input.serialize_json(
+                value["jira"]
+            )
+        }
     else:
         raise SerializationError("ProviderInput: no variant present")
 
@@ -152,6 +166,14 @@ def deserialize_json(data: dict) -> ProviderInput:
         return {
             "bitbucketDataCenter": capo_securityagent.types.bitbucket_data_center_integration_input.deserialize_json(
                 data["bitbucketDataCenter"]
+            )
+        }
+    elif data.get("jira") is not None:
+        import capo_securityagent.types.jira_integration_input
+
+        return {
+            "jira": capo_securityagent.types.jira_integration_input.deserialize_json(
+                data["jira"]
             )
         }
     else:

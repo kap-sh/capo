@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#Step``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,17 @@ def deserialize_aws_json_1_0(data: dict) -> Step:
         )
     else:
         raise DeserializationError("Step.execution_block_type required")
+    return out
+
+
+def redact_sensitive(value: Step) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "execution_block_configuration" in value:
+        import capo_arc_region_switch.types.execution_block_configuration
+
+        out["execution_block_configuration"] = (
+            capo_arc_region_switch.types.execution_block_configuration.redact_sensitive(
+                value["execution_block_configuration"]
+            )
+        )
     return out

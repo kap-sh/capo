@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     import capo_securityagent.types.code_remediation_task
     import capo_securityagent.types.confidence_level
     import capo_securityagent.types.finding_status
+    import capo_securityagent.types.linked_issue
     import capo_securityagent.types.risk_level
     import capo_securityagent.types.string_list
     import capo_securityagent.types.validation_status
@@ -80,6 +81,8 @@ class Finding(TypedDict, closed=True):
     """<p>The list of pentest job identifiers for revalidation jobs that retested this finding.</p>"""
     original_finding_id: NotRequired["str"]
     """<p>The identifier of the original finding that this revalidation finding was produced from.</p>"""
+    linked_issue: NotRequired["capo_securityagent.types.linked_issue.LinkedIssue"]
+    """<p>The issue in a third-party issue tracker that this finding has been exported to.</p>"""
     created_at: NotRequired["datetime.datetime"]
     """<p>The date and time the finding was created, in UTC format.</p>"""
     updated_at: NotRequired["datetime.datetime"]
@@ -179,6 +182,12 @@ def serialize_json(value: Finding) -> dict:
         )
     if "original_finding_id" in value:
         out["originalFindingId"] = value["original_finding_id"]
+    if "linked_issue" in value:
+        import capo_securityagent.types.linked_issue
+
+        out["linkedIssue"] = capo_securityagent.types.linked_issue.serialize_json(
+            value["linked_issue"]
+        )
     if "created_at" in value:
         import capo_securityagent._protocol.serialize
 
@@ -294,6 +303,12 @@ def deserialize_json(data: dict) -> Finding:
         )
     if data.get("originalFindingId") is not None:
         out["original_finding_id"] = data["originalFindingId"]
+    if data.get("linkedIssue") is not None:
+        import capo_securityagent.types.linked_issue
+
+        out["linked_issue"] = capo_securityagent.types.linked_issue.deserialize_json(
+            data["linkedIssue"]
+        )
     if data.get("createdAt") is not None:
         import datetime
 

@@ -28,6 +28,9 @@ class GetAccountUsageOutput(TypedDict, closed=True):
         "capo_devops_agent.types.usage_metric.UsageMetric"
     ]
     """<p>Monthly on-demand hours usage and limit for an account</p>"""
+    monthly_account_grader_hours: NotRequired[
+        "capo_devops_agent.types.usage_metric.UsageMetric"
+    ]
     usage_period_start_time: "capo_devops_agent.types.date_time.DateTime"
     """<p>The start time of the usage tracking period</p>"""
     usage_period_end_time: "capo_devops_agent.types.date_time.DateTime"
@@ -67,6 +70,14 @@ def serialize_json(value: GetAccountUsageOutput) -> dict:
         out["monthlyAccountOnDemandHours"] = (
             capo_devops_agent.types.usage_metric.serialize_json(
                 value["monthly_account_on_demand_hours"]
+            )
+        )
+    if "monthly_account_grader_hours" in value:
+        import capo_devops_agent.types.usage_metric
+
+        out["monthlyAccountGraderHours"] = (
+            capo_devops_agent.types.usage_metric.serialize_json(
+                value["monthly_account_grader_hours"]
             )
         )
     import capo_devops_agent.types.date_time
@@ -114,6 +125,14 @@ def deserialize_json(data: dict) -> GetAccountUsageOutput:
         out["monthly_account_on_demand_hours"] = (
             capo_devops_agent.types.usage_metric.deserialize_json(
                 data["monthlyAccountOnDemandHours"]
+            )
+        )
+    if data.get("monthlyAccountGraderHours") is not None:
+        import capo_devops_agent.types.usage_metric
+
+        out["monthly_account_grader_hours"] = (
+            capo_devops_agent.types.usage_metric.deserialize_json(
+                data["monthlyAccountGraderHours"]
             )
         )
     if data.get("usagePeriodStartTime") is not None:

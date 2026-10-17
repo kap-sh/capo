@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     import capo_imagebuilder.types.logging
     import capo_imagebuilder.types.non_empty_string
     import capo_imagebuilder.types.nullable_boolean
+    import capo_imagebuilder.types.parent_instance_configuration
     import capo_imagebuilder.types.placement
     import capo_imagebuilder.types.resource_tag_map
     import capo_imagebuilder.types.security_group_ids
@@ -48,6 +49,10 @@ class UpdateInfrastructureConfigurationRequest(TypedDict, closed=True):
         "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
     ]
     """<p>Specifies whether to terminate the instance on failure. Set to false if you want Image Builder to retain the instance used to configure your AMI if the build or test phase of your workflow fails. Defaults to <code>true</code>.</p>"""
+    terminate_instance_on_completion: NotRequired[
+        "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
+    ]
+    """<p>Specifies whether Image Builder terminates build and test instances when image creation ends without a failure (success, cancellation, or expiration). Defaults to <code>true</code>.</p>"""
     sns_topic_arn: NotRequired["capo_imagebuilder.types.sns_topic_arn.SnsTopicArn"]
     """<p>The Amazon Resource Name (ARN) of the SNS topic to which Image Builder sends image build event notifications. Specify a standard topic. Image Builder doesn't support FIFO topics. Image Builder validates the topic when you create or update the configuration. You must have permission to publish to the topic.</p> <note> <p>EC2 Image Builder can't send notifications to SNS topics that are encrypted using keys from other accounts. If your SNS topic is encrypted, the key must be owned by the same account that owns your Image Builder resources.</p> </note>"""
     resource_tags: NotRequired[
@@ -60,6 +65,10 @@ class UpdateInfrastructureConfigurationRequest(TypedDict, closed=True):
     """<p>The instance metadata service (IMDS) settings that Image Builder applies to the EC2 build and test instances it launches during image creation. If you don't set these options, the EC2 launch defaults for the instance apply. For more information about instance metadata options, see one of the following links:</p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <i> <i>Amazon EC2 User Guide</i> </i> for Linux instances.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <i> <i>Amazon EC2 Windows Guide</i> </i> for Windows instances.</p> </li> </ul>"""
     placement: NotRequired["capo_imagebuilder.types.placement.Placement"]
     """<p>The instance placement settings that define where the build and test instances that Image Builder launches during image creation run. These settings don't affect instances that you launch from the output image.</p>"""
+    parent_instance: NotRequired[
+        "capo_imagebuilder.types.parent_instance_configuration.ParentInstanceConfiguration"
+    ]
+    """<p>The Amazon EC2 Auto Scaling group that Image Builder takes the build instance from, instead of launching a new instance. This applies only to the build phase.</p> <p>To use this feature, the execution role for the build must have permissions to describe the Auto Scaling group, tag the instance while it's still in the group, and detach it from the group. For more information, see <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/infra-config-parent-instance.html">Build on an instance from an Auto Scaling group</a> in the <i>EC2 Image Builder User Guide</i>.</p>"""
     client_token: "capo_imagebuilder.types.client_token.ClientToken"
     """<p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>"""
 
@@ -99,6 +108,8 @@ def serialize_json(value: UpdateInfrastructureConfigurationRequest) -> dict:
         out["keyPair"] = value["key_pair"]
     if "terminate_instance_on_failure" in value:
         out["terminateInstanceOnFailure"] = value["terminate_instance_on_failure"]
+    if "terminate_instance_on_completion" in value:
+        out["terminateInstanceOnCompletion"] = value["terminate_instance_on_completion"]
     if "sns_topic_arn" in value:
         out["snsTopicArn"] = value["sns_topic_arn"]
     if "resource_tags" in value:
@@ -120,6 +131,14 @@ def serialize_json(value: UpdateInfrastructureConfigurationRequest) -> dict:
 
         out["placement"] = capo_imagebuilder.types.placement.serialize_json(
             value["placement"]
+        )
+    if "parent_instance" in value:
+        import capo_imagebuilder.types.parent_instance_configuration
+
+        out["parentInstance"] = (
+            capo_imagebuilder.types.parent_instance_configuration.serialize_json(
+                value["parent_instance"]
+            )
         )
     out["clientToken"] = value["client_token"]
     return out
@@ -169,6 +188,8 @@ def deserialize_json(data: dict) -> UpdateInfrastructureConfigurationRequest:
         out["key_pair"] = data["keyPair"]
     if data.get("terminateInstanceOnFailure") is not None:
         out["terminate_instance_on_failure"] = data["terminateInstanceOnFailure"]
+    if data.get("terminateInstanceOnCompletion") is not None:
+        out["terminate_instance_on_completion"] = data["terminateInstanceOnCompletion"]
     if data.get("snsTopicArn") is not None:
         out["sns_topic_arn"] = data["snsTopicArn"]
     if data.get("resourceTags") is not None:
@@ -192,6 +213,14 @@ def deserialize_json(data: dict) -> UpdateInfrastructureConfigurationRequest:
 
         out["placement"] = capo_imagebuilder.types.placement.deserialize_json(
             data["placement"]
+        )
+    if data.get("parentInstance") is not None:
+        import capo_imagebuilder.types.parent_instance_configuration
+
+        out["parent_instance"] = (
+            capo_imagebuilder.types.parent_instance_configuration.deserialize_json(
+                data["parentInstance"]
+            )
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]

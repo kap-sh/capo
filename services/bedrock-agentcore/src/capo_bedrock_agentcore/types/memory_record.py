@@ -29,10 +29,14 @@ class MemoryRecord(TypedDict, closed=True):
     """<p>The namespaces associated with this memory record. Namespaces help organize and categorize memory records.</p>"""
     created_at: "datetime.datetime"
     """<p>The timestamp when the memory record was created.</p>"""
+    timestamp: NotRequired["datetime.datetime"]
+    """<p>The timestamp based on which the memory record was ingested. This reflects the time of the source content that the record was derived from, which can differ from <code>createdAt</code>, the time the record itself was written.</p>"""
     metadata: NotRequired[
         "capo_bedrock_agentcore.types.memory_record_metadata_map.MemoryRecordMetadataMap"
     ]
     """<p>A map of metadata key-value pairs associated with a memory record.</p>"""
+    expires_at: NotRequired["datetime.datetime"]
+    """<p>The timestamp at which the memory record expires and becomes eligible for deletion. This value is set when a record expiry (long-term memory time-to-live) applies to the record, either from the strategy the record belongs to or from a record expiry provided on the batch request that created or updated it. If the record has no expiry configured, this value is not present and the record does not expire.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -55,12 +59,28 @@ def serialize_json(value: MemoryRecord) -> dict:
     out["createdAt"] = capo_bedrock_agentcore.types._prelude.timestamp.serialize_json(
         value["created_at"]
     )
+    if "timestamp" in value:
+        import capo_bedrock_agentcore.types._prelude.timestamp
+
+        out["timestamp"] = (
+            capo_bedrock_agentcore.types._prelude.timestamp.serialize_json(
+                value["timestamp"]
+            )
+        )
     if "metadata" in value:
         import capo_bedrock_agentcore.types.memory_record_metadata_map
 
         out["metadata"] = (
             capo_bedrock_agentcore.types.memory_record_metadata_map.serialize_json(
                 value["metadata"]
+            )
+        )
+    if "expires_at" in value:
+        import capo_bedrock_agentcore.types._prelude.timestamp
+
+        out["expiresAt"] = (
+            capo_bedrock_agentcore.types._prelude.timestamp.serialize_json(
+                value["expires_at"]
             )
         )
     return out
@@ -104,12 +124,28 @@ def deserialize_json(data: dict) -> MemoryRecord:
         )
     else:
         raise DeserializationError("MemoryRecord.created_at required")
+    if data.get("timestamp") is not None:
+        import capo_bedrock_agentcore.types._prelude.timestamp
+
+        out["timestamp"] = (
+            capo_bedrock_agentcore.types._prelude.timestamp.deserialize_json(
+                data["timestamp"]
+            )
+        )
     if data.get("metadata") is not None:
         import capo_bedrock_agentcore.types.memory_record_metadata_map
 
         out["metadata"] = (
             capo_bedrock_agentcore.types.memory_record_metadata_map.deserialize_json(
                 data["metadata"]
+            )
+        )
+    if data.get("expiresAt") is not None:
+        import capo_bedrock_agentcore.types._prelude.timestamp
+
+        out["expires_at"] = (
+            capo_bedrock_agentcore.types._prelude.timestamp.deserialize_json(
+                data["expiresAt"]
             )
         )
     return out

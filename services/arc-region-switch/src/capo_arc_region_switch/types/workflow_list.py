@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#WorkflowList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.workflow
@@ -27,3 +27,11 @@ def deserialize_aws_json_1_0(data: list) -> WorkflowList:
             continue
         out.append(capo_arc_region_switch.types.workflow.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: WorkflowList) -> list[Any]:
+    import capo_arc_region_switch.types.workflow
+
+    return [
+        capo_arc_region_switch.types.workflow.redact_sensitive(item) for item in value
+    ]

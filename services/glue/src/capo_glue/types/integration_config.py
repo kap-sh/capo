@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     import capo_glue.types.continuous_sync
     import capo_glue.types.integration_source_properties_map
     import capo_glue.types.string128
+    import capo_glue.types.target_namespace
 
 
 class IntegrationConfig(TypedDict, closed=True):
@@ -19,6 +20,8 @@ class IntegrationConfig(TypedDict, closed=True):
     """<p> A collection of key-value pairs that specify additional properties for the integration source. These properties provide configuration options that can be used to customize the behavior of the ODB source during data integration operations. </p>"""
     continuous_sync: NotRequired["capo_glue.types.continuous_sync.ContinuousSync"]
     """<p>Enables continuous synchronization for on-demand data extractions from SaaS applications to Amazon Web Services data services like Amazon Redshift and Amazon S3.</p>"""
+    target_namespace: NotRequired["capo_glue.types.target_namespace.TargetNamespace"]
+    """<p>An optional custom namespace for the integration's target. Supply this parameter only when the target is an Amazon S3 Tables table bucket; it is not accepted for other target types. The integration replicates data into the namespace you specify, reusing it if it already exists. If you omit this parameter, the target namespace defaults to <code>zetl_</code> followed by the integration ID, with hyphens converted to underscores.</p> <p>The value is immutable after the integration is created; <code>ModifyIntegration</code> rejects changes to it. It must be a valid Amazon S3 Tables namespace name: 1 to 255 characters using lowercase letters, numbers, and underscores, with no leading or trailing underscore and no reserved <code>aws</code> prefix.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -36,6 +39,8 @@ def serialize_aws_json_1_1(value: IntegrationConfig) -> dict:
         )
     if "continuous_sync" in value:
         out["ContinuousSync"] = value["continuous_sync"]
+    if "target_namespace" in value:
+        out["TargetNamespace"] = value["target_namespace"]
     return out
 
 
@@ -53,4 +58,6 @@ def deserialize_aws_json_1_1(data: dict) -> IntegrationConfig:
         )
     if data.get("ContinuousSync") is not None:
         out["continuous_sync"] = data["ContinuousSync"]
+    if data.get("TargetNamespace") is not None:
+        out["target_namespace"] = data["TargetNamespace"]
     return out

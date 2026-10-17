@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
     import capo_mediaconnect.types.__list_of_string
+    import capo_mediaconnect.types.ndi_audio_reference_level
     import capo_mediaconnect.types.ndi_output_timecode_source
     import capo_mediaconnect.types.ndi_source_settings
     import capo_mediaconnect.types.protocol
@@ -52,6 +53,10 @@ class Transport(TypedDict, closed=True):
         "capo_mediaconnect.types.ndi_output_timecode_source.NdiOutputTimecodeSource"
     ]
     """<p>The timecode source for NDI output frames. For NDI outputs, this field is always present and defaults to <code>EMBEDDED_TIMECODE</code>.</p> <ul> <li> <p> <code>EMBEDDED_TIMECODE</code> - Preserves timecodes from the input transport stream. The timecodes must be embedded in the video stream as SEI timing messages. If no embedded timecode is detected, MediaConnect uses the UTC system time instead.</p> </li> <li> <p> <code>UTC_SYSTEM_TIME</code> - Generates timecodes based on the system clock time when each frame is sent.</p> </li> </ul>"""
+    ndi_audio_reference_level: NotRequired[
+        "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
+    ]
+    """<p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). For NDI outputs, this field is always present and defaults to <code>-20</code>.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -111,6 +116,8 @@ def serialize_json(value: Transport) -> dict:
                 value["ndi_output_timecode_source"]
             )
         )
+    if "ndi_audio_reference_level" in value:
+        out["ndiAudioReferenceLevel"] = value["ndi_audio_reference_level"]
     return out
 
 
@@ -172,4 +179,6 @@ def deserialize_json(data: dict) -> Transport:
                 data["ndiOutputTimecodeSource"]
             )
         )
+    if data.get("ndiAudioReferenceLevel") is not None:
+        out["ndi_audio_reference_level"] = data["ndiAudioReferenceLevel"]
     return out

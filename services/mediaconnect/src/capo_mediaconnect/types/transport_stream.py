@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    import capo_mediaconnect.types.color_information
     import capo_mediaconnect.types.frame_resolution
 
 
@@ -13,6 +14,8 @@ class TransportStream(TypedDict, closed=True):
     """<p> The number of channels in the audio stream.</p>"""
     codec: NotRequired["str"]
     """<p> The codec used by the stream.</p>"""
+    color: NotRequired["capo_mediaconnect.types.color_information.ColorInformation"]
+    """<p>The color signaling of the video stream.</p>"""
     frame_rate: NotRequired["str"]
     """<p> The frame rate used by the video stream.</p>"""
     frame_resolution: NotRequired[
@@ -36,6 +39,12 @@ def serialize_json(value: TransportStream) -> dict:
         out["channels"] = value["channels"]
     if "codec" in value:
         out["codec"] = value["codec"]
+    if "color" in value:
+        import capo_mediaconnect.types.color_information
+
+        out["color"] = capo_mediaconnect.types.color_information.serialize_json(
+            value["color"]
+        )
     if "frame_rate" in value:
         out["frameRate"] = value["frame_rate"]
     if "frame_resolution" in value:
@@ -63,6 +72,12 @@ def deserialize_json(data: dict) -> TransportStream:
         out["channels"] = data["channels"]
     if data.get("codec") is not None:
         out["codec"] = data["codec"]
+    if data.get("color") is not None:
+        import capo_mediaconnect.types.color_information
+
+        out["color"] = capo_mediaconnect.types.color_information.deserialize_json(
+            data["color"]
+        )
     if data.get("frameRate") is not None:
         out["frame_rate"] = data["frameRate"]
     if data.get("frameResolution") is not None:

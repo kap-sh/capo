@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#LambdaList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.lambdas
@@ -27,3 +27,11 @@ def deserialize_aws_json_1_0(data: list) -> LambdaList:
             continue
         out.append(capo_arc_region_switch.types.lambdas.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: LambdaList) -> list[Any]:
+    import capo_arc_region_switch.types.lambdas
+
+    return [
+        capo_arc_region_switch.types.lambdas.redact_sensitive(item) for item in value
+    ]

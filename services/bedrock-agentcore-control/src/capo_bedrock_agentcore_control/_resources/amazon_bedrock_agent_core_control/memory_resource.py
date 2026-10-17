@@ -279,7 +279,7 @@ class MemoryResource:
         """<p>Update an Amazon Bedrock AgentCore Memory resource memory.</p>
 
         Args:
-            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique AWS identifier.</p>
+            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to update.</p>
             description: <p>The updated description of the AgentCore Memory resource.</p>
             event_expiry_duration: <p>The number of days after which memory events will expire, between 7 and 365 days.</p>
@@ -379,7 +379,7 @@ class MemoryResource:
         """<p>Deletes an Amazon Bedrock AgentCore Memory resource. When you delete a memory resource, it is permanently removed.</p>
 
         Args:
-            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique AWS identifier.</p>
+            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to delete.</p>
 
         Raises:
@@ -710,7 +710,7 @@ class AsyncMemoryResource:
         """<p>Update an Amazon Bedrock AgentCore Memory resource memory.</p>
 
         Args:
-            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique AWS identifier.</p>
+            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to update.</p>
             description: <p>The updated description of the AgentCore Memory resource.</p>
             event_expiry_duration: <p>The number of days after which memory events will expire, between 7 and 365 days.</p>
@@ -811,7 +811,7 @@ class AsyncMemoryResource:
         """<p>Deletes an Amazon Bedrock AgentCore Memory resource. When you delete a memory resource, it is permanently removed.</p>
 
         Args:
-            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique AWS identifier.</p>
+            client_token: <p>A client token is used for keeping track of idempotent requests. It can contain a session id which can be around 250 chars, combined with a unique Amazon Web Services identifier.</p>
             memory_id: <p>The unique identifier of the memory to delete.</p>
 
         Raises:

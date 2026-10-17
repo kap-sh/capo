@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#UpdatePlanRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -135,4 +135,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdatePlanRequest:
         )
     if data.get("serviceQuotaChecksEnabled") is not None:
         out["service_quota_checks_enabled"] = data["serviceQuotaChecksEnabled"]
+    return out
+
+
+def redact_sensitive(value: UpdatePlanRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workflows" in value:
+        import capo_arc_region_switch.types.workflow_list
+
+        out["workflows"] = capo_arc_region_switch.types.workflow_list.redact_sensitive(
+            value["workflows"]
+        )
     return out

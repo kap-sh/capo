@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The network protocol for a connector. <code>IPv4</code> enables IPv4-only networking; <code>DualStack</code> enables both IPv4 and IPv6.</p>"""
 NetworkProtocol: TypeAlias = Literal[
     "IPv4",
     "DualStack",

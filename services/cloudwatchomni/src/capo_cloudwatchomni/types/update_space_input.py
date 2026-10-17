@@ -7,6 +7,7 @@ from typing_extensions import NotRequired, TypedDict
 from capo_cloudwatchomni.errors import DeserializationError
 
 if TYPE_CHECKING:
+    import capo_cloudwatchomni.types.arn
     import capo_cloudwatchomni.types.encryption_configuration
     import capo_cloudwatchomni.types.space_id
 
@@ -16,6 +17,8 @@ class UpdateSpaceInput(TypedDict, closed=True):
     """The unique ID of the space to update."""
     name: NotRequired["str"]
     """A new name for the space. Omit to leave unchanged. Must be 3-64 characters: lowercase letters, numbers, and hyphens. It must begin and end with a letter or number and cannot contain consecutive hyphens."""
+    agent_core_evaluation_role_arn: NotRequired["capo_cloudwatchomni.types.arn.Arn"]
+    """The ARN of the IAM role used by AgentCore online evaluation. Must be in the caller's account. Omit if the space does not use AgentCore online evaluation."""
     encryption_configuration: NotRequired[
         "capo_cloudwatchomni.types.encryption_configuration.EncryptionConfiguration"
     ]
@@ -28,6 +31,8 @@ def serialize_cbor(value: UpdateSpaceInput) -> dict:
     out["spaceId"] = value["space_id"]
     if "name" in value:
         out["name"] = value["name"]
+    if "agent_core_evaluation_role_arn" in value:
+        out["agentCoreEvaluationRoleArn"] = value["agent_core_evaluation_role_arn"]
     if "encryption_configuration" in value:
         import capo_cloudwatchomni.types.encryption_configuration
 
@@ -47,6 +52,8 @@ def deserialize_cbor(data: dict) -> UpdateSpaceInput:
         raise DeserializationError("UpdateSpaceInput.space_id required")
     if data.get("name") is not None:
         out["name"] = data["name"]
+    if data.get("agentCoreEvaluationRoleArn") is not None:
+        out["agent_core_evaluation_role_arn"] = data["agentCoreEvaluationRoleArn"]
     if data.get("encryptionConfiguration") is not None:
         import capo_cloudwatchomni.types.encryption_configuration
 

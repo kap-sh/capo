@@ -12,6 +12,7 @@ import capo_cloudwatchomni._auth._sigv4
 import capo_cloudwatchomni._protocol.eventstream
 import capo_cloudwatchomni.errors.access_denied_exception
 import capo_cloudwatchomni.errors.internal_server_exception
+import capo_cloudwatchomni.errors.resource_not_found_exception
 import capo_cloudwatchomni.errors.throttling_exception
 import capo_cloudwatchomni.errors.validation_exception
 import capo_cloudwatchomni.types.list_spaces_input
@@ -36,6 +37,10 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "InternalServerException":
             raise capo_cloudwatchomni.errors.internal_server_exception.InternalServerException.from_cbor(
+                data, message, response=response
+            )
+        case "ResourceNotFoundException":
+            raise capo_cloudwatchomni.errors.resource_not_found_exception.ResourceNotFoundException.from_cbor(
                 data, message, response=response
             )
         case "ThrottlingException":

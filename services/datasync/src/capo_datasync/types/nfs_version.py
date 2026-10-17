@@ -7,6 +7,7 @@ NfsVersion: TypeAlias = Literal[
     "NFS3",
     "NFS4_0",
     "NFS4_1",
+    "NFS4_2",
 ]
 
 

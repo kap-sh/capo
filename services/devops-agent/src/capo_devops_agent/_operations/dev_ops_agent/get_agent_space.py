@@ -24,6 +24,7 @@ import capo_devops_agent.errors.validation_exception
 import capo_devops_agent.types.agent_space
 import capo_devops_agent.types.get_agent_space_input
 import capo_devops_agent.types.get_agent_space_output
+import capo_devops_agent.types.included_data
 import capo_devops_agent.types.tags
 from capo_devops_agent._protocol.errors import parse_error_metadata_json
 from capo_devops_agent._rule_engine._endpoint_rule_set import EndpointParams, resolve
@@ -138,9 +139,20 @@ def build_request(
             UseFIPS=options.use_fips, Endpoint=options.endpoint, Region=options.region
         )
     )  # noqa: F841
+    import capo_devops_agent.types.included_data
+
     url = endpoint.url.rstrip("/") + "/v1/agentspaces/{agentSpaceId}"
     url = url.replace("{agentSpaceId}", quote(input_["agent_space_id"], safe=""))
     params: list[tuple[str, str]] = []
+    if "included_data" in input_:
+        params.append(
+            (
+                "includedData",
+                capo_devops_agent.types.included_data.serialize_json(
+                    input_["included_data"]
+                ),
+            )
+        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

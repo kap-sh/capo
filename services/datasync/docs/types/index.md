@@ -161,6 +161,7 @@
 - [NfsMountOptions](nfs_mount_options.md)
 - [NfsSubdirectory](nfs_subdirectory.md)
 - [NfsVersion](nfs_version.md)
+- [ObjectMetadata](object_metadata.md)
 - [ObjectStorageAccessKey](object_storage_access_key.md)
 - [ObjectStorageBucketName](object_storage_bucket_name.md)
 - [ObjectStorageCertificate](object_storage_certificate.md)

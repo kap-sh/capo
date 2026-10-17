@@ -415,6 +415,7 @@
 - [SchemaItem](schema_item.md)
 - [SchemaValueType](schema_value_type.md)
 - [ScratchStorageMode](scratch_storage_mode.md)
+- [SecretArn](secret_arn.md)
 - [SecurityGroupId](security_group_id.md)
 - [SecurityGroupIds](security_group_ids.md)
 - [Separator](separator.md)

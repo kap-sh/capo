@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.lf_tag_expression_resource
     import capo_lakeformation.types.lf_tag_key_resource
     import capo_lakeformation.types.lf_tag_policy_resource
+    import capo_lakeformation.types.rls_policy_resource
     import capo_lakeformation.types.table_resource
     import capo_lakeformation.types.table_with_columns_resource
 
@@ -45,6 +46,10 @@ class Resource(TypedDict, closed=True):
         "capo_lakeformation.types.lf_tag_expression_resource.LFTagExpressionResource"
     ]
     """<p>LF-Tag expression resource. A logical expression composed of one or more LF-Tag key:value pairs.</p>"""
+    rls_policy: NotRequired[
+        "capo_lakeformation.types.rls_policy_resource.RLSPolicyResource"
+    ]
+    """<p>A row-level security policy resource. Specify this when granting or revoking permissions on a row-level security policy.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -114,6 +119,12 @@ def serialize_json(value: Resource) -> dict:
                 value["lf_tag_expression"]
             )
         )
+    if "rls_policy" in value:
+        import capo_lakeformation.types.rls_policy_resource
+
+        out["RLSPolicy"] = capo_lakeformation.types.rls_policy_resource.serialize_json(
+            value["rls_policy"]
+        )
     return out
 
 
@@ -181,6 +192,14 @@ def deserialize_json(data: dict) -> Resource:
         out["lf_tag_expression"] = (
             capo_lakeformation.types.lf_tag_expression_resource.deserialize_json(
                 data["LFTagExpression"]
+            )
+        )
+    if data.get("RLSPolicy") is not None:
+        import capo_lakeformation.types.rls_policy_resource
+
+        out["rls_policy"] = (
+            capo_lakeformation.types.rls_policy_resource.deserialize_json(
+                data["RLSPolicy"]
             )
         )
     return out

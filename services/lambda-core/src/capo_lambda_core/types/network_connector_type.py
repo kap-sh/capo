@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>The type of a network connector. <code>VPC_EGRESS</code> provides VPC egress connectivity.</p>"""
 NetworkConnectorType: TypeAlias = Literal["VPC_EGRESS",]
 
 

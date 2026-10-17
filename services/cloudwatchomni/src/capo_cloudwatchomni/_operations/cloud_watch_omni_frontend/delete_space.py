@@ -11,6 +11,7 @@ import capo_cloudwatchomni._auth._signers
 import capo_cloudwatchomni._auth._sigv4
 import capo_cloudwatchomni._protocol.eventstream
 import capo_cloudwatchomni.errors.access_denied_exception
+import capo_cloudwatchomni.errors.conflict_exception
 import capo_cloudwatchomni.errors.internal_server_exception
 import capo_cloudwatchomni.errors.throttling_exception
 import capo_cloudwatchomni.errors.validation_exception
@@ -31,6 +32,10 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "AccessDeniedException":
             raise capo_cloudwatchomni.errors.access_denied_exception.AccessDeniedException.from_cbor(
+                data, message, response=response
+            )
+        case "ConflictException":
+            raise capo_cloudwatchomni.errors.conflict_exception.ConflictException.from_cbor(
                 data, message, response=response
             )
         case "InternalServerException":

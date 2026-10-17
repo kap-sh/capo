@@ -15,6 +15,7 @@ class UpdateNetworkConnectorRequest(TypedDict, closed=True):
     identifier: (
         "capo_lambda_core.types.network_connector_identifier.NetworkConnectorIdentifier"
     )
+    """<p>The identifier of the network connector to update. You can specify the connector ID, name, or full ARN.</p>"""
     configuration: NotRequired[
         "capo_lambda_core.types.network_connector_configuration.NetworkConnectorConfiguration"
     ]

@@ -58,6 +58,7 @@ if TYPE_CHECKING:
     import capo_mediaconnect.types.media_stream_attributes_request
     import capo_mediaconnect.types.media_stream_type
     import capo_mediaconnect.types.monitoring_config
+    import capo_mediaconnect.types.ndi_audio_reference_level
     import capo_mediaconnect.types.ndi_config
     import capo_mediaconnect.types.ndi_output_timecode_source
     import capo_mediaconnect.types.ndi_source_settings
@@ -1410,6 +1411,9 @@ class FlowResource:
         ndi_output_timecode_source: Optional[
             "capo_mediaconnect.types.ndi_output_timecode_source.NdiOutputTimecodeSource"
         ] = None,
+        ndi_audio_reference_level: Optional[
+            "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_output_response.UpdateFlowOutputResponse":
         """<p> Updates an existing flow output.</p>
 
@@ -1436,6 +1440,7 @@ class FlowResource:
             ndi_speed_hq_quality: <p>A quality setting for the NDI Speed HQ encoder. </p>
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow output.</p>
             ndi_output_timecode_source: <p>Controls how MediaConnect generates timecodes for NDI output frames. If you don't specify this field, MediaConnect leaves the value unchanged.</p> <ul> <li> <p> <code>EMBEDDED_TIMECODE</code> - Preserves timecodes from the input transport stream. The timecodes must be embedded in the video stream as SEI timing messages. If no embedded timecode is detected, MediaConnect uses the UTC system time instead.</p> </li> <li> <p> <code>UTC_SYSTEM_TIME</code> - Generates timecodes based on the system clock time when each frame is sent.</p> </li> </ul>
+            ndi_audio_reference_level: <p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). If you don't specify this field, MediaConnect leaves the value unchanged.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -1514,6 +1519,8 @@ class FlowResource:
             )
         if ndi_output_timecode_source is not None:
             input_["ndi_output_timecode_source"] = ndi_output_timecode_source
+        if ndi_audio_reference_level is not None:
+            input_["ndi_audio_reference_level"] = ndi_audio_reference_level
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3004,6 +3011,9 @@ class AsyncFlowResource:
         ndi_output_timecode_source: Optional[
             "capo_mediaconnect.types.ndi_output_timecode_source.NdiOutputTimecodeSource"
         ] = None,
+        ndi_audio_reference_level: Optional[
+            "capo_mediaconnect.types.ndi_audio_reference_level.NdiAudioReferenceLevel"
+        ] = None,
     ) -> "capo_mediaconnect.types.update_flow_output_response.UpdateFlowOutputResponse":
         """<p> Updates an existing flow output.</p>
 
@@ -3030,6 +3040,7 @@ class AsyncFlowResource:
             ndi_speed_hq_quality: <p>A quality setting for the NDI Speed HQ encoder. </p>
             router_integration_state: <p>Indicates whether to enable or disable router integration for this flow output.</p>
             ndi_output_timecode_source: <p>Controls how MediaConnect generates timecodes for NDI output frames. If you don't specify this field, MediaConnect leaves the value unchanged.</p> <ul> <li> <p> <code>EMBEDDED_TIMECODE</code> - Preserves timecodes from the input transport stream. The timecodes must be embedded in the video stream as SEI timing messages. If no embedded timecode is detected, MediaConnect uses the UTC system time instead.</p> </li> <li> <p> <code>UTC_SYSTEM_TIME</code> - Generates timecodes based on the system clock time when each frame is sent.</p> </li> </ul>
+            ndi_audio_reference_level: <p>The audio reference level of the NDI receiver, in decibels relative to full scale (dBFS). Common values are <code>-20</code> (NDI and SMPTE) and <code>-18</code> (EBU). If you don't specify this field, MediaConnect leaves the value unchanged.</p>
 
         Raises:
             capo_mediaconnect.errors.bad_request_exception.BadRequestException: <p>This exception is thrown if the request contains a semantic error. The precise meaning depends on the API, and is documented in the error message. </p>
@@ -3109,6 +3120,8 @@ class AsyncFlowResource:
             )
         if ndi_output_timecode_source is not None:
             input_["ndi_output_timecode_source"] = ndi_output_timecode_source
+        if ndi_audio_reference_level is not None:
+            input_["ndi_audio_reference_level"] = ndi_audio_reference_level
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

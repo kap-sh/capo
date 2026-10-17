@@ -1377,6 +1377,20 @@ class Capabilities(TypedDict, closed=True):
         "capo_quicksight.types.capability_state.CapabilityState"
     ]
     """<p>The ability to use Bee actions.</p>"""
+    gong_action: NotRequired["capo_quicksight.types.capability_state.CapabilityState"]
+    """<p>The ability to perform actions using Gong connectors.</p>"""
+    create_and_update_gong_action: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create and update Gong actions.</p>"""
+    share_gong_action: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Gong actions.</p>"""
+    use_gong_action: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to use Gong actions.</p>"""
     topic: NotRequired["capo_quicksight.types.capability_state.CapabilityState"]
     """<p>The ability to perform Topic-related actions.</p>"""
     edit_visual_with_q: NotRequired[
@@ -1461,6 +1475,726 @@ class Capabilities(TypedDict, closed=True):
         "capo_quicksight.types.capability_state.CapabilityState"
     ]
     """<p>The ability to create, view, edit, delete, and run Quick event triggers for flows and automations.</p>"""
+    file_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share file data sources.</p>"""
+    create_file_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create file data sources.</p>"""
+    update_file_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update file data sources.</p>"""
+    share_file_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share file data sources.</p>"""
+    s3_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon S3 data sources.</p>"""
+    create_s3_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon S3 data sources.</p>"""
+    update_s3_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon S3 data sources.</p>"""
+    share_s3_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon S3 data sources.</p>"""
+    s3_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon S3 Analytics data sources.</p>"""
+    create_s3_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon S3 Analytics data sources.</p>"""
+    update_s3_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon S3 Analytics data sources.</p>"""
+    share_s3_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon S3 Analytics data sources.</p>"""
+    s3_tables_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon S3 Tables data sources.</p>"""
+    create_s3_tables_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon S3 Tables data sources.</p>"""
+    update_s3_tables_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon S3 Tables data sources.</p>"""
+    share_s3_tables_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon S3 Tables data sources.</p>"""
+    athena_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon Athena data sources.</p>"""
+    create_athena_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon Athena data sources.</p>"""
+    update_athena_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon Athena data sources.</p>"""
+    share_athena_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon Athena data sources.</p>"""
+    rds_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share auto-discovered Amazon RDS data sources.</p>"""
+    create_rds_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create auto-discovered Amazon RDS data sources.</p>"""
+    update_rds_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update auto-discovered Amazon RDS data sources.</p>"""
+    share_rds_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share auto-discovered Amazon RDS data sources.</p>"""
+    redshift_auto_discovered_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share auto-discovered Amazon Redshift data sources.</p>"""
+    create_redshift_auto_discovered_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create auto-discovered Amazon Redshift data sources.</p>"""
+    update_redshift_auto_discovered_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update auto-discovered Amazon Redshift data sources.</p>"""
+    share_redshift_auto_discovered_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share auto-discovered Amazon Redshift data sources.</p>"""
+    redshift_manual_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share manually configured Amazon Redshift data sources.</p>"""
+    create_redshift_manual_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create manually configured Amazon Redshift data sources.</p>"""
+    update_redshift_manual_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update manually configured Amazon Redshift data sources.</p>"""
+    share_redshift_manual_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share manually configured Amazon Redshift data sources.</p>"""
+    open_search_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon OpenSearch Service data sources.</p>"""
+    create_open_search_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon OpenSearch Service data sources.</p>"""
+    update_open_search_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon OpenSearch Service data sources.</p>"""
+    share_open_search_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon OpenSearch Service data sources.</p>"""
+    timestream_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon Timestream data sources.</p>"""
+    create_timestream_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon Timestream data sources.</p>"""
+    update_timestream_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon Timestream data sources.</p>"""
+    share_timestream_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon Timestream data sources.</p>"""
+    aurora_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon Aurora data sources.</p>"""
+    create_aurora_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon Aurora data sources.</p>"""
+    update_aurora_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon Aurora data sources.</p>"""
+    share_aurora_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon Aurora data sources.</p>"""
+    my_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share MySQL data sources.</p>"""
+    create_my_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create MySQL data sources.</p>"""
+    update_my_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update MySQL data sources.</p>"""
+    share_my_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share MySQL data sources.</p>"""
+    postgre_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share PostgreSQL data sources.</p>"""
+    create_postgre_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create PostgreSQL data sources.</p>"""
+    update_postgre_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update PostgreSQL data sources.</p>"""
+    share_postgre_sql_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share PostgreSQL data sources.</p>"""
+    oracle_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Oracle data sources.</p>"""
+    create_oracle_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Oracle data sources.</p>"""
+    update_oracle_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Oracle data sources.</p>"""
+    share_oracle_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Oracle data sources.</p>"""
+    sql_server_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share SQL Server data sources.</p>"""
+    create_sql_server_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create SQL Server data sources.</p>"""
+    update_sql_server_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update SQL Server data sources.</p>"""
+    share_sql_server_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share SQL Server data sources.</p>"""
+    maria_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share MariaDB data sources.</p>"""
+    create_maria_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create MariaDB data sources.</p>"""
+    update_maria_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update MariaDB data sources.</p>"""
+    share_maria_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share MariaDB data sources.</p>"""
+    snowflake_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Snowflake data sources.</p>"""
+    create_snowflake_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Snowflake data sources.</p>"""
+    update_snowflake_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Snowflake data sources.</p>"""
+    share_snowflake_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Snowflake data sources.</p>"""
+    google_big_query_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Google BigQuery data sources.</p>"""
+    create_google_big_query_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Google BigQuery data sources.</p>"""
+    update_google_big_query_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Google BigQuery data sources.</p>"""
+    share_google_big_query_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Google BigQuery data sources.</p>"""
+    databricks_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Databricks data sources.</p>"""
+    create_databricks_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Databricks data sources.</p>"""
+    update_databricks_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Databricks data sources.</p>"""
+    share_databricks_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Databricks data sources.</p>"""
+    starburst_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Starburst data sources.</p>"""
+    create_starburst_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Starburst data sources.</p>"""
+    update_starburst_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Starburst data sources.</p>"""
+    share_starburst_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Starburst data sources.</p>"""
+    trino_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Trino data sources.</p>"""
+    create_trino_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Trino data sources.</p>"""
+    update_trino_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Trino data sources.</p>"""
+    share_trino_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Trino data sources.</p>"""
+    impala_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Impala data sources.</p>"""
+    create_impala_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Impala data sources.</p>"""
+    update_impala_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Impala data sources.</p>"""
+    share_impala_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Impala data sources.</p>"""
+    teradata_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Teradata data sources.</p>"""
+    create_teradata_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Teradata data sources.</p>"""
+    update_teradata_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Teradata data sources.</p>"""
+    share_teradata_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Teradata data sources.</p>"""
+    presto_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Presto data sources.</p>"""
+    create_presto_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Presto data sources.</p>"""
+    update_presto_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Presto data sources.</p>"""
+    share_presto_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Presto data sources.</p>"""
+    spark_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Spark data sources.</p>"""
+    create_spark_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Spark data sources.</p>"""
+    update_spark_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Spark data sources.</p>"""
+    share_spark_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Spark data sources.</p>"""
+    exasol_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Exasol data sources.</p>"""
+    create_exasol_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Exasol data sources.</p>"""
+    update_exasol_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Exasol data sources.</p>"""
+    share_exasol_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Exasol data sources.</p>"""
+    db2_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Db2 data sources.</p>"""
+    create_db2_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Db2 data sources.</p>"""
+    update_db2_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Db2 data sources.</p>"""
+    share_db2_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Db2 data sources.</p>"""
+    sap_hana_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share SAP HANA data sources.</p>"""
+    create_sap_hana_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create SAP HANA data sources.</p>"""
+    update_sap_hana_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update SAP HANA data sources.</p>"""
+    share_sap_hana_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share SAP HANA data sources.</p>"""
+    denodo_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Denodo data sources.</p>"""
+    create_denodo_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Denodo data sources.</p>"""
+    update_denodo_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Denodo data sources.</p>"""
+    share_denodo_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Denodo data sources.</p>"""
+    dremio_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Dremio data sources.</p>"""
+    create_dremio_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Dremio data sources.</p>"""
+    update_dremio_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Dremio data sources.</p>"""
+    share_dremio_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Dremio data sources.</p>"""
+    salesforce_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Salesforce data sources.</p>"""
+    create_salesforce_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Salesforce data sources.</p>"""
+    update_salesforce_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Salesforce data sources.</p>"""
+    share_salesforce_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Salesforce data sources.</p>"""
+    radiant_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon QuickSight data sources.</p>"""
+    create_radiant_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon QuickSight data sources.</p>"""
+    update_radiant_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon QuickSight data sources.</p>"""
+    share_radiant_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon QuickSight data sources.</p>"""
+    pay_pal_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share PayPal data sources.</p>"""
+    create_pay_pal_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create PayPal data sources.</p>"""
+    update_pay_pal_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update PayPal data sources.</p>"""
+    share_pay_pal_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share PayPal data sources.</p>"""
+    square_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Square data sources.</p>"""
+    create_square_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Square data sources.</p>"""
+    update_square_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Square data sources.</p>"""
+    share_square_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Square data sources.</p>"""
+    git_hub_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share GitHub data sources.</p>"""
+    create_git_hub_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create GitHub data sources.</p>"""
+    update_git_hub_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update GitHub data sources.</p>"""
+    share_git_hub_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share GitHub data sources.</p>"""
+    twitter_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Twitter data sources.</p>"""
+    create_twitter_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Twitter data sources.</p>"""
+    update_twitter_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Twitter data sources.</p>"""
+    share_twitter_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Twitter data sources.</p>"""
+    jira_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Jira data sources.</p>"""
+    create_jira_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Jira data sources.</p>"""
+    update_jira_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Jira data sources.</p>"""
+    share_jira_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Jira data sources.</p>"""
+    service_now_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share ServiceNow data sources.</p>"""
+    create_service_now_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create ServiceNow data sources.</p>"""
+    update_service_now_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update ServiceNow data sources.</p>"""
+    share_service_now_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share ServiceNow data sources.</p>"""
+    adobe_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Adobe Analytics data sources.</p>"""
+    create_adobe_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Adobe Analytics data sources.</p>"""
+    update_adobe_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Adobe Analytics data sources.</p>"""
+    share_adobe_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Adobe Analytics data sources.</p>"""
+    google_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Google Analytics data sources.</p>"""
+    create_google_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Google Analytics data sources.</p>"""
+    update_google_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Google Analytics data sources.</p>"""
+    share_google_analytics_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Google Analytics data sources.</p>"""
+    google_sheets_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Google Sheets data sources.</p>"""
+    create_google_sheets_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Google Sheets data sources.</p>"""
+    update_google_sheets_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Google Sheets data sources.</p>"""
+    share_google_sheets_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Google Sheets data sources.</p>"""
+    document_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon DocumentDB data sources.</p>"""
+    create_document_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon DocumentDB data sources.</p>"""
+    update_document_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon DocumentDB data sources.</p>"""
+    share_document_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon DocumentDB data sources.</p>"""
+    mongo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share MongoDB data sources.</p>"""
+    create_mongo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create MongoDB data sources.</p>"""
+    update_mongo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update MongoDB data sources.</p>"""
+    share_mongo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share MongoDB data sources.</p>"""
+    mongo_atlas_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share MongoDB Atlas data sources.</p>"""
+    create_mongo_atlas_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create MongoDB Atlas data sources.</p>"""
+    update_mongo_atlas_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update MongoDB Atlas data sources.</p>"""
+    share_mongo_atlas_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share MongoDB Atlas data sources.</p>"""
+    dynamo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create, update, and share Amazon DynamoDB data sources.</p>"""
+    create_dynamo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to create Amazon DynamoDB data sources.</p>"""
+    update_dynamo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to update Amazon DynamoDB data sources.</p>"""
+    share_dynamo_db_data_source: NotRequired[
+        "capo_quicksight.types.capability_state.CapabilityState"
+    ]
+    """<p>The ability to share Amazon DynamoDB data sources.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -4186,6 +4920,32 @@ def serialize_json(value: Capabilities) -> dict:
         out["UseBeeAction"] = capo_quicksight.types.capability_state.serialize_json(
             value["use_bee_action"]
         )
+    if "gong_action" in value:
+        import capo_quicksight.types.capability_state
+
+        out["GongAction"] = capo_quicksight.types.capability_state.serialize_json(
+            value["gong_action"]
+        )
+    if "create_and_update_gong_action" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateAndUpdateGongAction"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_and_update_gong_action"]
+            )
+        )
+    if "share_gong_action" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareGongAction"] = capo_quicksight.types.capability_state.serialize_json(
+            value["share_gong_action"]
+        )
+    if "use_gong_action" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UseGongAction"] = capo_quicksight.types.capability_state.serialize_json(
+            value["use_gong_action"]
+        )
     if "topic" in value:
         import capo_quicksight.types.capability_state
 
@@ -4362,6 +5122,1408 @@ def serialize_json(value: Capabilities) -> dict:
         out["QuickEventTrigger"] = (
             capo_quicksight.types.capability_state.serialize_json(
                 value["quick_event_trigger"]
+            )
+        )
+    if "file_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["FileDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["file_data_source"]
+        )
+    if "create_file_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateFileDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_file_data_source"]
+            )
+        )
+    if "update_file_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateFileDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_file_data_source"]
+            )
+        )
+    if "share_file_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareFileDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_file_data_source"]
+            )
+        )
+    if "s3_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["S3DataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["s3_data_source"]
+        )
+    if "create_s3_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateS3DataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_s3_data_source"]
+            )
+        )
+    if "update_s3_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateS3DataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_s3_data_source"]
+            )
+        )
+    if "share_s3_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareS3DataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_s3_data_source"]
+            )
+        )
+    if "s3_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["S3AnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["s3_analytics_data_source"]
+            )
+        )
+    if "create_s3_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateS3AnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_s3_analytics_data_source"]
+            )
+        )
+    if "update_s3_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateS3AnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_s3_analytics_data_source"]
+            )
+        )
+    if "share_s3_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareS3AnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_s3_analytics_data_source"]
+            )
+        )
+    if "s3_tables_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["S3TablesDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["s3_tables_data_source"]
+            )
+        )
+    if "create_s3_tables_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateS3TablesDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_s3_tables_data_source"]
+            )
+        )
+    if "update_s3_tables_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateS3TablesDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_s3_tables_data_source"]
+            )
+        )
+    if "share_s3_tables_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareS3TablesDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_s3_tables_data_source"]
+            )
+        )
+    if "athena_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["AthenaDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["athena_data_source"]
+        )
+    if "create_athena_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateAthenaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_athena_data_source"]
+            )
+        )
+    if "update_athena_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateAthenaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_athena_data_source"]
+            )
+        )
+    if "share_athena_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareAthenaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_athena_data_source"]
+            )
+        )
+    if "rds_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["RdsDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["rds_data_source"]
+        )
+    if "create_rds_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateRdsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_rds_data_source"]
+            )
+        )
+    if "update_rds_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateRdsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_rds_data_source"]
+            )
+        )
+    if "share_rds_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareRdsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_rds_data_source"]
+            )
+        )
+    if "redshift_auto_discovered_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["RedshiftAutoDiscoveredDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["redshift_auto_discovered_data_source"]
+            )
+        )
+    if "create_redshift_auto_discovered_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateRedshiftAutoDiscoveredDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_redshift_auto_discovered_data_source"]
+            )
+        )
+    if "update_redshift_auto_discovered_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateRedshiftAutoDiscoveredDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_redshift_auto_discovered_data_source"]
+            )
+        )
+    if "share_redshift_auto_discovered_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareRedshiftAutoDiscoveredDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_redshift_auto_discovered_data_source"]
+            )
+        )
+    if "redshift_manual_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["RedshiftManualDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["redshift_manual_data_source"]
+            )
+        )
+    if "create_redshift_manual_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateRedshiftManualDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_redshift_manual_data_source"]
+            )
+        )
+    if "update_redshift_manual_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateRedshiftManualDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_redshift_manual_data_source"]
+            )
+        )
+    if "share_redshift_manual_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareRedshiftManualDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_redshift_manual_data_source"]
+            )
+        )
+    if "open_search_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["OpenSearchDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["open_search_data_source"]
+            )
+        )
+    if "create_open_search_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateOpenSearchDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_open_search_data_source"]
+            )
+        )
+    if "update_open_search_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateOpenSearchDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_open_search_data_source"]
+            )
+        )
+    if "share_open_search_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareOpenSearchDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_open_search_data_source"]
+            )
+        )
+    if "timestream_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["TimestreamDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["timestream_data_source"]
+            )
+        )
+    if "create_timestream_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateTimestreamDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_timestream_data_source"]
+            )
+        )
+    if "update_timestream_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateTimestreamDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_timestream_data_source"]
+            )
+        )
+    if "share_timestream_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareTimestreamDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_timestream_data_source"]
+            )
+        )
+    if "aurora_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["AuroraDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["aurora_data_source"]
+        )
+    if "create_aurora_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateAuroraDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_aurora_data_source"]
+            )
+        )
+    if "update_aurora_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateAuroraDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_aurora_data_source"]
+            )
+        )
+    if "share_aurora_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareAuroraDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_aurora_data_source"]
+            )
+        )
+    if "my_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["MySqlDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["my_sql_data_source"]
+        )
+    if "create_my_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateMySqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_my_sql_data_source"]
+            )
+        )
+    if "update_my_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateMySqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_my_sql_data_source"]
+            )
+        )
+    if "share_my_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareMySqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_my_sql_data_source"]
+            )
+        )
+    if "postgre_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["PostgreSqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["postgre_sql_data_source"]
+            )
+        )
+    if "create_postgre_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreatePostgreSqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_postgre_sql_data_source"]
+            )
+        )
+    if "update_postgre_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdatePostgreSqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_postgre_sql_data_source"]
+            )
+        )
+    if "share_postgre_sql_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SharePostgreSqlDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_postgre_sql_data_source"]
+            )
+        )
+    if "oracle_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["OracleDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["oracle_data_source"]
+        )
+    if "create_oracle_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateOracleDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_oracle_data_source"]
+            )
+        )
+    if "update_oracle_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateOracleDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_oracle_data_source"]
+            )
+        )
+    if "share_oracle_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareOracleDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_oracle_data_source"]
+            )
+        )
+    if "sql_server_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SqlServerDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["sql_server_data_source"]
+            )
+        )
+    if "create_sql_server_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateSqlServerDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_sql_server_data_source"]
+            )
+        )
+    if "update_sql_server_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateSqlServerDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_sql_server_data_source"]
+            )
+        )
+    if "share_sql_server_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareSqlServerDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_sql_server_data_source"]
+            )
+        )
+    if "maria_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["MariaDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["maria_db_data_source"]
+            )
+        )
+    if "create_maria_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateMariaDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_maria_db_data_source"]
+            )
+        )
+    if "update_maria_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateMariaDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_maria_db_data_source"]
+            )
+        )
+    if "share_maria_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareMariaDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_maria_db_data_source"]
+            )
+        )
+    if "snowflake_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SnowflakeDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["snowflake_data_source"]
+            )
+        )
+    if "create_snowflake_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateSnowflakeDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_snowflake_data_source"]
+            )
+        )
+    if "update_snowflake_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateSnowflakeDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_snowflake_data_source"]
+            )
+        )
+    if "share_snowflake_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareSnowflakeDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_snowflake_data_source"]
+            )
+        )
+    if "google_big_query_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["GoogleBigQueryDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["google_big_query_data_source"]
+            )
+        )
+    if "create_google_big_query_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateGoogleBigQueryDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_google_big_query_data_source"]
+            )
+        )
+    if "update_google_big_query_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateGoogleBigQueryDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_google_big_query_data_source"]
+            )
+        )
+    if "share_google_big_query_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareGoogleBigQueryDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_google_big_query_data_source"]
+            )
+        )
+    if "databricks_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["DatabricksDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["databricks_data_source"]
+            )
+        )
+    if "create_databricks_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateDatabricksDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_databricks_data_source"]
+            )
+        )
+    if "update_databricks_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateDatabricksDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_databricks_data_source"]
+            )
+        )
+    if "share_databricks_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareDatabricksDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_databricks_data_source"]
+            )
+        )
+    if "starburst_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["StarburstDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["starburst_data_source"]
+            )
+        )
+    if "create_starburst_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateStarburstDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_starburst_data_source"]
+            )
+        )
+    if "update_starburst_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateStarburstDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_starburst_data_source"]
+            )
+        )
+    if "share_starburst_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareStarburstDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_starburst_data_source"]
+            )
+        )
+    if "trino_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["TrinoDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["trino_data_source"]
+        )
+    if "create_trino_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateTrinoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_trino_data_source"]
+            )
+        )
+    if "update_trino_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateTrinoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_trino_data_source"]
+            )
+        )
+    if "share_trino_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareTrinoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_trino_data_source"]
+            )
+        )
+    if "impala_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ImpalaDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["impala_data_source"]
+        )
+    if "create_impala_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateImpalaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_impala_data_source"]
+            )
+        )
+    if "update_impala_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateImpalaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_impala_data_source"]
+            )
+        )
+    if "share_impala_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareImpalaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_impala_data_source"]
+            )
+        )
+    if "teradata_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["TeradataDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["teradata_data_source"]
+            )
+        )
+    if "create_teradata_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateTeradataDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_teradata_data_source"]
+            )
+        )
+    if "update_teradata_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateTeradataDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_teradata_data_source"]
+            )
+        )
+    if "share_teradata_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareTeradataDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_teradata_data_source"]
+            )
+        )
+    if "presto_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["PrestoDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["presto_data_source"]
+        )
+    if "create_presto_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreatePrestoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_presto_data_source"]
+            )
+        )
+    if "update_presto_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdatePrestoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_presto_data_source"]
+            )
+        )
+    if "share_presto_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SharePrestoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_presto_data_source"]
+            )
+        )
+    if "spark_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SparkDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["spark_data_source"]
+        )
+    if "create_spark_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateSparkDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_spark_data_source"]
+            )
+        )
+    if "update_spark_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateSparkDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_spark_data_source"]
+            )
+        )
+    if "share_spark_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareSparkDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_spark_data_source"]
+            )
+        )
+    if "exasol_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ExasolDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["exasol_data_source"]
+        )
+    if "create_exasol_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateExasolDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_exasol_data_source"]
+            )
+        )
+    if "update_exasol_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateExasolDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_exasol_data_source"]
+            )
+        )
+    if "share_exasol_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareExasolDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_exasol_data_source"]
+            )
+        )
+    if "db2_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["Db2DataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["db2_data_source"]
+        )
+    if "create_db2_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateDb2DataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_db2_data_source"]
+            )
+        )
+    if "update_db2_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateDb2DataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_db2_data_source"]
+            )
+        )
+    if "share_db2_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareDb2DataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_db2_data_source"]
+            )
+        )
+    if "sap_hana_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SapHanaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["sap_hana_data_source"]
+            )
+        )
+    if "create_sap_hana_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateSapHanaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_sap_hana_data_source"]
+            )
+        )
+    if "update_sap_hana_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateSapHanaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_sap_hana_data_source"]
+            )
+        )
+    if "share_sap_hana_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareSapHanaDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_sap_hana_data_source"]
+            )
+        )
+    if "denodo_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["DenodoDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["denodo_data_source"]
+        )
+    if "create_denodo_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateDenodoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_denodo_data_source"]
+            )
+        )
+    if "update_denodo_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateDenodoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_denodo_data_source"]
+            )
+        )
+    if "share_denodo_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareDenodoDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_denodo_data_source"]
+            )
+        )
+    if "dremio_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["DremioDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["dremio_data_source"]
+        )
+    if "create_dremio_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateDremioDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_dremio_data_source"]
+            )
+        )
+    if "update_dremio_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateDremioDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_dremio_data_source"]
+            )
+        )
+    if "share_dremio_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareDremioDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_dremio_data_source"]
+            )
+        )
+    if "salesforce_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SalesforceDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["salesforce_data_source"]
+            )
+        )
+    if "create_salesforce_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateSalesforceDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_salesforce_data_source"]
+            )
+        )
+    if "update_salesforce_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateSalesforceDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_salesforce_data_source"]
+            )
+        )
+    if "share_salesforce_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareSalesforceDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_salesforce_data_source"]
+            )
+        )
+    if "radiant_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["RadiantDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["radiant_data_source"]
+            )
+        )
+    if "create_radiant_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateRadiantDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_radiant_data_source"]
+            )
+        )
+    if "update_radiant_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateRadiantDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_radiant_data_source"]
+            )
+        )
+    if "share_radiant_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareRadiantDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_radiant_data_source"]
+            )
+        )
+    if "pay_pal_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["PayPalDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["pay_pal_data_source"]
+        )
+    if "create_pay_pal_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreatePayPalDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_pay_pal_data_source"]
+            )
+        )
+    if "update_pay_pal_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdatePayPalDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_pay_pal_data_source"]
+            )
+        )
+    if "share_pay_pal_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SharePayPalDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_pay_pal_data_source"]
+            )
+        )
+    if "square_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["SquareDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["square_data_source"]
+        )
+    if "create_square_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateSquareDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_square_data_source"]
+            )
+        )
+    if "update_square_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateSquareDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_square_data_source"]
+            )
+        )
+    if "share_square_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareSquareDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_square_data_source"]
+            )
+        )
+    if "git_hub_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["GitHubDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["git_hub_data_source"]
+        )
+    if "create_git_hub_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateGitHubDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_git_hub_data_source"]
+            )
+        )
+    if "update_git_hub_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateGitHubDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_git_hub_data_source"]
+            )
+        )
+    if "share_git_hub_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareGitHubDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_git_hub_data_source"]
+            )
+        )
+    if "twitter_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["TwitterDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["twitter_data_source"]
+            )
+        )
+    if "create_twitter_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateTwitterDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_twitter_data_source"]
+            )
+        )
+    if "update_twitter_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateTwitterDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_twitter_data_source"]
+            )
+        )
+    if "share_twitter_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareTwitterDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_twitter_data_source"]
+            )
+        )
+    if "jira_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["JiraDataSource"] = capo_quicksight.types.capability_state.serialize_json(
+            value["jira_data_source"]
+        )
+    if "create_jira_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateJiraDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_jira_data_source"]
+            )
+        )
+    if "update_jira_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateJiraDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_jira_data_source"]
+            )
+        )
+    if "share_jira_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareJiraDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_jira_data_source"]
+            )
+        )
+    if "service_now_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ServiceNowDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["service_now_data_source"]
+            )
+        )
+    if "create_service_now_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateServiceNowDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_service_now_data_source"]
+            )
+        )
+    if "update_service_now_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateServiceNowDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_service_now_data_source"]
+            )
+        )
+    if "share_service_now_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareServiceNowDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_service_now_data_source"]
+            )
+        )
+    if "adobe_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["AdobeAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["adobe_analytics_data_source"]
+            )
+        )
+    if "create_adobe_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateAdobeAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_adobe_analytics_data_source"]
+            )
+        )
+    if "update_adobe_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateAdobeAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_adobe_analytics_data_source"]
+            )
+        )
+    if "share_adobe_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareAdobeAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_adobe_analytics_data_source"]
+            )
+        )
+    if "google_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["GoogleAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["google_analytics_data_source"]
+            )
+        )
+    if "create_google_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateGoogleAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_google_analytics_data_source"]
+            )
+        )
+    if "update_google_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateGoogleAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_google_analytics_data_source"]
+            )
+        )
+    if "share_google_analytics_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareGoogleAnalyticsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_google_analytics_data_source"]
+            )
+        )
+    if "google_sheets_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["GoogleSheetsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["google_sheets_data_source"]
+            )
+        )
+    if "create_google_sheets_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateGoogleSheetsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_google_sheets_data_source"]
+            )
+        )
+    if "update_google_sheets_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateGoogleSheetsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_google_sheets_data_source"]
+            )
+        )
+    if "share_google_sheets_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareGoogleSheetsDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_google_sheets_data_source"]
+            )
+        )
+    if "document_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["DocumentDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["document_db_data_source"]
+            )
+        )
+    if "create_document_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateDocumentDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_document_db_data_source"]
+            )
+        )
+    if "update_document_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateDocumentDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_document_db_data_source"]
+            )
+        )
+    if "share_document_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareDocumentDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_document_db_data_source"]
+            )
+        )
+    if "mongo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["MongoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["mongo_db_data_source"]
+            )
+        )
+    if "create_mongo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateMongoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_mongo_db_data_source"]
+            )
+        )
+    if "update_mongo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateMongoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_mongo_db_data_source"]
+            )
+        )
+    if "share_mongo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareMongoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_mongo_db_data_source"]
+            )
+        )
+    if "mongo_atlas_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["MongoAtlasDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["mongo_atlas_data_source"]
+            )
+        )
+    if "create_mongo_atlas_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateMongoAtlasDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_mongo_atlas_data_source"]
+            )
+        )
+    if "update_mongo_atlas_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateMongoAtlasDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_mongo_atlas_data_source"]
+            )
+        )
+    if "share_mongo_atlas_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareMongoAtlasDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_mongo_atlas_data_source"]
+            )
+        )
+    if "dynamo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["DynamoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["dynamo_db_data_source"]
+            )
+        )
+    if "create_dynamo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["CreateDynamoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["create_dynamo_db_data_source"]
+            )
+        )
+    if "update_dynamo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["UpdateDynamoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["update_dynamo_db_data_source"]
+            )
+        )
+    if "share_dynamo_db_data_source" in value:
+        import capo_quicksight.types.capability_state
+
+        out["ShareDynamoDbDataSource"] = (
+            capo_quicksight.types.capability_state.serialize_json(
+                value["share_dynamo_db_data_source"]
             )
         )
     return out
@@ -7221,6 +9383,36 @@ def deserialize_json(data: dict) -> Capabilities:
         out["use_bee_action"] = capo_quicksight.types.capability_state.deserialize_json(
             data["UseBeeAction"]
         )
+    if data.get("GongAction") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["gong_action"] = capo_quicksight.types.capability_state.deserialize_json(
+            data["GongAction"]
+        )
+    if data.get("CreateAndUpdateGongAction") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_and_update_gong_action"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateAndUpdateGongAction"]
+            )
+        )
+    if data.get("ShareGongAction") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_gong_action"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareGongAction"]
+            )
+        )
+    if data.get("UseGongAction") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["use_gong_action"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UseGongAction"]
+            )
+        )
     if data.get("Topic") is not None:
         import capo_quicksight.types.capability_state
 
@@ -7407,6 +9599,1444 @@ def deserialize_json(data: dict) -> Capabilities:
         out["quick_event_trigger"] = (
             capo_quicksight.types.capability_state.deserialize_json(
                 data["QuickEventTrigger"]
+            )
+        )
+    if data.get("FileDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["file_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["FileDataSource"]
+            )
+        )
+    if data.get("CreateFileDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_file_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateFileDataSource"]
+            )
+        )
+    if data.get("UpdateFileDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_file_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateFileDataSource"]
+            )
+        )
+    if data.get("ShareFileDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_file_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareFileDataSource"]
+            )
+        )
+    if data.get("S3DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["s3_data_source"] = capo_quicksight.types.capability_state.deserialize_json(
+            data["S3DataSource"]
+        )
+    if data.get("CreateS3DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_s3_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateS3DataSource"]
+            )
+        )
+    if data.get("UpdateS3DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_s3_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateS3DataSource"]
+            )
+        )
+    if data.get("ShareS3DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_s3_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareS3DataSource"]
+            )
+        )
+    if data.get("S3AnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["s3_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["S3AnalyticsDataSource"]
+            )
+        )
+    if data.get("CreateS3AnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_s3_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateS3AnalyticsDataSource"]
+            )
+        )
+    if data.get("UpdateS3AnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_s3_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateS3AnalyticsDataSource"]
+            )
+        )
+    if data.get("ShareS3AnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_s3_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareS3AnalyticsDataSource"]
+            )
+        )
+    if data.get("S3TablesDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["s3_tables_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["S3TablesDataSource"]
+            )
+        )
+    if data.get("CreateS3TablesDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_s3_tables_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateS3TablesDataSource"]
+            )
+        )
+    if data.get("UpdateS3TablesDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_s3_tables_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateS3TablesDataSource"]
+            )
+        )
+    if data.get("ShareS3TablesDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_s3_tables_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareS3TablesDataSource"]
+            )
+        )
+    if data.get("AthenaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["athena_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["AthenaDataSource"]
+            )
+        )
+    if data.get("CreateAthenaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_athena_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateAthenaDataSource"]
+            )
+        )
+    if data.get("UpdateAthenaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_athena_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateAthenaDataSource"]
+            )
+        )
+    if data.get("ShareAthenaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_athena_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareAthenaDataSource"]
+            )
+        )
+    if data.get("RdsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["rds_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["RdsDataSource"]
+            )
+        )
+    if data.get("CreateRdsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_rds_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateRdsDataSource"]
+            )
+        )
+    if data.get("UpdateRdsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_rds_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateRdsDataSource"]
+            )
+        )
+    if data.get("ShareRdsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_rds_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareRdsDataSource"]
+            )
+        )
+    if data.get("RedshiftAutoDiscoveredDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["redshift_auto_discovered_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["RedshiftAutoDiscoveredDataSource"]
+            )
+        )
+    if data.get("CreateRedshiftAutoDiscoveredDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_redshift_auto_discovered_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateRedshiftAutoDiscoveredDataSource"]
+            )
+        )
+    if data.get("UpdateRedshiftAutoDiscoveredDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_redshift_auto_discovered_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateRedshiftAutoDiscoveredDataSource"]
+            )
+        )
+    if data.get("ShareRedshiftAutoDiscoveredDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_redshift_auto_discovered_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareRedshiftAutoDiscoveredDataSource"]
+            )
+        )
+    if data.get("RedshiftManualDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["redshift_manual_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["RedshiftManualDataSource"]
+            )
+        )
+    if data.get("CreateRedshiftManualDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_redshift_manual_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateRedshiftManualDataSource"]
+            )
+        )
+    if data.get("UpdateRedshiftManualDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_redshift_manual_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateRedshiftManualDataSource"]
+            )
+        )
+    if data.get("ShareRedshiftManualDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_redshift_manual_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareRedshiftManualDataSource"]
+            )
+        )
+    if data.get("OpenSearchDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["open_search_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["OpenSearchDataSource"]
+            )
+        )
+    if data.get("CreateOpenSearchDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_open_search_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateOpenSearchDataSource"]
+            )
+        )
+    if data.get("UpdateOpenSearchDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_open_search_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateOpenSearchDataSource"]
+            )
+        )
+    if data.get("ShareOpenSearchDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_open_search_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareOpenSearchDataSource"]
+            )
+        )
+    if data.get("TimestreamDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["timestream_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["TimestreamDataSource"]
+            )
+        )
+    if data.get("CreateTimestreamDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_timestream_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateTimestreamDataSource"]
+            )
+        )
+    if data.get("UpdateTimestreamDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_timestream_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateTimestreamDataSource"]
+            )
+        )
+    if data.get("ShareTimestreamDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_timestream_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareTimestreamDataSource"]
+            )
+        )
+    if data.get("AuroraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["aurora_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["AuroraDataSource"]
+            )
+        )
+    if data.get("CreateAuroraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_aurora_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateAuroraDataSource"]
+            )
+        )
+    if data.get("UpdateAuroraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_aurora_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateAuroraDataSource"]
+            )
+        )
+    if data.get("ShareAuroraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_aurora_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareAuroraDataSource"]
+            )
+        )
+    if data.get("MySqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["my_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["MySqlDataSource"]
+            )
+        )
+    if data.get("CreateMySqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_my_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateMySqlDataSource"]
+            )
+        )
+    if data.get("UpdateMySqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_my_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateMySqlDataSource"]
+            )
+        )
+    if data.get("ShareMySqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_my_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareMySqlDataSource"]
+            )
+        )
+    if data.get("PostgreSqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["postgre_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["PostgreSqlDataSource"]
+            )
+        )
+    if data.get("CreatePostgreSqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_postgre_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreatePostgreSqlDataSource"]
+            )
+        )
+    if data.get("UpdatePostgreSqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_postgre_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdatePostgreSqlDataSource"]
+            )
+        )
+    if data.get("SharePostgreSqlDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_postgre_sql_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SharePostgreSqlDataSource"]
+            )
+        )
+    if data.get("OracleDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["oracle_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["OracleDataSource"]
+            )
+        )
+    if data.get("CreateOracleDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_oracle_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateOracleDataSource"]
+            )
+        )
+    if data.get("UpdateOracleDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_oracle_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateOracleDataSource"]
+            )
+        )
+    if data.get("ShareOracleDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_oracle_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareOracleDataSource"]
+            )
+        )
+    if data.get("SqlServerDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["sql_server_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SqlServerDataSource"]
+            )
+        )
+    if data.get("CreateSqlServerDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_sql_server_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateSqlServerDataSource"]
+            )
+        )
+    if data.get("UpdateSqlServerDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_sql_server_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateSqlServerDataSource"]
+            )
+        )
+    if data.get("ShareSqlServerDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_sql_server_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareSqlServerDataSource"]
+            )
+        )
+    if data.get("MariaDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["maria_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["MariaDbDataSource"]
+            )
+        )
+    if data.get("CreateMariaDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_maria_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateMariaDbDataSource"]
+            )
+        )
+    if data.get("UpdateMariaDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_maria_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateMariaDbDataSource"]
+            )
+        )
+    if data.get("ShareMariaDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_maria_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareMariaDbDataSource"]
+            )
+        )
+    if data.get("SnowflakeDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["snowflake_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SnowflakeDataSource"]
+            )
+        )
+    if data.get("CreateSnowflakeDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_snowflake_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateSnowflakeDataSource"]
+            )
+        )
+    if data.get("UpdateSnowflakeDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_snowflake_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateSnowflakeDataSource"]
+            )
+        )
+    if data.get("ShareSnowflakeDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_snowflake_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareSnowflakeDataSource"]
+            )
+        )
+    if data.get("GoogleBigQueryDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["google_big_query_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["GoogleBigQueryDataSource"]
+            )
+        )
+    if data.get("CreateGoogleBigQueryDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_google_big_query_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateGoogleBigQueryDataSource"]
+            )
+        )
+    if data.get("UpdateGoogleBigQueryDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_google_big_query_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateGoogleBigQueryDataSource"]
+            )
+        )
+    if data.get("ShareGoogleBigQueryDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_google_big_query_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareGoogleBigQueryDataSource"]
+            )
+        )
+    if data.get("DatabricksDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["databricks_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["DatabricksDataSource"]
+            )
+        )
+    if data.get("CreateDatabricksDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_databricks_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateDatabricksDataSource"]
+            )
+        )
+    if data.get("UpdateDatabricksDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_databricks_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateDatabricksDataSource"]
+            )
+        )
+    if data.get("ShareDatabricksDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_databricks_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareDatabricksDataSource"]
+            )
+        )
+    if data.get("StarburstDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["starburst_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["StarburstDataSource"]
+            )
+        )
+    if data.get("CreateStarburstDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_starburst_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateStarburstDataSource"]
+            )
+        )
+    if data.get("UpdateStarburstDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_starburst_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateStarburstDataSource"]
+            )
+        )
+    if data.get("ShareStarburstDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_starburst_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareStarburstDataSource"]
+            )
+        )
+    if data.get("TrinoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["trino_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["TrinoDataSource"]
+            )
+        )
+    if data.get("CreateTrinoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_trino_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateTrinoDataSource"]
+            )
+        )
+    if data.get("UpdateTrinoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_trino_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateTrinoDataSource"]
+            )
+        )
+    if data.get("ShareTrinoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_trino_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareTrinoDataSource"]
+            )
+        )
+    if data.get("ImpalaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["impala_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ImpalaDataSource"]
+            )
+        )
+    if data.get("CreateImpalaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_impala_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateImpalaDataSource"]
+            )
+        )
+    if data.get("UpdateImpalaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_impala_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateImpalaDataSource"]
+            )
+        )
+    if data.get("ShareImpalaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_impala_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareImpalaDataSource"]
+            )
+        )
+    if data.get("TeradataDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["teradata_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["TeradataDataSource"]
+            )
+        )
+    if data.get("CreateTeradataDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_teradata_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateTeradataDataSource"]
+            )
+        )
+    if data.get("UpdateTeradataDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_teradata_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateTeradataDataSource"]
+            )
+        )
+    if data.get("ShareTeradataDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_teradata_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareTeradataDataSource"]
+            )
+        )
+    if data.get("PrestoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["presto_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["PrestoDataSource"]
+            )
+        )
+    if data.get("CreatePrestoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_presto_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreatePrestoDataSource"]
+            )
+        )
+    if data.get("UpdatePrestoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_presto_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdatePrestoDataSource"]
+            )
+        )
+    if data.get("SharePrestoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_presto_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SharePrestoDataSource"]
+            )
+        )
+    if data.get("SparkDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["spark_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SparkDataSource"]
+            )
+        )
+    if data.get("CreateSparkDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_spark_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateSparkDataSource"]
+            )
+        )
+    if data.get("UpdateSparkDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_spark_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateSparkDataSource"]
+            )
+        )
+    if data.get("ShareSparkDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_spark_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareSparkDataSource"]
+            )
+        )
+    if data.get("ExasolDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["exasol_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ExasolDataSource"]
+            )
+        )
+    if data.get("CreateExasolDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_exasol_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateExasolDataSource"]
+            )
+        )
+    if data.get("UpdateExasolDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_exasol_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateExasolDataSource"]
+            )
+        )
+    if data.get("ShareExasolDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_exasol_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareExasolDataSource"]
+            )
+        )
+    if data.get("Db2DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["db2_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["Db2DataSource"]
+            )
+        )
+    if data.get("CreateDb2DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_db2_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateDb2DataSource"]
+            )
+        )
+    if data.get("UpdateDb2DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_db2_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateDb2DataSource"]
+            )
+        )
+    if data.get("ShareDb2DataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_db2_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareDb2DataSource"]
+            )
+        )
+    if data.get("SapHanaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["sap_hana_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SapHanaDataSource"]
+            )
+        )
+    if data.get("CreateSapHanaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_sap_hana_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateSapHanaDataSource"]
+            )
+        )
+    if data.get("UpdateSapHanaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_sap_hana_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateSapHanaDataSource"]
+            )
+        )
+    if data.get("ShareSapHanaDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_sap_hana_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareSapHanaDataSource"]
+            )
+        )
+    if data.get("DenodoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["denodo_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["DenodoDataSource"]
+            )
+        )
+    if data.get("CreateDenodoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_denodo_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateDenodoDataSource"]
+            )
+        )
+    if data.get("UpdateDenodoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_denodo_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateDenodoDataSource"]
+            )
+        )
+    if data.get("ShareDenodoDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_denodo_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareDenodoDataSource"]
+            )
+        )
+    if data.get("DremioDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["dremio_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["DremioDataSource"]
+            )
+        )
+    if data.get("CreateDremioDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_dremio_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateDremioDataSource"]
+            )
+        )
+    if data.get("UpdateDremioDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_dremio_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateDremioDataSource"]
+            )
+        )
+    if data.get("ShareDremioDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_dremio_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareDremioDataSource"]
+            )
+        )
+    if data.get("SalesforceDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["salesforce_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SalesforceDataSource"]
+            )
+        )
+    if data.get("CreateSalesforceDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_salesforce_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateSalesforceDataSource"]
+            )
+        )
+    if data.get("UpdateSalesforceDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_salesforce_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateSalesforceDataSource"]
+            )
+        )
+    if data.get("ShareSalesforceDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_salesforce_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareSalesforceDataSource"]
+            )
+        )
+    if data.get("RadiantDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["radiant_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["RadiantDataSource"]
+            )
+        )
+    if data.get("CreateRadiantDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_radiant_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateRadiantDataSource"]
+            )
+        )
+    if data.get("UpdateRadiantDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_radiant_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateRadiantDataSource"]
+            )
+        )
+    if data.get("ShareRadiantDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_radiant_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareRadiantDataSource"]
+            )
+        )
+    if data.get("PayPalDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["pay_pal_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["PayPalDataSource"]
+            )
+        )
+    if data.get("CreatePayPalDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_pay_pal_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreatePayPalDataSource"]
+            )
+        )
+    if data.get("UpdatePayPalDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_pay_pal_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdatePayPalDataSource"]
+            )
+        )
+    if data.get("SharePayPalDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_pay_pal_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SharePayPalDataSource"]
+            )
+        )
+    if data.get("SquareDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["square_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["SquareDataSource"]
+            )
+        )
+    if data.get("CreateSquareDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_square_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateSquareDataSource"]
+            )
+        )
+    if data.get("UpdateSquareDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_square_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateSquareDataSource"]
+            )
+        )
+    if data.get("ShareSquareDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_square_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareSquareDataSource"]
+            )
+        )
+    if data.get("GitHubDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["git_hub_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["GitHubDataSource"]
+            )
+        )
+    if data.get("CreateGitHubDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_git_hub_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateGitHubDataSource"]
+            )
+        )
+    if data.get("UpdateGitHubDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_git_hub_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateGitHubDataSource"]
+            )
+        )
+    if data.get("ShareGitHubDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_git_hub_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareGitHubDataSource"]
+            )
+        )
+    if data.get("TwitterDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["twitter_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["TwitterDataSource"]
+            )
+        )
+    if data.get("CreateTwitterDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_twitter_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateTwitterDataSource"]
+            )
+        )
+    if data.get("UpdateTwitterDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_twitter_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateTwitterDataSource"]
+            )
+        )
+    if data.get("ShareTwitterDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_twitter_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareTwitterDataSource"]
+            )
+        )
+    if data.get("JiraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["jira_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["JiraDataSource"]
+            )
+        )
+    if data.get("CreateJiraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_jira_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateJiraDataSource"]
+            )
+        )
+    if data.get("UpdateJiraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_jira_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateJiraDataSource"]
+            )
+        )
+    if data.get("ShareJiraDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_jira_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareJiraDataSource"]
+            )
+        )
+    if data.get("ServiceNowDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["service_now_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ServiceNowDataSource"]
+            )
+        )
+    if data.get("CreateServiceNowDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_service_now_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateServiceNowDataSource"]
+            )
+        )
+    if data.get("UpdateServiceNowDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_service_now_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateServiceNowDataSource"]
+            )
+        )
+    if data.get("ShareServiceNowDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_service_now_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareServiceNowDataSource"]
+            )
+        )
+    if data.get("AdobeAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["adobe_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["AdobeAnalyticsDataSource"]
+            )
+        )
+    if data.get("CreateAdobeAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_adobe_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateAdobeAnalyticsDataSource"]
+            )
+        )
+    if data.get("UpdateAdobeAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_adobe_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateAdobeAnalyticsDataSource"]
+            )
+        )
+    if data.get("ShareAdobeAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_adobe_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareAdobeAnalyticsDataSource"]
+            )
+        )
+    if data.get("GoogleAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["google_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["GoogleAnalyticsDataSource"]
+            )
+        )
+    if data.get("CreateGoogleAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_google_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateGoogleAnalyticsDataSource"]
+            )
+        )
+    if data.get("UpdateGoogleAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_google_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateGoogleAnalyticsDataSource"]
+            )
+        )
+    if data.get("ShareGoogleAnalyticsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_google_analytics_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareGoogleAnalyticsDataSource"]
+            )
+        )
+    if data.get("GoogleSheetsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["google_sheets_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["GoogleSheetsDataSource"]
+            )
+        )
+    if data.get("CreateGoogleSheetsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_google_sheets_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateGoogleSheetsDataSource"]
+            )
+        )
+    if data.get("UpdateGoogleSheetsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_google_sheets_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateGoogleSheetsDataSource"]
+            )
+        )
+    if data.get("ShareGoogleSheetsDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_google_sheets_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareGoogleSheetsDataSource"]
+            )
+        )
+    if data.get("DocumentDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["document_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["DocumentDbDataSource"]
+            )
+        )
+    if data.get("CreateDocumentDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_document_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateDocumentDbDataSource"]
+            )
+        )
+    if data.get("UpdateDocumentDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_document_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateDocumentDbDataSource"]
+            )
+        )
+    if data.get("ShareDocumentDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_document_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareDocumentDbDataSource"]
+            )
+        )
+    if data.get("MongoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["mongo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["MongoDbDataSource"]
+            )
+        )
+    if data.get("CreateMongoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_mongo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateMongoDbDataSource"]
+            )
+        )
+    if data.get("UpdateMongoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_mongo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateMongoDbDataSource"]
+            )
+        )
+    if data.get("ShareMongoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_mongo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareMongoDbDataSource"]
+            )
+        )
+    if data.get("MongoAtlasDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["mongo_atlas_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["MongoAtlasDataSource"]
+            )
+        )
+    if data.get("CreateMongoAtlasDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_mongo_atlas_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateMongoAtlasDataSource"]
+            )
+        )
+    if data.get("UpdateMongoAtlasDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_mongo_atlas_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateMongoAtlasDataSource"]
+            )
+        )
+    if data.get("ShareMongoAtlasDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_mongo_atlas_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareMongoAtlasDataSource"]
+            )
+        )
+    if data.get("DynamoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["dynamo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["DynamoDbDataSource"]
+            )
+        )
+    if data.get("CreateDynamoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["create_dynamo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["CreateDynamoDbDataSource"]
+            )
+        )
+    if data.get("UpdateDynamoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["update_dynamo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["UpdateDynamoDbDataSource"]
+            )
+        )
+    if data.get("ShareDynamoDbDataSource") is not None:
+        import capo_quicksight.types.capability_state
+
+        out["share_dynamo_db_data_source"] = (
+            capo_quicksight.types.capability_state.deserialize_json(
+                data["ShareDynamoDbDataSource"]
             )
         )
     return out

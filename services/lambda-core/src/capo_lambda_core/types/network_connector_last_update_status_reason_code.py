@@ -2,6 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
+"""<p>A machine-readable code indicating why the last update operation reached its current status. Use this for programmatic error handling.</p>"""
 NetworkConnectorLastUpdateStatusReasonCode: TypeAlias = Literal[
     "DisallowedByVpcEncryptionControl",
     "Ec2RequestLimitExceeded",
@@ -9,6 +10,7 @@ NetworkConnectorLastUpdateStatusReasonCode: TypeAlias = Literal[
     "InternalError",
     "InvalidSecurityGroup",
     "InvalidSubnet",
+    "SecurityGroupsPerInterfaceLimitExceeded",
     "SubnetOutOfIPAddresses",
 ]
 

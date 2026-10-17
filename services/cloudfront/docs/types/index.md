@@ -663,6 +663,7 @@
 - [ViewerMtlsConfig](viewer_mtls_config.md)
 - [ViewerMtlsMode](viewer_mtls_mode.md)
 - [ViewerProtocolPolicy](viewer_protocol_policy.md)
+- [VpcIpAddressType](vpc_ip_address_type.md)
 - [VpcOrigin](vpc_origin.md)
 - [VpcOriginConfig](vpc_origin_config.md)
 - [VpcOriginEndpointConfig](vpc_origin_endpoint_config.md)

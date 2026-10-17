@@ -31,6 +31,12 @@ title: MCPServerAuthorizationConfig
       merge_init_into_class: false
       heading_level: 2
 
+::: capo_devops_agent.types.mcp_server_authorization_config._MCPServerAuthorizationConfig_customHeaders
+    options:
+      show_source: true
+      merge_init_into_class: false
+      heading_level: 2
+
 ::: capo_devops_agent.types.mcp_server_authorization_config._MCPServerAuthorizationConfig_authorizationDiscovery
     options:
       show_source: true

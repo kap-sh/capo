@@ -31,6 +31,8 @@ class MemoryRecordSummary(TypedDict, closed=True):
     """<p>The timestamp when the memory record was created.</p>"""
     score: NotRequired["float"]
     """<p>The relevance score of the memory record when returned as part of a search result. Higher values indicate greater relevance to the search query.</p>"""
+    timestamp: NotRequired["datetime.datetime"]
+    """<p>The timestamp based on which the memory record was ingested. This reflects the time of the source content that the record was derived from, which can differ from <code>createdAt</code>, the time the record itself was written.</p>"""
     metadata: NotRequired[
         "capo_bedrock_agentcore.types.memory_record_metadata_map.MemoryRecordMetadataMap"
     ]
@@ -66,6 +68,14 @@ def serialize_json(value: MemoryRecordSummary) -> dict:
             else "-Infinity"
             if value["score"] == float("-inf")
             else value["score"]
+        )
+    if "timestamp" in value:
+        import capo_bedrock_agentcore.types._prelude.timestamp
+
+        out["timestamp"] = (
+            capo_bedrock_agentcore.types._prelude.timestamp.serialize_json(
+                value["timestamp"]
+            )
         )
     if "metadata" in value:
         import capo_bedrock_agentcore.types.memory_record_metadata_map
@@ -118,6 +128,14 @@ def deserialize_json(data: dict) -> MemoryRecordSummary:
         raise DeserializationError("MemoryRecordSummary.created_at required")
     if data.get("score") is not None:
         out["score"] = float(data["score"])
+    if data.get("timestamp") is not None:
+        import capo_bedrock_agentcore.types._prelude.timestamp
+
+        out["timestamp"] = (
+            capo_bedrock_agentcore.types._prelude.timestamp.deserialize_json(
+                data["timestamp"]
+            )
+        )
     if data.get("metadata") is not None:
         import capo_bedrock_agentcore.types.memory_record_metadata_map
 

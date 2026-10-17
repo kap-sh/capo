@@ -10,6 +10,7 @@ from capo_cloudfront.errors import DeserializationError
 if TYPE_CHECKING:
     import capo_cloudfront.types.string
     import capo_cloudfront.types.timestamp
+    import capo_cloudfront.types.vpc_ip_address_type
 
 
 class VpcOriginSummary(TypedDict, closed=True):
@@ -29,6 +30,10 @@ class VpcOriginSummary(TypedDict, closed=True):
     """<p>The account ID of the Amazon Web Services account that owns the VPC origin.</p>"""
     origin_endpoint_arn: "capo_cloudfront.types.string.string"
     """<p>The VPC origin summary origin endpoint ARN.</p>"""
+    ip_address_type: NotRequired[
+        "capo_cloudfront.types.vpc_ip_address_type.VpcIpAddressType"
+    ]
+    """<p>The IP address type of the CloudFront VPC origin. Valid values are <code>ipv4</code> and <code>dualstack</code>. IPv6-only is not supported for VPC origins.</p>"""
 
 
 # --- restXml ser/de ---
@@ -51,6 +56,12 @@ def serialize_xml(value: VpcOriginSummary, parent: Element, tag: str) -> None:
     if "account_id" in value:
         SubElement(el, "AccountId").text = str(value["account_id"])
     SubElement(el, "OriginEndpointArn").text = str(value["origin_endpoint_arn"])
+    if "ip_address_type" in value:
+        import capo_cloudfront.types.vpc_ip_address_type
+
+        capo_cloudfront.types.vpc_ip_address_type.serialize_xml(
+            value["ip_address_type"], el, "IpAddressType"
+        )
 
 
 def deserialize_xml(el: Element) -> VpcOriginSummary:
@@ -101,4 +112,13 @@ def deserialize_xml(el: Element) -> VpcOriginSummary:
         out["origin_endpoint_arn"] = str(child_origin_endpoint_arn.text or "")
     else:
         raise DeserializationError("VpcOriginSummary.origin_endpoint_arn required")
+    child_ip_address_type = el.find("IpAddressType")
+    if child_ip_address_type is not None:
+        import capo_cloudfront.types.vpc_ip_address_type
+
+        out["ip_address_type"] = (
+            capo_cloudfront.types.vpc_ip_address_type.deserialize_xml(
+                child_ip_address_type
+            )
+        )
     return out

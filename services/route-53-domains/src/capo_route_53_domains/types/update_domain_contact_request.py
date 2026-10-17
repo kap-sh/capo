@@ -28,7 +28,7 @@ class UpdateDomainContactRequest(TypedDict, closed=True):
     ]
     """<p>Provides detailed contact information.</p>"""
     consent: NotRequired["capo_route_53_domains.types.consent.Consent"]
-    """<p> Customer's consent for the owner change request. Required if the domain is not free (consent price is more than $0.00).</p>"""
+    """<p> The maximum amount that you agree to pay for the owner change. Required if the domain is not free (consent price is more than USD $0.00).</p>"""
     billing_contact: NotRequired[
         "capo_route_53_domains.types.contact_detail.ContactDetail"
     ]
