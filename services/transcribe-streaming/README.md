@@ -1,4 +1,8 @@
-# Getting Started
+# capo-transcribe-streaming: typed, async Python SDK for AWS Transcribe Streaming
+
+`capo-transcribe-streaming` is a typed Python SDK for AWS Transcribe Streaming. It has an async client, `AsyncTranscribeStreamingClient`, for asyncio and trio, and a sync client, `TranscribeStreamingClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/transcribe-streaming/](https://capo-sdk.dev/services/transcribe-streaming/)
 
 ## Installation
 

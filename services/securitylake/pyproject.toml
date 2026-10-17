@@ -22,6 +22,12 @@ dependencies = [
     "zapros>=0.21.0",
 ]
 
+[project.urls]
+Homepage = "https://capo-sdk.dev/"
+Documentation = "https://capo-sdk.dev/services/securitylake/"
+Repository = "https://github.com/kap-sh/capo/tree/main/services/securitylake"
+Changelog = "https://github.com/kap-sh/capo/blob/main/services/securitylake/CHANGELOG.md"
+
 [project.optional-dependencies]
 # Async file request bodies via Body.async_from_path
 anyio = ["anyio>=3.0"]

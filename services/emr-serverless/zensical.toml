@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-emr-serverless"
 site_description = "Python SDK for AWS EMR Serverless."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/emr-serverless/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/emr-serverless"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

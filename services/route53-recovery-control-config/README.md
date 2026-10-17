@@ -1,4 +1,8 @@
-# Getting Started
+# capo-route53-recovery-control-config: typed, async Python SDK for AWS Route53 Recovery Control Config
+
+`capo-route53-recovery-control-config` is a typed Python SDK for AWS Route53 Recovery Control Config. It has an async client, `AsyncRoute53RecoveryControlConfigClient`, for asyncio and trio, and a sync client, `Route53RecoveryControlConfigClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/route53-recovery-control-config/](https://capo-sdk.dev/services/route53-recovery-control-config/)
 
 ## Installation
 

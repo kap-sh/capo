@@ -1,4 +1,8 @@
-# Getting Started
+# capo-sagemaker-a2i-runtime: typed, async Python SDK for AWS Sagemaker A2I Runtime
+
+`capo-sagemaker-a2i-runtime` is a typed Python SDK for AWS Sagemaker A2I Runtime. It has an async client, `AsyncSageMakerA2IRuntimeClient`, for asyncio and trio, and a sync client, `SageMakerA2IRuntimeClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/sagemaker-a2i-runtime/](https://capo-sdk.dev/services/sagemaker-a2i-runtime/)
 
 ## Installation
 

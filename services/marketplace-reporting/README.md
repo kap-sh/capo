@@ -1,4 +1,8 @@
-# Getting Started
+# capo-marketplace-reporting: typed, async Python SDK for AWS Marketplace Reporting
+
+`capo-marketplace-reporting` is a typed Python SDK for AWS Marketplace Reporting. It has an async client, `AsyncMarketplaceReportingClient`, for asyncio and trio, and a sync client, `MarketplaceReportingClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/marketplace-reporting/](https://capo-sdk.dev/services/marketplace-reporting/)
 
 ## Installation
 

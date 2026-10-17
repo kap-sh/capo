@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-managedblockchain"
 site_description = "Python SDK for AWS Managedblockchain."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/managedblockchain/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/managedblockchain"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

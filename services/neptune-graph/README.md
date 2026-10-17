@@ -1,4 +1,8 @@
-# Getting Started
+# capo-neptune-graph: typed, async Python SDK for AWS Neptune Graph
+
+`capo-neptune-graph` is a typed Python SDK for AWS Neptune Graph. It has an async client, `AsyncNeptuneGraphClient`, for asyncio and trio, and a sync client, `NeptuneGraphClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/neptune-graph/](https://capo-sdk.dev/services/neptune-graph/)
 
 ## Installation
 

@@ -1,4 +1,8 @@
-# Getting Started
+# capo-network-security-manager: typed, async Python SDK for AWS Network Security Manager
+
+`capo-network-security-manager` is a typed Python SDK for AWS Network Security Manager. It has an async client, `AsyncNetworkSecurityManagerClient`, for asyncio and trio, and a sync client, `NetworkSecurityManagerClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/network-security-manager/](https://capo-sdk.dev/services/network-security-manager/)
 
 ## Installation
 

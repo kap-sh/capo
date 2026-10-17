@@ -1,4 +1,8 @@
-# Getting Started
+# capo-networkflowmonitor: typed, async Python SDK for AWS Networkflowmonitor
+
+`capo-networkflowmonitor` is a typed Python SDK for AWS Networkflowmonitor. It has an async client, `AsyncNetworkFlowMonitorClient`, for asyncio and trio, and a sync client, `NetworkFlowMonitorClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/networkflowmonitor/](https://capo-sdk.dev/services/networkflowmonitor/)
 
 ## Installation
 

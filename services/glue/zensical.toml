@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-glue"
 site_description = "Python SDK for AWS Glue."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/glue/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/glue"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

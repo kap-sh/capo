@@ -1,4 +1,8 @@
-# Getting Started
+# capo-observabilityadmin: typed, async Python SDK for AWS Observabilityadmin
+
+`capo-observabilityadmin` is a typed Python SDK for AWS Observabilityadmin. It has an async client, `AsyncObservabilityAdminClient`, for asyncio and trio, and a sync client, `ObservabilityAdminClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/observabilityadmin/](https://capo-sdk.dev/services/observabilityadmin/)
 
 ## Installation
 

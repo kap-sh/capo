@@ -7,6 +7,9 @@ on:
       - README.md
       - docs/**
       - zensical.toml
+      # A new service site changes the sitemap index.
+      - services/*/zensical.toml
+      - scripts/gen_sitemap_index.py
       - .github/workflows/docs.yml
   workflow_dispatch:
 
@@ -31,6 +34,11 @@ jobs:
 
       - name: Build site
         run: uvx zensical build --strict
+
+      # docs/robots.txt points crawlers at this index of the main sitemap and
+      # every service sitemap.
+      - name: Build sitemap index
+        run: python3 scripts/gen_sitemap_index.py site/sitemap-index.xml
 
       # The main site lives under the `_root/` prefix of the bucket and each
       # service site under `<service>/`, uploaded by service-docs.yml. The

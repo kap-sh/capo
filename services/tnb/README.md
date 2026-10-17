@@ -1,4 +1,8 @@
-# Getting Started
+# capo-tnb: typed, async Python SDK for AWS TNB
+
+`capo-tnb` is a typed Python SDK for AWS TNB. It has an async client, `AsynctnbClient`, for asyncio and trio, and a sync client, `tnbClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/tnb/](https://capo-sdk.dev/services/tnb/)
 
 ## Installation
 

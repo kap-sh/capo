@@ -1,12 +1,18 @@
-# Getting Started
+# capo-s3: typed, async Python SDK for Amazon S3
 
-## Installation
+`capo-s3` is a typed Python SDK for Amazon S3 and S3-compatible storage such as RustFS and MinIO. `AsyncS3Client` works with asyncio and trio, and `S3Client` has the same methods for sync code. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+Beyond the S3 API it has a transfer manager for multipart uploads and downloads of large files, presigned URLs and presigned POST forms, paginators and waiters.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/s3/](https://capo-sdk.dev/services/s3/)
+
+## Install capo-s3
 
 ```
 pip install capo-s3
 ```
 
-## Usage
+## Upload and download an S3 object in Python
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -37,7 +43,7 @@ def main():
                 print(chunk)
 ```
 
-## RustFS
+## Use RustFS, MinIO or other S3-compatible storage
 
 ```python
 from capo_s3 import AsyncS3Client, Credentials
@@ -56,7 +62,7 @@ async def main():
         await s3.put_object("my-bucket", "hello.txt", body=b"Hello, RustFS!")
 ```
 
-## Objects
+## Put, copy and delete S3 objects
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -87,7 +93,7 @@ async def main():
         await s3.delete_objects("my-bucket", {"objects": [{"key": "a.txt"}, {"key": "b.txt"}]})
 ```
 
-## Buckets
+## Create, check and delete S3 buckets
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -108,7 +114,7 @@ async def main():
         await s3.delete_bucket("my-bucket")
 ```
 
-## Uploading and Downloading Files
+## Upload a large file to S3 with the transfer manager
 
 ```python
 from capo_s3 import AsyncS3Client, AsyncTransferManager
@@ -221,7 +227,7 @@ def main():
         manager.download("my-bucket", "video.mp4", "copy.mp4")
 ```
 
-## Pagination
+## List objects in an S3 bucket
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -248,7 +254,7 @@ async def main():
         print(page.get("key_count"), page.get("is_truncated"))
 ```
 
-## Streaming Bodies
+## Stream S3 objects and file uploads
 
 ```python
 from capo_s3 import AsyncS3Client, Body
@@ -286,7 +292,7 @@ async def main():
         print(data)
 ```
 
-## Waiters
+## Wait for an S3 bucket or object
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -310,7 +316,7 @@ async def main():
             print("still not there")
 ```
 
-## Presigned URLs
+## Generate a presigned S3 URL in Python
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -337,7 +343,7 @@ async def main():
         print(url)
 ```
 
-## Error Handling
+## Handle S3 errors
 
 ```python
 from capo_s3 import AsyncS3Client
@@ -366,7 +372,7 @@ async def main():
             print(e.code, e.message)
 ```
 
-## Retrying
+## Configure S3 retries
 
 ```python
 from capo_s3 import AsyncS3Client

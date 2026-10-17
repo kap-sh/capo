@@ -1,4 +1,8 @@
-# Getting Started
+# capo-device-farm: typed, async Python SDK for AWS Device Farm
+
+`capo-device-farm` is a typed Python SDK for AWS Device Farm. It has an async client, `AsyncDeviceFarmClient`, for asyncio and trio, and a sync client, `DeviceFarmClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/device-farm/](https://capo-sdk.dev/services/device-farm/)
 
 ## Installation
 

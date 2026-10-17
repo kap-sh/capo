@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-signer"
 site_description = "Python SDK for AWS Signer."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/signer/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/signer"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

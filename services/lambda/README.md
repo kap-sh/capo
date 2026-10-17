@@ -1,4 +1,8 @@
-# Getting Started
+# capo-lambda: typed, async Python SDK for AWS Lambda
+
+`capo-lambda` is a typed Python SDK for AWS Lambda. It has an async client, `AsyncLambdaClient`, for asyncio and trio, and a sync client, `LambdaClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/lambda/](https://capo-sdk.dev/services/lambda/)
 
 ## Installation
 

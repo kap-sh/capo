@@ -1,4 +1,8 @@
-# Getting Started
+# capo-waf-regional: typed, async Python SDK for AWS WAF Regional
+
+`capo-waf-regional` is a typed Python SDK for AWS WAF Regional. It has an async client, `AsyncWAFRegionalClient`, for asyncio and trio, and a sync client, `WAFRegionalClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/waf-regional/](https://capo-sdk.dev/services/waf-regional/)
 
 ## Installation
 

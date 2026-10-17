@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-s3outposts"
 site_description = "Python SDK for AWS S3Outposts."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/s3outposts/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/s3outposts"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

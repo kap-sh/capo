@@ -4,6 +4,8 @@
 
 Community-driven AWS SDK for Python. Manage AWS services like a [capo](https://en.wikipedia.org/wiki/Caporegime).
 
+Documentation: [capo-sdk.dev](https://capo-sdk.dev/). Every service has its own site too, for example [capo-s3](https://capo-sdk.dev/services/s3/), the typed, async Python SDK for Amazon S3.
+
 ## Features
 
 - **async and sync** — Use the same API for both async and sync code, with support for asyncio and [trio](https://trio.readthedocs.io).

@@ -1,4 +1,8 @@
-# Getting Started
+# capo-workmail: typed, async Python SDK for AWS Workmail
+
+`capo-workmail` is a typed Python SDK for AWS Workmail. It has an async client, `AsyncWorkMailClient`, for asyncio and trio, and a sync client, `WorkMailClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/workmail/](https://capo-sdk.dev/services/workmail/)
 
 ## Installation
 

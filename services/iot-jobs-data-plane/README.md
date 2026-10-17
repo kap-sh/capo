@@ -1,4 +1,8 @@
-# Getting Started
+# capo-iot-jobs-data-plane: typed, async Python SDK for AWS IOT Jobs Data Plane
+
+`capo-iot-jobs-data-plane` is a typed Python SDK for AWS IOT Jobs Data Plane. It has an async client, `AsyncIoTJobsDataPlaneClient`, for asyncio and trio, and a sync client, `IoTJobsDataPlaneClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/iot-jobs-data-plane/](https://capo-sdk.dev/services/iot-jobs-data-plane/)
 
 ## Installation
 

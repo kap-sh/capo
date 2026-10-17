@@ -1,4 +1,8 @@
-# Getting Started
+# capo-mgn: typed, async Python SDK for AWS Mgn
+
+`capo-mgn` is a typed Python SDK for AWS Mgn. It has an async client, `AsyncmgnClient`, for asyncio and trio, and a sync client, `mgnClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/mgn/](https://capo-sdk.dev/services/mgn/)
 
 ## Installation
 

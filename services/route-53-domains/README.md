@@ -1,4 +1,8 @@
-# Getting Started
+# capo-route-53-domains: typed, async Python SDK for AWS Route 53 Domains
+
+`capo-route-53-domains` is a typed Python SDK for AWS Route 53 Domains. It has an async client, `AsyncRoute53DomainsClient`, for asyncio and trio, and a sync client, `Route53DomainsClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/route-53-domains/](https://capo-sdk.dev/services/route-53-domains/)
 
 ## Installation
 

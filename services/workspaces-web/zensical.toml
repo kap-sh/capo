@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-workspaces-web"
 site_description = "Python SDK for AWS Workspaces Web."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/workspaces-web/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/workspaces-web"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

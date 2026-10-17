@@ -1,4 +1,8 @@
-# Getting Started
+# capo-partnercentral-selling: typed, async Python SDK for AWS Partnercentral Selling
+
+`capo-partnercentral-selling` is a typed Python SDK for AWS Partnercentral Selling. It has an async client, `AsyncPartnerCentralSellingClient`, for asyncio and trio, and a sync client, `PartnerCentralSellingClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/partnercentral-selling/](https://capo-sdk.dev/services/partnercentral-selling/)
 
 ## Installation
 

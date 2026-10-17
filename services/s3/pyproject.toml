@@ -23,6 +23,12 @@ dependencies = [
     "zapros>=0.21.0",
 ]
 
+[project.urls]
+Homepage = "https://capo-sdk.dev/"
+Documentation = "https://capo-sdk.dev/services/s3/"
+Repository = "https://github.com/kap-sh/capo/tree/main/services/s3"
+Changelog = "https://github.com/kap-sh/capo/blob/main/services/s3/CHANGELOG.md"
+
 [project.optional-dependencies]
 # Faster CRC32C; the checksums are identical either way
 crc32c = ["google-crc32c"]

@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-rolesanywhere"
 site_description = "Python SDK for AWS Rolesanywhere."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/rolesanywhere/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/rolesanywhere"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

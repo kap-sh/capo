@@ -1,4 +1,8 @@
-# Getting Started
+# capo-lambda-microvms: typed, async Python SDK for AWS Lambda MicroVMs
+
+`capo-lambda-microvms` is a typed Python SDK for AWS Lambda MicroVMs. It has an async client, `AsyncLambdaMicrovmsClient`, for asyncio and trio, and a sync client, `LambdaMicrovmsClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/lambda-microvms/](https://capo-sdk.dev/services/lambda-microvms/)
 
 ## Installation
 

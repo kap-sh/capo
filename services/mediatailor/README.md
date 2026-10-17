@@ -1,4 +1,8 @@
-# Getting Started
+# capo-mediatailor: typed, async Python SDK for AWS Mediatailor
+
+`capo-mediatailor` is a typed Python SDK for AWS Mediatailor. It has an async client, `AsyncMediaTailorClient`, for asyncio and trio, and a sync client, `MediaTailorClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/mediatailor/](https://capo-sdk.dev/services/mediatailor/)
 
 ## Installation
 

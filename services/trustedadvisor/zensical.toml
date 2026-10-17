@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-trustedadvisor"
 site_description = "Python SDK for AWS Trustedadvisor."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/trustedadvisor/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/trustedadvisor"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

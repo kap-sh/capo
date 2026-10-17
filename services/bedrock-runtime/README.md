@@ -1,4 +1,8 @@
-# Getting Started
+# capo-bedrock-runtime: typed, async Python SDK for AWS Bedrock Runtime
+
+`capo-bedrock-runtime` is a typed Python SDK for AWS Bedrock Runtime. It has an async client, `AsyncBedrockRuntimeClient`, for asyncio and trio, and a sync client, `BedrockRuntimeClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/bedrock-runtime/](https://capo-sdk.dev/services/bedrock-runtime/)
 
 ## Installation
 

@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-b2bi"
 site_description = "Python SDK for AWS B2Bi."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/b2bi/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/b2bi"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Lists the sitemap of the main site and of every service site.
+Sitemap: https://capo-sdk.dev/sitemap-index.xml

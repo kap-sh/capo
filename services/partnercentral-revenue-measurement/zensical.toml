@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-partnercentral-revenue-measurement"
 site_description = "Python SDK for AWS Partnercentral Revenue Measurement."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/partnercentral-revenue-measurement/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/partnercentral-revenue-measurement"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

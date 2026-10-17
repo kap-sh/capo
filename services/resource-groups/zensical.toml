@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-resource-groups"
 site_description = "Python SDK for AWS Resource Groups."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/resource-groups/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/resource-groups"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

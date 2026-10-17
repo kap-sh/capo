@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-eks-auth"
 site_description = "Python SDK for AWS EKS Auth."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/eks-auth/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/eks-auth"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

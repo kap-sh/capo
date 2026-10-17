@@ -1,4 +1,8 @@
-# Getting Started
+# capo-aiops: typed, async Python SDK for AWS Aiops
+
+`capo-aiops` is a typed Python SDK for AWS Aiops. It has an async client, `AsyncAIOpsClient`, for asyncio and trio, and a sync client, `AIOpsClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/aiops/](https://capo-sdk.dev/services/aiops/)
 
 ## Installation
 

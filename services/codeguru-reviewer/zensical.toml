@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-codeguru-reviewer"
 site_description = "Python SDK for AWS Codeguru Reviewer."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/codeguru-reviewer/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/codeguru-reviewer"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

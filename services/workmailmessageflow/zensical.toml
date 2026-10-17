@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-workmailmessageflow"
 site_description = "Python SDK for AWS Workmailmessageflow."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/workmailmessageflow/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/workmailmessageflow"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

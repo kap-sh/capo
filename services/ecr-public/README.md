@@ -1,4 +1,8 @@
-# Getting Started
+# capo-ecr-public: typed, async Python SDK for AWS ECR Public
+
+`capo-ecr-public` is a typed Python SDK for AWS ECR Public. It has an async client, `AsyncECRPUBLICClient`, for asyncio and trio, and a sync client, `ECRPUBLICClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/ecr-public/](https://capo-sdk.dev/services/ecr-public/)
 
 ## Installation
 

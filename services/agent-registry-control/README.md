@@ -1,4 +1,8 @@
-# Getting Started
+# capo-agent-registry-control: typed, async Python SDK for AWS Agent Registry Control
+
+`capo-agent-registry-control` is a typed Python SDK for AWS Agent Registry Control. It has an async client, `AsyncAgentRegistryControlClient`, for asyncio and trio, and a sync client, `AgentRegistryControlClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/agent-registry-control/](https://capo-sdk.dev/services/agent-registry-control/)
 
 ## Installation
 

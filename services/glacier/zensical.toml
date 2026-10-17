@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-glacier"
 site_description = "Python SDK for AWS Glacier."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/glacier/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/glacier"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

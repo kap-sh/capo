@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-bcm-recommended-actions"
 site_description = "Python SDK for AWS BCM Recommended Actions."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/bcm-recommended-actions/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/bcm-recommended-actions"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

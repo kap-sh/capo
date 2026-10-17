@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-arc-region-switch"
 site_description = "Python SDK for AWS Arc Region Switch."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/arc-region-switch/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/arc-region-switch"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

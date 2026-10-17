@@ -1,4 +1,8 @@
-# Getting Started
+# capo-cognito-identity-provider: typed, async Python SDK for AWS Cognito Identity Provider
+
+`capo-cognito-identity-provider` is a typed Python SDK for AWS Cognito Identity Provider. It has an async client, `AsyncCognitoIdentityProviderClient`, for asyncio and trio, and a sync client, `CognitoIdentityProviderClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/cognito-identity-provider/](https://capo-sdk.dev/services/cognito-identity-provider/)
 
 ## Installation
 

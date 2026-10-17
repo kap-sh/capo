@@ -1,4 +1,8 @@
-# Getting Started
+# capo-cloud9: typed, async Python SDK for AWS Cloud9
+
+`capo-cloud9` is a typed Python SDK for AWS Cloud9. It has an async client, `AsyncCloud9Client`, for asyncio and trio, and a sync client, `Cloud9Client`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/cloud9/](https://capo-sdk.dev/services/cloud9/)
 
 ## Installation
 

@@ -1,4 +1,8 @@
-# Getting Started
+# capo-security-ir: typed, async Python SDK for AWS Security Ir
+
+`capo-security-ir` is a typed Python SDK for AWS Security Ir. It has an async client, `AsyncSecurityIRClient`, for asyncio and trio, and a sync client, `SecurityIRClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/security-ir/](https://capo-sdk.dev/services/security-ir/)
 
 ## Installation
 

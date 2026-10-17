@@ -1,4 +1,8 @@
-# Getting Started
+# capo-drs: typed, async Python SDK for AWS DRS
+
+`capo-drs` is a typed Python SDK for AWS DRS. It has an async client, `AsyncdrsClient`, for asyncio and trio, and a sync client, `drsClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/drs/](https://capo-sdk.dev/services/drs/)
 
 ## Installation
 

@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-elasticsearch-service"
 site_description = "Python SDK for AWS Elasticsearch Service."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/elasticsearch-service/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/elasticsearch-service"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

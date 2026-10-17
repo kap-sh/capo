@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-application-signals"
 site_description = "Python SDK for AWS Application Signals."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/application-signals/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/application-signals"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-iot-wireless"
 site_description = "Python SDK for AWS IOT Wireless."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/iot-wireless/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/iot-wireless"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

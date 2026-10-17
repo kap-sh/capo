@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-opensearchserverless"
 site_description = "Python SDK for AWS Opensearchserverless."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/opensearchserverless/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/opensearchserverless"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

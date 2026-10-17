@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-sqs"
 site_description = "Python SDK for AWS SQS."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/sqs/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/sqs"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

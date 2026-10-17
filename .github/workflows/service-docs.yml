@@ -75,6 +75,18 @@ jobs:
           for service in $BATCH; do
             echo "::group::$service"
             (cd "services/$service" && ./scripts/docs build)
+            # The thousands of type pages stay reachable through links, but are
+            # left out of the sitemap so crawlers start from the pages worth
+            # ranking: the guide, the clients and their operations.
+            python3 - "services/$service/site/sitemap.xml" <<'EOF'
+          import re, sys
+          path = sys.argv[1]
+          with open(path) as f:
+              text = f.read()
+          text = re.sub(r"\s*<url>\s*<loc>[^<]*/types/[^<]*</loc>\s*</url>", "", text)
+          with open(path, "w") as f:
+              f.write(text)
+          EOF
             aws s3 sync "services/$service/site" "s3://$BUCKET/$service" --delete --no-progress
             rm -rf "services/$service/site"
             echo "::endgroup::"

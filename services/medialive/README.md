@@ -1,4 +1,8 @@
-# Getting Started
+# capo-medialive: typed, async Python SDK for AWS Medialive
+
+`capo-medialive` is a typed Python SDK for AWS Medialive. It has an async client, `AsyncMediaLiveClient`, for asyncio and trio, and a sync client, `MediaLiveClient`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/medialive/](https://capo-sdk.dev/services/medialive/)
 
 ## Installation
 

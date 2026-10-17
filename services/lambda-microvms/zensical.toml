@@ -1,6 +1,8 @@
 [project]
 site_name = "capo-lambda-microvms"
 site_description = "Python SDK for AWS Lambda MicroVMs."
+# Without it the pages have no canonical link and `sitemap.xml` lists no pages.
+site_url = "https://capo-sdk.dev/services/lambda-microvms/"
 repo_url = "https://github.com/kap-sh/capo/tree/main/services/lambda-microvms"
 repo_name = "kap-sh/capo"
 copyright = "Copyright &copy; 2026 capo contributors"

@@ -1,4 +1,8 @@
-# Getting Started
+# capo-kinesis-analytics-v2: typed, async Python SDK for AWS Kinesis Analytics V2
+
+`capo-kinesis-analytics-v2` is a typed Python SDK for AWS Kinesis Analytics V2. It has an async client, `AsyncKinesisAnalyticsV2Client`, for asyncio and trio, and a sync client, `KinesisAnalyticsV2Client`, with the same methods. Requests and responses are typed with TypedDicts, so your editor and type checker know every field.
+
+It is part of [capo](https://capo-sdk.dev/), a community-driven alternative to boto3 and aioboto3, built on its own HTTP stack instead of botocore and generated from the official AWS Smithy models. Documentation: [https://capo-sdk.dev/services/kinesis-analytics-v2/](https://capo-sdk.dev/services/kinesis-analytics-v2/)
 
 ## Installation
 
