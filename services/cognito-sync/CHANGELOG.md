@@ -1,5 +1,11 @@
 # aws-sdk-cognito-sync
 
+## 0.9.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.8.0
 
 ### Minor Changes

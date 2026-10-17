@@ -1,5 +1,11 @@
 # aws-sdk-account
 
+## 0.11.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.10.0
 
 ### Minor Changes

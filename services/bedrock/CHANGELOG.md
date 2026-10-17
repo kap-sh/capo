@@ -1,5 +1,11 @@
 # aws-sdk-bedrock
 
+## 0.13.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.12.0
 
 ### Minor Changes

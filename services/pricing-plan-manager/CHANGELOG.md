@@ -1,5 +1,11 @@
 # aws-sdk-pricing-plan-manager
 
+## 0.6.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.5.0
 
 ### Minor Changes
