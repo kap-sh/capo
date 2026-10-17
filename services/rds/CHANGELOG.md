@@ -1,5 +1,14 @@
 # aws-sdk-rds
 
+## 0.19.0
+
+### Minor Changes
+
+- e18bb0f: feat: attach the HTTP response to all service errors
+- 8ff4d5f: feat: add basic logging
+- d635b50: feat: add support for retry quotas
+- eee4b04: fix: retry well-known AWS throttling and transient error codes
+
 ## 0.18.0
 
 ### Minor Changes
