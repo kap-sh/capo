@@ -1,5 +1,11 @@
 # aws-sdk-elastic-load-balancing
 
+## 0.17.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.16.0
 
 ### Minor Changes

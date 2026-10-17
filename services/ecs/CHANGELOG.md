@@ -1,5 +1,11 @@
 # aws-sdk-ecs
 
+## 0.23.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.22.0
 
 ### Minor Changes

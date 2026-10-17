@@ -1,5 +1,11 @@
 # aws-sdk-scheduler
 
+## 0.18.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.17.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # aws-sdk-cloudwatch-events
 
+## 0.7.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.6.0
 
 ### Minor Changes

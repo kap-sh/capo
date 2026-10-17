@@ -1,5 +1,12 @@
 # aws-sdk-arc-region-switch
 
+## 0.11.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+- fc67135: regenerate services
+
 ## 0.10.0
 
 ### Minor Changes

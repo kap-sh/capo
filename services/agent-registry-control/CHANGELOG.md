@@ -1,5 +1,12 @@
 # aws-sdk-agent-registry-control
 
+## 0.7.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+- fc67135: regenerate services
+
 ## 0.6.0
 
 ### Minor Changes

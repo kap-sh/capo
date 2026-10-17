@@ -1,5 +1,11 @@
 # aws-sdk-appconfigdata
 
+## 0.10.0
+
+### Minor Changes
+
+- 742ae0b: feat: resolve credentials from credential_process profiles
+
 ## 0.9.0
 
 ### Minor Changes
