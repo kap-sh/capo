@@ -39,8 +39,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.application_status
     import capo_lakeformation.types.assume_decorated_role_with_saml_request
     import capo_lakeformation.types.assume_decorated_role_with_saml_response
-    import capo_lakeformation.types.attach_rls_policy_request
-    import capo_lakeformation.types.attach_rls_policy_response
     import capo_lakeformation.types.audit_context
     import capo_lakeformation.types.batch_grant_permissions_request
     import capo_lakeformation.types.batch_grant_permissions_response
@@ -52,7 +50,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.cancel_transaction_request
     import capo_lakeformation.types.cancel_transaction_response
     import capo_lakeformation.types.catalog_id_string
-    import capo_lakeformation.types.column_list
     import capo_lakeformation.types.commit_transaction_request
     import capo_lakeformation.types.commit_transaction_response
     import capo_lakeformation.types.condition
@@ -66,8 +63,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.create_lf_tag_expression_response
     import capo_lakeformation.types.create_lf_tag_request
     import capo_lakeformation.types.create_lf_tag_response
-    import capo_lakeformation.types.create_rls_policy_request
-    import capo_lakeformation.types.create_rls_policy_response
     import capo_lakeformation.types.credential_timeout_duration_second_integer
     import capo_lakeformation.types.credentials_scope
     import capo_lakeformation.types.data_cells_filter
@@ -87,8 +82,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.delete_lf_tag_response
     import capo_lakeformation.types.delete_objects_on_cancel_request
     import capo_lakeformation.types.delete_objects_on_cancel_response
-    import capo_lakeformation.types.delete_rls_policy_request
-    import capo_lakeformation.types.delete_rls_policy_response
     import capo_lakeformation.types.deregister_resource_request
     import capo_lakeformation.types.deregister_resource_response
     import capo_lakeformation.types.describe_lake_formation_identity_center_configuration_request
@@ -98,8 +91,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.describe_transaction_request
     import capo_lakeformation.types.describe_transaction_response
     import capo_lakeformation.types.description_string
-    import capo_lakeformation.types.detach_rls_policy_request
-    import capo_lakeformation.types.detach_rls_policy_response
     import capo_lakeformation.types.expression
     import capo_lakeformation.types.extend_transaction_request
     import capo_lakeformation.types.extend_transaction_response
@@ -125,8 +116,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.get_query_statistics_response
     import capo_lakeformation.types.get_resource_lf_tags_request
     import capo_lakeformation.types.get_resource_lf_tags_response
-    import capo_lakeformation.types.get_rls_policy_request
-    import capo_lakeformation.types.get_rls_policy_response
     import capo_lakeformation.types.get_table_objects_request
     import capo_lakeformation.types.get_table_objects_response
     import capo_lakeformation.types.get_temporary_data_location_credentials_request
@@ -163,10 +152,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.list_permissions_response
     import capo_lakeformation.types.list_resources_request
     import capo_lakeformation.types.list_resources_response
-    import capo_lakeformation.types.list_rls_policies_request
-    import capo_lakeformation.types.list_rls_policies_response
-    import capo_lakeformation.types.list_rls_policy_attachments_request
-    import capo_lakeformation.types.list_rls_policy_attachments_response
     import capo_lakeformation.types.list_table_storage_optimizers_request
     import capo_lakeformation.types.list_table_storage_optimizers_response
     import capo_lakeformation.types.list_transactions_request
@@ -194,8 +179,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.resource_share_type
     import capo_lakeformation.types.revoke_permissions_request
     import capo_lakeformation.types.revoke_permissions_response
-    import capo_lakeformation.types.rls_policy
-    import capo_lakeformation.types.rls_policy_attachment
     import capo_lakeformation.types.saml_assertion_string
     import capo_lakeformation.types.search_databases_by_lf_tags_request
     import capo_lakeformation.types.search_databases_by_lf_tags_response
@@ -231,8 +214,6 @@ if TYPE_CHECKING:
     import capo_lakeformation.types.update_lf_tag_response
     import capo_lakeformation.types.update_resource_request
     import capo_lakeformation.types.update_resource_response
-    import capo_lakeformation.types.update_rls_policy_request
-    import capo_lakeformation.types.update_rls_policy_response
     import capo_lakeformation.types.update_table_objects_request
     import capo_lakeformation.types.update_table_objects_response
     import capo_lakeformation.types.update_table_storage_optimizer_request
@@ -463,78 +444,6 @@ class AsyncLakeFormationClient:
         }
         if duration_seconds is not None:
             input_["duration_seconds"] = duration_seconds
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def attach_rls_policy(
-        self,
-        name: "capo_lakeformation.types.name_string.NameString",
-        resource: "capo_lakeformation.types.resource.Resource",
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        principal: Optional[
-            "capo_lakeformation.types.data_lake_principal.DataLakePrincipal"
-        ] = None,
-        condition: Optional["capo_lakeformation.types.condition.Condition"] = None,
-        set_default: Optional[
-            "capo_lakeformation.types.nullable_boolean.NullableBoolean"
-        ] = None,
-    ) -> "capo_lakeformation.types.attach_rls_policy_response.AttachRLSPolicyResponse":
-        """<p>Attaches a row-level security policy to a resource for a principal. When the principal queries the resource, Lake Formation applies the policy's filter expression so that only the permitted rows are returned.</p>
-
-        Args:
-            name: <p>The name of the row-level security policy to attach.</p>
-            resource: <p>The resource to which the row-level security policy is attached.</p>
-            principal: <p>The principal to which the row-level security policy applies.</p>
-            condition: <p>A Lake Formation condition, which applies to the row-level security policy attachment and contains an expression.</p>
-            set_default: <p>Indicates whether this policy becomes the default row-level security policy for the resource. The default policy applies to all principals by default.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.already_exists_exception.AlreadyExistsException: <p>A resource to be created or added already exists.</p>
-            capo_lakeformation.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException: <p>A resource numerical limit was exceeded.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.attach_rls_policy_request.AttachRLSPolicyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.attach_rls_policy_response.AttachRLSPolicyResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.attach_rls_policy
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.attach_rls_policy.async_attach_rls_policy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("AttachRLSPolicy")
-        )
-        input_: capo_lakeformation.types.attach_rls_policy_request.AttachRLSPolicyRequest = {
-            "name": name,
-            "resource": resource,
-        }
-        if principal is not None:
-            input_["principal"] = principal
-        if condition is not None:
-            input_["condition"] = condition
-        if set_default is not None:
-            input_["set_default"] = set_default
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -1067,64 +976,6 @@ class AsyncLakeFormationClient:
         await response.response.aclose()
         return response.output
 
-    async def create_rls_policy(
-        self,
-        name: "capo_lakeformation.types.name_string.NameString",
-        attachment_columns: "capo_lakeformation.types.column_list.ColumnList",
-        filter_expression: "capo_lakeformation.types.predicate_string.PredicateString",
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-    ) -> "capo_lakeformation.types.create_rls_policy_response.CreateRLSPolicyResponse":
-        """<p>Creates a row-level security (RLS) policy. A row-level security policy defines a filter expression that Lake Formation evaluates to determine which rows of a table a principal is allowed to see. The policy is created independently of any resource, and is later associated with a resource and principal using <code>AttachRLSPolicy</code>.</p>
-
-        Args:
-            name: <p>A unique name for the row-level security policy within the Data Catalog.</p>
-            attachment_columns: <p>The list of columns that the filter expression references. These columns define the shape of the data that the policy can be attached to.</p>
-            filter_expression: <p>A filter predicate, written in a SQL-like syntax, that Lake Formation evaluates against each row. Only the rows for which the expression evaluates to true are returned to the principal.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.already_exists_exception.AlreadyExistsException: <p>A resource to be created or added already exists.</p>
-            capo_lakeformation.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException: <p>A resource numerical limit was exceeded.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.create_rls_policy_request.CreateRLSPolicyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.create_rls_policy_response.CreateRLSPolicyResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.create_rls_policy
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.create_rls_policy.async_create_rls_policy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateRLSPolicy")
-        )
-        input_: capo_lakeformation.types.create_rls_policy_request.CreateRLSPolicyRequest = {
-            "name": name,
-            "attachment_columns": attachment_columns,
-            "filter_expression": filter_expression,
-        }
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def delete_data_cells_filter(
         self,
         *,
@@ -1478,57 +1329,6 @@ class AsyncLakeFormationClient:
         await response.response.aclose()
         return response.output
 
-    async def delete_rls_policy(
-        self,
-        name: "capo_lakeformation.types.name_string.NameString",
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-    ) -> "capo_lakeformation.types.delete_rls_policy_response.DeleteRLSPolicyResponse":
-        """<p>Deletes a row-level security policy. Any active attachments of the policy are automatically removed as part of the deletion, so you do not need to detach the policy first.</p>
-
-        Args:
-            name: <p>The name of the row-level security policy to delete.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.delete_rls_policy_request.DeleteRLSPolicyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.delete_rls_policy_response.DeleteRLSPolicyResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.delete_rls_policy
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.delete_rls_policy.async_delete_rls_policy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DeleteRLSPolicy")
-        )
-        input_: capo_lakeformation.types.delete_rls_policy_request.DeleteRLSPolicyRequest = {
-            "name": name
-        }
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def deregister_resource(
         self,
         resource_arn: "capo_lakeformation.types.resource_arn_string.ResourceArnString",
@@ -1720,76 +1520,6 @@ class AsyncLakeFormationClient:
         input_: capo_lakeformation.types.describe_transaction_request.DescribeTransactionRequest = {
             "transaction_id": transaction_id
         }
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def detach_rls_policy(
-        self,
-        name: "capo_lakeformation.types.name_string.NameString",
-        resource: "capo_lakeformation.types.resource.Resource",
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        principal: Optional[
-            "capo_lakeformation.types.data_lake_principal.DataLakePrincipal"
-        ] = None,
-        condition: Optional["capo_lakeformation.types.condition.Condition"] = None,
-        remove_default: Optional[
-            "capo_lakeformation.types.nullable_boolean.NullableBoolean"
-        ] = None,
-    ) -> "capo_lakeformation.types.detach_rls_policy_response.DetachRLSPolicyResponse":
-        """<p>Detaches a row-level security policy from a resource for a principal. After the policy is detached, its filter expression is no longer applied to the principal's queries on that resource.</p>
-
-        Args:
-            name: <p>The name of the row-level security policy to detach.</p>
-            resource: <p>The resource from which the row-level security policy is detached.</p>
-            principal: <p>The principal for which the row-level security policy is detached.</p>
-            condition: <p>A Lake Formation condition, which applies to the row-level security policy attachment and contains an expression.</p>
-            remove_default: <p>Indicates whether to remove this policy as the default row-level security policy for the resource.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.detach_rls_policy_request.DetachRLSPolicyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.detach_rls_policy_response.DetachRLSPolicyResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.detach_rls_policy
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.detach_rls_policy.async_detach_rls_policy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DetachRLSPolicy")
-        )
-        input_: capo_lakeformation.types.detach_rls_policy_request.DetachRLSPolicyRequest = {
-            "name": name,
-            "resource": resource,
-        }
-        if principal is not None:
-            input_["principal"] = principal
-        if condition is not None:
-            input_["condition"] = condition
-        if remove_default is not None:
-            input_["remove_default"] = remove_default
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -2357,56 +2087,6 @@ class AsyncLakeFormationClient:
             input_["catalog_id"] = catalog_id
         if show_assigned_lf_tags is not None:
             input_["show_assigned_lf_tags"] = show_assigned_lf_tags
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def get_rls_policy(
-        self,
-        name: "capo_lakeformation.types.name_string.NameString",
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-    ) -> "capo_lakeformation.types.get_rls_policy_response.GetRLSPolicyResponse":
-        """<p>Returns the definition of a row-level security policy, including its attachment columns and filter expression.</p>
-
-        Args:
-            name: <p>The name of the row-level security policy to retrieve.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.get_rls_policy_request.GetRLSPolicyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.get_rls_policy_response.GetRLSPolicyResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.get_rls_policy
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.get_rls_policy.async_get_rls_policy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetRLSPolicy")
-        )
-        input_: capo_lakeformation.types.get_rls_policy_request.GetRLSPolicyRequest = {
-            "name": name
-        }
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -3559,178 +3239,6 @@ class AsyncLakeFormationClient:
             if not _token:
                 break
 
-    async def list_rls_policies(
-        self,
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        max_results: Optional["capo_lakeformation.types.page_size.PageSize"] = None,
-        next_token: Optional["capo_lakeformation.types.token.Token"] = None,
-    ) -> "capo_lakeformation.types.list_rls_policies_response.ListRLSPoliciesResponse":
-        """<p>Lists the row-level security policies in the Data Catalog.</p>
-
-        Args:
-            max_results: <p>The maximum number of row-level security policies to return in a single response.</p>
-            next_token: <p>A continuation token, if this is a continuation call.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.list_rls_policies_request.ListRLSPoliciesRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.list_rls_policies_response.ListRLSPoliciesResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.list_rls_policies
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.list_rls_policies.async_list_rls_policies(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListRLSPolicies")
-        )
-        input_: capo_lakeformation.types.list_rls_policies_request.ListRLSPoliciesRequest = {}
-        if max_results is not None:
-            input_["max_results"] = max_results
-        if next_token is not None:
-            input_["next_token"] = next_token
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def iter_list_rls_policies(
-        self,
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        max_results: Optional["capo_lakeformation.types.page_size.PageSize"] = None,
-        next_token: Optional["capo_lakeformation.types.token.Token"] = None,
-    ) -> "AsyncIterator[capo_lakeformation.types.rls_policy.RLSPolicy]":
-        _token = next_token
-        while True:
-            _response = await self.list_rls_policies(
-                config_overrides=config_overrides,
-                max_results=max_results,
-                next_token=_token,
-            )
-            _page = _resolve_path(_response, ("rls_policies",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
-    async def list_rls_policy_attachments(
-        self,
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        resource: Optional["capo_lakeformation.types.resource.Resource"] = None,
-        principal: Optional[
-            "capo_lakeformation.types.data_lake_principal.DataLakePrincipal"
-        ] = None,
-        policy_name: Optional["capo_lakeformation.types.name_string.NameString"] = None,
-        max_results: Optional["capo_lakeformation.types.page_size.PageSize"] = None,
-        next_token: Optional["capo_lakeformation.types.token.Token"] = None,
-    ) -> "capo_lakeformation.types.list_rls_policy_attachments_response.ListRLSPolicyAttachmentsResponse":
-        """<p>Lists the row-level security policy attachments in the Data Catalog. You can filter the results by resource, principal, or policy name.</p>
-
-        Args:
-            resource: <p>If specified, returns only the attachments for the given resource.</p>
-            principal: <p>If specified, returns only the attachments for the given principal.</p>
-            policy_name: <p>If specified, returns only the attachments for the row-level security policy with this name.</p>
-            max_results: <p>The maximum number of attachments to return in a single response.</p>
-            next_token: <p>A continuation token, if this is a continuation call.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.list_rls_policy_attachments_request.ListRLSPolicyAttachmentsRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.list_rls_policy_attachments_response.ListRLSPolicyAttachmentsResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.list_rls_policy_attachments
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.list_rls_policy_attachments.async_list_rls_policy_attachments(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListRLSPolicyAttachments")
-        )
-        input_: capo_lakeformation.types.list_rls_policy_attachments_request.ListRLSPolicyAttachmentsRequest = {}
-        if resource is not None:
-            input_["resource"] = resource
-        if principal is not None:
-            input_["principal"] = principal
-        if policy_name is not None:
-            input_["policy_name"] = policy_name
-        if max_results is not None:
-            input_["max_results"] = max_results
-        if next_token is not None:
-            input_["next_token"] = next_token
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def iter_list_rls_policy_attachments(
-        self,
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        resource: Optional["capo_lakeformation.types.resource.Resource"] = None,
-        principal: Optional[
-            "capo_lakeformation.types.data_lake_principal.DataLakePrincipal"
-        ] = None,
-        policy_name: Optional["capo_lakeformation.types.name_string.NameString"] = None,
-        max_results: Optional["capo_lakeformation.types.page_size.PageSize"] = None,
-        next_token: Optional["capo_lakeformation.types.token.Token"] = None,
-    ) -> "AsyncIterator[capo_lakeformation.types.rls_policy_attachment.RLSPolicyAttachment]":
-        _token = next_token
-        while True:
-            _response = await self.list_rls_policy_attachments(
-                config_overrides=config_overrides,
-                resource=resource,
-                principal=principal,
-                policy_name=policy_name,
-                max_results=max_results,
-                next_token=_token,
-            )
-            _page = _resolve_path(_response, ("rls_policy_attachments",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
     async def list_table_storage_optimizers(
         self,
         database_name: "capo_lakeformation.types.name_string.NameString",
@@ -4830,64 +4338,6 @@ class AsyncLakeFormationClient:
             input_["hybrid_access_enabled"] = hybrid_access_enabled
         if expected_resource_owner_account is not None:
             input_["expected_resource_owner_account"] = expected_resource_owner_account
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def update_rls_policy(
-        self,
-        name: "capo_lakeformation.types.name_string.NameString",
-        *,
-        config_overrides: Optional[AsyncLakeFormationClientConfig] = None,
-        filter_expression: Optional[
-            "capo_lakeformation.types.predicate_string.PredicateString"
-        ] = None,
-    ) -> "capo_lakeformation.types.update_rls_policy_response.UpdateRLSPolicyResponse":
-        """<p>Updates the filter expression of an existing row-level security policy. The change applies to all attachments of the policy.</p>
-
-        Args:
-            name: <p>The name of the row-level security policy to update.</p>
-            filter_expression: <p>The new filter predicate, written in a SQL-like syntax, that replaces the policy's current filter expression.</p>
-
-        Raises:
-            capo_lakeformation.errors.access_denied_exception.AccessDeniedException: <p>Access to a resource was denied.</p>
-            capo_lakeformation.errors.concurrent_modification_exception.ConcurrentModificationException: <p>Two processes are trying to modify a resource simultaneously.</p>
-            capo_lakeformation.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist.</p>
-            capo_lakeformation.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_lakeformation.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_lakeformation.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_lakeformation.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException: <p>A resource numerical limit was exceeded.</p>
-            capo_lakeformation.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_lakeformation.types.update_rls_policy_request.UpdateRLSPolicyRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_lakeformation.types.update_rls_policy_response.UpdateRLSPolicyResponse"
-        ]:
-            import capo_lakeformation._operations.aws_lake_formation.update_rls_policy
-
-            (
-                output,
-                http_response,
-            ) = await capo_lakeformation._operations.aws_lake_formation.update_rls_policy.async_update_rls_policy(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("UpdateRLSPolicy")
-        )
-        input_: capo_lakeformation.types.update_rls_policy_request.UpdateRLSPolicyRequest = {
-            "name": name
-        }
-        if filter_expression is not None:
-            input_["filter_expression"] = filter_expression
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

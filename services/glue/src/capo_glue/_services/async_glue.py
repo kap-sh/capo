@@ -72,8 +72,6 @@ if TYPE_CHECKING:
     import capo_glue.types.batch_get_custom_entity_types_response
     import capo_glue.types.batch_get_data_quality_result_request
     import capo_glue.types.batch_get_data_quality_result_response
-    import capo_glue.types.batch_get_data_quality_result_v2_request
-    import capo_glue.types.batch_get_data_quality_result_v2_response
     import capo_glue.types.batch_get_data_quality_ruleset_evaluation_run_request
     import capo_glue.types.batch_get_data_quality_ruleset_evaluation_run_response
     import capo_glue.types.batch_get_dev_endpoints_request
@@ -122,7 +120,6 @@ if TYPE_CHECKING:
     import capo_glue.types.check_schema_version_validity_input
     import capo_glue.types.check_schema_version_validity_response
     import capo_glue.types.classifier_name_list
-    import capo_glue.types.client_token_string
     import capo_glue.types.code_gen_configuration_nodes
     import capo_glue.types.column_name_list
     import capo_glue.types.commit_id_string
@@ -212,25 +209,16 @@ if TYPE_CHECKING:
     import capo_glue.types.dag_nodes
     import capo_glue.types.data_catalog_encryption_settings
     import capo_glue.types.data_format
-    import capo_glue.types.data_quality_aggregated_metrics
-    import capo_glue.types.data_quality_analyzer_results
-    import capo_glue.types.data_quality_configuration_v2
     import capo_glue.types.data_quality_evaluation_run_additional_run_options
-    import capo_glue.types.data_quality_observations
     import capo_glue.types.data_quality_result_filter_criteria
     import capo_glue.types.data_quality_result_ids
-    import capo_glue.types.data_quality_result_v2_id_list
-    import capo_glue.types.data_quality_results_v2_description
-    import capo_glue.types.data_quality_results_v2_filter_criteria
     import capo_glue.types.data_quality_rule_recommendation_run_additional_run_options
     import capo_glue.types.data_quality_rule_recommendation_run_filter
-    import capo_glue.types.data_quality_rule_results
     import capo_glue.types.data_quality_ruleset_evaluation_run_filter
     import capo_glue.types.data_quality_ruleset_evaluation_run_id_list
     import capo_glue.types.data_quality_ruleset_filter_criteria
     import capo_glue.types.data_quality_ruleset_string
     import capo_glue.types.data_quality_target_table
-    import capo_glue.types.data_quality_telemetry
     import capo_glue.types.data_source
     import capo_glue.types.data_source_map
     import capo_glue.types.database_attributes_list
@@ -352,7 +340,6 @@ if TYPE_CHECKING:
     import capo_glue.types.form_type_schema
     import capo_glue.types.function_type
     import capo_glue.types.generic512_char_string
-    import capo_glue.types.generic_bounded_double
     import capo_glue.types.generic_map
     import capo_glue.types.generic_string
     import capo_glue.types.get_asset_input
@@ -411,8 +398,6 @@ if TYPE_CHECKING:
     import capo_glue.types.get_data_quality_model_result_response
     import capo_glue.types.get_data_quality_result_request
     import capo_glue.types.get_data_quality_result_response
-    import capo_glue.types.get_data_quality_result_v2_request
-    import capo_glue.types.get_data_quality_result_v2_response
     import capo_glue.types.get_data_quality_rule_recommendation_run_request
     import capo_glue.types.get_data_quality_rule_recommendation_run_response
     import capo_glue.types.get_data_quality_ruleset_evaluation_run_request
@@ -600,8 +585,6 @@ if TYPE_CHECKING:
     import capo_glue.types.list_custom_entity_types_response
     import capo_glue.types.list_data_quality_results_request
     import capo_glue.types.list_data_quality_results_response
-    import capo_glue.types.list_data_quality_results_v2_request
-    import capo_glue.types.list_data_quality_results_v2_response
     import capo_glue.types.list_data_quality_rule_recommendation_runs_request
     import capo_glue.types.list_data_quality_rule_recommendation_runs_response
     import capo_glue.types.list_data_quality_ruleset_evaluation_runs_request
@@ -699,11 +682,6 @@ if TYPE_CHECKING:
     import capo_glue.types.predicate_string
     import capo_glue.types.profile_configuration
     import capo_glue.types.public_keys_list
-    import capo_glue.types.publish_data_quality_result_descriptors
-    import capo_glue.types.publish_data_quality_result_dimensions
-    import capo_glue.types.publish_data_quality_result_tags
-    import capo_glue.types.publish_data_quality_result_v2_request
-    import capo_glue.types.publish_data_quality_result_v2_response
     import capo_glue.types.put_asset_request
     import capo_glue.types.put_asset_response
     import capo_glue.types.put_asset_type_request
@@ -816,7 +794,6 @@ if TYPE_CHECKING:
     import capo_glue.types.start_trigger_response
     import capo_glue.types.start_workflow_run_request
     import capo_glue.types.start_workflow_run_response
-    import capo_glue.types.statistic_summary_list
     import capo_glue.types.stop_column_statistics_task_run_request
     import capo_glue.types.stop_column_statistics_task_run_response
     import capo_glue.types.stop_column_statistics_task_run_schedule_request
@@ -1649,66 +1626,6 @@ class AsyncGlueClient:
             OperationLogging("BatchGetDataQualityResult", redact_output=_redact_output),
         )
         input_: capo_glue.types.batch_get_data_quality_result_request.BatchGetDataQualityResultRequest = {
-            "result_ids": result_ids
-        }
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def batch_get_data_quality_result_v2(
-        self,
-        result_ids: "capo_glue.types.data_quality_result_v2_id_list.DataQualityResultV2IdList",
-        *,
-        config_overrides: Optional[AsyncGlueClientConfig] = None,
-    ) -> "capo_glue.types.batch_get_data_quality_result_v2_response.BatchGetDataQualityResultV2Response":
-        """<p>Retrieves a list of data quality results for the specified result IDs. You can specify up to 100 result IDs in a single request.</p>
-
-        Args:
-            result_ids: <p>A list of unique result IDs for the data quality results.</p>
-
-        Raises:
-            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_glue.types.batch_get_data_quality_result_v2_request.BatchGetDataQualityResultV2Request]",
-        ) -> AsyncOperationResponse[
-            "capo_glue.types.batch_get_data_quality_result_v2_response.BatchGetDataQualityResultV2Response"
-        ]:
-            import capo_glue._operations.aws_glue.batch_get_data_quality_result_v2
-
-            (
-                output,
-                http_response,
-            ) = await capo_glue._operations.aws_glue.batch_get_data_quality_result_v2.async_batch_get_data_quality_result_v2(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        def _redact_output(
-            output: "capo_glue.types.batch_get_data_quality_result_v2_response.BatchGetDataQualityResultV2Response",
-        ) -> dict[str, Any]:
-            import capo_glue.types.batch_get_data_quality_result_v2_response
-
-            return capo_glue.types.batch_get_data_quality_result_v2_response.redact_sensitive(
-                output
-            )
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides,
-            OperationLogging(
-                "BatchGetDataQualityResultV2", redact_output=_redact_output
-            ),
-        )
-        input_: capo_glue.types.batch_get_data_quality_result_v2_request.BatchGetDataQualityResultV2Request = {
             "result_ids": result_ids
         }
 
@@ -9408,65 +9325,6 @@ class AsyncGlueClient:
         await response.response.aclose()
         return response.output
 
-    async def get_data_quality_result_v2(
-        self,
-        result_id: "capo_glue.types.hash_string.HashString",
-        *,
-        config_overrides: Optional[AsyncGlueClientConfig] = None,
-    ) -> "capo_glue.types.get_data_quality_result_v2_response.GetDataQualityResultV2Response":
-        """<p>Retrieves the result of a data quality rule evaluation published from any supported data platform.</p>
-
-        Args:
-            result_id: <p>A unique result ID for the data quality result.</p>
-
-        Raises:
-            capo_glue.errors.entity_not_found_exception.EntityNotFoundException: <p>A specified entity does not exist</p>
-            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_glue.types.get_data_quality_result_v2_request.GetDataQualityResultV2Request]",
-        ) -> AsyncOperationResponse[
-            "capo_glue.types.get_data_quality_result_v2_response.GetDataQualityResultV2Response"
-        ]:
-            import capo_glue._operations.aws_glue.get_data_quality_result_v2
-
-            (
-                output,
-                http_response,
-            ) = await capo_glue._operations.aws_glue.get_data_quality_result_v2.async_get_data_quality_result_v2(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        def _redact_output(
-            output: "capo_glue.types.get_data_quality_result_v2_response.GetDataQualityResultV2Response",
-        ) -> dict[str, Any]:
-            import capo_glue.types.get_data_quality_result_v2_response
-
-            return capo_glue.types.get_data_quality_result_v2_response.redact_sensitive(
-                output
-            )
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides,
-            OperationLogging("GetDataQualityResultV2", redact_output=_redact_output),
-        )
-        input_: capo_glue.types.get_data_quality_result_v2_request.GetDataQualityResultV2Request = {
-            "result_id": result_id
-        }
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def get_data_quality_rule_recommendation_run(
         self,
         run_id: "capo_glue.types.hash_string.HashString",
@@ -14091,89 +13949,6 @@ class AsyncGlueClient:
             if not _token:
                 break
 
-    async def list_data_quality_results_v2(
-        self,
-        *,
-        config_overrides: Optional[AsyncGlueClientConfig] = None,
-        filter: Optional[
-            "capo_glue.types.data_quality_results_v2_filter_criteria.DataQualityResultsV2FilterCriteria"
-        ] = None,
-        next_token: Optional["capo_glue.types.pagination_token.PaginationToken"] = None,
-        max_results: Optional["capo_glue.types.page_size.PageSize"] = None,
-    ) -> "capo_glue.types.list_data_quality_results_v2_response.ListDataQualityResultsV2Response":
-        """<p>Returns a paginated list of data quality execution results for your account, filtered by the specified criteria. Use the <code>NextToken</code> parameter to retrieve additional results.</p>
-
-        Args:
-            filter: <p>The filter criteria.</p>
-            next_token: <p>A pagination token to retrieve the next page of results.</p>
-            max_results: <p>The maximum number of results to return. If you don't specify a value, the operation uses the default number of results.</p>
-
-        Raises:
-            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_glue.types.list_data_quality_results_v2_request.ListDataQualityResultsV2Request]",
-        ) -> AsyncOperationResponse[
-            "capo_glue.types.list_data_quality_results_v2_response.ListDataQualityResultsV2Response"
-        ]:
-            import capo_glue._operations.aws_glue.list_data_quality_results_v2
-
-            (
-                output,
-                http_response,
-            ) = await capo_glue._operations.aws_glue.list_data_quality_results_v2.async_list_data_quality_results_v2(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListDataQualityResultsV2")
-        )
-        input_: capo_glue.types.list_data_quality_results_v2_request.ListDataQualityResultsV2Request = {}
-        if filter is not None:
-            input_["filter"] = filter
-        if next_token is not None:
-            input_["next_token"] = next_token
-        if max_results is not None:
-            input_["max_results"] = max_results
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def iter_list_data_quality_results_v2(
-        self,
-        *,
-        config_overrides: Optional[AsyncGlueClientConfig] = None,
-        filter: Optional[
-            "capo_glue.types.data_quality_results_v2_filter_criteria.DataQualityResultsV2FilterCriteria"
-        ] = None,
-        next_token: Optional["capo_glue.types.pagination_token.PaginationToken"] = None,
-        max_results: Optional["capo_glue.types.page_size.PageSize"] = None,
-    ) -> "AsyncIterator[capo_glue.types.data_quality_results_v2_description.DataQualityResultsV2Description]":
-        _token = next_token
-        while True:
-            _response = await self.list_data_quality_results_v2(
-                config_overrides=config_overrides,
-                filter=filter,
-                next_token=_token,
-                max_results=max_results,
-            )
-            _page = _resolve_path(_response, ("results",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
     async def list_data_quality_rule_recommendation_runs(
         self,
         *,
@@ -16302,151 +16077,6 @@ class AsyncGlueClient:
             input_["integration_config"] = integration_config
         if integration_name is not None:
             input_["integration_name"] = integration_name
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def publish_data_quality_result_v2(
-        self,
-        dimensions: "capo_glue.types.publish_data_quality_result_dimensions.PublishDataQualityResultDimensions",
-        score: "capo_glue.types.generic_bounded_double.GenericBoundedDouble",
-        rule_results: "capo_glue.types.data_quality_rule_results.DataQualityRuleResults",
-        evaluation_context: "capo_glue.types.name_string.NameString",
-        *,
-        config_overrides: Optional[AsyncGlueClientConfig] = None,
-        tags: Optional[
-            "capo_glue.types.publish_data_quality_result_tags.PublishDataQualityResultTags"
-        ] = None,
-        execution_started_on: Optional["capo_glue.types.timestamp.Timestamp"] = None,
-        execution_completed_on: Optional["capo_glue.types.timestamp.Timestamp"] = None,
-        analyzer_results: Optional[
-            "capo_glue.types.data_quality_analyzer_results.DataQualityAnalyzerResults"
-        ] = None,
-        observations: Optional[
-            "capo_glue.types.data_quality_observations.DataQualityObservations"
-        ] = None,
-        aggregated_metrics: Optional[
-            "capo_glue.types.data_quality_aggregated_metrics.DataQualityAggregatedMetrics"
-        ] = None,
-        statistics: Optional[
-            "capo_glue.types.statistic_summary_list.StatisticSummaryList"
-        ] = None,
-        run_configuration: Optional[
-            "capo_glue.types.data_quality_configuration_v2.DataQualityConfigurationV2"
-        ] = None,
-        client_token: Optional[
-            "capo_glue.types.client_token_string.ClientTokenString"
-        ] = None,
-        descriptors: Optional[
-            "capo_glue.types.publish_data_quality_result_descriptors.PublishDataQualityResultDescriptors"
-        ] = None,
-        ruleset_name: Optional["capo_glue.types.hash_string.HashString"] = None,
-        data_quality_security_configuration: Optional[
-            "capo_glue.types.name_string.NameString"
-        ] = None,
-        telemetry: Optional[
-            "capo_glue.types.data_quality_telemetry.DataQualityTelemetry"
-        ] = None,
-    ) -> "capo_glue.types.publish_data_quality_result_v2_response.PublishDataQualityResultV2Response":
-        """<note> <p>This operation is intended for internal use. Do not call it directly.</p> </note> <p>AWS Glue Data Quality uses this operation to publish a data quality result.</p>
-
-        Args:
-            dimensions: <p>The dimensions for the result.</p>
-            tags: <p>The tags for the result.</p>
-            execution_started_on: <p>The time execution started for the result.</p>
-            execution_completed_on: <p>The time execution completed for the result.</p>
-            score: <p>The score for the result.</p>
-            rule_results: <p>The rule level results.</p>
-            analyzer_results: <p>The analyzer level results.</p>
-            observations: <p>The observations for the result.</p>
-            aggregated_metrics: <p>The aggregated metrics for the result.</p>
-            statistics: <p>The statistics for the result.</p>
-            run_configuration: <p>The run configuration for the result.</p>
-            client_token: <p>The client token for the request.</p>
-            evaluation_context: <p>The evaluation context for the result.</p>
-            descriptors: <p>The descriptors for the result.</p>
-            ruleset_name: <p>The ruleset name for the result.</p>
-            data_quality_security_configuration: <p>The security configuration for the result.</p>
-
-        Raises:
-            capo_glue.errors.idempotent_parameter_mismatch_exception.IdempotentParameterMismatchException: <p>The same unique identifier was associated with two different records.</p>
-            capo_glue.errors.internal_service_exception.InternalServiceException: <p>An internal service error occurred.</p>
-            capo_glue.errors.invalid_input_exception.InvalidInputException: <p>The input provided was not valid.</p>
-            capo_glue.errors.operation_timeout_exception.OperationTimeoutException: <p>The operation timed out.</p>
-            capo_glue.errors.resource_number_limit_exceeded_exception.ResourceNumberLimitExceededException: <p>A resource numerical limit was exceeded.</p>
-            capo_glue.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_glue.types.publish_data_quality_result_v2_request.PublishDataQualityResultV2Request]",
-        ) -> AsyncOperationResponse[
-            "capo_glue.types.publish_data_quality_result_v2_response.PublishDataQualityResultV2Response"
-        ]:
-            import capo_glue._operations.aws_glue.publish_data_quality_result_v2
-
-            (
-                output,
-                http_response,
-            ) = await capo_glue._operations.aws_glue.publish_data_quality_result_v2.async_publish_data_quality_result_v2(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        def _redact_input(
-            input_: "capo_glue.types.publish_data_quality_result_v2_request.PublishDataQualityResultV2Request",
-        ) -> dict[str, Any]:
-            import capo_glue.types.publish_data_quality_result_v2_request
-
-            return (
-                capo_glue.types.publish_data_quality_result_v2_request.redact_sensitive(
-                    input_
-                )
-            )
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides,
-            OperationLogging("PublishDataQualityResultV2", redact_input=_redact_input),
-        )
-        input_: capo_glue.types.publish_data_quality_result_v2_request.PublishDataQualityResultV2Request = {
-            "dimensions": dimensions,
-            "score": score,
-            "rule_results": rule_results,
-            "evaluation_context": evaluation_context,
-        }
-        if tags is not None:
-            input_["tags"] = tags
-        if execution_started_on is not None:
-            input_["execution_started_on"] = execution_started_on
-        if execution_completed_on is not None:
-            input_["execution_completed_on"] = execution_completed_on
-        if analyzer_results is not None:
-            input_["analyzer_results"] = analyzer_results
-        if observations is not None:
-            input_["observations"] = observations
-        if aggregated_metrics is not None:
-            input_["aggregated_metrics"] = aggregated_metrics
-        if statistics is not None:
-            input_["statistics"] = statistics
-        if run_configuration is not None:
-            input_["run_configuration"] = run_configuration
-        if client_token is None:
-            client_token = str(uuid.uuid4())
-        input_["client_token"] = client_token
-        if descriptors is not None:
-            input_["descriptors"] = descriptors
-        if ruleset_name is not None:
-            input_["ruleset_name"] = ruleset_name
-        if data_quality_security_configuration is not None:
-            input_["data_quality_security_configuration"] = (
-                data_quality_security_configuration
-            )
-        if telemetry is not None:
-            input_["telemetry"] = telemetry
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

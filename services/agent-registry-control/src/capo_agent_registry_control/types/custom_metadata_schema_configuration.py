@@ -13,11 +13,11 @@ class CustomMetadataSchemaConfiguration(TypedDict, closed=True):
     default_schema: NotRequired[
         "capo_agent_registry_control.types.custom_metadata_schema_definition.CustomMetadataSchemaDefinition"
     ]
-    """<p>A JSON Schema with the common attributes: fields that records of every record type can carry.</p>"""
+    """<p>The default JSON Schema that applies to record types without a specific override. Supported property types are <code>string</code>, <code>string</code> with an <code>enum</code> constraint, <code>string</code> with a <code>uri</code> format, and <code>boolean</code>.</p>"""
     record_type_schema_overrides: NotRequired[
         "capo_agent_registry_control.types.record_type_schema_override_list.RecordTypeSchemaOverrideList"
     ]
-    """<p>The fields for individual record types. Records of a record type can carry the common attributes defined in <code>defaultSchema</code> plus that record type's fields.</p>"""
+    """<p>A list of per-record-type schema overrides. When a record's type matches an override, that override's schema is used instead of the default schema for validation. If you don't specify an override for a record type, the default schema applies. If no default schema exists, custom metadata on records of that type is rejected.</p>"""
 
 
 # --- restJson1 ser/de ---

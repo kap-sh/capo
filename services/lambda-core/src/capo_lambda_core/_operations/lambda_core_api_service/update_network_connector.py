@@ -13,7 +13,6 @@ import capo_lambda_core._auth._signers
 import capo_lambda_core._auth._sigv4
 import capo_lambda_core._protocol.eventstream
 import capo_lambda_core.errors.invalid_parameter_value_exception
-import capo_lambda_core.errors.network_connector_limit_exceeded_exception
 import capo_lambda_core.errors.resource_conflict_exception
 import capo_lambda_core.errors.resource_not_found_exception
 import capo_lambda_core.errors.service_exception
@@ -40,10 +39,6 @@ def handle_error(response: zapros.Response) -> Never:
     match code:
         case "InvalidParameterValueException":
             raise capo_lambda_core.errors.invalid_parameter_value_exception.InvalidParameterValueException.from_json(
-                data, message, response=response
-            )
-        case "NetworkConnectorLimitExceededException":
-            raise capo_lambda_core.errors.network_connector_limit_exceeded_exception.NetworkConnectorLimitExceededException.from_json(
                 data, message, response=response
             )
         case "ResourceConflictException":

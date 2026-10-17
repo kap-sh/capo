@@ -52,7 +52,7 @@ class RouterInput(TypedDict, closed=True):
     maximum_bitrate: "int"
     """<p>The maximum bitrate for the router input.</p>"""
     tier: "capo_mediaconnect.types.router_input_tier.RouterInputTier"
-    """<p>The tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>"""
+    """<p>The tier level of the router input.</p>"""
     routing_scope: "capo_mediaconnect.types.routing_scope.RoutingScope"
     """<p>Indicates whether the router input is configured for Regional or global routing.</p>"""
     created_at: "datetime.datetime"

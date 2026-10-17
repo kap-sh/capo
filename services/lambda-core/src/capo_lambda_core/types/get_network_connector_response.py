@@ -28,23 +28,10 @@ class GetNetworkConnectorResponse(TypedDict, closed=True):
     name: "capo_lambda_core.types.network_connector_name.NetworkConnectorName"
     """<p>The name of the network connector.</p>"""
     id: "capo_lambda_core.types.network_connector_id.NetworkConnectorId"
-    """<p>The unique identifier of the network connector.</p>"""
-    version_arn: NotRequired[
-        "capo_lambda_core.types.network_connector_arn.NetworkConnectorArn"
-    ]
-    """<p>The qualified ARN of the specific connector version returned by this request, including the immutable version suffix. This is populated only when you supply a version-qualified identifier. On a standard (unqualified) request, this field is not populated; the connector's latest active version is returned instead through the <code>LatestVersionArn</code> and <code>LatestVersion</code> fields described below.</p>"""
     version: NotRequired[
         "capo_lambda_core.types.network_connector_version.NetworkConnectorVersion"
     ]
-    """<p>The version number of the network connector. On a standard (unqualified) request, this is the connector's current version; each configuration update increments it. When you supply a version-qualified identifier, this is the specific version you requested.</p>"""
-    latest_version_arn: NotRequired[
-        "capo_lambda_core.types.network_connector_arn.NetworkConnectorArn"
-    ]
-    """<p>The qualified ARN of the connector's latest active version, including the immutable version suffix. This field is returned only on a standard (unqualified) request; when you supply a version-qualified identifier it is not returned, and <code>VersionArn</code> is returned instead.</p>"""
-    latest_version: NotRequired[
-        "capo_lambda_core.types.network_connector_version.NetworkConnectorVersion"
-    ]
-    """<p>The version number of the connector's latest active version. Each configuration update creates a new immutable version; this attribute exposes the most recent one. This field is returned only on a standard (unqualified) request.</p>"""
+    """<p>The version number of the connector configuration, incremented on each update.</p>"""
     configuration: NotRequired[
         "capo_lambda_core.types.network_connector_configuration.NetworkConnectorConfiguration"
     ]
@@ -85,14 +72,8 @@ def serialize_json(value: GetNetworkConnectorResponse) -> dict:
     out["Arn"] = value["arn"]
     out["Name"] = value["name"]
     out["Id"] = value["id"]
-    if "version_arn" in value:
-        out["VersionArn"] = value["version_arn"]
     if "version" in value:
         out["Version"] = value["version"]
-    if "latest_version_arn" in value:
-        out["LatestVersionArn"] = value["latest_version_arn"]
-    if "latest_version" in value:
-        out["LatestVersion"] = value["latest_version"]
     if "configuration" in value:
         import capo_lambda_core.types.network_connector_configuration
 
@@ -160,14 +141,8 @@ def deserialize_json(data: dict) -> GetNetworkConnectorResponse:
         out["id"] = data["Id"]
     else:
         raise DeserializationError("GetNetworkConnectorResponse.id required")
-    if data.get("VersionArn") is not None:
-        out["version_arn"] = data["VersionArn"]
     if data.get("Version") is not None:
         out["version"] = data["Version"]
-    if data.get("LatestVersionArn") is not None:
-        out["latest_version_arn"] = data["LatestVersionArn"]
-    if data.get("LatestVersion") is not None:
-        out["latest_version"] = data["LatestVersion"]
     if data.get("Configuration") is not None:
         import capo_lambda_core.types.network_connector_configuration
 

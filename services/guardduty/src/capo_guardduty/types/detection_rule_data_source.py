@@ -2,10 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-DetectionRuleDataSource: TypeAlias = Literal[
-    "CloudTrailManagementEvent",
-    "RuntimeMonitoring",
-]
+DetectionRuleDataSource: TypeAlias = Literal["CloudTrailManagementEvent",]
 
 
 # --- restJson1 ser/de ---

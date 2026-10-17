@@ -8,7 +8,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.cache_hit_result
     import capo_sagemaker.types.failure_reason
     import capo_sagemaker.types.integer
-    import capo_sagemaker.types.iteration_context
     import capo_sagemaker.types.pipeline_execution_step_metadata
     import capo_sagemaker.types.selective_execution_result
     import capo_sagemaker.types.step_description
@@ -51,10 +50,6 @@ class PipelineExecutionStep(TypedDict, closed=True):
         "capo_sagemaker.types.selective_execution_result.SelectiveExecutionResult"
     ]
     """<p>The ARN from an execution of the current pipeline from which results are reused for this step.</p>"""
-    iteration_context: NotRequired[
-        "capo_sagemaker.types.iteration_context.IterationContext"
-    ]
-    """<p>The context for the iteration of a ForEach step that generated this step execution.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -112,14 +107,6 @@ def serialize_aws_json_1_1(value: PipelineExecutionStep) -> dict:
                 value["selective_execution_result"]
             )
         )
-    if "iteration_context" in value:
-        import capo_sagemaker.types.iteration_context
-
-        out["IterationContext"] = (
-            capo_sagemaker.types.iteration_context.serialize_aws_json_1_1(
-                value["iteration_context"]
-            )
-        )
     return out
 
 
@@ -175,14 +162,6 @@ def deserialize_aws_json_1_1(data: dict) -> PipelineExecutionStep:
         out["selective_execution_result"] = (
             capo_sagemaker.types.selective_execution_result.deserialize_aws_json_1_1(
                 data["SelectiveExecutionResult"]
-            )
-        )
-    if data.get("IterationContext") is not None:
-        import capo_sagemaker.types.iteration_context
-
-        out["iteration_context"] = (
-            capo_sagemaker.types.iteration_context.deserialize_aws_json_1_1(
-                data["IterationContext"]
             )
         )
     return out

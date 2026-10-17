@@ -224,7 +224,6 @@ if TYPE_CHECKING:
     import capo_imagebuilder.types.os_version_list
     import capo_imagebuilder.types.ownership
     import capo_imagebuilder.types.pagination_token
-    import capo_imagebuilder.types.parent_instance_configuration
     import capo_imagebuilder.types.pipeline_logging_configuration
     import capo_imagebuilder.types.pipeline_status
     import capo_imagebuilder.types.placement
@@ -1293,9 +1292,6 @@ class imagebuilderClient:
         terminate_instance_on_failure: Optional[
             "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
         ] = None,
-        terminate_instance_on_completion: Optional[
-            "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
-        ] = None,
         sns_topic_arn: Optional[
             "capo_imagebuilder.types.sns_topic_arn.SnsTopicArn"
         ] = None,
@@ -1307,9 +1303,6 @@ class imagebuilderClient:
         ] = None,
         tags: Optional["capo_imagebuilder.types.tag_map.TagMap"] = None,
         placement: Optional["capo_imagebuilder.types.placement.Placement"] = None,
-        parent_instance: Optional[
-            "capo_imagebuilder.types.parent_instance_configuration.ParentInstanceConfiguration"
-        ] = None,
         dry_run: Optional["capo_imagebuilder.types.boolean.Boolean"] = None,
     ) -> "capo_imagebuilder.types.create_infrastructure_configuration_response.CreateInfrastructureConfigurationResponse":
         """<p>Creates a new infrastructure configuration. An infrastructure configuration defines the environment in which your image will be built and tested.</p>
@@ -1324,13 +1317,11 @@ class imagebuilderClient:
             logging: <p>The logging configuration of the infrastructure configuration. When you configure S3 logs, Image Builder writes logs from the build and test process to the specified bucket under the key prefix.</p>
             key_pair: <p>The key pair of the infrastructure configuration. You can use this to log on to and debug the instance used to create your image.</p>
             terminate_instance_on_failure: <p>Specifies whether to terminate the instance on failure. Set to false if you want Image Builder to retain the instance used to configure your AMI if the build or test phase of your workflow fails. Defaults to <code>true</code>.</p>
-            terminate_instance_on_completion: <p>Specifies whether Image Builder terminates build and test instances when image creation ends without a failure (success, cancellation, or expiration). Defaults to <code>true</code>.</p>
             sns_topic_arn: <p>The Amazon Resource Name (ARN) of the SNS topic to which Image Builder sends image build event notifications. Specify a standard topic. Image Builder doesn't support FIFO topics. Image Builder validates the topic when you create or update the configuration. You must have permission to publish to the topic.</p> <note> <p>EC2 Image Builder can't send notifications to SNS topics that are encrypted using keys from other accounts. If your SNS topic is encrypted, the key must be owned by the same account that owns your Image Builder resources.</p> </note>
             resource_tags: <p>The metadata tags to assign to the Amazon EC2 instance that Image Builder launches during the build process. Tags are formatted as key value pairs. Tag keys can't begin with <code>aws:</code> or match one of the following reserved keys: <code>CreatedBy</code>, <code>Ec2ImageBuilderArn</code>, <code>Name</code>, or <code>Tags</code>.</p>
             instance_metadata_options: <p>The instance metadata service (IMDS) settings that Image Builder applies to the EC2 build and test instances it launches during image creation. If you don't set these options, the EC2 launch defaults for the instance apply. For more information about instance metadata options, see one of the following links:</p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <i> <i>Amazon EC2 User Guide</i> </i> for Linux instances.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <i> <i>Amazon EC2 Windows Guide</i> </i> for Windows instances.</p> </li> </ul>
             tags: <p>The metadata tags to assign to the infrastructure configuration resource that Image Builder creates as output. Tags are formatted as key value pairs.</p>
             placement: <p>The instance placement settings that define where the build and test instances that Image Builder launches during image creation run. These settings don't affect instances that you launch from the output image.</p>
-            parent_instance: <p>The Amazon EC2 Auto Scaling group that Image Builder takes the build instance from, instead of launching a new instance. This applies only to the build phase.</p> <p>To use this feature, the execution role for the build must have permissions to describe the Auto Scaling group, tag the instance while it's still in the group, and detach it from the group. For more information, see <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/infra-config-parent-instance.html">Build on an instance from an Auto Scaling group</a> in the <i>EC2 Image Builder User Guide</i>.</p>
             client_token: <p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>
             dry_run: <p>Validates the required permissions and request parameters without performing the operation. If validation succeeds, the operation returns a <code>DryRunOperationException</code> error response.</p>
 
@@ -1395,10 +1386,6 @@ class imagebuilderClient:
             input_["key_pair"] = key_pair
         if terminate_instance_on_failure is not None:
             input_["terminate_instance_on_failure"] = terminate_instance_on_failure
-        if terminate_instance_on_completion is not None:
-            input_["terminate_instance_on_completion"] = (
-                terminate_instance_on_completion
-            )
         if sns_topic_arn is not None:
             input_["sns_topic_arn"] = sns_topic_arn
         if resource_tags is not None:
@@ -1409,8 +1396,6 @@ class imagebuilderClient:
             input_["tags"] = tags
         if placement is not None:
             input_["placement"] = placement
-        if parent_instance is not None:
-            input_["parent_instance"] = parent_instance
         if dry_run is not None:
             input_["dry_run"] = dry_run
 
@@ -6520,9 +6505,6 @@ class imagebuilderClient:
         terminate_instance_on_failure: Optional[
             "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
         ] = None,
-        terminate_instance_on_completion: Optional[
-            "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
-        ] = None,
         sns_topic_arn: Optional[
             "capo_imagebuilder.types.sns_topic_arn.SnsTopicArn"
         ] = None,
@@ -6533,9 +6515,6 @@ class imagebuilderClient:
             "capo_imagebuilder.types.instance_metadata_options.InstanceMetadataOptions"
         ] = None,
         placement: Optional["capo_imagebuilder.types.placement.Placement"] = None,
-        parent_instance: Optional[
-            "capo_imagebuilder.types.parent_instance_configuration.ParentInstanceConfiguration"
-        ] = None,
     ) -> "capo_imagebuilder.types.update_infrastructure_configuration_response.UpdateInfrastructureConfigurationResponse":
         """<p>Updates an infrastructure configuration. An infrastructure configuration defines the environment in which Image Builder builds and tests your image.</p> <note> <p>This operation doesn't support selective updates. The request replaces the configuration, so include every setting that you want to keep. Omitted optional properties are cleared.</p> </note>
 
@@ -6549,12 +6528,10 @@ class imagebuilderClient:
             logging: <p>The logging configuration of the infrastructure configuration. When you configure S3 logs, Image Builder writes logs from the build and test process to the specified bucket under the key prefix.</p>
             key_pair: <p>The key pair of the infrastructure configuration. You can use this to log on to and debug the instance used to create your image.</p>
             terminate_instance_on_failure: <p>Specifies whether to terminate the instance on failure. Set to false if you want Image Builder to retain the instance used to configure your AMI if the build or test phase of your workflow fails. Defaults to <code>true</code>.</p>
-            terminate_instance_on_completion: <p>Specifies whether Image Builder terminates build and test instances when image creation ends without a failure (success, cancellation, or expiration). Defaults to <code>true</code>.</p>
             sns_topic_arn: <p>The Amazon Resource Name (ARN) of the SNS topic to which Image Builder sends image build event notifications. Specify a standard topic. Image Builder doesn't support FIFO topics. Image Builder validates the topic when you create or update the configuration. You must have permission to publish to the topic.</p> <note> <p>EC2 Image Builder can't send notifications to SNS topics that are encrypted using keys from other accounts. If your SNS topic is encrypted, the key must be owned by the same account that owns your Image Builder resources.</p> </note>
             resource_tags: <p>The metadata tags to assign to the Amazon EC2 instance that Image Builder launches during the build process. Tags are formatted as key value pairs. Tag keys can't begin with <code>aws:</code> or match one of the following reserved keys: <code>CreatedBy</code>, <code>Ec2ImageBuilderArn</code>, <code>Name</code>, or <code>Tags</code>.</p>
             instance_metadata_options: <p>The instance metadata service (IMDS) settings that Image Builder applies to the EC2 build and test instances it launches during image creation. If you don't set these options, the EC2 launch defaults for the instance apply. For more information about instance metadata options, see one of the following links:</p> <ul> <li> <p> <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <i> <i>Amazon EC2 User Guide</i> </i> for Linux instances.</p> </li> <li> <p> <a href="https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/configuring-instance-metadata-options.html">Configure the instance metadata options</a> in the <i> <i>Amazon EC2 Windows Guide</i> </i> for Windows instances.</p> </li> </ul>
             placement: <p>The instance placement settings that define where the build and test instances that Image Builder launches during image creation run. These settings don't affect instances that you launch from the output image.</p>
-            parent_instance: <p>The Amazon EC2 Auto Scaling group that Image Builder takes the build instance from, instead of launching a new instance. This applies only to the build phase.</p> <p>To use this feature, the execution role for the build must have permissions to describe the Auto Scaling group, tag the instance while it's still in the group, and detach it from the group. For more information, see <a href="https://docs.aws.amazon.com/imagebuilder/latest/userguide/infra-config-parent-instance.html">Build on an instance from an Auto Scaling group</a> in the <i>EC2 Image Builder User Guide</i>.</p>
             client_token: <p>A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring idempotency</a> in the <i>Amazon EC2 API Reference</i>.</p>
 
         Raises:
@@ -6611,10 +6588,6 @@ class imagebuilderClient:
             input_["key_pair"] = key_pair
         if terminate_instance_on_failure is not None:
             input_["terminate_instance_on_failure"] = terminate_instance_on_failure
-        if terminate_instance_on_completion is not None:
-            input_["terminate_instance_on_completion"] = (
-                terminate_instance_on_completion
-            )
         if sns_topic_arn is not None:
             input_["sns_topic_arn"] = sns_topic_arn
         if resource_tags is not None:
@@ -6623,8 +6596,6 @@ class imagebuilderClient:
             input_["instance_metadata_options"] = instance_metadata_options
         if placement is not None:
             input_["placement"] = placement
-        if parent_instance is not None:
-            input_["parent_instance"] = parent_instance
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

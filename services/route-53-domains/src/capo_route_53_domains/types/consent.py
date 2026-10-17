@@ -7,15 +7,15 @@ from typing_extensions import TypedDict
 from capo_route_53_domains.errors import DeserializationError
 
 if TYPE_CHECKING:
-    import capo_route_53_domains.types.consent_price
     import capo_route_53_domains.types.currency
+    import capo_route_53_domains.types.price
 
 
 class Consent(TypedDict, closed=True):
-    max_price: "capo_route_53_domains.types.consent_price.ConsentPrice"
-    """<p> The maximum amount that you agree to accept. </p>"""
+    max_price: "capo_route_53_domains.types.price.Price"
+    """<p> Maximum amount the customer agreed to accept. </p>"""
     currency: "capo_route_53_domains.types.currency.Currency"
-    """<p> The currency for the <code>MaxPrice</code>. </p>"""
+    """<p> Currency for the <code>MaxPrice</code>. </p>"""
 
 
 # --- awsJson1_1 ser/de ---

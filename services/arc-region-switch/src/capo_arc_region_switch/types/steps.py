@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#Steps``."""
 
-from typing import TYPE_CHECKING, Any, TypeAlias
+from typing import TYPE_CHECKING, TypeAlias
 
 if TYPE_CHECKING:
     import capo_arc_region_switch.types.step
@@ -27,9 +27,3 @@ def deserialize_aws_json_1_0(data: list) -> Steps:
             continue
         out.append(capo_arc_region_switch.types.step.deserialize_aws_json_1_0(item))
     return out
-
-
-def redact_sensitive(value: Steps) -> list[Any]:
-    import capo_arc_region_switch.types.step
-
-    return [capo_arc_region_switch.types.step.redact_sensitive(item) for item in value]

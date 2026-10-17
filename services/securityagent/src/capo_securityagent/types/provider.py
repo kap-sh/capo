@@ -9,7 +9,6 @@ Provider: TypeAlias = Literal[
     "BITBUCKET",
     "CONFLUENCE",
     "AZURE_DEVOPS",
-    "JIRA",
 ]
 
 

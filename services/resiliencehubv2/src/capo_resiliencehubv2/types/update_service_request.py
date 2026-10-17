@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.arn
     import capo_resiliencehubv2.types.associated_system_list
     import capo_resiliencehubv2.types.dependency_discovery_input
-    import capo_resiliencehubv2.types.dev_ops_agent_configuration
     import capo_resiliencehubv2.types.long_description
     import capo_resiliencehubv2.types.permission_model
     import capo_resiliencehubv2.types.region_list
@@ -39,10 +38,6 @@ class UpdateServiceRequest(TypedDict, closed=True):
     report_configuration: NotRequired[
         "capo_resiliencehubv2.types.service_report_configuration.ServiceReportConfiguration"
     ]
-    dev_ops_agent_configuration: NotRequired[
-        "capo_resiliencehubv2.types.dev_ops_agent_configuration.DevOpsAgentConfiguration"
-    ]
-    """<p>The optional DevOps Agent integration configuration to set, replace, or disconnect for the service. If you omit this field, the existing DevOps Agent linkage stays unchanged.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -89,14 +84,6 @@ def serialize_json(value: UpdateServiceRequest) -> dict:
         out["reportConfiguration"] = (
             capo_resiliencehubv2.types.service_report_configuration.serialize_json(
                 value["report_configuration"]
-            )
-        )
-    if "dev_ops_agent_configuration" in value:
-        import capo_resiliencehubv2.types.dev_ops_agent_configuration
-
-        out["devOpsAgentConfiguration"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_configuration.serialize_json(
-                value["dev_ops_agent_configuration"]
             )
         )
     return out
@@ -148,14 +135,6 @@ def deserialize_json(data: dict) -> UpdateServiceRequest:
         out["report_configuration"] = (
             capo_resiliencehubv2.types.service_report_configuration.deserialize_json(
                 data["reportConfiguration"]
-            )
-        )
-    if data.get("devOpsAgentConfiguration") is not None:
-        import capo_resiliencehubv2.types.dev_ops_agent_configuration
-
-        out["dev_ops_agent_configuration"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_configuration.deserialize_json(
-                data["devOpsAgentConfiguration"]
             )
         )
     return out

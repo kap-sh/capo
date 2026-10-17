@@ -76,7 +76,7 @@ class CapacityProviderResource:
             "capo_lambda.types.capacity_provider_telemetry_config.CapacityProviderTelemetryConfig"
         ] = None,
     ) -> "capo_lambda.types.create_capacity_provider_response.CreateCapacityProviderResponse":
-        """<p>Creates a capacity provider that manages compute resources for Lambda Event Functions</p>
+        """<p>Creates a capacity provider that manages compute resources for Lambda functions</p>
 
         Args:
             capacity_provider_name: <p>The name of the capacity provider. </p>
@@ -454,7 +454,7 @@ class AsyncCapacityProviderResource:
             "capo_lambda.types.capacity_provider_telemetry_config.CapacityProviderTelemetryConfig"
         ] = None,
     ) -> "capo_lambda.types.create_capacity_provider_response.CreateCapacityProviderResponse":
-        """<p>Creates a capacity provider that manages compute resources for Lambda Event Functions</p>
+        """<p>Creates a capacity provider that manages compute resources for Lambda functions</p>
 
         Args:
             capacity_provider_name: <p>The name of the capacity provider. </p>

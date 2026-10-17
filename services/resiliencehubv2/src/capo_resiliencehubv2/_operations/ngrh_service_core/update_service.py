@@ -19,7 +19,6 @@ import capo_resiliencehubv2.errors.service_quota_exceeded_exception
 import capo_resiliencehubv2.errors.validation_exception
 import capo_resiliencehubv2.types.associated_system_list
 import capo_resiliencehubv2.types.dependency_discovery_input
-import capo_resiliencehubv2.types.dev_ops_agent_configuration
 import capo_resiliencehubv2.types.permission_model
 import capo_resiliencehubv2.types.region_list
 import capo_resiliencehubv2.types.service

@@ -7,7 +7,6 @@ ShardIteratorType: TypeAlias = Literal[
     "LATEST",
     "AT_SEQUENCE_NUMBER",
     "AFTER_SEQUENCE_NUMBER",
-    "AT_TIMESTAMP",
 ]
 
 

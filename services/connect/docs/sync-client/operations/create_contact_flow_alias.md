@@ -1,7 +1,0 @@
----
-title: create_contact_flow_alias
----
-
-::: capo_connect._services.connect.ConnectClient.create_contact_flow_alias
-    options:
-      show_source: true

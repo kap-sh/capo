@@ -19,7 +19,6 @@ ResourceGroupByField: TypeAlias = Literal[
     "DiscoveryType",
     "ResourceInfo.AIDetails.HostResourceType",
     "ResourceInfo.AIDetails.CanonicalId",
-    "ResourceCriticality",
 ]
 
 

@@ -15,7 +15,7 @@ class NetworkConnectorLimitExceededException_(TypedDict, closed=True):
     type: NotRequired["capo_lambda_core.types.string.String"]
     """<p>The exception type.</p>"""
     message: NotRequired["capo_lambda_core.types.string.String"]
-    """<p>The account has reached the maximum number of network connectors allowed.</p>"""
+    """<p>A human-readable description of the error.</p>"""
 
 
 # --- restJson1 ser/de ---

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from typing_extensions import NotRequired, TypedDict
 
 if TYPE_CHECKING:
-    import capo_devops_agent.types.included_data
     import capo_devops_agent.types.next_token
 
 
@@ -14,8 +13,6 @@ class ListAgentSpacesInput(TypedDict, closed=True):
     """<p>Maximum number of results to return in a single call.</p>"""
     next_token: NotRequired["capo_devops_agent.types.next_token.NextToken"]
     """<p>Token for the next page of results.</p>"""
-    included_data: NotRequired["capo_devops_agent.types.included_data.IncludedData"]
-    """<p>How much data to include in the response.</p>"""
 
 
 # --- restJson1 ser/de ---

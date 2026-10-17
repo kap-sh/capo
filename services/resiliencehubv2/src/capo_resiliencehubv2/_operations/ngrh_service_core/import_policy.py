@@ -15,7 +15,6 @@ import capo_resiliencehubv2.errors.access_denied_exception
 import capo_resiliencehubv2.errors.conflict_exception
 import capo_resiliencehubv2.errors.internal_server_exception
 import capo_resiliencehubv2.errors.resource_not_found_exception
-import capo_resiliencehubv2.errors.service_quota_exceeded_exception
 import capo_resiliencehubv2.errors.validation_exception
 import capo_resiliencehubv2.types.availability_slo
 import capo_resiliencehubv2.types.import_policy_request
@@ -52,10 +51,6 @@ def handle_error(response: zapros.Response) -> Never:
             )
         case "ResourceNotFoundException":
             raise capo_resiliencehubv2.errors.resource_not_found_exception.ResourceNotFoundException.from_json(
-                data, message, response=response
-            )
-        case "ServiceQuotaExceededException":
-            raise capo_resiliencehubv2.errors.service_quota_exceeded_exception.ServiceQuotaExceededException.from_json(
                 data, message, response=response
             )
         case "ValidationException":

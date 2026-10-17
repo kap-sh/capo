@@ -36,9 +36,3 @@ title: IntegratedResourceMetadata
       show_source: true
       merge_init_into_class: false
       heading_level: 2
-
-::: capo_securityagent.types.integrated_resource_metadata._IntegratedResourceMetadata_jiraProject
-    options:
-      show_source: true
-      merge_init_into_class: false
-      heading_level: 2

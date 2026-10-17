@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     import capo_devops_agent.types.mcp_server_api_key_config
     import capo_devops_agent.types.mcp_server_authorization_discovery_config
     import capo_devops_agent.types.mcp_server_bearer_token_config
-    import capo_devops_agent.types.mcp_server_custom_headers_config
     import capo_devops_agent.types.mcp_server_o_auth3_lo_config
     import capo_devops_agent.types.mcp_server_o_auth_client_credentials_config
 
@@ -33,10 +32,6 @@ class _MCPServerAuthorizationConfig_bearerToken(TypedDict, closed=True):
     bearerToken: "capo_devops_agent.types.mcp_server_bearer_token_config.MCPServerBearerTokenConfig"
 
 
-class _MCPServerAuthorizationConfig_customHeaders(TypedDict, closed=True):
-    customHeaders: "capo_devops_agent.types.mcp_server_custom_headers_config.MCPServerCustomHeadersConfig"
-
-
 class _MCPServerAuthorizationConfig_authorizationDiscovery(TypedDict, closed=True):
     authorizationDiscovery: "capo_devops_agent.types.mcp_server_authorization_discovery_config.MCPServerAuthorizationDiscoveryConfig"
 
@@ -46,7 +41,6 @@ MCPServerAuthorizationConfig: TypeAlias = (
     | _MCPServerAuthorizationConfig_oAuth3LO
     | _MCPServerAuthorizationConfig_apiKey
     | _MCPServerAuthorizationConfig_bearerToken
-    | _MCPServerAuthorizationConfig_customHeaders
     | _MCPServerAuthorizationConfig_authorizationDiscovery
 )
 
@@ -83,14 +77,6 @@ def serialize_json(value: MCPServerAuthorizationConfig) -> dict:
         return {
             "bearerToken": capo_devops_agent.types.mcp_server_bearer_token_config.serialize_json(
                 value["bearerToken"]
-            )
-        }
-    elif "customHeaders" in value:
-        import capo_devops_agent.types.mcp_server_custom_headers_config
-
-        return {
-            "customHeaders": capo_devops_agent.types.mcp_server_custom_headers_config.serialize_json(
-                value["customHeaders"]
             )
         }
     elif "authorizationDiscovery" in value:
@@ -136,14 +122,6 @@ def deserialize_json(data: dict) -> MCPServerAuthorizationConfig:
         return {
             "bearerToken": capo_devops_agent.types.mcp_server_bearer_token_config.deserialize_json(
                 data["bearerToken"]
-            )
-        }
-    elif data.get("customHeaders") is not None:
-        import capo_devops_agent.types.mcp_server_custom_headers_config
-
-        return {
-            "customHeaders": capo_devops_agent.types.mcp_server_custom_headers_config.deserialize_json(
-                data["customHeaders"]
             )
         }
     elif data.get("authorizationDiscovery") is not None:
@@ -192,14 +170,6 @@ def redact_sensitive(value: MCPServerAuthorizationConfig) -> dict[str, Any]:
         out["bearerToken"] = (
             capo_devops_agent.types.mcp_server_bearer_token_config.redact_sensitive(
                 value["bearerToken"]
-            )
-        )
-    if "customHeaders" in value:
-        import capo_devops_agent.types.mcp_server_custom_headers_config
-
-        out["customHeaders"] = (
-            capo_devops_agent.types.mcp_server_custom_headers_config.redact_sensitive(
-                value["customHeaders"]
             )
         )
     return out

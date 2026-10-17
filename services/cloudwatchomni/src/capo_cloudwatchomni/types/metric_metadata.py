@@ -12,6 +12,8 @@ if TYPE_CHECKING:
 class MetricMetadata(TypedDict, closed=True):
     name: NotRequired["str"]
     """The metric name as emitted, such as "Duration"."""
+    namespace: NotRequired["str"]
+    """DEPRECATED: read attributes["service.namespace"] instead. Retained (deprecated) for backward compatibility with existing consumers; will be removed once they migrate. The logical service grouping the metric belongs to."""
     preferred_stat: NotRequired["str"]
     """The statistic to chart or alarm on, such as "p99" or "Sum". Free-form and frequently absent."""
     metric_type: NotRequired["str"]
@@ -19,7 +21,7 @@ class MetricMetadata(TypedDict, closed=True):
     attributes: NotRequired[
         "capo_cloudwatchomni.types.metadata_attribute_map.MetadataAttributeMap"
     ]
-    """Per-metric qualifying attributes used to query this metric's telemetry. Keys are the metric store's own label names, not bare OTel attribute names: service identity arrives as "@resource.service.name" and "@resource.service.namespace", and the instrumentation scope as "@instrumentation.@name", while span-derived metrics label the service as a bare "service.name". Cloud provider, account and region are not repeated per metric — read those from the node. Values are RAW, deliberately NOT the node's normalized or merged identity, so a selector built from them matches the emitted series. A merged node can carry different values per metric, which is why these live here rather than on the node."""
+    """Per-metric qualifying attributes the console uses to query this metric's telemetry. These are the RAW, store-matching values keyed by their OTel names ("service.name", "service.namespace", "cloud.provider", "cloud.account.id", "cloud.region", "instrumentation_scope") — deliberately NOT the node's normalized/merged identity, so the query selectors match the emitted series. A merged node can carry different values per metric, which is why they live here rather than on the node."""
     semantics: NotRequired["capo_cloudwatchomni.types.metric_semantics.MetricSemantics"]
     """What the metric means and the unit it is reported in."""
 
@@ -29,6 +31,8 @@ def serialize_cbor(value: MetricMetadata) -> dict:
     out: dict = {}
     if "name" in value:
         out["name"] = value["name"]
+    if "namespace" in value:
+        out["namespace"] = value["namespace"]
     if "preferred_stat" in value:
         out["preferredStat"] = value["preferred_stat"]
     if "metric_type" in value:
@@ -54,6 +58,8 @@ def deserialize_cbor(data: dict) -> MetricMetadata:
     out: MetricMetadata = {}  # type: ignore[typeddict-item]
     if data.get("name") is not None:
         out["name"] = data["name"]
+    if data.get("namespace") is not None:
+        out["namespace"] = data["namespace"]
     if data.get("preferredStat") is not None:
         out["preferred_stat"] = data["preferredStat"]
     if data.get("metricType") is not None:

@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     import capo_datasync.types.gid
     import capo_datasync.types.log_level
     import capo_datasync.types.mtime
-    import capo_datasync.types.object_metadata
     import capo_datasync.types.object_tags
     import capo_datasync.types.overwrite_mode
     import capo_datasync.types.posix_permissions
@@ -62,8 +61,6 @@ class Options(TypedDict, closed=True):
     """<p>Specifies which components of the SMB security descriptor are copied from source to destination objects. </p> <p>This value is only used for transfers between SMB and Amazon FSx for Windows File Server locations or between two FSx for Windows File Server locations. For more information, see <a href="https://docs.aws.amazon.com/datasync/latest/userguide/metadata-copied.html">Understanding how DataSync handles file and object metadata</a>.</p> <ul> <li> <p> <code>OWNER_DACL</code> (default) - For each copied object, DataSync copies the following metadata:</p> <ul> <li> <p>The object owner.</p> </li> <li> <p>NTFS discretionary access control lists (DACLs), which determine whether to grant access to an object.</p> <p>DataSync won't copy NTFS system access control lists (SACLs) with this option.</p> </li> </ul> </li> <li> <p> <code>OWNER_DACL_SACL</code> - For each copied object, DataSync copies the following metadata:</p> <ul> <li> <p>The object owner.</p> </li> <li> <p>NTFS discretionary access control lists (DACLs), which determine whether to grant access to an object.</p> </li> <li> <p>SACLs, which are used by administrators to log attempts to access a secured object.</p> <p>Copying SACLs requires granting additional permissions to the Windows user that DataSync uses to access your SMB location. For information about choosing a user with the right permissions, see required permissions for <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-smb-location.html#configuring-smb-permissions">SMB</a>, <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-fsx-location.html#create-fsx-windows-location-permissions">FSx for Windows File Server</a>, or <a href="https://docs.aws.amazon.com/datasync/latest/userguide/create-ontap-location.html#create-ontap-location-smb">FSx for ONTAP</a> (depending on the type of location in your transfer).</p> </li> </ul> </li> <li> <p> <code>NONE</code> - None of the SMB security descriptor components are copied. Destination objects are owned by the user that was provided for accessing the destination location. DACLs and SACLs are set based on the destination server’s configuration. </p> </li> </ul>"""
     object_tags: NotRequired["capo_datasync.types.object_tags.ObjectTags"]
     """<p>Specifies whether you want DataSync to <code>PRESERVE</code> object tags (default behavior) when transferring between object storage systems. If you want your DataSync task to ignore object tags, specify the <code>NONE</code> value.</p>"""
-    object_metadata: NotRequired["capo_datasync.types.object_metadata.ObjectMetadata"]
-    """<p>Specifies whether you want DataSync to <code>PRESERVE</code> object metadata (default behavior) when transferring between object storage systems. If you want your DataSync task to ignore object metadata, specify the <code>NONE</code> value.</p> <note> <p>Even if you specify <code>NONE</code>, metadata for the last modified time is still preserved.</p> </note>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -156,14 +153,6 @@ def serialize_aws_json_1_1(value: Options) -> dict:
 
         out["ObjectTags"] = capo_datasync.types.object_tags.serialize_aws_json_1_1(
             value["object_tags"]
-        )
-    if "object_metadata" in value:
-        import capo_datasync.types.object_metadata
-
-        out["ObjectMetadata"] = (
-            capo_datasync.types.object_metadata.serialize_aws_json_1_1(
-                value["object_metadata"]
-            )
         )
     return out
 
@@ -261,13 +250,5 @@ def deserialize_aws_json_1_1(data: dict) -> Options:
 
         out["object_tags"] = capo_datasync.types.object_tags.deserialize_aws_json_1_1(
             data["ObjectTags"]
-        )
-    if data.get("ObjectMetadata") is not None:
-        import capo_datasync.types.object_metadata
-
-        out["object_metadata"] = (
-            capo_datasync.types.object_metadata.deserialize_aws_json_1_1(
-                data["ObjectMetadata"]
-            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#CustomActionLambdaConfiguration``."""
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,16 +104,5 @@ def deserialize_aws_json_1_0(data: dict) -> CustomActionLambdaConfiguration:
             capo_arc_region_switch.types.lambda_ungraceful.deserialize_aws_json_1_0(
                 data["ungraceful"]
             )
-        )
-    return out
-
-
-def redact_sensitive(value: CustomActionLambdaConfiguration) -> dict[str, Any]:
-    out: dict[str, Any] = dict(value)
-    if "lambdas" in value:
-        import capo_arc_region_switch.types.lambda_list
-
-        out["lambdas"] = capo_arc_region_switch.types.lambda_list.redact_sensitive(
-            value["lambdas"]
         )
     return out

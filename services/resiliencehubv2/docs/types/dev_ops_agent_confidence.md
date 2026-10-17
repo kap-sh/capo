@@ -1,8 +1,0 @@
----
-title: DevOpsAgentConfidence
----
-
-::: capo_resiliencehubv2.types.dev_ops_agent_confidence.DevOpsAgentConfidence
-    options:
-      show_source: true
-      merge_init_into_class: false

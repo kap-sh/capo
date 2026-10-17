@@ -22,7 +22,7 @@ class HarnessManagedMemoryConfiguration(TypedDict, closed=True):
     encryption_key_arn: NotRequired[
         "capo_bedrock_agentcore_control.types.kms_key_arn.KmsKeyArn"
     ]
-    """<p>Customer-managed KMS key. Defaults to Amazon Web Services-owned key. Not updatable after creation.</p>"""
+    """<p>Customer-managed KMS key. Defaults to AWS-owned key. Not updatable after creation.</p>"""
 
 
 # --- restJson1 ser/de ---

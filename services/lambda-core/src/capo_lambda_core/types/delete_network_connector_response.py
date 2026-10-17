@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_name
     import capo_lambda_core.types.network_connector_role_arn
     import capo_lambda_core.types.network_connector_state
-    import capo_lambda_core.types.network_connector_version
 
 
 class DeleteNetworkConnectorResponse(TypedDict, closed=True):
@@ -22,15 +21,6 @@ class DeleteNetworkConnectorResponse(TypedDict, closed=True):
     name: "capo_lambda_core.types.network_connector_name.NetworkConnectorName"
     """<p>The name of the network connector.</p>"""
     id: "capo_lambda_core.types.network_connector_id.NetworkConnectorId"
-    """<p>The unique identifier of the network connector.</p>"""
-    version_arn: NotRequired[
-        "capo_lambda_core.types.network_connector_arn.NetworkConnectorArn"
-    ]
-    """<p>The qualified ARN of the connector version affected by this request, including the immutable version suffix.</p>"""
-    version: NotRequired[
-        "capo_lambda_core.types.network_connector_version.NetworkConnectorVersion"
-    ]
-    """<p>The version number of the connector version affected by this request.</p>"""
     configuration: NotRequired[
         "capo_lambda_core.types.network_connector_configuration.NetworkConnectorConfiguration"
     ]
@@ -51,10 +41,6 @@ def serialize_json(value: DeleteNetworkConnectorResponse) -> dict:
     out["Arn"] = value["arn"]
     out["Name"] = value["name"]
     out["Id"] = value["id"]
-    if "version_arn" in value:
-        out["VersionArn"] = value["version_arn"]
-    if "version" in value:
-        out["Version"] = value["version"]
     if "configuration" in value:
         import capo_lambda_core.types.network_connector_configuration
 
@@ -88,10 +74,6 @@ def deserialize_json(data: dict) -> DeleteNetworkConnectorResponse:
         out["id"] = data["Id"]
     else:
         raise DeserializationError("DeleteNetworkConnectorResponse.id required")
-    if data.get("VersionArn") is not None:
-        out["version_arn"] = data["VersionArn"]
-    if data.get("Version") is not None:
-        out["version"] = data["Version"]
     if data.get("Configuration") is not None:
         import capo_lambda_core.types.network_connector_configuration
 

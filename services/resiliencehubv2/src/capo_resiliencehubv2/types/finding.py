@@ -61,8 +61,6 @@ class Finding(TypedDict, closed=True):
     """<p>Testing recommendations to address the finding.</p>"""
     updated_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the finding was last updated.</p>"""
-    investigation_deep_link: NotRequired["str"]
-    """<p>A deep link to an interactive DevOps Agent investigation seeded with this finding. This value is null until DevOps Agent creates an investigation.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -144,8 +142,6 @@ def serialize_json(value: Finding) -> dict:
         out["updatedAt"] = capo_resiliencehubv2.types._prelude.timestamp.serialize_json(
             value["updated_at"]
         )
-    if "investigation_deep_link" in value:
-        out["investigationDeepLink"] = value["investigation_deep_link"]
     return out
 
 
@@ -229,6 +225,4 @@ def deserialize_json(data: dict) -> Finding:
                 data["updatedAt"]
             )
         )
-    if data.get("investigationDeepLink") is not None:
-        out["investigation_deep_link"] = data["investigationDeepLink"]
     return out

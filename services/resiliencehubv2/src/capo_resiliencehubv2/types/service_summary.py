@@ -15,8 +15,6 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.assessment_status
     import capo_resiliencehubv2.types.associated_system_list
     import capo_resiliencehubv2.types.dependency_discovery_config
-    import capo_resiliencehubv2.types.dev_ops_agent_connection_status
-    import capo_resiliencehubv2.types.dev_ops_agent_space_arn
     import capo_resiliencehubv2.types.entity_name
     import capo_resiliencehubv2.types.organization_id
     import capo_resiliencehubv2.types.ou_id
@@ -37,14 +35,6 @@ class ServiceSummary(TypedDict, closed=True):
         "capo_resiliencehubv2.types.assessment_status.AssessmentStatus"
     ]
     """<p>The current assessment status of the service.</p>"""
-    dev_ops_agent_status: NotRequired[
-        "capo_resiliencehubv2.types.dev_ops_agent_connection_status.DevOpsAgentConnectionStatus"
-    ]
-    """<p>The DevOps Agent connection status for the service. Valid values:</p> <ul> <li> <p>CONNECTING - The service is being connected to the Agent Space.</p> </li> <li> <p>CONNECTED - The service is connected to the Agent Space.</p> </li> <li> <p>DISCONNECTED - The service is not connected to an Agent Space.</p> </li> <li> <p>FAILED - The connection attempt failed.</p> </li> </ul>"""
-    dev_ops_agent_space_arn: NotRequired[
-        "capo_resiliencehubv2.types.dev_ops_agent_space_arn.DevOpsAgentSpaceArn"
-    ]
-    """<p>The ARN of the DevOps Agent Agent Space linked to the service, when the service is linked to one.</p>"""
     open_findings_count: NotRequired["int"]
     """<p>The number of open findings.</p>"""
     resolved_findings_count: NotRequired["int"]
@@ -98,16 +88,6 @@ def serialize_json(value: ServiceSummary) -> dict:
                 value["assessment_status"]
             )
         )
-    if "dev_ops_agent_status" in value:
-        import capo_resiliencehubv2.types.dev_ops_agent_connection_status
-
-        out["devOpsAgentStatus"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_connection_status.serialize_json(
-                value["dev_ops_agent_status"]
-            )
-        )
-    if "dev_ops_agent_space_arn" in value:
-        out["devOpsAgentSpaceArn"] = value["dev_ops_agent_space_arn"]
     if "open_findings_count" in value:
         out["openFindingsCount"] = value["open_findings_count"]
     if "resolved_findings_count" in value:
@@ -181,16 +161,6 @@ def deserialize_json(data: dict) -> ServiceSummary:
                 data["assessmentStatus"]
             )
         )
-    if data.get("devOpsAgentStatus") is not None:
-        import capo_resiliencehubv2.types.dev_ops_agent_connection_status
-
-        out["dev_ops_agent_status"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_connection_status.deserialize_json(
-                data["devOpsAgentStatus"]
-            )
-        )
-    if data.get("devOpsAgentSpaceArn") is not None:
-        out["dev_ops_agent_space_arn"] = data["devOpsAgentSpaceArn"]
     if data.get("openFindingsCount") is not None:
         out["open_findings_count"] = data["openFindingsCount"]
     if data.get("resolvedFindingsCount") is not None:

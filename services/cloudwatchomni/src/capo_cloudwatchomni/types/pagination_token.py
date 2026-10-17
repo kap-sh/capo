@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""Pagination token for the context graph."""
+"""Pagination token for context graph and insights."""
 PaginationToken: TypeAlias = str

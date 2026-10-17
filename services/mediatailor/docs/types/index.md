@@ -143,7 +143,6 @@
 - [HttpPackageConfiguration](http_package_configuration.md)
 - [HttpPackageConfigurations](http_package_configurations.md)
 - [HttpRequest](http_request.md)
-- [HttpRequestCacheConfiguration](http_request_cache_configuration.md)
 - [HttpRequestConfiguration](http_request_configuration.md)
 - [InsertionMode](insertion_mode.md)
 - [KeyValuePair](key_value_pair.md)

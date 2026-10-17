@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     import capo_transfer.types.endpoint_details
     import capo_transfer.types.endpoint_type
     import capo_transfer.types.host_key
-    import capo_transfer.types.host_key_storage_type
     import capo_transfer.types.identity_provider_details
     import capo_transfer.types.identity_provider_type
     import capo_transfer.types.ip_address_type
@@ -83,10 +82,6 @@ class CreateServerRequest(TypedDict, closed=True):
     """<p>Specifies whether or not performance for your Amazon S3 directories is optimized.</p> <ul> <li> <p>If using the console, this is enabled by default.</p> </li> <li> <p>If using the API or CLI, this is disabled by default.</p> </li> </ul> <p>By default, home directory mappings have a <code>TYPE</code> of <code>DIRECTORY</code>. If you enable this option, you would then need to explicitly set the <code>HomeDirectoryMapEntry</code> <code>Type</code> to <code>FILE</code> if you want a mapping to have a file target.</p>"""
     ip_address_type: NotRequired["capo_transfer.types.ip_address_type.IpAddressType"]
     """<p>Specifies whether to use IPv4 only, or to use dual-stack (IPv4 and IPv6) for your Transfer Family endpoint. The default value is <code>IPV4</code>.</p> <important> <p>The <code>IpAddressType</code> parameter has the following limitations:</p> <ul> <li> <p>It cannot be changed while the server is online. You must stop the server before modifying this parameter.</p> </li> <li> <p>It cannot be updated to <code>DUALSTACK</code> if the server has <code>AddressAllocationIds</code> specified.</p> </li> </ul> </important> <note> <p>When using <code>DUALSTACK</code> as the <code>IpAddressType</code>, you cannot set the <code>AddressAllocationIds</code> parameter for the <a href="https://docs.aws.amazon.com/transfer/latest/APIReference/API_EndpointDetails.html">EndpointDetails</a> for the server.</p> </note>"""
-    host_key_storage_type: NotRequired[
-        "capo_transfer.types.host_key_storage_type.HostKeyStorageType"
-    ]
-    """<p>Specifies whether the host key is stored by Transfer Family (<code>SERVICE_MANAGED</code>) or in Secrets Manager (<code>SECRETS_MANAGER</code>). When you specify <code>SECRETS_MANAGER</code>, Transfer Family stores the private host key material in an Secrets Manager secret.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -188,14 +183,6 @@ def serialize_aws_json_1_1(value: CreateServerRequest) -> dict:
         out["IpAddressType"] = (
             capo_transfer.types.ip_address_type.serialize_aws_json_1_1(
                 value["ip_address_type"]
-            )
-        )
-    if "host_key_storage_type" in value:
-        import capo_transfer.types.host_key_storage_type
-
-        out["HostKeyStorageType"] = (
-            capo_transfer.types.host_key_storage_type.serialize_aws_json_1_1(
-                value["host_key_storage_type"]
             )
         )
     return out
@@ -301,14 +288,6 @@ def deserialize_aws_json_1_1(data: dict) -> CreateServerRequest:
         out["ip_address_type"] = (
             capo_transfer.types.ip_address_type.deserialize_aws_json_1_1(
                 data["IpAddressType"]
-            )
-        )
-    if data.get("HostKeyStorageType") is not None:
-        import capo_transfer.types.host_key_storage_type
-
-        out["host_key_storage_type"] = (
-            capo_transfer.types.host_key_storage_type.deserialize_aws_json_1_1(
-                data["HostKeyStorageType"]
             )
         )
     return out

@@ -13,8 +13,6 @@ class TransportMediaInfo(TypedDict, closed=True):
         "capo_mediaconnect.types.__list_of_transport_stream_program.__listOfTransportStreamProgram"
     ]
     """<p> The list of transport stream programs in the current flow's source.</p>"""
-    ts_id: NotRequired["int"]
-    """<p>The transport stream ID (TSID) of the source, from the Program Association Table (PAT).</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -28,8 +26,6 @@ def serialize_json(value: TransportMediaInfo) -> dict:
                 value["programs"]
             )
         )
-    if "ts_id" in value:
-        out["tsId"] = value["ts_id"]
     return out
 
 
@@ -43,6 +39,4 @@ def deserialize_json(data: dict) -> TransportMediaInfo:
                 data["programs"]
             )
         )
-    if data.get("tsId") is not None:
-        out["ts_id"] = data["tsId"]
     return out

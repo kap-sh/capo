@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     import capo_imagebuilder.types.logging
     import capo_imagebuilder.types.non_empty_string
     import capo_imagebuilder.types.nullable_boolean
-    import capo_imagebuilder.types.parent_instance_configuration
     import capo_imagebuilder.types.placement
     import capo_imagebuilder.types.resource_name
     import capo_imagebuilder.types.resource_tag_map
@@ -70,14 +69,6 @@ class InfrastructureConfiguration(TypedDict, closed=True):
     """<p>The tags of the infrastructure configuration.</p>"""
     placement: NotRequired["capo_imagebuilder.types.placement.Placement"]
     """<p>The instance placement settings that define where the build and test instances that Image Builder launches during image creation run. These settings don't affect instances that you launch from the output image.</p>"""
-    terminate_instance_on_completion: NotRequired[
-        "capo_imagebuilder.types.nullable_boolean.NullableBoolean"
-    ]
-    """<p>Specifies whether Image Builder terminates build and test instances when image creation ends without a failure.</p>"""
-    parent_instance: NotRequired[
-        "capo_imagebuilder.types.parent_instance_configuration.ParentInstanceConfiguration"
-    ]
-    """<p>The Amazon EC2 Auto Scaling group that Image Builder takes the build instance from, instead of launching a new instance. This applies only to the build phase.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -148,16 +139,6 @@ def serialize_json(value: InfrastructureConfiguration) -> dict:
 
         out["placement"] = capo_imagebuilder.types.placement.serialize_json(
             value["placement"]
-        )
-    if "terminate_instance_on_completion" in value:
-        out["terminateInstanceOnCompletion"] = value["terminate_instance_on_completion"]
-    if "parent_instance" in value:
-        import capo_imagebuilder.types.parent_instance_configuration
-
-        out["parentInstance"] = (
-            capo_imagebuilder.types.parent_instance_configuration.serialize_json(
-                value["parent_instance"]
-            )
         )
     return out
 
@@ -231,15 +212,5 @@ def deserialize_json(data: dict) -> InfrastructureConfiguration:
 
         out["placement"] = capo_imagebuilder.types.placement.deserialize_json(
             data["placement"]
-        )
-    if data.get("terminateInstanceOnCompletion") is not None:
-        out["terminate_instance_on_completion"] = data["terminateInstanceOnCompletion"]
-    if data.get("parentInstance") is not None:
-        import capo_imagebuilder.types.parent_instance_configuration
-
-        out["parent_instance"] = (
-            capo_imagebuilder.types.parent_instance_configuration.deserialize_json(
-                data["parentInstance"]
-            )
         )
     return out

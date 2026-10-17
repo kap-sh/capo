@@ -11,7 +11,6 @@ if TYPE_CHECKING:
 
     import capo_resiliencehubv2.types.account_targeting
     import capo_resiliencehubv2.types.arn
-    import capo_resiliencehubv2.types.dev_ops_agent_investigation
     import capo_resiliencehubv2.types.experiment_details_list
     import capo_resiliencehubv2.types.iam_role_name
     import capo_resiliencehubv2.types.logging_configuration
@@ -92,10 +91,6 @@ class TestRun(TypedDict, closed=True):
         "capo_resiliencehubv2.types.account_targeting.AccountTargeting"
     ]
     """<p>Indicates whether the test run targets resources in a single AWS account or across multiple accounts.</p>"""
-    dev_ops_agent_investigation: NotRequired[
-        "capo_resiliencehubv2.types.dev_ops_agent_investigation.DevOpsAgentInvestigation"
-    ]
-    """<p>The DevOps Agent investigation result for the test run, present when the integration is enabled for the service.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -206,14 +201,6 @@ def serialize_json(value: TestRun) -> dict:
         out["accountTargeting"] = (
             capo_resiliencehubv2.types.account_targeting.serialize_json(
                 value["account_targeting"]
-            )
-        )
-    if "dev_ops_agent_investigation" in value:
-        import capo_resiliencehubv2.types.dev_ops_agent_investigation
-
-        out["devOpsAgentInvestigation"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_investigation.serialize_json(
-                value["dev_ops_agent_investigation"]
             )
         )
     return out
@@ -345,14 +332,6 @@ def deserialize_json(data: dict) -> TestRun:
         out["account_targeting"] = (
             capo_resiliencehubv2.types.account_targeting.deserialize_json(
                 data["accountTargeting"]
-            )
-        )
-    if data.get("devOpsAgentInvestigation") is not None:
-        import capo_resiliencehubv2.types.dev_ops_agent_investigation
-
-        out["dev_ops_agent_investigation"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_investigation.deserialize_json(
-                data["devOpsAgentInvestigation"]
             )
         )
     return out

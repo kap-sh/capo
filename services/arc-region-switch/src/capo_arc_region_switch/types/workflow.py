@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#Workflow``."""
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,15 +70,4 @@ def deserialize_aws_json_1_0(data: dict) -> Workflow:
         out["workflow_target_region"] = data["workflowTargetRegion"]
     if data.get("workflowDescription") is not None:
         out["workflow_description"] = data["workflowDescription"]
-    return out
-
-
-def redact_sensitive(value: Workflow) -> dict[str, Any]:
-    out: dict[str, Any] = dict(value)
-    if "steps" in value:
-        import capo_arc_region_switch.types.steps
-
-        out["steps"] = capo_arc_region_switch.types.steps.redact_sensitive(
-            value["steps"]
-        )
     return out

@@ -275,7 +275,6 @@ if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.recommendation_status
     import capo_bedrock_agentcore.types.recommendation_summary
     import capo_bedrock_agentcore.types.recommendation_type
-    import capo_bedrock_agentcore.types.record_expiry_specification
     import capo_bedrock_agentcore.types.registry_id_list
     import capo_bedrock_agentcore.types.request_uri
     import capo_bedrock_agentcore.types.resource_oauth2_return_url_type
@@ -3547,9 +3546,6 @@ class BedrockAgentCoreClient:
         *,
         config_overrides: Optional[BedrockAgentCoreClientConfig] = None,
         client_token: Optional[str] = None,
-        record_expiry_specification: Optional[
-            "capo_bedrock_agentcore.types.record_expiry_specification.RecordExpirySpecification"
-        ] = None,
     ) -> "capo_bedrock_agentcore.types.batch_create_memory_records_output.BatchCreateMemoryRecordsOutput":
         """<p>Creates multiple memory records in a single batch operation for the specified memory with custom content.</p>
 
@@ -3557,7 +3553,6 @@ class BedrockAgentCoreClient:
             memory_id: <p>The unique ID of the memory resource where records will be created.</p>
             records: <p>A list of memory record creation inputs to be processed in the batch operation.</p>
             client_token: <p>A unique, case-sensitive identifier to ensure idempotent processing of the batch request.</p>
-            record_expiry_specification: <p>The record expiry (long-term memory time-to-live) applied to every record created by this request. Set <code>recordExpiryDurationDays</code> to the number of days after which the records expire. Only the expiry provided here is applied; the records' strategy association has no effect on their expiry. If you do not provide this value, the records do not expire. The <code>REMOVE</code> action does not apply when creating records.</p>
 
         Raises:
             capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
@@ -3603,8 +3598,6 @@ class BedrockAgentCoreClient:
         if client_token is None:
             client_token = str(uuid.uuid4())
         input_["client_token"] = client_token
-        if record_expiry_specification is not None:
-            input_["record_expiry_specification"] = record_expiry_specification
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3673,16 +3666,12 @@ class BedrockAgentCoreClient:
         records: "capo_bedrock_agentcore.types.memory_records_update_input_list.MemoryRecordsUpdateInputList",
         *,
         config_overrides: Optional[BedrockAgentCoreClientConfig] = None,
-        record_expiry_specification: Optional[
-            "capo_bedrock_agentcore.types.record_expiry_specification.RecordExpirySpecification"
-        ] = None,
     ) -> "capo_bedrock_agentcore.types.batch_update_memory_records_output.BatchUpdateMemoryRecordsOutput":
         """<p>Updates multiple memory records with custom content in a single batch operation within the specified memory.</p>
 
         Args:
             memory_id: <p>The unique ID of the memory resource where records will be updated.</p>
             records: <p>A list of memory record update inputs to be processed in the batch operation.</p>
-            record_expiry_specification: <p>The record expiry (long-term memory time-to-live) applied to every record updated by this request. Set <code>recordExpiryDurationDays</code> to configure or overwrite the number of days after which the records expire, or set <code>action</code> to <code>REMOVE</code> to clear a previously configured expiry so that the records no longer expire.</p> <p>When you do not provide this value, the service determines each record's expiry from its current state:</p> <ul> <li> <p>If the record already has an expiry configured, the service resets and reapplies the expiry based on the last applied <code>recordExpiryDurationDays</code>.</p> </li> <li> <p>If the record does not have an expiry configured, no expiry is applied and the record remains non-expiring. This is the outcome regardless of whether the record's strategy configures an expiry.</p> </li> </ul> <p>Providing an explicit <code>recordExpiryDurationDays</code> always takes precedence: it overwrites an existing expiry, or sets one on a record that previously had none.</p>
 
         Raises:
             capo_bedrock_agentcore.errors.access_denied_exception.AccessDeniedException: <p>The exception that occurs when you do not have sufficient permissions to perform an action. Verify that your IAM policy includes the necessary permissions for the operation you are trying to perform.</p>
@@ -3725,8 +3714,6 @@ class BedrockAgentCoreClient:
             "memory_id": memory_id,
             "records": records,
         }
-        if record_expiry_specification is not None:
-            input_["record_expiry_specification"] = record_expiry_specification
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

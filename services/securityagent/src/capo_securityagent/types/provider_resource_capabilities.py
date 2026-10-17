@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     import capo_securityagent.types.confluence_resource_capabilities
     import capo_securityagent.types.git_hub_resource_capabilities
     import capo_securityagent.types.git_lab_resource_capabilities
-    import capo_securityagent.types.jira_resource_capabilities
 
 
 class _ProviderResourceCapabilities_github(TypedDict, closed=True):
@@ -35,17 +34,12 @@ class _ProviderResourceCapabilities_azureDevOps(TypedDict, closed=True):
     azureDevOps: "capo_securityagent.types.azure_dev_ops_resource_capabilities.AzureDevOpsResourceCapabilities"
 
 
-class _ProviderResourceCapabilities_jira(TypedDict, closed=True):
-    jira: "capo_securityagent.types.jira_resource_capabilities.JiraResourceCapabilities"
-
-
 ProviderResourceCapabilities: TypeAlias = (
     _ProviderResourceCapabilities_github
     | _ProviderResourceCapabilities_gitlab
     | _ProviderResourceCapabilities_bitbucket
     | _ProviderResourceCapabilities_confluence
     | _ProviderResourceCapabilities_azureDevOps
-    | _ProviderResourceCapabilities_jira
 )
 
 
@@ -91,14 +85,6 @@ def serialize_json(value: ProviderResourceCapabilities) -> dict:
                 value["azureDevOps"]
             )
         }
-    elif "jira" in value:
-        import capo_securityagent.types.jira_resource_capabilities
-
-        return {
-            "jira": capo_securityagent.types.jira_resource_capabilities.serialize_json(
-                value["jira"]
-            )
-        }
     else:
         raise SerializationError("ProviderResourceCapabilities: no variant present")
 
@@ -142,14 +128,6 @@ def deserialize_json(data: dict) -> ProviderResourceCapabilities:
         return {
             "azureDevOps": capo_securityagent.types.azure_dev_ops_resource_capabilities.deserialize_json(
                 data["azureDevOps"]
-            )
-        }
-    elif data.get("jira") is not None:
-        import capo_securityagent.types.jira_resource_capabilities
-
-        return {
-            "jira": capo_securityagent.types.jira_resource_capabilities.deserialize_json(
-                data["jira"]
             )
         }
     else:

@@ -21,7 +21,6 @@ import capo_devops_agent.errors.service_quota_exceeded_exception
 import capo_devops_agent.errors.throttling_exception
 import capo_devops_agent.errors.validation_exception
 import capo_devops_agent.types.agent_space_list
-import capo_devops_agent.types.included_data
 import capo_devops_agent.types.list_agent_spaces_input
 import capo_devops_agent.types.list_agent_spaces_output
 from capo_devops_agent._protocol.errors import parse_error_metadata_json
@@ -137,22 +136,11 @@ def build_request(
             UseFIPS=options.use_fips, Endpoint=options.endpoint, Region=options.region
         )
     )  # noqa: F841
-    import capo_devops_agent.types.included_data
-
     url = endpoint.url.rstrip("/") + "/v1/agentspaces/list"
     params: list[tuple[str, str]] = []
     params.append(("maxResults", str(input_.get("max_results", 20))))
     if "next_token" in input_:
         params.append(("nextToken", input_["next_token"]))
-    if "included_data" in input_:
-        params.append(
-            (
-                "includedData",
-                capo_devops_agent.types.included_data.serialize_json(
-                    input_["included_data"]
-                ),
-            )
-        )
     headers: dict[str, str] = {k: ", ".join(v) for k, v in endpoint.headers.items()}
     body: bytes | None = b""
     signer = (

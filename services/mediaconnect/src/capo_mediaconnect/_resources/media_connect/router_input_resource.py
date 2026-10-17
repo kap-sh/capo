@@ -98,7 +98,7 @@ class RouterInputResource:
             configuration: <p>The configuration settings for the router input, which can include the protocol, network interface, and other details.</p>
             maximum_bitrate: <p>The maximum bitrate for the router input.</p>
             routing_scope: <p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - connects only to outputs in same Region. GLOBAL - connects to outputs in any Region.</p>
-            tier: <p>The tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
+            tier: <p>The tier level for the router input.</p>
             region_name: <p>The Amazon Web Services Region for the router input. Defaults to the current region if not specified.</p>
             availability_zone: <p>The Availability Zone where you want to create the router input. This must be a valid Availability Zone for the region specified by <code>regionName</code>, or the current region if no <code>regionName</code> is provided. </p>
             transit_encryption: <p>The transit encryption settings for the router input.</p>
@@ -255,7 +255,7 @@ class RouterInputResource:
             configuration: <p>The updated configuration settings for the router input. Changing the type of the configuration is not supported.</p>
             maximum_bitrate: <p>The updated maximum bitrate for the router input.</p>
             routing_scope: <p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - can be assigned only to outputs in the same Region. GLOBAL - can be assigned to outputs in any Region.</p>
-            tier: <p>The updated tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
+            tier: <p>The updated tier level for the router input.</p>
             transit_encryption: <p>The updated transit encryption settings for the router input.</p>
             maintenance_configuration: <p>The updated maintenance configuration settings for the router input, including any changes to preferred maintenance windows and schedules.</p>
             content_quality_analysis_configuration: <p>The content quality analysis configuration for the router input.</p>
@@ -771,7 +771,7 @@ class AsyncRouterInputResource:
             configuration: <p>The configuration settings for the router input, which can include the protocol, network interface, and other details.</p>
             maximum_bitrate: <p>The maximum bitrate for the router input.</p>
             routing_scope: <p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - connects only to outputs in same Region. GLOBAL - connects to outputs in any Region.</p>
-            tier: <p>The tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
+            tier: <p>The tier level for the router input.</p>
             region_name: <p>The Amazon Web Services Region for the router input. Defaults to the current region if not specified.</p>
             availability_zone: <p>The Availability Zone where you want to create the router input. This must be a valid Availability Zone for the region specified by <code>regionName</code>, or the current region if no <code>regionName</code> is provided. </p>
             transit_encryption: <p>The transit encryption settings for the router input.</p>
@@ -930,7 +930,7 @@ class AsyncRouterInputResource:
             configuration: <p>The updated configuration settings for the router input. Changing the type of the configuration is not supported.</p>
             maximum_bitrate: <p>The updated maximum bitrate for the router input.</p>
             routing_scope: <p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - can be assigned only to outputs in the same Region. GLOBAL - can be assigned to outputs in any Region.</p>
-            tier: <p>The updated tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>
+            tier: <p>The updated tier level for the router input.</p>
             transit_encryption: <p>The updated transit encryption settings for the router input.</p>
             maintenance_configuration: <p>The updated maintenance configuration settings for the router input, including any changes to preferred maintenance windows and schedules.</p>
             content_quality_analysis_configuration: <p>The content quality analysis configuration for the router input.</p>

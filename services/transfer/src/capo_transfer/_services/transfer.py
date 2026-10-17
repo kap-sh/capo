@@ -139,7 +139,6 @@ if TYPE_CHECKING:
     import capo_transfer.types.host_key
     import capo_transfer.types.host_key_description
     import capo_transfer.types.host_key_id
-    import capo_transfer.types.host_key_storage_type
     import capo_transfer.types.identity_provider_details
     import capo_transfer.types.identity_provider_type
     import capo_transfer.types.import_certificate_request
@@ -149,7 +148,6 @@ if TYPE_CHECKING:
     import capo_transfer.types.import_ssh_public_key_request
     import capo_transfer.types.import_ssh_public_key_response
     import capo_transfer.types.ip_address_type
-    import capo_transfer.types.kms_key
     import capo_transfer.types.list_accesses_request
     import capo_transfer.types.list_accesses_response
     import capo_transfer.types.list_agreements_request
@@ -839,10 +837,6 @@ class TransferClient:
             "capo_transfer.types.host_key_description.HostKeyDescription"
         ] = None,
         tags: Optional["capo_transfer.types.tags.Tags"] = None,
-        storage_type: Optional[
-            "capo_transfer.types.host_key_storage_type.HostKeyStorageType"
-        ] = None,
-        kms_key: Optional["capo_transfer.types.kms_key.KmsKey"] = None,
     ) -> "capo_transfer.types.import_host_key_response.ImportHostKeyResponse":
         """<p>Adds a host key to the server that's specified by the <code>ServerId</code> parameter.</p>
 
@@ -851,8 +845,6 @@ class TransferClient:
             host_key_body: <p>The private key portion of an SSH key pair.</p> <p>Transfer Family accepts RSA, ECDSA, and ED25519 keys.</p>
             description: <p>The text description that identifies this host key.</p>
             tags: <p>Key-value pairs that can be used to group and search for host keys.</p>
-            storage_type: <p>Specifies whether the host key is stored by Transfer Family (<code>SERVICE_MANAGED</code>) or in Secrets Manager (<code>SECRETS_MANAGER</code>). When you specify <code>SECRETS_MANAGER</code>, Transfer Family stores the private host key material in an Secrets Manager secret.</p>
-            kms_key: <p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the Secrets Manager secret that stores the host key. If you specify a customer managed key, its key policy must allow the <code>AWSServiceRoleForTransfer</code> service-linked role to decrypt the secret. If you don't specify a value, Transfer Family uses the Amazon Web Services managed key for Secrets Manager.</p>
 
         Raises:
             capo_transfer.errors.internal_service_error.InternalServiceError: <p>This exception is thrown when an error occurs in the Transfer Family service.</p>
@@ -897,10 +889,6 @@ class TransferClient:
             input_["description"] = description
         if tags is not None:
             input_["tags"] = tags
-        if storage_type is not None:
-            input_["storage_type"] = storage_type
-        if kms_key is not None:
-            input_["kms_key"] = kms_key
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2134,24 +2122,16 @@ class TransferClient:
         self,
         server_id: "capo_transfer.types.server_id.ServerId",
         host_key_id: "capo_transfer.types.host_key_id.HostKeyId",
+        description: "capo_transfer.types.host_key_description.HostKeyDescription",
         *,
         config_overrides: Optional[TransferClientConfig] = None,
-        description: Optional[
-            "capo_transfer.types.host_key_description.HostKeyDescription"
-        ] = None,
-        storage_type: Optional[
-            "capo_transfer.types.host_key_storage_type.HostKeyStorageType"
-        ] = None,
-        kms_key: Optional["capo_transfer.types.kms_key.KmsKey"] = None,
     ) -> "capo_transfer.types.update_host_key_response.UpdateHostKeyResponse":
-        """<p>Updates the host key that's specified by the <code>ServerId</code> and <code>HostKeyId</code> parameters. You can update the description of the host key, change where the host key is stored by specifying the <code>StorageType</code>, and specify the KMS key used to encrypt the host key when it's stored in Secrets Manager.</p> <p>To change a host key's storage type from <code>SERVICE_MANAGED</code> to <code>SECRETS_MANAGER</code>, you must have the <code>transfer:ExportHostKey</code> permission. <code>transfer:ExportHostKey</code> is a permission-only action that has no corresponding API operation.</p>
+        """<p>Updates the description for the host key that's specified by the <code>ServerId</code> and <code>HostKeyId</code> parameters.</p>
 
         Args:
             server_id: <p>The identifier of the server that contains the host key that you are updating.</p>
             host_key_id: <p>The identifier of the host key that you are updating.</p>
             description: <p>An updated description for the host key.</p>
-            storage_type: <p>Specifies whether the host key is stored by Transfer Family (<code>SERVICE_MANAGED</code>) or in Secrets Manager (<code>SECRETS_MANAGER</code>). When you specify <code>SECRETS_MANAGER</code>, Transfer Family stores the private host key material in an Secrets Manager secret.</p>
-            kms_key: <p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the Secrets Manager secret that stores the host key. If you specify a customer managed key, its key policy must allow the <code>AWSServiceRoleForTransfer</code> service-linked role to decrypt the secret. If you don't specify a value, Transfer Family uses the Amazon Web Services managed key for Secrets Manager.</p>
 
         Raises:
             capo_transfer.errors.internal_service_error.InternalServiceError: <p>This exception is thrown when an error occurs in the Transfer Family service.</p>
@@ -2182,13 +2162,8 @@ class TransferClient:
         input_: capo_transfer.types.update_host_key_request.UpdateHostKeyRequest = {
             "server_id": server_id,
             "host_key_id": host_key_id,
+            "description": description,
         }
-        if description is not None:
-            input_["description"] = description
-        if storage_type is not None:
-            input_["storage_type"] = storage_type
-        if kms_key is not None:
-            input_["kms_key"] = kms_key
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -3619,9 +3594,6 @@ class TransferClient:
         ip_address_type: Optional[
             "capo_transfer.types.ip_address_type.IpAddressType"
         ] = None,
-        host_key_storage_type: Optional[
-            "capo_transfer.types.host_key_storage_type.HostKeyStorageType"
-        ] = None,
     ) -> "capo_transfer.types.create_server_response.CreateServerResponse":
         """<p>Instantiates an auto-scaling virtual server based on the selected file transfer protocol in Amazon Web Services. When you make updates to your file transfer protocol-enabled server or when you work with users, use the service-generated <code>ServerId</code> property that is assigned to the newly created server.</p>
 
@@ -3644,7 +3616,6 @@ class TransferClient:
             structured_log_destinations: <p>Specifies the log groups to which your server logs are sent.</p> <p>To specify a log group, you must provide the ARN for an existing log group. In this case, the format of the log group is as follows:</p> <p> <code>arn:partition:logs:region-name:amazon-account-id:log-group:log-group-name:*</code> </p> <p>For example, <code>arn:aws:logs:us-east-1:111122223333:log-group:mytestgroup:*</code> </p> <p>If you have previously specified a log group for a server, you can clear it, and in effect turn off structured logging, by providing an empty value for this parameter in an <code>update-server</code> call. For example:</p> <p> <code>update-server --server-id s-1234567890abcdef0 --structured-log-destinations</code> </p>
             s3_storage_options: <p>Specifies whether or not performance for your Amazon S3 directories is optimized.</p> <ul> <li> <p>If using the console, this is enabled by default.</p> </li> <li> <p>If using the API or CLI, this is disabled by default.</p> </li> </ul> <p>By default, home directory mappings have a <code>TYPE</code> of <code>DIRECTORY</code>. If you enable this option, you would then need to explicitly set the <code>HomeDirectoryMapEntry</code> <code>Type</code> to <code>FILE</code> if you want a mapping to have a file target.</p>
             ip_address_type: <p>Specifies whether to use IPv4 only, or to use dual-stack (IPv4 and IPv6) for your Transfer Family endpoint. The default value is <code>IPV4</code>.</p> <important> <p>The <code>IpAddressType</code> parameter has the following limitations:</p> <ul> <li> <p>It cannot be changed while the server is online. You must stop the server before modifying this parameter.</p> </li> <li> <p>It cannot be updated to <code>DUALSTACK</code> if the server has <code>AddressAllocationIds</code> specified.</p> </li> </ul> </important> <note> <p>When using <code>DUALSTACK</code> as the <code>IpAddressType</code>, you cannot set the <code>AddressAllocationIds</code> parameter for the <a href="https://docs.aws.amazon.com/transfer/latest/APIReference/API_EndpointDetails.html">EndpointDetails</a> for the server.</p> </note>
-            host_key_storage_type: <p>Specifies whether the host key is stored by Transfer Family (<code>SERVICE_MANAGED</code>) or in Secrets Manager (<code>SECRETS_MANAGER</code>). When you specify <code>SECRETS_MANAGER</code>, Transfer Family stores the private host key material in an Secrets Manager secret.</p>
 
         Raises:
             capo_transfer.errors.access_denied_exception.AccessDeniedException: <p>You do not have sufficient access to perform this action.</p>
@@ -3721,8 +3692,6 @@ class TransferClient:
             input_["s3_storage_options"] = s3_storage_options
         if ip_address_type is not None:
             input_["ip_address_type"] = ip_address_type
-        if host_key_storage_type is not None:
-            input_["host_key_storage_type"] = host_key_storage_type
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

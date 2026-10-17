@@ -16,11 +16,11 @@ class DnssecKey(TypedDict, closed=True):
     ]
     """<p>The number of the public key’s cryptographic algorithm according to an <a href="https://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xml">IANA</a> assignment. </p> <p>If Route 53 is your DNS service, set this to 13.</p> <p>For more information about enabling DNSSEC signing, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring-dnssec-enable-signing.html">Enabling DNSSEC signing and establishing a chain of trust</a>.</p>"""
     flags: NotRequired["capo_route_53_domains.types.nullable_integer.NullableInteger"]
-    """<p>The DNSKEY flags that indicate the key type. This field is deprecated; the <code>DnssecKey</code> response no longer returns the flags.</p>"""
+    """<p>Defines the type of key. It can be either a KSK (key-signing-key, value 257) or ZSK (zone-signing-key, value 256). Using KSK is always encouraged. Only use ZSK if your DNS provider isn't Route 53 and you don’t have KSK available.</p> <p>If you have KSK and ZSK keys, always use KSK to create a delegations signer (DS) record. If you have ZSK keys only – use ZSK to create a DS record.</p>"""
     public_key: NotRequired[
         "capo_route_53_domains.types.dnssec_public_key.DnssecPublicKey"
     ]
-    """<p>The base64-encoded public key of the key pair. This field is deprecated; the <code>DnssecKey</code> response no longer returns the public key.</p>"""
+    """<p>The base64-encoded public key part of the key pair that is passed to the registry .</p>"""
     digest_type: NotRequired[
         "capo_route_53_domains.types.nullable_integer.NullableInteger"
     ]

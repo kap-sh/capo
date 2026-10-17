@@ -2,10 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-AuthType: TypeAlias = Literal[
-    "API_KEY",
-    "CONNECT_JWT",
-]
+AuthType: TypeAlias = Literal["API_KEY",]
 
 
 # --- restJson1 ser/de ---

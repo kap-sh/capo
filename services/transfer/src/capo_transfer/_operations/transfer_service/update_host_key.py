@@ -16,7 +16,6 @@ import capo_transfer.errors.invalid_request_exception
 import capo_transfer.errors.resource_not_found_exception
 import capo_transfer.errors.service_unavailable_exception
 import capo_transfer.errors.throttling_exception
-import capo_transfer.types.host_key_storage_type
 import capo_transfer.types.update_host_key_request
 import capo_transfer.types.update_host_key_response
 from capo_transfer._protocol.errors import parse_error_metadata_json

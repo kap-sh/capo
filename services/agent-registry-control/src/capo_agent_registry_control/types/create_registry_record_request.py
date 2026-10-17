@@ -54,7 +54,7 @@ class CreateRegistryRecordRequest(TypedDict, closed=True):
     custom_metadata: NotRequired[
         "capo_agent_registry_control.types.custom_metadata_document.CustomMetadataDocument"
     ]
-    """<p>The custom metadata for the record. Values are strings or JSON booleans.</p>"""
+    """<p>The custom metadata to attach to the registry record. Each key must match a property defined in the registry's custom metadata schema. Values can be strings (maximum 128 characters) or native JSON booleans (<code>true</code> or <code>false</code>). Values are validated against the schema at creation time.</p>"""
     tags: NotRequired["capo_agent_registry_control.types.tags_map.TagsMap"]
     """<p>Tags to associate with the registry record</p>"""
 

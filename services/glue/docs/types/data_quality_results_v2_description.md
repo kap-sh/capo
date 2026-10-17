@@ -1,8 +1,0 @@
----
-title: DataQualityResultsV2Description
----
-
-::: capo_glue.types.data_quality_results_v2_description.DataQualityResultsV2Description
-    options:
-      show_source: true
-      merge_init_into_class: false

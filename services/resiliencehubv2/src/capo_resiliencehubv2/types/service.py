@@ -16,7 +16,6 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.assessment_status
     import capo_resiliencehubv2.types.associated_system_list
     import capo_resiliencehubv2.types.dependency_discovery_config
-    import capo_resiliencehubv2.types.dev_ops_agent_configuration_view
     import capo_resiliencehubv2.types.effective_policy_values
     import capo_resiliencehubv2.types.entity_name
     import capo_resiliencehubv2.types.kms_key_id
@@ -88,10 +87,6 @@ class Service(TypedDict, closed=True):
     """<p>The organizational unit (OU) identifier for the service.</p>"""
     account_id: NotRequired["capo_resiliencehubv2.types.account_id.AccountId"]
     """<p>The AWS account ID that owns the service.</p>"""
-    dev_ops_agent_configuration: NotRequired[
-        "capo_resiliencehubv2.types.dev_ops_agent_configuration_view.DevOpsAgentConfigurationView"
-    ]
-    """<p>The current DevOps Agent integration state for the service.</p>"""
     created_at: NotRequired["datetime.datetime"]
     """<p>The timestamp when the service was created.</p>"""
     updated_at: NotRequired["datetime.datetime"]
@@ -201,14 +196,6 @@ def serialize_json(value: Service) -> dict:
         out["ouId"] = value["ou_id"]
     if "account_id" in value:
         out["accountId"] = value["account_id"]
-    if "dev_ops_agent_configuration" in value:
-        import capo_resiliencehubv2.types.dev_ops_agent_configuration_view
-
-        out["devOpsAgentConfiguration"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_configuration_view.serialize_json(
-                value["dev_ops_agent_configuration"]
-            )
-        )
     if "created_at" in value:
         import capo_resiliencehubv2.types._prelude.timestamp
 
@@ -334,14 +321,6 @@ def deserialize_json(data: dict) -> Service:
         out["ou_id"] = data["ouId"]
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
-    if data.get("devOpsAgentConfiguration") is not None:
-        import capo_resiliencehubv2.types.dev_ops_agent_configuration_view
-
-        out["dev_ops_agent_configuration"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_configuration_view.deserialize_json(
-                data["devOpsAgentConfiguration"]
-            )
-        )
     if data.get("createdAt") is not None:
         import capo_resiliencehubv2.types._prelude.timestamp
 

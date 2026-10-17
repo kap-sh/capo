@@ -9,7 +9,6 @@ from capo_bedrock_agentcore.errors import DeserializationError
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.memory_id
     import capo_bedrock_agentcore.types.memory_records_create_input_list
-    import capo_bedrock_agentcore.types.record_expiry_specification
 
 
 class BatchCreateMemoryRecordsInput(TypedDict, closed=True):
@@ -19,10 +18,6 @@ class BatchCreateMemoryRecordsInput(TypedDict, closed=True):
     """<p>A list of memory record creation inputs to be processed in the batch operation.</p>"""
     client_token: NotRequired["str"]
     """<p>A unique, case-sensitive identifier to ensure idempotent processing of the batch request.</p>"""
-    record_expiry_specification: NotRequired[
-        "capo_bedrock_agentcore.types.record_expiry_specification.RecordExpirySpecification"
-    ]
-    """<p>The record expiry (long-term memory time-to-live) applied to every record created by this request. Set <code>recordExpiryDurationDays</code> to the number of days after which the records expire. Only the expiry provided here is applied; the records' strategy association has no effect on their expiry. If you do not provide this value, the records do not expire. The <code>REMOVE</code> action does not apply when creating records.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -37,14 +32,6 @@ def serialize_json(value: BatchCreateMemoryRecordsInput) -> dict:
     )
     if "client_token" in value:
         out["clientToken"] = value["client_token"]
-    if "record_expiry_specification" in value:
-        import capo_bedrock_agentcore.types.record_expiry_specification
-
-        out["recordExpirySpecification"] = (
-            capo_bedrock_agentcore.types.record_expiry_specification.serialize_json(
-                value["record_expiry_specification"]
-            )
-        )
     return out
 
 
@@ -62,14 +49,6 @@ def deserialize_json(data: dict) -> BatchCreateMemoryRecordsInput:
         raise DeserializationError("BatchCreateMemoryRecordsInput.records required")
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
-    if data.get("recordExpirySpecification") is not None:
-        import capo_bedrock_agentcore.types.record_expiry_specification
-
-        out["record_expiry_specification"] = (
-            capo_bedrock_agentcore.types.record_expiry_specification.deserialize_json(
-                data["recordExpirySpecification"]
-            )
-        )
     return out
 
 

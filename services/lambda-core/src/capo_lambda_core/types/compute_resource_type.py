@@ -2,11 +2,7 @@
 
 from typing import Literal, TypeAlias, cast
 
-"""<p>The type of Lambda compute resource that can use a network connector.</p>"""
-ComputeResourceType: TypeAlias = Literal[
-    "MicroVm",
-    "WebFunction",
-]
+ComputeResourceType: TypeAlias = Literal["MicroVm",]
 
 
 # --- restJson1 ser/de ---

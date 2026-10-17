@@ -17,7 +17,6 @@ import capo_route_53_domains.errors.invalid_input
 import capo_route_53_domains.errors.operation_limit_exceeded
 import capo_route_53_domains.errors.tld_rules_violation
 import capo_route_53_domains.errors.unsupported_tld
-import capo_route_53_domains.types.consent
 import capo_route_53_domains.types.contact_detail
 import capo_route_53_domains.types.nameserver_list
 import capo_route_53_domains.types.transfer_domain_request

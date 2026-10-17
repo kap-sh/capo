@@ -19,11 +19,11 @@ class Metadata(TypedDict, closed=True):
     semantics: NotRequired["capo_cloudwatchomni.types.node_semantics.NodeSemantics"]
     """Semantic description of the node. Absent on an edge, because semantics describe a service rather than a relationship."""
     logs: NotRequired["capo_cloudwatchomni.types.log_metadata_list.LogMetadataList"]
-    """LOGS query selectors: a list of blocks to OR together, each block an AND of exact store column to raw value. Present on node metadata only — edges carry trace selectors. Returned when the request sets includeMetadata."""
+    """Per-signal LOGS query selectors: a LIST of blocks the console ORs, each an AND of exact store column -> raw values. Node-level (edges carry only traces). Populated when the request sets includeMetadata; derived labels (logSourceType) are added by the service projection, not stored here."""
     traces: NotRequired[
         "capo_cloudwatchomni.types.trace_metadata_list.TraceMetadataList"
     ]
-    """TRACES query selectors, same block shape as the logs selectors. Present on both node and edge metadata. Returned when the request sets includeMetadata."""
+    """Per-signal TRACES query selectors (same block shape as logs). Present on both node and edge metadata. serviceName is derived at the service projection, not stored here."""
 
 
 # --- rpcv2Cbor ser/de ---

@@ -2,5 +2,5 @@
 
 from typing import TypeAlias
 
-"""<p>The ARN of an Amazon Web Services Lambda function.</p>"""
+"""<p>The ARN of an AWS Lambda function.</p>"""
 HarnessLambdaFunctionArn: TypeAlias = str

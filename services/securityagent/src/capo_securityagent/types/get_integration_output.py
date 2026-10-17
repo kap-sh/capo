@@ -30,8 +30,6 @@ class GetIntegrationOutput(TypedDict, closed=True):
     """<p>The identifier of the AWS KMS key used to encrypt data associated with the integration.</p>"""
     target_url: NotRequired["capo_securityagent.types.target_url.TargetUrl"]
     """<p>The HTTPS URL of the customer self-hosted instance, such as a GitHub Enterprise Server or self-managed GitLab instance. This value is absent for SaaS integrations.</p>"""
-    site_url: NotRequired["capo_securityagent.types.target_url.TargetUrl"]
-    """<p>The Atlassian Cloud site URL for Atlassian integrations.</p>"""
     webhook_url: NotRequired["str"]
     """<p>The payload URL of the integration's webhook, once it has been created. The signing secret is never returned on a read.</p>"""
     private_connection_name: NotRequired[
@@ -61,8 +59,6 @@ def serialize_json(value: GetIntegrationOutput) -> dict:
         out["kmsKeyId"] = value["kms_key_id"]
     if "target_url" in value:
         out["targetUrl"] = value["target_url"]
-    if "site_url" in value:
-        out["siteUrl"] = value["site_url"]
     if "webhook_url" in value:
         out["webhookUrl"] = value["webhook_url"]
     if "private_connection_name" in value:
@@ -102,8 +98,6 @@ def deserialize_json(data: dict) -> GetIntegrationOutput:
         out["kms_key_id"] = data["kmsKeyId"]
     if data.get("targetUrl") is not None:
         out["target_url"] = data["targetUrl"]
-    if data.get("siteUrl") is not None:
-        out["site_url"] = data["siteUrl"]
     if data.get("webhookUrl") is not None:
         out["webhook_url"] = data["webhookUrl"]
     if data.get("privateConnectionName") is not None:

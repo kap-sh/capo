@@ -8,7 +8,6 @@ MCPServerAuthorizationMethod: TypeAlias = Literal[
     "oauth-3lo",
     "api-key",
     "bearer-token",
-    "custom-headers",
 ]
 
 

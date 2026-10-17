@@ -244,7 +244,6 @@ if TYPE_CHECKING:
     import capo_appstream.types.stop_fleet_result
     import capo_appstream.types.stop_image_builder_request
     import capo_appstream.types.stop_image_builder_result
-    import capo_appstream.types.storage_connector_authentication
     import capo_appstream.types.storage_connector_list
     import capo_appstream.types.stream_view
     import capo_appstream.types.streaming_experience_settings
@@ -1952,9 +1951,6 @@ class AppStreamClient:
         agent_access_config: Optional[
             "capo_appstream.types.agent_access_config.AgentAccessConfig"
         ] = None,
-        storage_connector_authentication: Optional[
-            "capo_appstream.types.storage_connector_authentication.StorageConnectorAuthentication"
-        ] = None,
     ) -> "capo_appstream.types.create_stack_result.CreateStackResult":
         r"""<p>Creates a stack to start streaming applications to users. A stack consists of an associated fleet, user access policies, and storage configurations. </p>
 
@@ -1972,7 +1968,6 @@ class AppStreamClient:
             embed_host_domains: <p>The domains where WorkSpaces Applications streaming sessions can be embedded in an iframe. You must approve the domains that you want to host embedded WorkSpaces Applications streaming sessions. </p>
             streaming_experience_settings: <p>The streaming protocol you want your stack to prefer. This can be UDP or TCP. Currently, UDP is only supported in the Windows native client.</p>
             agent_access_config: <p>The configuration for agent access on the stack. If specified, agent access is enabled for the stack.</p>
-            storage_connector_authentication: <p>Specifies whether users' cloud storage authentication persists across streaming sessions. When you specify FORCE_REAUTHENTICATION, WorkSpaces Applications removes the stored authentication for the stack's OneDrive and Google Drive connectors when a user's session ends. The user links their cloud storage again on their next session. The default is REUSE_CREDENTIALS.</p>
 
         Raises:
             capo_appstream.errors.concurrent_modification_exception.ConcurrentModificationException: <p>An API error occurred. Wait a few minutes and try again.</p>
@@ -2032,10 +2027,6 @@ class AppStreamClient:
             input_["content_redirection"] = content_redirection
         if agent_access_config is not None:
             input_["agent_access_config"] = agent_access_config
-        if storage_connector_authentication is not None:
-            input_["storage_connector_authentication"] = (
-                storage_connector_authentication
-            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -6076,9 +6067,6 @@ class AppStreamClient:
         agent_access_config: Optional[
             "capo_appstream.types.agent_access_config_for_update.AgentAccessConfigForUpdate"
         ] = None,
-        storage_connector_authentication: Optional[
-            "capo_appstream.types.storage_connector_authentication.StorageConnectorAuthentication"
-        ] = None,
     ) -> "capo_appstream.types.update_stack_result.UpdateStackResult":
         """<p>Updates the specified fields for the specified stack.</p>
 
@@ -6097,7 +6085,6 @@ class AppStreamClient:
             embed_host_domains: <p>The domains where WorkSpaces Applications streaming sessions can be embedded in an iframe. You must approve the domains that you want to host embedded WorkSpaces Applications streaming sessions. </p>
             streaming_experience_settings: <p>The streaming protocol you want your stack to prefer. This can be UDP or TCP. Currently, UDP is only supported in the Windows native client.</p>
             agent_access_config: <p>The configuration for agent access on the stack. Specify this to update agent access settings. To remove agent access, use AttributesToDelete with the AGENT_ACCESS_CONFIG value.</p>
-            storage_connector_authentication: <p>Specifies whether users' cloud storage authentication persists across streaming sessions. When you specify FORCE_REAUTHENTICATION, WorkSpaces Applications removes the stored authentication for the stack's OneDrive and Google Drive connectors when a user's session ends. The user links their cloud storage again on their next session. To clear this attribute, add STORAGE_CONNECTOR_AUTHENTICATION to AttributesToDelete.</p>
 
         Raises:
             capo_appstream.errors.concurrent_modification_exception.ConcurrentModificationException: <p>An API error occurred. Wait a few minutes and try again.</p>
@@ -6160,10 +6147,6 @@ class AppStreamClient:
             input_["content_redirection"] = content_redirection
         if agent_access_config is not None:
             input_["agent_access_config"] = agent_access_config
-        if storage_connector_authentication is not None:
-            input_["storage_connector_authentication"] = (
-                storage_connector_authentication
-            )
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),

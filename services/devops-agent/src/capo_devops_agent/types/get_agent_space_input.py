@@ -2,18 +2,15 @@
 
 from typing import TYPE_CHECKING
 
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TypedDict
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.agent_space_id
-    import capo_devops_agent.types.included_data
 
 
 class GetAgentSpaceInput(TypedDict, closed=True):
     agent_space_id: "capo_devops_agent.types.agent_space_id.AgentSpaceId"
     """<p>The unique identifier of the AgentSpace</p>"""
-    included_data: NotRequired["capo_devops_agent.types.included_data.IncludedData"]
-    """<p>How much data to include in the response.</p>"""
 
 
 # --- restJson1 ser/de ---

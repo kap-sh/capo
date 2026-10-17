@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.arcregionswitch#GetPlanExecutionResponse``."""
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -244,13 +244,4 @@ def deserialize_aws_json_1_0(data: dict) -> GetPlanExecutionResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
-    return out
-
-
-def redact_sensitive(value: GetPlanExecutionResponse) -> dict[str, Any]:
-    out: dict[str, Any] = dict(value)
-    if "plan" in value:
-        import capo_arc_region_switch.types.plan
-
-        out["plan"] = capo_arc_region_switch.types.plan.redact_sensitive(value["plan"])
     return out

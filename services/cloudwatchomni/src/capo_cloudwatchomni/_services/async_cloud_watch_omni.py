@@ -1639,7 +1639,6 @@ class AsyncCloudWatchOmniClient:
 
         Raises:
             capo_cloudwatchomni.errors.access_denied_exception.AccessDeniedException: The caller is not authorized to perform this action.
-            capo_cloudwatchomni.errors.conflict_exception.ConflictException: The operation could not be completed because of a conflict with the current state of the resource.
             capo_cloudwatchomni.errors.internal_server_exception.InternalServerException: An unexpected error occurred while processing the request.
             capo_cloudwatchomni.errors.throttling_exception.ThrottlingException: The request was throttled due to exceeding the allowed request rate.
             capo_cloudwatchomni.errors.validation_exception.ValidationException: A parameter is specified incorrectly.
@@ -1696,7 +1695,6 @@ class AsyncCloudWatchOmniClient:
 
         Raises:
             capo_cloudwatchomni.errors.access_denied_exception.AccessDeniedException: The caller is not authorized to perform this action.
-            capo_cloudwatchomni.errors.conflict_exception.ConflictException: The operation could not be completed because of a conflict with the current state of the resource.
             capo_cloudwatchomni.errors.internal_server_exception.InternalServerException: An unexpected error occurred while processing the request.
             capo_cloudwatchomni.errors.throttling_exception.ThrottlingException: The request was throttled due to exceeding the allowed request rate.
             capo_cloudwatchomni.errors.validation_exception.ValidationException: A parameter is specified incorrectly.
@@ -3446,7 +3444,6 @@ class AsyncCloudWatchOmniClient:
         Raises:
             capo_cloudwatchomni.errors.access_denied_exception.AccessDeniedException: The caller is not authorized to perform this action.
             capo_cloudwatchomni.errors.internal_server_exception.InternalServerException: An unexpected error occurred while processing the request.
-            capo_cloudwatchomni.errors.resource_not_found_exception.ResourceNotFoundException: The specified resource does not exist.
             capo_cloudwatchomni.errors.throttling_exception.ThrottlingException: The request was throttled due to exceeding the allowed request rate.
             capo_cloudwatchomni.errors.validation_exception.ValidationException: A parameter is specified incorrectly.
             capo_cloudwatchomni.errors.UnknownServiceError: The service returned an error code this client does not model.
@@ -4716,9 +4713,6 @@ class AsyncCloudWatchOmniClient:
         *,
         config_overrides: Optional[AsyncCloudWatchOmniClientConfig] = None,
         name: Optional[str] = None,
-        agent_core_evaluation_role_arn: Optional[
-            "capo_cloudwatchomni.types.arn.Arn"
-        ] = None,
         encryption_configuration: Optional[
             "capo_cloudwatchomni.types.encryption_configuration.EncryptionConfiguration"
         ] = None,
@@ -4728,7 +4722,6 @@ class AsyncCloudWatchOmniClient:
         Args:
             space_id: The unique ID of the space to update.
             name: A new name for the space. Omit to leave unchanged. Must be 3-64 characters: lowercase letters, numbers, and hyphens. It must begin and end with a letter or number and cannot contain consecutive hyphens.
-            agent_core_evaluation_role_arn: The ARN of the IAM role used by AgentCore online evaluation. Must be in the caller's account. Omit if the space does not use AgentCore online evaluation.
             encryption_configuration: How to encrypt the space's data at rest. Omit to leave encryption unchanged. Pass `encryptionStrategy` AWS_OWNED to stop using a customer managed key and revert to service owned encryption.
 
         Raises:
@@ -4771,8 +4764,6 @@ class AsyncCloudWatchOmniClient:
         }
         if name is not None:
             input_["name"] = name
-        if agent_core_evaluation_role_arn is not None:
-            input_["agent_core_evaluation_role_arn"] = agent_core_evaluation_role_arn
         if encryption_configuration is not None:
             input_["encryption_configuration"] = encryption_configuration
 

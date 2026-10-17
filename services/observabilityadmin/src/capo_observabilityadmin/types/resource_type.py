@@ -25,7 +25,6 @@ ResourceType: TypeAlias = Literal[
     "AWS::MSK::Cluster",
     "AWS::S3::Bucket",
     "AWS::Bedrock::KnowledgeBase",
-    "AWS::XRay::TransactionSearchConfig",
 ]
 
 

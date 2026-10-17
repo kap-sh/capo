@@ -6,7 +6,6 @@ from typing import Literal, TypeAlias, cast
 ResourceType: TypeAlias = Literal[
     "CODE_REPOSITORY",
     "DOCUMENT",
-    "PROJECT",
 ]
 
 

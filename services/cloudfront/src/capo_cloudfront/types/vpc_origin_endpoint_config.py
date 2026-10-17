@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     import capo_cloudfront.types.origin_protocol_policy
     import capo_cloudfront.types.origin_ssl_protocols
     import capo_cloudfront.types.string
-    import capo_cloudfront.types.vpc_ip_address_type
 
 
 class VpcOriginEndpointConfig(TypedDict, closed=True):
@@ -31,10 +30,6 @@ class VpcOriginEndpointConfig(TypedDict, closed=True):
     origin_ssl_protocols: NotRequired[
         "capo_cloudfront.types.origin_ssl_protocols.OriginSslProtocols"
     ]
-    ip_address_type: NotRequired[
-        "capo_cloudfront.types.vpc_ip_address_type.VpcIpAddressType"
-    ]
-    """<p>The IP address type of the CloudFront VPC origin endpoint configuration. Valid values are <code>ipv4</code> and <code>dualstack</code>. IPv6-only is not supported for VPC origins.</p>"""
 
 
 # --- restXml ser/de ---
@@ -54,12 +49,6 @@ def serialize_xml(value: VpcOriginEndpointConfig, parent: Element, tag: str) -> 
 
         capo_cloudfront.types.origin_ssl_protocols.serialize_xml(
             value["origin_ssl_protocols"], el, "OriginSslProtocols"
-        )
-    if "ip_address_type" in value:
-        import capo_cloudfront.types.vpc_ip_address_type
-
-        capo_cloudfront.types.vpc_ip_address_type.serialize_xml(
-            value["ip_address_type"], el, "IpAddressType"
         )
 
 
@@ -105,15 +94,6 @@ def deserialize_xml(el: Element) -> VpcOriginEndpointConfig:
         out["origin_ssl_protocols"] = (
             capo_cloudfront.types.origin_ssl_protocols.deserialize_xml(
                 child_origin_ssl_protocols
-            )
-        )
-    child_ip_address_type = el.find("IpAddressType")
-    if child_ip_address_type is not None:
-        import capo_cloudfront.types.vpc_ip_address_type
-
-        out["ip_address_type"] = (
-            capo_cloudfront.types.vpc_ip_address_type.deserialize_xml(
-                child_ip_address_type
             )
         )
     return out

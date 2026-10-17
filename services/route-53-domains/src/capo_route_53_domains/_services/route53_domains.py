@@ -74,8 +74,6 @@ if TYPE_CHECKING:
     import capo_route_53_domains.types.get_contact_reachability_status_response
     import capo_route_53_domains.types.get_domain_detail_request
     import capo_route_53_domains.types.get_domain_detail_response
-    import capo_route_53_domains.types.get_domain_prices_request
-    import capo_route_53_domains.types.get_domain_prices_response
     import capo_route_53_domains.types.get_domain_suggestions_request
     import capo_route_53_domains.types.get_domain_suggestions_response
     import capo_route_53_domains.types.get_operation_detail_request
@@ -974,55 +972,6 @@ class Route53DomainsClient:
         response.response.close()
         return response.output
 
-    def get_domain_prices(
-        self,
-        domain_name: "capo_route_53_domains.types.domain_name.DomainName",
-        *,
-        config_overrides: Optional[Route53DomainsClientConfig] = None,
-    ) -> (
-        "capo_route_53_domains.types.get_domain_prices_response.GetDomainPricesResponse"
-    ):
-        """<p>Returns the following prices for the specified domain:</p> <ul> <li> <p>Registration</p> </li> <li> <p>Transfer</p> </li> <li> <p>Owner change</p> </li> <li> <p>Renewal</p> </li> <li> <p>Restoration</p> </li> </ul> <p>For most domains, the prices match the standard prices for the TLD that the <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ListPrices.html">ListPrices</a> operation returns. For a premium domain, the registry sets the price individually. Premium prices might differ from the standard prices and can change over time.</p>
-
-        Args:
-            domain_name: <p>The name of the domain that you want to get the prices for.</p>
-
-        Raises:
-            capo_route_53_domains.errors.invalid_input.InvalidInput: <p>The requested item is not acceptable. For example, for APIs that accept a domain name, the request might specify a domain name that doesn't belong to the account that submitted the request. For <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.</p>
-            capo_route_53_domains.errors.tld_in_maintenance.TLDInMaintenance: <p>The top-level domain is currently undergoing maintenance and the request cannot be processed. Try again later.</p>
-            capo_route_53_domains.errors.unsupported_tld.UnsupportedTLD: <p>Amazon Route 53 does not support this top-level domain (TLD).</p>
-            capo_route_53_domains.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        def _handler(
-            req: "OperationRequest[capo_route_53_domains.types.get_domain_prices_request.GetDomainPricesRequest]",
-        ) -> OperationResponse[
-            "capo_route_53_domains.types.get_domain_prices_response.GetDomainPricesResponse"
-        ]:
-            import capo_route_53_domains._operations.route53_domains_v20140515.get_domain_prices
-
-            output, http_response = (
-                capo_route_53_domains._operations.route53_domains_v20140515.get_domain_prices.get_domain_prices(
-                    req.options, req.input
-                )
-            )
-            return OperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("GetDomainPrices")
-        )
-        input_: capo_route_53_domains.types.get_domain_prices_request.GetDomainPricesRequest = {
-            "domain_name": domain_name
-        }
-
-        response = execute_pipeline(
-            OperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        response.response.close()
-        return response.output
-
     def get_domain_suggestions(
         self,
         domain_name: "capo_route_53_domains.types.domain_name.DomainName",
@@ -1030,17 +979,13 @@ class Route53DomainsClient:
         only_available: "capo_route_53_domains.types.boolean.Boolean",
         *,
         config_overrides: Optional[Route53DomainsClientConfig] = None,
-        only_standard_prices: Optional[
-            "capo_route_53_domains.types.boolean.Boolean"
-        ] = None,
     ) -> "capo_route_53_domains.types.get_domain_suggestions_response.GetDomainSuggestionsResponse":
         """<p>The GetDomainSuggestions operation returns a list of suggested domain names.</p>
 
         Args:
             domain_name: <p>A domain name that you want to use as the basis for a list of possible domain names. The top-level domain (TLD), such as .com, must be a TLD that Route 53 supports. For a list of supported TLDs, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <p>The domain name can contain only the following characters:</p> <ul> <li> <p>Letters a through z. Domain names are not case sensitive.</p> </li> <li> <p>Numbers 0 through 9.</p> </li> <li> <p>Hyphen (-). You can't specify a hyphen at the beginning or end of a label. </p> </li> <li> <p>Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.</p> </li> </ul> <p>Internationalized domain names are not supported for some top-level domains. To determine whether the TLD that you want to use supports internationalized domain names, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can Register with Amazon Route 53</a>. </p>
             suggestion_count: <p>The number of suggested domain names that you want Route 53 to return. Specify a value between 1 and 50. Note that fewer than the requested number might be returned.</p>
-            only_available: <p>If <code>OnlyAvailable</code> is <code>true</code>, Route 53 returns only domain names that are available. If <code>OnlyAvailable</code> is <code>false</code>, Route 53 returns domain names without checking whether they're available to be registered. To determine whether the domain is available, call <code>checkDomainAvailability</code> for each suggestion.</p> <p>If <code>OnlyAvailable</code> is <code>false</code>, Route 53 does not return pricing information for the suggested domain names.</p>
-            only_standard_prices: <p>If <code>true</code>, Route 53 returns only domain names that are priced at the standard registration rate for their TLD. If <code>false</code>, Route 53 includes domain names with premium pricing in the suggestions list. The default is <code>true</code>.</p>
+            only_available: <p>If <code>OnlyAvailable</code> is <code>true</code>, Route 53 returns only domain names that are available. If <code>OnlyAvailable</code> is <code>false</code>, Route 53 returns domain names without checking whether they're available to be registered. To determine whether the domain is available, you can call <code>checkDomainAvailability</code> for each suggestion.</p>
 
         Raises:
             capo_route_53_domains.errors.invalid_input.InvalidInput: <p>The requested item is not acceptable. For example, for APIs that accept a domain name, the request might specify a domain name that doesn't belong to the account that submitted the request. For <code>AcceptDomainTransferFromAnotherAwsAccount</code>, the password might be invalid.</p>
@@ -1071,8 +1016,6 @@ class Route53DomainsClient:
             "suggestion_count": suggestion_count,
             "only_available": only_available,
         }
-        if only_standard_prices is not None:
-            input_["only_standard_prices"] = only_standard_prices
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1351,7 +1294,7 @@ class Route53DomainsClient:
             "capo_route_53_domains.types.list_prices_page_max_items.ListPricesPageMaxItems"
         ] = None,
     ) -> "capo_route_53_domains.types.list_prices_response.ListPricesResponse":
-        """<p>Lists the following prices for either all the TLDs supported by Route 53, or the specified TLD:</p> <ul> <li> <p>Registration</p> </li> <li> <p>Transfer</p> </li> <li> <p>Owner change</p> </li> <li> <p>Renewal</p> </li> <li> <p>Restoration</p> </li> </ul> <note> <p>The prices that <code>ListPrices</code> returns are the standard rates for a TLD. <code>ListPrices</code> doesn't return registry premium prices, which apply to individual domain names rather than to a TLD. To get accurate pricing for a specific domain name, including premium prices, call <code>GetDomainPrices</code>.</p> </note>
+        """<p>Lists the following prices for either all the TLDs supported by Route 53, or the specified TLD:</p> <ul> <li> <p>Registration</p> </li> <li> <p>Transfer</p> </li> <li> <p>Owner change</p> </li> <li> <p>Domain renewal</p> </li> <li> <p>Domain restoration</p> </li> </ul>
 
         Args:
             tld: <p>The TLD for which you want to receive the pricing information. For example. <code>.net</code>.</p> <p>If a <code>Tld</code> value is not provided, a list of prices for all TLDs supported by Route 53 is returned.</p>
@@ -1546,7 +1489,6 @@ class Route53DomainsClient:
         privacy_protect_billing_contact: Optional[
             "capo_route_53_domains.types.boolean.Boolean"
         ] = None,
-        consent: Optional["capo_route_53_domains.types.consent.Consent"] = None,
     ) -> "capo_route_53_domains.types.register_domain_response.RegisterDomainResponse":
         """<p>This operation registers a domain. For some top-level domains (TLDs), this operation requires extra parameters.</p> <p>When you register a domain, Amazon Route 53 does the following:</p> <ul> <li> <p>Creates a Route 53 hosted zone that has the same name as the domain. Route 53 assigns four name servers to your hosted zone and automatically updates your domain registration with the names of these name servers.</p> </li> <li> <p>Enables auto renew, so your domain registration will renew automatically each year. We'll notify you in advance of the renewal date so you can choose whether to renew the registration.</p> </li> <li> <p>Optionally enables privacy protection, so WHOIS queries return contact for the registrar or the phrase "REDACTED FOR PRIVACY", or "On behalf of <domain name> owner." If you don't enable privacy protection, WHOIS queries return the information that you entered for the administrative, registrant, and technical contacts.</p> <note> <p>While some domains may allow different privacy settings per contact, we recommend specifying the same privacy setting for all contacts.</p> </note> </li> <li> <p>If registration is successful, returns an operation ID that you can use to track the progress and completion of the action. If the request is not completed successfully, the domain registrant is notified by email.</p> </li> <li> <p>Charges your Amazon Web Services account an amount based on the top-level domain. For more information, see <a href="http://aws.amazon.com/route53/pricing/">Amazon Route 53 Pricing</a>.</p> </li> </ul>
 
@@ -1563,7 +1505,6 @@ class Route53DomainsClient:
             privacy_protect_tech_contact: <p>Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical contact.</p> <note> <p>You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.</p> </note> <p>Default: <code>true</code> </p>
             billing_contact: <p>Provides detailed contact information. For information about the values that you specify for each element, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html">ContactDetail</a>.</p>
             privacy_protect_billing_contact: <p>Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact.</p> <note> <p>You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.</p> </note>
-            consent: <p>Specifies the maximum price that you agree to pay to register the domain name. This element is required if the domain has registry premium pricing, and optional if the domain is priced at the standard rate for its TLD. If you include it and the registration price is more than <code>MaxPrice</code>, the request fails.</p>
 
         Raises:
             capo_route_53_domains.errors.domain_limit_exceeded.DomainLimitExceeded: <p>The number of domains has exceeded the allowed threshold for the account.</p>
@@ -1625,8 +1566,6 @@ class Route53DomainsClient:
             input_["billing_contact"] = billing_contact
         if privacy_protect_billing_contact is not None:
             input_["privacy_protect_billing_contact"] = privacy_protect_billing_contact
-        if consent is not None:
-            input_["consent"] = consent
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1693,7 +1632,6 @@ class Route53DomainsClient:
         duration_in_years: Optional[
             "capo_route_53_domains.types.duration_in_years.DurationInYears"
         ] = None,
-        consent: Optional["capo_route_53_domains.types.consent.Consent"] = None,
     ) -> "capo_route_53_domains.types.renew_domain_response.RenewDomainResponse":
         """<p>This operation renews a domain for the specified number of years. The cost of renewing your domain is billed to your Amazon Web Services account.</p> <p>We recommend that you renew your domain several weeks before the expiration date. Some TLD registries delete domains before the expiration date if you haven't renewed far enough in advance. For more information about renewing domain registration, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-renew.html">Renewing Registration for a Domain</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
 
@@ -1701,7 +1639,6 @@ class Route53DomainsClient:
             domain_name: <p>The name of the domain that you want to renew.</p>
             duration_in_years: <p>The number of years that you want to renew the domain for. The maximum number of years depends on the top-level domain. For the range of valid values for your domain, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> <p>Default: 1</p>
             current_expiry_year: <p>The year when the registration for the domain is set to expire. This value must match the current expiration date for the domain.</p>
-            consent: <p>Specifies the maximum price that you agree to pay to renew the domain name. This element is required if the domain has registry premium pricing, and optional if the domain is priced at the standard rate for its TLD. If you include it and the renewal price is more than <code>MaxPrice</code>, the request fails.</p>
 
         Raises:
             capo_route_53_domains.errors.duplicate_request.DuplicateRequest: <p>The request is already in progress for the domain.</p>
@@ -1735,8 +1672,6 @@ class Route53DomainsClient:
         }
         if duration_in_years is not None:
             input_["duration_in_years"] = duration_in_years
-        if consent is not None:
-            input_["consent"] = consent
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -1945,7 +1880,6 @@ class Route53DomainsClient:
         privacy_protect_billing_contact: Optional[
             "capo_route_53_domains.types.boolean.Boolean"
         ] = None,
-        consent: Optional["capo_route_53_domains.types.consent.Consent"] = None,
     ) -> "capo_route_53_domains.types.transfer_domain_response.TransferDomainResponse":
         """<p>Transfers a domain from another registrar to Amazon Route 53. </p> <p>For more information about transferring domains, see the following topics:</p> <ul> <li> <p>For transfer requirements, a detailed procedure, and information about viewing the status of a domain that you're transferring to Route 53, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html">Transferring Registration for a Domain to Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> </li> <li> <p>For information about how to transfer a domain from one Amazon Web Services account to another, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html">TransferDomainToAnotherAwsAccount</a>. </p> </li> <li> <p>For information about how to transfer a domain to another domain registrar, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-from-route-53.html">Transferring a Domain from Amazon Route 53 to Another Registrar</a> in the <i>Amazon Route 53 Developer Guide</i>.</p> </li> </ul> <important> <p>During the transfer of any country code top-level domains (ccTLDs) to Route 53, except for .cc and .tv, updates to the owner contact are ignored and the owner contact data from the registry is used. You can update the owner contact after the transfer is complete. For more information, see <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_UpdateDomainContact.html">UpdateDomainContact</a>.</p> </important> <p>If the registrar for your domain is also the DNS service provider for the domain, we highly recommend that you transfer your DNS service to Route 53 or to another DNS service provider before you transfer your registration. Some registrars provide free DNS service when you purchase a domain registration. When you transfer the registration, the previous registrar will not renew your domain registration and could end your DNS service at any time.</p> <important> <p>If the registrar for your domain is also the DNS service provider for the domain and you don't transfer DNS service to another provider, your website, email, and the web applications associated with the domain might become unavailable.</p> </important> <p>If the transfer is successful, this method returns an operation ID that you can use to track the progress and completion of the action. If the transfer doesn't complete successfully, the domain registrant will be notified by email.</p>
 
@@ -1964,7 +1898,6 @@ class Route53DomainsClient:
             privacy_protect_tech_contact: <p>Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical contact.</p> <note> <p>You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.</p> </note> <p>Default: <code>true</code> </p>
             billing_contact: <p>Provides detailed contact information.</p>
             privacy_protect_billing_contact: <p> Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact. </p> <note> <p>You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.</p> </note>
-            consent: <p>Specifies the maximum price that you agree to pay to transfer the domain name to Route 53. This element is required if the domain has registry premium pricing, and optional if the domain is priced at the standard rate for its TLD. If you include it and the transfer price is more than <code>MaxPrice</code>, the request fails.</p>
 
         Raises:
             capo_route_53_domains.errors.domain_limit_exceeded.DomainLimitExceeded: <p>The number of domains has exceeded the allowed threshold for the account.</p>
@@ -2031,8 +1964,6 @@ class Route53DomainsClient:
             input_["billing_contact"] = billing_contact
         if privacy_protect_billing_contact is not None:
             input_["privacy_protect_billing_contact"] = privacy_protect_billing_contact
-        if consent is not None:
-            input_["consent"] = consent
 
         response = execute_pipeline(
             OperationRequest(input=input_, options=options_),
@@ -2131,7 +2062,7 @@ class Route53DomainsClient:
             admin_contact: <p>Provides detailed contact information.</p>
             registrant_contact: <p>Provides detailed contact information.</p>
             tech_contact: <p>Provides detailed contact information.</p>
-            consent: <p> The maximum amount that you agree to pay for the owner change. Required if the domain is not free (consent price is more than USD $0.00).</p>
+            consent: <p> Customer's consent for the owner change request. Required if the domain is not free (consent price is more than $0.00).</p>
             billing_contact: <p>Provides detailed contact information.</p>
 
         Raises:

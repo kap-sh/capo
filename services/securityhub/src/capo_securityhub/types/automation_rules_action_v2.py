@@ -7,7 +7,6 @@ from typing_extensions import NotRequired, TypedDict
 if TYPE_CHECKING:
     import capo_securityhub.types.automation_rules_action_type_v2
     import capo_securityhub.types.automation_rules_finding_fields_update_v2
-    import capo_securityhub.types.automation_rules_resource_fields_update_v2
     import capo_securityhub.types.external_integration_configuration
 
 
@@ -24,10 +23,6 @@ class AutomationRulesActionV2(TypedDict, closed=True):
         "capo_securityhub.types.external_integration_configuration.ExternalIntegrationConfiguration"
     ]
     """<p>The settings for integrating automation rule actions with external systems or service.</p>"""
-    resource_fields_update: NotRequired[
-        "capo_securityhub.types.automation_rules_resource_fields_update_v2.AutomationRulesResourceFieldsUpdateV2"
-    ]
-    """<p>The changes to be applied to resource fields when an automation rule is triggered.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -57,14 +52,6 @@ def serialize_json(value: AutomationRulesActionV2) -> dict:
                 value["external_integration_configuration"]
             )
         )
-    if "resource_fields_update" in value:
-        import capo_securityhub.types.automation_rules_resource_fields_update_v2
-
-        out["ResourceFieldsUpdate"] = (
-            capo_securityhub.types.automation_rules_resource_fields_update_v2.serialize_json(
-                value["resource_fields_update"]
-            )
-        )
     return out
 
 
@@ -92,14 +79,6 @@ def deserialize_json(data: dict) -> AutomationRulesActionV2:
         out["external_integration_configuration"] = (
             capo_securityhub.types.external_integration_configuration.deserialize_json(
                 data["ExternalIntegrationConfiguration"]
-            )
-        )
-    if data.get("ResourceFieldsUpdate") is not None:
-        import capo_securityhub.types.automation_rules_resource_fields_update_v2
-
-        out["resource_fields_update"] = (
-            capo_securityhub.types.automation_rules_resource_fields_update_v2.deserialize_json(
-                data["ResourceFieldsUpdate"]
             )
         )
     return out

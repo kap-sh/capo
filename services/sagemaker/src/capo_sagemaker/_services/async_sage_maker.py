@@ -312,8 +312,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.create_training_job_response
     import capo_sagemaker.types.create_training_plan_request
     import capo_sagemaker.types.create_training_plan_response
-    import capo_sagemaker.types.create_training_session_request
-    import capo_sagemaker.types.create_training_session_response
     import capo_sagemaker.types.create_transform_job_request
     import capo_sagemaker.types.create_transform_job_response
     import capo_sagemaker.types.create_trial_component_request
@@ -417,8 +415,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.delete_tags_input
     import capo_sagemaker.types.delete_tags_output
     import capo_sagemaker.types.delete_training_job_request
-    import capo_sagemaker.types.delete_training_session_request
-    import capo_sagemaker.types.delete_training_session_response
     import capo_sagemaker.types.delete_trial_component_request
     import capo_sagemaker.types.delete_trial_component_response
     import capo_sagemaker.types.delete_trial_request
@@ -573,8 +569,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.describe_training_plan_extension_history_response
     import capo_sagemaker.types.describe_training_plan_request
     import capo_sagemaker.types.describe_training_plan_response
-    import capo_sagemaker.types.describe_training_session_request
-    import capo_sagemaker.types.describe_training_session_response
     import capo_sagemaker.types.describe_transform_job_request
     import capo_sagemaker.types.describe_transform_job_response
     import capo_sagemaker.types.describe_trial_component_request
@@ -968,8 +962,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.list_training_jobs_response
     import capo_sagemaker.types.list_training_plans_request
     import capo_sagemaker.types.list_training_plans_response
-    import capo_sagemaker.types.list_training_sessions_request
-    import capo_sagemaker.types.list_training_sessions_response
     import capo_sagemaker.types.list_transform_jobs_request
     import capo_sagemaker.types.list_transform_jobs_response
     import capo_sagemaker.types.list_trial_component_key256
@@ -987,7 +979,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.list_workteams_request
     import capo_sagemaker.types.list_workteams_response
     import capo_sagemaker.types.list_workteams_sort_by_options
-    import capo_sagemaker.types.lora_config
     import capo_sagemaker.types.major_minor_version
     import capo_sagemaker.types.managed_configuration
     import capo_sagemaker.types.managed_storage_type
@@ -1038,7 +1029,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.model_package_arn
     import capo_sagemaker.types.model_package_arn_list
     import capo_sagemaker.types.model_package_config
-    import capo_sagemaker.types.model_package_group_arn
     import capo_sagemaker.types.model_package_group_sort_by
     import capo_sagemaker.types.model_package_group_summary
     import capo_sagemaker.types.model_package_model_card
@@ -1302,8 +1292,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.stop_pipeline_execution_response
     import capo_sagemaker.types.stop_processing_job_request
     import capo_sagemaker.types.stop_training_job_request
-    import capo_sagemaker.types.stop_training_session_request
-    import capo_sagemaker.types.stop_training_session_response
     import capo_sagemaker.types.stop_transform_job_request
     import capo_sagemaker.types.stopping_condition
     import capo_sagemaker.types.string
@@ -1347,11 +1335,6 @@ if TYPE_CHECKING:
     import capo_sagemaker.types.training_plan_sort_by
     import capo_sagemaker.types.training_plan_sort_order
     import capo_sagemaker.types.training_plan_summary
-    import capo_sagemaker.types.training_session_model_config
-    import capo_sagemaker.types.training_session_name
-    import capo_sagemaker.types.training_session_output_config
-    import capo_sagemaker.types.training_session_status
-    import capo_sagemaker.types.training_session_summary
     import capo_sagemaker.types.training_specification
     import capo_sagemaker.types.transform_environment_map
     import capo_sagemaker.types.transform_input
@@ -7816,90 +7799,6 @@ class AsyncSageMakerClient:
         await response.response.aclose()
         return response.output
 
-    async def create_training_session(
-        self,
-        *,
-        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
-        training_session_name: Optional[
-            "capo_sagemaker.types.training_session_name.TrainingSessionName"
-        ] = None,
-        model_package_group_arn: Optional[
-            "capo_sagemaker.types.model_package_group_arn.ModelPackageGroupArn"
-        ] = None,
-        lora_config: Optional["capo_sagemaker.types.lora_config.LoraConfig"] = None,
-        role_arn: Optional["capo_sagemaker.types.role_arn.RoleArn"] = None,
-        vpc_config: Optional["capo_sagemaker.types.vpc_config.VpcConfig"] = None,
-        model_config: Optional[
-            "capo_sagemaker.types.training_session_model_config.TrainingSessionModelConfig"
-        ] = None,
-        output_config: Optional[
-            "capo_sagemaker.types.training_session_output_config.TrainingSessionOutputConfig"
-        ] = None,
-        tags: Optional["capo_sagemaker.types.tag_list.TagList"] = None,
-    ) -> "capo_sagemaker.types.create_training_session_response.CreateTrainingSessionResponse":
-        """<p>Creates a training session in Amazon SageMaker. A training session provisions compute resources for fine-tuning a foundation model using Low-Rank Adaptation (LoRA). After the session is created, you can submit training operations and sample inference requests through the Amazon SageMaker Training Session Runtime API.</p> <p>The following operations are related to <code>CreateTrainingSession</code>:</p> <ul> <li> <p> <code>DescribeTrainingSession</code> </p> </li> <li> <p> <code>ListTrainingSessions</code> </p> </li> <li> <p> <code>StopTrainingSession</code> </p> </li> <li> <p> <code>DeleteTrainingSession</code> </p> </li> </ul>
-
-        Args:
-            training_session_name: <p>The name of the training session.</p>
-            model_package_group_arn: <p>The Amazon Resource Name (ARN) of the model package group where checkpoints and fine-tuned model artifacts are published.</p>
-            lora_config: <p>The Low-Rank Adaptation (LoRA) configuration for the training session, including the rank and alpha parameters.</p>
-            role_arn: <p>The Amazon Resource Name (ARN) of the IAM role that Amazon SageMaker assumes to access resources on your behalf. The role must have permissions to access the output S3 path and model package group.</p>
-            vpc_config: <p>The Virtual Private Cloud (VPC) configuration for the training session. Specify subnets and security groups to run the training session in your VPC.</p>
-            model_config: <p>The configuration for the base model, including the model ARN and end-user license agreement (EULA) acceptance.</p>
-            output_config: <p>The output configuration for the training session, including the S3 location and optional encryption settings.</p>
-            tags: <p>An array of key-value pairs to apply to the training session as tags. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.</p>
-
-        Raises:
-            capo_sagemaker.errors.resource_in_use.ResourceInUse: <p>Resource being accessed is in use.</p>
-            capo_sagemaker.errors.resource_limit_exceeded.ResourceLimitExceeded: <p> You have exceeded an SageMaker resource limit. For example, you might have too many training jobs created. </p>
-            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
-            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_sagemaker.types.create_training_session_request.CreateTrainingSessionRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_sagemaker.types.create_training_session_response.CreateTrainingSessionResponse"
-        ]:
-            import capo_sagemaker._operations.sage_maker.create_training_session
-
-            (
-                output,
-                http_response,
-            ) = await capo_sagemaker._operations.sage_maker.create_training_session.async_create_training_session(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("CreateTrainingSession")
-        )
-        input_: capo_sagemaker.types.create_training_session_request.CreateTrainingSessionRequest = {}
-        if training_session_name is not None:
-            input_["training_session_name"] = training_session_name
-        if model_package_group_arn is not None:
-            input_["model_package_group_arn"] = model_package_group_arn
-        if lora_config is not None:
-            input_["lora_config"] = lora_config
-        if role_arn is not None:
-            input_["role_arn"] = role_arn
-        if vpc_config is not None:
-            input_["vpc_config"] = vpc_config
-        if model_config is not None:
-            input_["model_config"] = model_config
-        if output_config is not None:
-            input_["output_config"] = output_config
-        if tags is not None:
-            input_["tags"] = tags
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
     async def create_transform_job(
         self,
         *,
@@ -11169,54 +11068,6 @@ class AsyncSageMakerClient:
         input_: capo_sagemaker.types.delete_training_job_request.DeleteTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def delete_training_session(
-        self,
-        *,
-        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
-        training_session_name: Optional[
-            "capo_sagemaker.types.training_session_name.TrainingSessionName"
-        ] = None,
-    ) -> "capo_sagemaker.types.delete_training_session_response.DeleteTrainingSessionResponse":
-        """<p>Deletes a training session. You must stop a running session before deleting it. Use the <code>StopTrainingSession</code> operation to stop the session first.</p> <p>The following operations are related to <code>DeleteTrainingSession</code>:</p> <ul> <li> <p> <code>CreateTrainingSession</code> </p> </li> <li> <p> <code>DescribeTrainingSession</code> </p> </li> <li> <p> <code>StopTrainingSession</code> </p> </li> </ul>
-
-        Args:
-            training_session_name: <p>The name of the training session to delete.</p>
-
-        Raises:
-            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
-            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_sagemaker.types.delete_training_session_request.DeleteTrainingSessionRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_sagemaker.types.delete_training_session_response.DeleteTrainingSessionResponse"
-        ]:
-            import capo_sagemaker._operations.sage_maker.delete_training_session
-
-            (
-                output,
-                http_response,
-            ) = await capo_sagemaker._operations.sage_maker.delete_training_session.async_delete_training_session(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DeleteTrainingSession")
-        )
-        input_: capo_sagemaker.types.delete_training_session_request.DeleteTrainingSessionRequest = {}
-        if training_session_name is not None:
-            input_["training_session_name"] = training_session_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),
@@ -15039,54 +14890,6 @@ class AsyncSageMakerClient:
             _token = _resolve_path(_response, ("next_token",))
             if not _token:
                 break
-
-    async def describe_training_session(
-        self,
-        *,
-        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
-        training_session_name: Optional[
-            "capo_sagemaker.types.training_session_name.TrainingSessionName"
-        ] = None,
-    ) -> "capo_sagemaker.types.describe_training_session_response.DescribeTrainingSessionResponse":
-        """<p>Retrieves detailed information about a training session, including its current status, model configuration, Low-Rank Adaptation (LoRA) parameters, and timestamps.</p> <p>The following operations are related to <code>DescribeTrainingSession</code>:</p> <ul> <li> <p> <code>CreateTrainingSession</code> </p> </li> <li> <p> <code>ListTrainingSessions</code> </p> </li> <li> <p> <code>StopTrainingSession</code> </p> </li> <li> <p> <code>DeleteTrainingSession</code> </p> </li> </ul>
-
-        Args:
-            training_session_name: <p>The name of the training session to describe.</p>
-
-        Raises:
-            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
-            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_sagemaker.types.describe_training_session_request.DescribeTrainingSessionRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_sagemaker.types.describe_training_session_response.DescribeTrainingSessionResponse"
-        ]:
-            import capo_sagemaker._operations.sage_maker.describe_training_session
-
-            (
-                output,
-                http_response,
-            ) = await capo_sagemaker._operations.sage_maker.describe_training_session.async_describe_training_session(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("DescribeTrainingSession")
-        )
-        input_: capo_sagemaker.types.describe_training_session_request.DescribeTrainingSessionRequest = {}
-        if training_session_name is not None:
-            input_["training_session_name"] = training_session_name
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
 
     async def describe_transform_job(
         self,
@@ -26234,116 +26037,6 @@ class AsyncSageMakerClient:
             if not _token:
                 break
 
-    async def list_training_sessions(
-        self,
-        *,
-        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
-        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
-        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
-        creation_time_after: Optional[
-            "capo_sagemaker.types.timestamp.Timestamp"
-        ] = None,
-        creation_time_before: Optional[
-            "capo_sagemaker.types.timestamp.Timestamp"
-        ] = None,
-        name_contains: Optional[
-            "capo_sagemaker.types.name_contains.NameContains"
-        ] = None,
-        status_equals: Optional[
-            "capo_sagemaker.types.training_session_status.TrainingSessionStatus"
-        ] = None,
-    ) -> "capo_sagemaker.types.list_training_sessions_response.ListTrainingSessionsResponse":
-        """<p>Lists training sessions in your account. You can filter results by creation time, name, and status. The operation paginates results. To retrieve additional results, use the <code>NextToken</code> parameter.</p> <p>The following operations are related to <code>ListTrainingSessions</code>:</p> <ul> <li> <p> <code>CreateTrainingSession</code> </p> </li> <li> <p> <code>DescribeTrainingSession</code> </p> </li> </ul>
-
-        Args:
-            next_token: <p>If the response was truncated, use the token returned in the previous response to retrieve the next page of results.</p>
-            max_results: <p>The maximum number of training sessions to return in the response.</p>
-            creation_time_after: <p>A filter that returns only training sessions created after the specified time.</p>
-            creation_time_before: <p>A filter that returns only training sessions created before the specified time.</p>
-            name_contains: <p>A string in the training session name to filter results. Only sessions whose name contains the specified string are returned.</p>
-            status_equals: <p>A filter that returns only training sessions with the specified status.</p>
-
-        Raises:
-            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_sagemaker.types.list_training_sessions_request.ListTrainingSessionsRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_sagemaker.types.list_training_sessions_response.ListTrainingSessionsResponse"
-        ]:
-            import capo_sagemaker._operations.sage_maker.list_training_sessions
-
-            (
-                output,
-                http_response,
-            ) = await capo_sagemaker._operations.sage_maker.list_training_sessions.async_list_training_sessions(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("ListTrainingSessions")
-        )
-        input_: capo_sagemaker.types.list_training_sessions_request.ListTrainingSessionsRequest = {}
-        if next_token is not None:
-            input_["next_token"] = next_token
-        if max_results is not None:
-            input_["max_results"] = max_results
-        if creation_time_after is not None:
-            input_["creation_time_after"] = creation_time_after
-        if creation_time_before is not None:
-            input_["creation_time_before"] = creation_time_before
-        if name_contains is not None:
-            input_["name_contains"] = name_contains
-        if status_equals is not None:
-            input_["status_equals"] = status_equals
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def iter_list_training_sessions(
-        self,
-        *,
-        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
-        next_token: Optional["capo_sagemaker.types.next_token.NextToken"] = None,
-        max_results: Optional["capo_sagemaker.types.max_results.MaxResults"] = None,
-        creation_time_after: Optional[
-            "capo_sagemaker.types.timestamp.Timestamp"
-        ] = None,
-        creation_time_before: Optional[
-            "capo_sagemaker.types.timestamp.Timestamp"
-        ] = None,
-        name_contains: Optional[
-            "capo_sagemaker.types.name_contains.NameContains"
-        ] = None,
-        status_equals: Optional[
-            "capo_sagemaker.types.training_session_status.TrainingSessionStatus"
-        ] = None,
-    ) -> "AsyncIterator[capo_sagemaker.types.training_session_summary.TrainingSessionSummary]":
-        _token = next_token
-        while True:
-            _response = await self.list_training_sessions(
-                config_overrides=config_overrides,
-                next_token=_token,
-                max_results=max_results,
-                creation_time_after=creation_time_after,
-                creation_time_before=creation_time_before,
-                name_contains=name_contains,
-                status_equals=status_equals,
-            )
-            _page = _resolve_path(_response, ("training_session_summaries",))
-            for _item in _page or []:
-                yield _item
-            _token = _resolve_path(_response, ("next_token",))
-            if not _token:
-                break
-
     async def list_transform_jobs(
         self,
         *,
@@ -29098,54 +28791,6 @@ class AsyncSageMakerClient:
         input_: capo_sagemaker.types.stop_training_job_request.StopTrainingJobRequest = {}
         if training_job_name is not None:
             input_["training_job_name"] = training_job_name
-
-        response = await aexecute_pipeline(
-            AsyncOperationRequest(input=input_, options=options_),
-            handler=_handler,
-            interceptors=list(interceptors_),
-        )
-        await response.response.aclose()
-        return response.output
-
-    async def stop_training_session(
-        self,
-        *,
-        config_overrides: Optional[AsyncSageMakerClientConfig] = None,
-        training_session_name: Optional[
-            "capo_sagemaker.types.training_session_name.TrainingSessionName"
-        ] = None,
-    ) -> "capo_sagemaker.types.stop_training_session_response.StopTrainingSessionResponse":
-        """<p>Stops a running training session and sets the session status to <code>Stopping</code>. After the session stops, the status changes to <code>Stopped</code>. To delete a stopped session, use the <code>DeleteTrainingSession</code> operation.</p> <p>The following operations are related to <code>StopTrainingSession</code>:</p> <ul> <li> <p> <code>CreateTrainingSession</code> </p> </li> <li> <p> <code>DescribeTrainingSession</code> </p> </li> <li> <p> <code>DeleteTrainingSession</code> </p> </li> </ul>
-
-        Args:
-            training_session_name: <p>The name of the training session to stop.</p>
-
-        Raises:
-            capo_sagemaker.errors.resource_not_found.ResourceNotFound: <p>Resource being access is not found.</p>
-            capo_sagemaker.errors.UnknownServiceError: The service returned an error code this client does not model.
-        """
-
-        async def _handler(
-            req: "AsyncOperationRequest[capo_sagemaker.types.stop_training_session_request.StopTrainingSessionRequest]",
-        ) -> AsyncOperationResponse[
-            "capo_sagemaker.types.stop_training_session_response.StopTrainingSessionResponse"
-        ]:
-            import capo_sagemaker._operations.sage_maker.stop_training_session
-
-            (
-                output,
-                http_response,
-            ) = await capo_sagemaker._operations.sage_maker.stop_training_session.async_stop_training_session(
-                req.options, req.input
-            )
-            return AsyncOperationResponse(output=output, response=http_response)
-
-        interceptors_, options_ = self.operation_options(
-            config_overrides, OperationLogging("StopTrainingSession")
-        )
-        input_: capo_sagemaker.types.stop_training_session_request.StopTrainingSessionRequest = {}
-        if training_session_name is not None:
-            input_["training_session_name"] = training_session_name
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

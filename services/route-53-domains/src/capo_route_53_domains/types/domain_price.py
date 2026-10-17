@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class DomainPrice(TypedDict, closed=True):
     name: NotRequired["capo_route_53_domains.types.domain_price_name.DomainPriceName"]
-    """<p>The TLD or domain name that the prices apply to.</p>"""
+    """<p>The name of the TLD for which the prices apply.</p>"""
     registration_price: NotRequired[
         "capo_route_53_domains.types.price_with_currency.PriceWithCurrency"
     ]

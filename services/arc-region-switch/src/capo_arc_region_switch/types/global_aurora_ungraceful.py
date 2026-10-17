@@ -12,7 +12,7 @@ class GlobalAuroraUngraceful(TypedDict, closed=True):
     ungraceful: NotRequired[
         "capo_arc_region_switch.types.global_aurora_ungraceful_behavior.GlobalAuroraUngracefulBehavior"
     ]
-    """<p>The ungraceful behavior. The only valid value is <code>failover</code>, which calls <code>FailoverGlobalCluster</code> with <code>AllowDataLoss</code> set to <code>true</code> and might cause data loss.</p>"""
+    """<p>The settings for ungraceful execution.</p>"""
 
 
 # --- awsJson1_0 ser/de ---

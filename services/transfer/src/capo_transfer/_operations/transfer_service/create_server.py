@@ -23,7 +23,6 @@ import capo_transfer.types.create_server_response
 import capo_transfer.types.domain
 import capo_transfer.types.endpoint_details
 import capo_transfer.types.endpoint_type
-import capo_transfer.types.host_key_storage_type
 import capo_transfer.types.identity_provider_details
 import capo_transfer.types.identity_provider_type
 import capo_transfer.types.ip_address_type

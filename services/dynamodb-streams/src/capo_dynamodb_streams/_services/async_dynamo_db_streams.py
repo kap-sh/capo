@@ -46,7 +46,6 @@ if TYPE_CHECKING:
     import capo_dynamodb_streams.types.shard_iterator_type
     import capo_dynamodb_streams.types.stream_arn
     import capo_dynamodb_streams.types.table_name
-    import capo_dynamodb_streams.types.timestamp
 
 
 class AsyncDynamoDBStreamsClientConfig(TypedDict, total=False, closed=True):
@@ -288,16 +287,14 @@ class AsyncDynamoDBStreamsClient:
         sequence_number: Optional[
             "capo_dynamodb_streams.types.sequence_number.SequenceNumber"
         ] = None,
-        timestamp: Optional["capo_dynamodb_streams.types.timestamp.Timestamp"] = None,
     ) -> "capo_dynamodb_streams.types.get_shard_iterator_output.GetShardIteratorOutput":
         """<p>Returns a shard iterator. A shard iterator provides information about how to retrieve the stream records from within a shard. Use the shard iterator in a subsequent <code>GetRecords</code> request to read the stream records from the shard.</p> <note> <p>A shard iterator expires 15 minutes after it is returned to the requester.</p> </note>
 
         Args:
             stream_arn: <p>The Amazon Resource Name (ARN) for the stream.</p>
             shard_id: <p>The identifier of the shard. The iterator will be returned for this shard ID.</p>
-            shard_iterator_type: <p>Determines how the shard iterator is used to start reading stream records from the shard:</p> <ul> <li> <p> <code>AT_SEQUENCE_NUMBER</code> - Start reading exactly from the position denoted by a specific sequence number.</p> </li> <li> <p> <code>AFTER_SEQUENCE_NUMBER</code> - Start reading right after the position denoted by a specific sequence number.</p> </li> <li> <p> <code>TRIM_HORIZON</code> - Start reading at the last (untrimmed) stream record, which is the oldest record in the shard. In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream.</p> </li> <li> <p> <code>LATEST</code> - Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.</p> </li> <li> <p> <code>AT_TIMESTAMP</code> - Start reading from the position denoted by a specific timestamp, provided in the parameter <code>Timestamp</code>.</p> </li> </ul>
+            shard_iterator_type: <p>Determines how the shard iterator is used to start reading stream records from the shard:</p> <ul> <li> <p> <code>AT_SEQUENCE_NUMBER</code> - Start reading exactly from the position denoted by a specific sequence number.</p> </li> <li> <p> <code>AFTER_SEQUENCE_NUMBER</code> - Start reading right after the position denoted by a specific sequence number.</p> </li> <li> <p> <code>TRIM_HORIZON</code> - Start reading at the last (untrimmed) stream record, which is the oldest record in the shard. In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this limit are subject to removal (trimming) from the stream.</p> </li> <li> <p> <code>LATEST</code> - Start reading just after the most recent stream record in the shard, so that you always read the most recent data in the shard.</p> </li> </ul>
             sequence_number: <p>The sequence number of a stream record in the shard from which to start reading.</p>
-            timestamp: <p>The timestamp of the stream record from which to start reading. Used with shard iterator type <code>AT_TIMESTAMP</code>. A timestamp is the Unix epoch date with precision in milliseconds. For example, <code>1791316726.480</code>. The iterator points to the first stream record whose <code>ApproximateCreationDateTime</code> is at or after the specified timestamp. If no record with that exact timestamp exists, the iterator points to the next (later) record. If the timestamp is older than the current trim horizon, the iterator points to the oldest untrimmed stream record (<code>TRIM_HORIZON</code>). If the timestamp is in the future, the request returns a <code>ValidationException</code>.</p>
 
         Raises:
             capo_dynamodb_streams.errors.internal_server_error.InternalServerError: <p>An error occurred on the server side.</p>
@@ -337,8 +334,6 @@ class AsyncDynamoDBStreamsClient:
         }
         if sequence_number is not None:
             input_["sequence_number"] = sequence_number
-        if timestamp is not None:
-            input_["timestamp"] = timestamp
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

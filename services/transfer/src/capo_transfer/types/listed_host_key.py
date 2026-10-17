@@ -12,9 +12,7 @@ if TYPE_CHECKING:
     import capo_transfer.types.host_key_description
     import capo_transfer.types.host_key_fingerprint
     import capo_transfer.types.host_key_id
-    import capo_transfer.types.host_key_storage_type
     import capo_transfer.types.host_key_type
-    import capo_transfer.types.secret_id
 
 
 class ListedHostKey(TypedDict, closed=True):
@@ -34,12 +32,6 @@ class ListedHostKey(TypedDict, closed=True):
     """<p>The encryption algorithm that is used for the host key. The <code>Type</code> parameter is specified by using one of the following values:</p> <ul> <li> <p> <code>ssh-rsa</code> </p> </li> <li> <p> <code>ssh-ed25519</code> </p> </li> <li> <p> <code>ecdsa-sha2-nistp256</code> </p> </li> <li> <p> <code>ecdsa-sha2-nistp384</code> </p> </li> <li> <p> <code>ecdsa-sha2-nistp521</code> </p> </li> </ul>"""
     date_imported: NotRequired["capo_transfer.types.date_imported.DateImported"]
     """<p>The date on which the host key was added to the server.</p>"""
-    storage_type: NotRequired[
-        "capo_transfer.types.host_key_storage_type.HostKeyStorageType"
-    ]
-    """<p>Specifies whether the host key is stored by Transfer Family (<code>SERVICE_MANAGED</code>) or in Secrets Manager (<code>SECRETS_MANAGER</code>).</p>"""
-    secret_id: NotRequired["capo_transfer.types.secret_id.SecretId"]
-    """<p>The ARN of the Secrets Manager secret that stores the host key material, when <code>StorageType</code> is <code>SECRETS_MANAGER</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -60,16 +52,6 @@ def serialize_aws_json_1_1(value: ListedHostKey) -> dict:
         out["DateImported"] = capo_transfer.types.date_imported.serialize_aws_json_1_1(
             value["date_imported"]
         )
-    if "storage_type" in value:
-        import capo_transfer.types.host_key_storage_type
-
-        out["StorageType"] = (
-            capo_transfer.types.host_key_storage_type.serialize_aws_json_1_1(
-                value["storage_type"]
-            )
-        )
-    if "secret_id" in value:
-        out["SecretId"] = value["secret_id"]
     return out
 
 
@@ -95,14 +77,4 @@ def deserialize_aws_json_1_1(data: dict) -> ListedHostKey:
                 data["DateImported"]
             )
         )
-    if data.get("StorageType") is not None:
-        import capo_transfer.types.host_key_storage_type
-
-        out["storage_type"] = (
-            capo_transfer.types.host_key_storage_type.deserialize_aws_json_1_1(
-                data["StorageType"]
-            )
-        )
-    if data.get("SecretId") is not None:
-        out["secret_id"] = data["SecretId"]
     return out

@@ -21,7 +21,6 @@ ExecutionBlockType: TypeAlias = Literal[
     "AuroraProvisionedScaling",
     "NeptuneGlobalDatabase",
     "RdsSwitchoverReadReplica",
-    "SSMSendCommand",
 ]
 
 

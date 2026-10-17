@@ -12,9 +12,7 @@ if TYPE_CHECKING:
     import capo_transfer.types.host_key_description
     import capo_transfer.types.host_key_fingerprint
     import capo_transfer.types.host_key_id
-    import capo_transfer.types.host_key_storage_type
     import capo_transfer.types.host_key_type
-    import capo_transfer.types.secret_id
     import capo_transfer.types.tags
 
 
@@ -37,12 +35,6 @@ class DescribedHostKey(TypedDict, closed=True):
     """<p>The date on which the host key was added to the server.</p>"""
     tags: NotRequired["capo_transfer.types.tags.Tags"]
     """<p>Key-value pairs that can be used to group and search for host keys.</p>"""
-    storage_type: NotRequired[
-        "capo_transfer.types.host_key_storage_type.HostKeyStorageType"
-    ]
-    """<p>Specifies whether the host key is stored by Transfer Family (<code>SERVICE_MANAGED</code>) or in Secrets Manager (<code>SECRETS_MANAGER</code>).</p>"""
-    secret_id: NotRequired["capo_transfer.types.secret_id.SecretId"]
-    """<p>The ARN of the Secrets Manager secret that stores the host key material, when <code>StorageType</code> is <code>SECRETS_MANAGER</code>.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -67,16 +59,6 @@ def serialize_aws_json_1_1(value: DescribedHostKey) -> dict:
         import capo_transfer.types.tags
 
         out["Tags"] = capo_transfer.types.tags.serialize_aws_json_1_1(value["tags"])
-    if "storage_type" in value:
-        import capo_transfer.types.host_key_storage_type
-
-        out["StorageType"] = (
-            capo_transfer.types.host_key_storage_type.serialize_aws_json_1_1(
-                value["storage_type"]
-            )
-        )
-    if "secret_id" in value:
-        out["SecretId"] = value["secret_id"]
     return out
 
 
@@ -106,14 +88,4 @@ def deserialize_aws_json_1_1(data: dict) -> DescribedHostKey:
         import capo_transfer.types.tags
 
         out["tags"] = capo_transfer.types.tags.deserialize_aws_json_1_1(data["Tags"])
-    if data.get("StorageType") is not None:
-        import capo_transfer.types.host_key_storage_type
-
-        out["storage_type"] = (
-            capo_transfer.types.host_key_storage_type.deserialize_aws_json_1_1(
-                data["StorageType"]
-            )
-        )
-    if data.get("SecretId") is not None:
-        out["secret_id"] = data["SecretId"]
     return out

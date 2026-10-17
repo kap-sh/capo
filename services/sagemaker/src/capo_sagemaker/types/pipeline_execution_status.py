@@ -8,7 +8,6 @@ PipelineExecutionStatus: TypeAlias = Literal[
     "Stopped",
     "Failed",
     "Succeeded",
-    "CompletedWithFailures",
 ]
 
 

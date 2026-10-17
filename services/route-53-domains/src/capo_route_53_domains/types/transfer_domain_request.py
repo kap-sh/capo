@@ -8,7 +8,6 @@ from capo_route_53_domains.errors import DeserializationError
 
 if TYPE_CHECKING:
     import capo_route_53_domains.types.boolean
-    import capo_route_53_domains.types.consent
     import capo_route_53_domains.types.contact_detail
     import capo_route_53_domains.types.domain_auth_code
     import capo_route_53_domains.types.domain_name
@@ -62,8 +61,6 @@ class TransferDomainRequest(TypedDict, closed=True):
         "capo_route_53_domains.types.boolean.Boolean"
     ]
     """<p> Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact. </p> <note> <p>You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.</p> </note>"""
-    consent: NotRequired["capo_route_53_domains.types.consent.Consent"]
-    """<p>Specifies the maximum price that you agree to pay to transfer the domain name to Route 53. This element is required if the domain has registry premium pricing, and optional if the domain is priced at the standard rate for its TLD. If you include it and the transfer price is more than <code>MaxPrice</code>, the request fails.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -125,12 +122,6 @@ def serialize_aws_json_1_1(value: TransferDomainRequest) -> dict:
         )
     if "privacy_protect_billing_contact" in value:
         out["PrivacyProtectBillingContact"] = value["privacy_protect_billing_contact"]
-    if "consent" in value:
-        import capo_route_53_domains.types.consent
-
-        out["Consent"] = capo_route_53_domains.types.consent.serialize_aws_json_1_1(
-            value["consent"]
-        )
     return out
 
 
@@ -204,12 +195,6 @@ def deserialize_aws_json_1_1(data: dict) -> TransferDomainRequest:
         )
     if data.get("PrivacyProtectBillingContact") is not None:
         out["privacy_protect_billing_contact"] = data["PrivacyProtectBillingContact"]
-    if data.get("Consent") is not None:
-        import capo_route_53_domains.types.consent
-
-        out["consent"] = capo_route_53_domains.types.consent.deserialize_aws_json_1_1(
-            data["Consent"]
-        )
     return out
 
 

@@ -14,7 +14,6 @@ if TYPE_CHECKING:
     import capo_appstream.types.feedback_url
     import capo_appstream.types.redirect_url
     import capo_appstream.types.stack_errors
-    import capo_appstream.types.storage_connector_authentication
     import capo_appstream.types.storage_connector_list
     import capo_appstream.types.streaming_experience_settings
     import capo_appstream.types.string
@@ -69,10 +68,6 @@ class Stack(TypedDict, closed=True):
         "capo_appstream.types.agent_access_config.AgentAccessConfig"
     ]
     """<p>The agent access configuration of the stack, if agent access is enabled.</p>"""
-    storage_connector_authentication: NotRequired[
-        "capo_appstream.types.storage_connector_authentication.StorageConnectorAuthentication"
-    ]
-    """<p>Indicates whether users' cloud storage authentication persists across streaming sessions. When this attribute is FORCE_REAUTHENTICATION, WorkSpaces Applications removes the stored authentication for the stack's OneDrive and Google Drive connectors when a user's session ends. The user links their cloud storage again on their next session. The default is REUSE_CREDENTIALS.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -164,14 +159,6 @@ def serialize_aws_json_1_1(value: Stack) -> dict:
         out["AgentAccessConfig"] = (
             capo_appstream.types.agent_access_config.serialize_aws_json_1_1(
                 value["agent_access_config"]
-            )
-        )
-    if "storage_connector_authentication" in value:
-        import capo_appstream.types.storage_connector_authentication
-
-        out["StorageConnectorAuthentication"] = (
-            capo_appstream.types.storage_connector_authentication.serialize_aws_json_1_1(
-                value["storage_connector_authentication"]
             )
         )
     return out
@@ -267,14 +254,6 @@ def deserialize_aws_json_1_1(data: dict) -> Stack:
         out["agent_access_config"] = (
             capo_appstream.types.agent_access_config.deserialize_aws_json_1_1(
                 data["AgentAccessConfig"]
-            )
-        )
-    if data.get("StorageConnectorAuthentication") is not None:
-        import capo_appstream.types.storage_connector_authentication
-
-        out["storage_connector_authentication"] = (
-            capo_appstream.types.storage_connector_authentication.deserialize_aws_json_1_1(
-                data["StorageConnectorAuthentication"]
             )
         )
     return out

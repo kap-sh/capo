@@ -13,7 +13,6 @@ if TYPE_CHECKING:
     import capo_lambda_core.types.network_connector_name
     import capo_lambda_core.types.network_connector_state
     import capo_lambda_core.types.network_connector_type
-    import capo_lambda_core.types.network_connector_version
 
 
 class NetworkConnectorSummary(TypedDict, closed=True):
@@ -22,7 +21,6 @@ class NetworkConnectorSummary(TypedDict, closed=True):
     name: "capo_lambda_core.types.network_connector_name.NetworkConnectorName"
     """<p>The name of the network connector.</p>"""
     id: "capo_lambda_core.types.network_connector_id.NetworkConnectorId"
-    """<p>The unique identifier of the network connector.</p>"""
     type: "capo_lambda_core.types.network_connector_type.NetworkConnectorType"
     """<p>The type of the network connector (<code>VPC_EGRESS</code>).</p>"""
     state: NotRequired[
@@ -31,14 +29,6 @@ class NetworkConnectorSummary(TypedDict, closed=True):
     """<p>The current state of the network connector.</p>"""
     last_modified: NotRequired["capo_lambda_core.types.core_timestamp.CoreTimestamp"]
     """<p>The date and time when the connector was last modified.</p>"""
-    latest_version_arn: NotRequired[
-        "capo_lambda_core.types.network_connector_arn.NetworkConnectorArn"
-    ]
-    """<p>The qualified ARN of the connector's latest version, including the immutable version suffix.</p>"""
-    latest_version: NotRequired[
-        "capo_lambda_core.types.network_connector_version.NetworkConnectorVersion"
-    ]
-    """<p>The version number of the connector's latest version. Each configuration update creates a new immutable version; this attribute exposes the most recent one.</p>"""
 
 
 # --- restJson1 ser/de ---
@@ -64,10 +54,6 @@ def serialize_json(value: NetworkConnectorSummary) -> dict:
         out["LastModified"] = capo_lambda_core.types.core_timestamp.serialize_json(
             value["last_modified"]
         )
-    if "latest_version_arn" in value:
-        out["LatestVersionArn"] = value["latest_version_arn"]
-    if "latest_version" in value:
-        out["LatestVersion"] = value["latest_version"]
     return out
 
 
@@ -105,8 +91,4 @@ def deserialize_json(data: dict) -> NetworkConnectorSummary:
         out["last_modified"] = capo_lambda_core.types.core_timestamp.deserialize_json(
             data["LastModified"]
         )
-    if data.get("LatestVersionArn") is not None:
-        out["latest_version_arn"] = data["LatestVersionArn"]
-    if data.get("LatestVersion") is not None:
-        out["latest_version"] = data["LatestVersion"]
     return out

@@ -23,7 +23,6 @@ ResourcesStringField: TypeAlias = Literal[
     "ResourceInfo.AIDetails.HostResourceGuid",
     "ResourceInfo.AIDetails.HostResourceType",
     "ResourceInfo.AIDetails.CanonicalId",
-    "ResourceCriticality",
 ]
 
 

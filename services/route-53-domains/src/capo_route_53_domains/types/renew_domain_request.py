@@ -7,7 +7,6 @@ from typing_extensions import NotRequired, TypedDict
 from capo_route_53_domains.errors import DeserializationError
 
 if TYPE_CHECKING:
-    import capo_route_53_domains.types.consent
     import capo_route_53_domains.types.current_expiry_year
     import capo_route_53_domains.types.domain_name
     import capo_route_53_domains.types.duration_in_years
@@ -24,8 +23,6 @@ class RenewDomainRequest(TypedDict, closed=True):
         "capo_route_53_domains.types.current_expiry_year.CurrentExpiryYear"
     )
     """<p>The year when the registration for the domain is set to expire. This value must match the current expiration date for the domain.</p>"""
-    consent: NotRequired["capo_route_53_domains.types.consent.Consent"]
-    """<p>Specifies the maximum price that you agree to pay to renew the domain name. This element is required if the domain has registry premium pricing, and optional if the domain is priced at the standard rate for its TLD. If you include it and the renewal price is more than <code>MaxPrice</code>, the request fails.</p>"""
 
 
 # --- awsJson1_1 ser/de ---
@@ -35,12 +32,6 @@ def serialize_aws_json_1_1(value: RenewDomainRequest) -> dict:
     if "duration_in_years" in value:
         out["DurationInYears"] = value["duration_in_years"]
     out["CurrentExpiryYear"] = value.get("current_expiry_year", 0)
-    if "consent" in value:
-        import capo_route_53_domains.types.consent
-
-        out["Consent"] = capo_route_53_domains.types.consent.serialize_aws_json_1_1(
-            value["consent"]
-        )
     return out
 
 
@@ -56,10 +47,4 @@ def deserialize_aws_json_1_1(data: dict) -> RenewDomainRequest:
         out["current_expiry_year"] = data["CurrentExpiryYear"]
     else:
         out["current_expiry_year"] = 0
-    if data.get("Consent") is not None:
-        import capo_route_53_domains.types.consent
-
-        out["consent"] = capo_route_53_domains.types.consent.deserialize_aws_json_1_1(
-            data["Consent"]
-        )
     return out

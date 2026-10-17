@@ -106,7 +106,6 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.dependency_criticality
     import capo_resiliencehubv2.types.dependency_discovery_input
     import capo_resiliencehubv2.types.dependency_summary
-    import capo_resiliencehubv2.types.dev_ops_agent_configuration
     import capo_resiliencehubv2.types.entity_description
     import capo_resiliencehubv2.types.entity_id
     import capo_resiliencehubv2.types.entity_label
@@ -720,9 +719,6 @@ class Asyncresiliencehubv2Client:
             "capo_resiliencehubv2.types.service_report_configuration.ServiceReportConfiguration"
         ] = None,
         kms_key_id: Optional["capo_resiliencehubv2.types.kms_key_id.KmsKeyId"] = None,
-        dev_ops_agent_configuration: Optional[
-            "capo_resiliencehubv2.types.dev_ops_agent_configuration.DevOpsAgentConfiguration"
-        ] = None,
         tags: Optional["capo_resiliencehubv2.types.tag_map.TagMap"] = None,
         client_token: Optional[
             "capo_resiliencehubv2.types.client_token.ClientToken"
@@ -734,7 +730,6 @@ class Asyncresiliencehubv2Client:
             associated_systems: <p>The systems to associate with the service.</p>
             regions: <p>The Regions where the service operates.</p>
             permission_model: <p>The permission model for the service.</p>
-            dev_ops_agent_configuration: <p>The optional DevOps Agent integration configuration to apply to the new service. If you omit this field, the new service has no DevOps Agent integration.</p>
 
         Raises:
             capo_resiliencehubv2.errors.access_denied_exception.AccessDeniedException: <p>Access denied — caller lacks required permissions.</p>
@@ -804,8 +799,6 @@ class Asyncresiliencehubv2Client:
             input_["report_configuration"] = report_configuration
         if kms_key_id is not None:
             input_["kms_key_id"] = kms_key_id
-        if dev_ops_agent_configuration is not None:
-            input_["dev_ops_agent_configuration"] = dev_ops_agent_configuration
         if tags is not None:
             input_["tags"] = tags
         if client_token is None:
@@ -2184,7 +2177,6 @@ class Asyncresiliencehubv2Client:
             capo_resiliencehubv2.errors.conflict_exception.ConflictException: <p>Conflict — resource already exists.</p>
             capo_resiliencehubv2.errors.internal_server_exception.InternalServerException: <p>Internal service error.</p>
             capo_resiliencehubv2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found.</p>
-            capo_resiliencehubv2.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Service quota exceeded.</p>
             capo_resiliencehubv2.errors.validation_exception.ValidationException: <p>Validation error — invalid input parameters.</p>
             capo_resiliencehubv2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -2285,7 +2277,6 @@ class Asyncresiliencehubv2Client:
             capo_resiliencehubv2.errors.conflict_exception.ConflictException: <p>Conflict — resource already exists.</p>
             capo_resiliencehubv2.errors.internal_server_exception.InternalServerException: <p>Internal service error.</p>
             capo_resiliencehubv2.errors.resource_not_found_exception.ResourceNotFoundException: <p>Resource not found.</p>
-            capo_resiliencehubv2.errors.service_quota_exceeded_exception.ServiceQuotaExceededException: <p>Service quota exceeded.</p>
             capo_resiliencehubv2.errors.validation_exception.ValidationException: <p>Validation error — invalid input parameters.</p>
             capo_resiliencehubv2.errors.UnknownServiceError: The service returned an error code this client does not model.
         """
@@ -5445,9 +5436,6 @@ class Asyncresiliencehubv2Client:
         report_configuration: Optional[
             "capo_resiliencehubv2.types.service_report_configuration.ServiceReportConfiguration"
         ] = None,
-        dev_ops_agent_configuration: Optional[
-            "capo_resiliencehubv2.types.dev_ops_agent_configuration.DevOpsAgentConfiguration"
-        ] = None,
     ) -> "capo_resiliencehubv2.types.update_service_response.UpdateServiceResponse":
         """<p>Updates an existing service.</p>
 
@@ -5455,7 +5443,6 @@ class Asyncresiliencehubv2Client:
             associated_systems: <p>The updated systems to associate with the service.</p>
             regions: <p>The updated AWS Regions where the service operates.</p>
             permission_model: <p>The updated permission model for the service.</p>
-            dev_ops_agent_configuration: <p>The optional DevOps Agent integration configuration to set, replace, or disconnect for the service. If you omit this field, the existing DevOps Agent linkage stays unchanged.</p>
 
         Raises:
             capo_resiliencehubv2.errors.access_denied_exception.AccessDeniedException: <p>Access denied — caller lacks required permissions.</p>
@@ -5512,8 +5499,6 @@ class Asyncresiliencehubv2Client:
             input_["dependency_discovery"] = dependency_discovery
         if report_configuration is not None:
             input_["report_configuration"] = report_configuration
-        if dev_ops_agent_configuration is not None:
-            input_["dev_ops_agent_configuration"] = dev_ops_agent_configuration
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=input_, options=options_),

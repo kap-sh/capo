@@ -28,7 +28,7 @@ class UpdateRouterInputRequest(TypedDict, closed=True):
     routing_scope: NotRequired["capo_mediaconnect.types.routing_scope.RoutingScope"]
     """<p>Specifies whether the router input can be assigned to outputs in different Regions. REGIONAL (default) - can be assigned only to outputs in the same Region. GLOBAL - can be assigned to outputs in any Region.</p>"""
     tier: NotRequired["capo_mediaconnect.types.router_input_tier.RouterInputTier"]
-    """<p>The updated tier level for the router input. The tier sets the maximum bitrate, in Mbps, for the router input. Valid values include the following:</p> <ul> <li> <p> <code>INPUT_20</code> – 20 Mbps</p> </li> <li> <p> <code>INPUT_50</code> – 50 Mbps</p> </li> <li> <p> <code>INPUT_100</code> – 100 Mbps</p> </li> <li> <p> <code>INPUT_250</code> – 250 Mbps</p> </li> <li> <p> <code>INPUT_500</code> – 500 Mbps</p> </li> </ul> <p>The 250 Mbps and 500 Mbps tiers are high-bitrate tiers that support TR-07 (JPEG XS) workflows.</p>"""
+    """<p>The updated tier level for the router input.</p>"""
     transit_encryption: NotRequired[
         "capo_mediaconnect.types.router_input_transit_encryption.RouterInputTransitEncryption"
     ]

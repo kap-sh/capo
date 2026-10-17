@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 class PrivateLinkConfig(TypedDict, closed=True):
     vpc_endpoint_id: NotRequired["capo_datasync.types.vpc_endpoint_id.VpcEndpointId"]
-    """<p>Specifies the ID of the VPC service endpoint that's recorded for your agent. The endpoint ID is informational and isn't verified by DataSync. Your agent communicates through the private IP address in <code>PrivateLinkEndpoint</code>, which is set when you activate the agent.</p>"""
+    """<p>Specifies the ID of the VPC endpoint that your agent connects to.</p>"""
     private_link_endpoint: NotRequired["capo_datasync.types.endpoint.Endpoint"]
     """<p>Specifies the VPC endpoint provided by <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html">Amazon Web Services PrivateLink</a> that your agent connects to.</p>"""
     subnet_arns: NotRequired["capo_datasync.types.pl_subnet_arn_list.PLSubnetArnList"]
-    """<p>Specifies the ARN of the subnet where DataSync creates the network interfaces that handle data transfer traffic for your tasks. You can only specify one ARN.</p> <p>The subnet doesn't have to be the subnet that contains your VPC endpoint.</p>"""
+    """<p>Specifies the ARN of the subnet where your VPC endpoint is located. You can only specify one ARN.</p>"""
     security_group_arns: NotRequired[
         "capo_datasync.types.pl_security_group_arn_list.PLSecurityGroupArnList"
     ]

@@ -1,8 +1,0 @@
----
-title: HostKeyStorageType
----
-
-::: capo_transfer.types.host_key_storage_type.HostKeyStorageType
-    options:
-      show_source: true
-      merge_init_into_class: false

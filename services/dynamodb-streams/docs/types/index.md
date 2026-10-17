@@ -51,4 +51,3 @@
 - [StringAttributeValue](string_attribute_value.md)
 - [StringSetAttributeValue](string_set_attribute_value.md)
 - [TableName](table_name.md)
-- [Timestamp](timestamp.md)

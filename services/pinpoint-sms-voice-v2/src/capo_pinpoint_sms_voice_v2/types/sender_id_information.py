@@ -34,8 +34,6 @@ class SenderIdInformation(TypedDict, closed=True):
         "capo_pinpoint_sms_voice_v2.types.messaging_limits.MessagingLimits"
     ]
     """<p>The messaging limits that apply to the sender ID, including the per-capability send rates.</p>"""
-    pricing_tier: NotRequired["str"]
-    """<p>The pricing model.</p>"""
 
 
 # --- awsJson1_0 ser/de ---
@@ -64,8 +62,6 @@ def serialize_aws_json_1_0(value: SenderIdInformation) -> dict:
                 value["messaging_limits"]
             )
         )
-    if "pricing_tier" in value:
-        out["PricingTier"] = value["pricing_tier"]
     return out
 
 
@@ -115,6 +111,4 @@ def deserialize_aws_json_1_0(data: dict) -> SenderIdInformation:
                 data["MessagingLimits"]
             )
         )
-    if data.get("PricingTier") is not None:
-        out["pricing_tier"] = data["PricingTier"]
     return out

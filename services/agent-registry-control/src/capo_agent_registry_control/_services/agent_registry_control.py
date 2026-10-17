@@ -400,7 +400,7 @@ class AgentRegistryControlClient:
             record_version: <p>The version of the registry record</p>
             client_token: <p>Client token for idempotency</p>
             provenance: <p>The provenance lineage entries for the registry record. This field is reserved for the Amazon Web Services Agent Registry auto-detection service principal. Requests that include this field from other callers are rejected.</p>
-            custom_metadata: <p>The custom metadata for the record. Values are strings or JSON booleans.</p>
+            custom_metadata: <p>The custom metadata to attach to the registry record. Each key must match a property defined in the registry's custom metadata schema. Values can be strings (maximum 128 characters) or native JSON booleans (<code>true</code> or <code>false</code>). Values are validated against the schema at creation time.</p>
             tags: <p>Tags to associate with the registry record</p>
 
         Raises:
@@ -1136,7 +1136,7 @@ class AgentRegistryControlClient:
             description: <p>The updated description of the registry</p>
             discovery_configuration: <p>The updated discovery configuration. Changing the discovery authorization can break existing consumers that rely on the previous authorization type.</p>
             approval_configuration: <p>The updated approval configuration. The change applies only to records that move to PENDING_APPROVAL after the update; records already in PENDING_APPROVAL are unaffected.</p>
-            custom_metadata_schema_configuration: <p>The new custom metadata schema configuration, which replaces the current one. You can add fields and allowed values, but you can't remove a field or an allowed value, or change a field's type.</p>
+            custom_metadata_schema_configuration: <p>Updated custom metadata schema configuration for the registry. Omit to leave the existing schema unchanged. Schema evolution is additive only: you can add properties and enum values, but you cannot remove properties, change property types or formats, add or remove enum constraints, or remove record type overrides.</p>
             auto_detection_configuration: <p>The updated auto-detection configuration for the registry, with PATCH semantics. Omit this field to leave the current configuration unchanged. Supply an empty wrapper to unset it. Supply <code>optionalValue</code> to replace it.</p>
 
         Raises:

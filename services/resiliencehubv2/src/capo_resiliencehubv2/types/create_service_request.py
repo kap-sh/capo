@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     import capo_resiliencehubv2.types.associated_system_list
     import capo_resiliencehubv2.types.client_token
     import capo_resiliencehubv2.types.dependency_discovery_input
-    import capo_resiliencehubv2.types.dev_ops_agent_configuration
     import capo_resiliencehubv2.types.entity_name
     import capo_resiliencehubv2.types.kms_key_id
     import capo_resiliencehubv2.types.long_description
@@ -42,10 +41,6 @@ class CreateServiceRequest(TypedDict, closed=True):
         "capo_resiliencehubv2.types.service_report_configuration.ServiceReportConfiguration"
     ]
     kms_key_id: NotRequired["capo_resiliencehubv2.types.kms_key_id.KmsKeyId"]
-    dev_ops_agent_configuration: NotRequired[
-        "capo_resiliencehubv2.types.dev_ops_agent_configuration.DevOpsAgentConfiguration"
-    ]
-    """<p>The optional DevOps Agent integration configuration to apply to the new service. If you omit this field, the new service has no DevOps Agent integration.</p>"""
     tags: NotRequired["capo_resiliencehubv2.types.tag_map.TagMap"]
     client_token: NotRequired["capo_resiliencehubv2.types.client_token.ClientToken"]
 
@@ -94,14 +89,6 @@ def serialize_json(value: CreateServiceRequest) -> dict:
         )
     if "kms_key_id" in value:
         out["kmsKeyId"] = value["kms_key_id"]
-    if "dev_ops_agent_configuration" in value:
-        import capo_resiliencehubv2.types.dev_ops_agent_configuration
-
-        out["devOpsAgentConfiguration"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_configuration.serialize_json(
-                value["dev_ops_agent_configuration"]
-            )
-        )
     if "tags" in value:
         import capo_resiliencehubv2.types.tag_map
 
@@ -165,14 +152,6 @@ def deserialize_json(data: dict) -> CreateServiceRequest:
         )
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
-    if data.get("devOpsAgentConfiguration") is not None:
-        import capo_resiliencehubv2.types.dev_ops_agent_configuration
-
-        out["dev_ops_agent_configuration"] = (
-            capo_resiliencehubv2.types.dev_ops_agent_configuration.deserialize_json(
-                data["devOpsAgentConfiguration"]
-            )
-        )
     if data.get("tags") is not None:
         import capo_resiliencehubv2.types.tag_map
 
