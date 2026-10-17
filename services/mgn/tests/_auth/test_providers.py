@@ -2,15 +2,19 @@ from __future__ import annotations
 
 import asyncio
 import json
+import shlex
+import sys
 from pathlib import Path
 
 import pytest
 from capo_mgn._auth._providers import (
     CachedProvider,
+    CredentialProcessError,
     Ec2InstanceMetadataProvider,
     EcsContainerCredentialsProvider,
     EnvCredentialsProvider,
     IdentityNotFound,
+    ProcessCredentialsProvider,
     StaticAwsCredentialsProvider,
     _credentials_from_json,
     default_aws_credentials_chain,
@@ -56,6 +60,28 @@ def _mock_async_client(*mocks: Mock) -> AsyncClient:
     for m in mocks:
         router.add(m)
     return AsyncClient(MockMiddleware(router=router))
+
+
+def _process_profile(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    stdout: str,
+    exit_code: int = 0,
+    config_keys: str = "",
+    credentials: str = "",
+) -> None:
+    script = tmp_path / "creds.py"
+    script.write_text(
+        f"import sys\nsys.stdout.write({stdout!r})\nsys.exit({exit_code})\n"
+    )
+    command = f"{shlex.quote(sys.executable)} {shlex.quote(str(script))}"
+    config = tmp_path / "config"
+    config.write_text(f"[profile proc]\ncredential_process = {command}\n{config_keys}")
+    (tmp_path / "credentials").write_text(credentials)
+    monkeypatch.setenv("AWS_CONFIG_FILE", str(config))
+    monkeypatch.setenv("AWS_SHARED_CREDENTIALS_FILE", str(tmp_path / "credentials"))
+    monkeypatch.setenv("AWS_PROFILE", "proc")
 
 
 def test_static_provider() -> None:
@@ -184,3 +210,67 @@ def test_chain_order_env_first(monkeypatch: pytest.MonkeyPatch) -> None:
     chain = default_aws_credentials_chain(Client())
     assert isinstance(chain, CachedProvider)
     assert chain.resolve_identity()["access_key"] == "AKENV"
+
+
+def test_process_provider(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    printed = json.dumps(
+        {
+            "Version": 1,
+            "AccessKeyId": "AKPROC",
+            "SecretAccessKey": "secretproc",
+            "SessionToken": "tokproc",
+        }
+    )
+    _process_profile(tmp_path, monkeypatch, stdout=printed)
+    creds = ProcessCredentialsProvider().resolve_identity()
+    assert creds == {
+        "access_key": "AKPROC",
+        "secret_key": "secretproc",
+        "session_token": "tokproc",
+    }
+    assert (
+        default_aws_credentials_chain(Client()).resolve_identity()["access_key"]
+        == "AKPROC"
+    )
+
+
+def test_process_provider_failure_stops_the_chain(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _process_profile(tmp_path, monkeypatch, stdout="", exit_code=1)
+    with pytest.raises(CredentialProcessError):
+        default_aws_credentials_chain(Client()).resolve_identity()
+
+
+def test_credential_process_comes_before_config_file_keys(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _process_profile(
+        tmp_path,
+        monkeypatch,
+        stdout=json.dumps(
+            {"Version": 1, "AccessKeyId": "AKPROC", "SecretAccessKey": "secretproc"}
+        ),
+        config_keys="aws_access_key_id = AKCONFIG\naws_secret_access_key = secretconfig\n",
+    )
+    assert (
+        default_aws_credentials_chain(Client()).resolve_identity()["access_key"]
+        == "AKPROC"
+    )
+
+
+def test_credentials_file_keys_come_before_credential_process(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _process_profile(
+        tmp_path,
+        monkeypatch,
+        stdout=json.dumps(
+            {"Version": 1, "AccessKeyId": "AKPROC", "SecretAccessKey": "secretproc"}
+        ),
+        credentials="[proc]\naws_access_key_id = AKFILE\naws_secret_access_key = secretfile\n",
+    )
+    assert (
+        default_aws_credentials_chain(Client()).resolve_identity()["access_key"]
+        == "AKFILE"
+    )
