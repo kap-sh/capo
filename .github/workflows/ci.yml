@@ -95,7 +95,7 @@ jobs:
           aws-region: eu-central-1
 
       - name: Run integration tests
-        run: uv run pytest -rs
+        run: uv run pytest -rs -n auto
 
       - name: Stop S3-compatible servers
         if: always()
